@@ -16,52 +16,46 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 
+$cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework');
 ?>
 <!DOCTYPE html>
 <html>
 <head>
 	<?php echo $this->Html->charset(); ?>
 	<title>
-		#RadarCultural :: <?php echo $title_for_layout; ?>
+		<?php echo $cakeDescription ?>:
+		<?php echo $title_for_layout; ?>
 	</title>
 	<?php
 		echo $this->Html->meta('icon');
 
-		echo $this->Html->css(array('bootstrap.min', 'radar', 'bootstrap-responsive.min'));
+		echo $this->Html->css('cake.generic');
 
 		echo $this->fetch('meta');
 		echo $this->fetch('css');
-		
+		echo $this->fetch('script');
 	?>
-	<!--[if lt IE 9]>
-		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-	<![endif]--> 
 </head>
 <body>
 	<div id="container">
-		<div class="navbar navbar-fixed-top">
-			<div class="navbar-inner">
-				<div class="container">
-					<?= $this->Html->link('Radar<strong>Cultural</strong>', '/', array('class'=>'brand', 'escape'=>FALSE)) ?>
-					<?= $this->Html->link('Agregar evento', array('controller'=>'events', 'action'=>'add'), array('class'=>'btn btn-primary pull-right')) ?>
-				</div>
-			</div>
-		</div>
 		<div id="header">
+			<h1><?php echo $this->Html->link($cakeDescription, 'http://cakephp.org'); ?></h1>
 		</div>
-		<div class="container">
+		<div id="content">
 
 			<?php echo $this->Session->flash(); ?>
 
 			<?php echo $this->fetch('content'); ?>
 		</div>
 		<div id="footer">
+			<?php echo $this->Html->link(
+					$this->Html->image('cake.power.gif', array('alt' => $cakeDescription, 'border' => '0')),
+					'http://www.cakephp.org/',
+					array('target' => '_blank', 'escape' => false)
+				);
+			?>
 		</div>
 	</div>
-	
-	<?php echo $this->Html->script(array('https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js', 'bootstrap.min')) ?>
-	<?php echo $this->fetch('script') ?>
-	
 	<?php echo $this->element('sql_dump'); ?>
 </body>
 </html>
