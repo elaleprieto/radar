@@ -9,4 +9,4 @@ app/tmp/*
 app/[Cc]onfig/core.php
 app/[Cc]onfig/database.php
 !empty
-.sass-cache/*
+app/webroot/.sass-cache/*
