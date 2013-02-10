@@ -1,4 +1,6 @@
-<?php echo $this->Html->script(array('http://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false', 'application'), array('inline'=>false)) ?>
+<?php //echo $this->Html->script(array('http://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false', 'application'), array('inline'=>false)) ?>
+<?php echo $this->Html->script(array('http://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true', 'inicio'), array('inline'=>false)) ?>
+<?php echo $this->Html->css(array('inicio'), '', array('inline'=>false)) ?>
 
 <div class="row">
 	<div class="span12">

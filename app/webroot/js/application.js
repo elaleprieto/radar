@@ -43,5 +43,7 @@
 			value = object.val();
 		target.val(value);
 	}).filter('.active').trigger('click');
+	
+	console.log(google.loader.ClientLocation);
 
 }(jQuery));
