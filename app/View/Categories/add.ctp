@@ -4,7 +4,7 @@
 		<legend><?php echo __('Add Category'); ?></legend>
 	<?php
 		echo $this->Form->input('name');
-		echo $this->Form->input('sort');
+		// echo $this->Form->input('sort');
 	?>
 	</fieldset>
 <?php echo $this->Form->end(__('Submit')); ?>

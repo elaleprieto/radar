@@ -13,8 +13,12 @@ class EventsController extends AppController {
  * @return void
  */
 	public function index() {
-		$this->Event->recursive = 0;
-		$this->set('events', $this->paginate());
+		$this->Event->recursive = -1;
+		$events = $this->Event->find('all', array('fields'=>array('title', 'date_start', 'date_end')));
+		$categories = $this->Event->Category->find('list', array('fields'=>'name'));
+		
+		//$this->set('events', $this->paginate());
+		$this->set(compact('events','categories'));
 	}
 
 /**
@@ -100,4 +104,5 @@ class EventsController extends AppController {
 		$this->Session->setFlash(__('Event was not deleted'));
 		$this->redirect(array('action' => 'index'));
 	}
+		
 }
