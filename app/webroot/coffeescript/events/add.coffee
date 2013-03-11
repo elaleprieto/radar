@@ -9,7 +9,7 @@ jQuery ->
 	###
 	Inicialización de Objetos
 	###
-	opciones = {zoom: 13, center: window.capital, mapTypeId: google.maps.MapTypeId.ROADMAP}
+	opciones = {zoom: 13, center: window.santafe, mapTypeId: google.maps.MapTypeId.ROADMAP}
 	window.map = new google.maps.Map(document.getElementById("map"), opciones)
 	
 	###

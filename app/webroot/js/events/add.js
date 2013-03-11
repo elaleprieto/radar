@@ -13,7 +13,7 @@
     */
     opciones = {
       zoom: 13,
-      center: window.capital,
+      center: window.santafe,
       mapTypeId: google.maps.MapTypeId.ROADMAP
     };
     window.map = new google.maps.Map(document.getElementById("map"), opciones);

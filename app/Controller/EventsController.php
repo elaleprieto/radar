@@ -104,5 +104,71 @@ class EventsController extends AppController {
 		$this->Session->setFlash(__('Event was not deleted'));
 		$this->redirect(array('action' => 'index'));
 	}
+	
+	public function get() {
+		$this->autoRender = FALSE;
 		
+		if($this->request->is('get')) {
+			$eventCategory = isset($this->request->query['eventCategory']) ? $this->request->query['eventCategory'] : array();
+			$eventInterval = $this->request->query['eventInterval'];
+			$neLat = $this->request->query['neLat'];
+			$neLong = $this->request->query['neLong'];
+			$swLat = $this->request->query['swLat'];
+			$swLong = $this->request->query['swLong'];
+			if(isset($neLat) && isset($neLong)  && isset($swLat) && isset($swLong)) {
+				$conditions = array('Event.date_start >=' => date("Y-m-d"),
+					'Event.date_start <=' => date("Y-m-d", strtotime("+$eventInterval days")),
+					'Event.lat <' => $neLat,
+					'Event.lat >' => $swLat,
+					'Event.long <' => $neLong,
+					'Event.long >' => $swLong,
+				);
+				if(sizeof($eventCategory) > 0) {
+					$categoryConditions = array();
+					foreach($eventCategory as $key => $category) {
+						array_push($categoryConditions, array('Event.category_id =' => $category));
+					}
+					array_push($conditions, array("OR" => $categoryConditions));
+				}
+				$fields = array('Event.id', 'Event.title', 'Event.lat', 'Event.long');
+				$events = $this->Event->find('all', array('conditions' => $conditions, 'fields' => $fields));
+				
+				return json_encode($events);
+			}
+		}
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

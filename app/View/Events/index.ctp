@@ -1,5 +1,6 @@
 <?php //echo $this->Html->script(array('http://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false', 'application'), array('inline'=>false)) ?>
 <?php echo $this->Html->script(array('http://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true', 'inicio'), array('inline'=>false)) ?>
+<?php echo $this->Html->scriptBlock('WEBROOT="' . $this -> Html -> url('/', true) . '"', $options = array('inline' => true)) # Se define la ruta base ?>
 <?php echo $this->Html->css(array('inicio'), '', array('inline'=>false)) ?>
 
 <div class="row">
@@ -7,12 +8,12 @@
 		<div id="map"></div>
 		<?php $this->Form->create('Event') ?>
 			<input value="1" name="interval" type="hidden">
-			<div class="control-group btn-group" data-toggle="buttons-radio">
+			<div id="eventInterval" class="control-group btn-group" data-toggle="buttons-radio">
 				<button type="button" class="btn active" data-set="interval" value="1">Hoy</button>
 				<button type="button" class="btn" data-set="interval" value="2">Mañana</button>
-				<button type="button" class="btn" data-set="interval" value="3">Últimos 7 días</button>
+				<button type="button" class="btn" data-set="interval" value="7">Próximos 7 días</button>
 			</div>
-			<div class="control-group">
+			<div id="eventCategories" class="control-group">
 				<?php echo $this->Form->input('category', array('type' => 'select', 'multiple' => 'checkbox', 'class'=>'checkbox inline', 'label'=>FALSE)); ?>
 			</div>
 		<?php $this->Form->end() ?>
