@@ -43,8 +43,21 @@ class EventsController extends AppController {
  */
 	public function add() {
 		if ($this->request->is('post')) {
+			$event = $this->request->data;
+			$start = split('/', $event['Event']['date_from']);
+			$event['Event']['date_start']['day'] = $start[0]; 
+			$event['Event']['date_start']['month'] = $start[1]; 
+			$event['Event']['date_start']['year'] = $start[2]; 
+			$event['Event']['date_start']['hour'] = substr($event['Event']['time3'], 0, 2); 
+			$event['Event']['date_start']['min'] = substr($event['Event']['time3'], 3, 2);
+			$end = split('/', $event['Event']['date_to']);
+			$event['Event']['date_end']['day'] = $end[0]; 
+			$event['Event']['date_end']['month'] = $end[1]; 
+			$event['Event']['date_end']['year'] = $end[2]; 
+			$event['Event']['date_end']['hour'] = substr($event['Event']['time4'], 0, 2); 
+			$event['Event']['date_end']['min'] = substr($event['Event']['time4'], 3, 2);
 			$this->Event->create();
-			if ($this->Event->save($this->request->data)) {
+			if ($this->Event->save($event)) {
 				$this->Session->setFlash(__('The event has been saved'));
 				$this->redirect(array('action' => 'index'));
 			} else {

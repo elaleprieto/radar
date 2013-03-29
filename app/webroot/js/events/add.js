@@ -5,9 +5,10 @@
     /*
     	Variables Globales
     */
-    var opciones;
+    var diaEnMilisegundos, oldTime, opciones;
     window.capital = new google.maps.LatLng(-34.603, -58.382);
     window.santafe = new google.maps.LatLng(-31.625906, -60.696774);
+    diaEnMilisegundos = 24 * 60 * 60 * 1000;
     /*
     	Inicialización de Objetos
     */
@@ -22,7 +23,7 @@
     	Aquí se registran los eventos para los objetos de la vista
     */
     inicializar();
-    return google.maps.event.addListener(window.map, 'click', function(event) {
+    google.maps.event.addListener(window.map, 'click', function(event) {
       console.info("Latitude: " + event.latLng.lat() + " " + ", longitude: " + event.latLng.lng());
       $('#EventLat').val(event.latLng.lat());
       $('#EventLong').val(event.latLng.lng());
@@ -31,6 +32,51 @@
         window.marker = null;
       }
       return window.marker = createMarker(event.latLng);
+    });
+    /*
+    		date pickers
+    */
+    $.datepicker.setDefaults($.datepicker.regional["es"]);
+    $("#from").datepicker({
+      defaultDate: null,
+      changeMonth: true,
+      minDate: "0d",
+      onClose: function(selectedDate) {
+        var maxDay;
+        $("#to").datepicker("option", "minDate", selectedDate);
+        maxDay = new Date($("#from").datepicker("getDate").getTime() + (3 * diaEnMilisegundos));
+        return $("#to").datepicker("option", "maxDate", maxDay);
+      }
+    });
+    $("#to").datepicker({
+      defaultDate: null,
+      changeMonth: true
+    });
+    /*
+    	 time pickers
+    */
+    $("#time3, #time4").timePicker();
+    oldTime = $.timePicker("#time3").getTime();
+    $("#time3").on('change', function() {
+      var duration, time;
+      if ($("#time4").val()) {
+        duration = $.timePicker("#time4").getTime() - oldTime;
+        time = $.timePicker("#time3").getTime();
+        $.timePicker("#time4").setTime(new Date(new Date(time.getTime() + duration)));
+        return oldTime = time;
+      }
+    });
+    $("#time3, #time4").on('blur', function() {
+      var time;
+      time = $.timePicker(this).getTime();
+      return $.timePicker(this).setTime(new Date(new Date(time.getTime())));
+    });
+    return $("#time4").on('change', function() {
+      if ($.timePicker("#time3").getTime() > $.timePicker(this).getTime()) {
+        return $(this).parent().addClass("error");
+      } else {
+        return $(this).parent().removeClass("error");
+      }
     });
   });
 

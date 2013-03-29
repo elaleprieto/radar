@@ -2,7 +2,7 @@
 #map img { max-width: none; }
 
 /* line 4, ../../sass/events/add.sass */
-.date { width: 15%; }
+.dateField { width: 20%; }
 
 /* line 7, ../../sass/events/add.sass */
 select { max-width: 100%; }

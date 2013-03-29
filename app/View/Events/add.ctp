@@ -1,5 +1,5 @@
-<?php echo $this->Html->script(array('http://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true', 'events/add'), array('inline'=>false)) ?>
-<?php echo $this->Html->css(array('events/add'), '', array('inline'=>false)) ?>
+<?php echo $this->Html->css(array('vendors/timePicker', 'http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css', 'events/add'), '', array('inline'=>false)) ?>
+<?php echo $this->Html->script(array('vendors/jquery.timePicker', 'http://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true', 'http://code.jquery.com/ui/1.10.2/jquery-ui.js', 'vendors/jquery.ui.datepicker-es', 'events/add'), array('inline'=>false)) ?>
 
 <h1><?php echo __('Add Event'); ?></h1>
 <div class="row-fluid">
@@ -9,24 +9,52 @@
 				<div class="row-fluid">
 					<div class="span12">
 						<?php echo $this->Form->create('Event'); ?>
+							<?php echo $this->Form->hidden('lat', array('id'=>'EventLat', 'class'=>'textbox')) ?>
+							<?php echo $this->Form->hidden('long', array('id'=>'EventLong', 'class'=>'textbox')) ?>
 							<?php echo $this->Form->input('title', array('class'=>'textbox')) ?>
 							<div class="row-fluid">
-								<div class="span6"><?php echo $this->Form->input('lat', array('id'=>'EventLat', 'class'=>'textbox')) ?></div>
-								<div class="span6"><?php echo $this->Form->input('long', array('id'=>'EventLong', 'class'=>'textbox')) ?></div>
+								<div class="span1">
+									<p>De:</p>
+								</div>
+								<div class="span3">
+									<?php //echo $this->Form->input('date_start', array('class'=>'dateField', 'dateFormat'=>'DMY', 'label'=>FALSE, 'selected'=>date("Y-m-d H:i:s"), 'type'=>'date')) ?>
+									<?php echo $this->Form->input('date_from', array('class'=>'textbox', 'id'=>'from', 'label'=>FALSE)) ?>
+								</div>
+								<div class="span2">
+									<?php echo $this->Form->input('time3', array('class'=>'textbox', 'id'=>'time3', 'label'=>FALSE, 'size'=>10, 'value'=>'08:00')) ?>
+								</div>
+								<div class="span1">
+									<p>hasta</p>
+								</div>
+								<div class="span3">
+									<?php //echo $this->Form->input('date_end', array('class'=>'dateField', 'dateFormat'=>'DMY', 'label'=>FALSE, 'selected'=>date("Y-m-d H:i:s"), 'type'=>'date')) ?>
+									<?php echo $this->Form->input('date_to', array('class'=>'textbox', 'id'=>'to', 'label'=>FALSE)) ?>
+								</div>
+								<div class="span2">
+									<?php echo $this->Form->input('time4', array('class'=>'textbox', 'div'=>'control-group', 'id'=>'time4', 'label'=>FALSE, 'size'=>10, 'value'=>'09:00')) ?>
+								</div>
 							</div>
-							<?php echo $this->Form->input('date_start', array('class'=>'date', 'dateFormat' => 'DMY', 'timeFormat' => '24', 'selected' => date("Y-m-d H:i:s"))) ?>
-							<?php echo $this->Form->input('date_end', array('class'=>'date', 'dateFormat' => 'DMY', 'timeFormat' => '24', 'selected' => date("Y-m-d H:i:s"))) ?>
 							<div class="row-fluid">
 								<div class="span6"><?php echo $this->Form->input('category_id', array('class'=>'textbox')) ?></div>
 								<div class="span6"><?php echo $this->Form->input('place_id', array('class'=>'textbox')) ?></div>
+							</div>
+							<div>
+							</div>
+							<div>
+								<!-- <input type="text" id="from" name="from" /> -->
+								<!-- <input type="text" id="to" name="to" /> -->
 							</div>
 						<?php echo $this->Form->end(__('Submit')); ?>
 					</div>
 				</div>
 			</div>
 			
+			
 			<!-- Mapa -->
-			<div class="span6"><div id="map"></div></div>
+			<div class="span6">
+				<div>Selecciona el lugar:</div>
+				<div id="map"></div>
+			</div>
 		</div>
 	</div>
 </div>
