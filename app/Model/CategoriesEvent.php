@@ -1,11 +1,12 @@
 <?php
 App::uses('AppModel', 'Model');
 /**
- * Category Model
+ * CategoriesEvent Model
  *
+ * @property Category $Category
  * @property Event $Event
  */
-class Category extends AppModel {
+class CategoriesEvent extends AppModel {
 
 /**
  * Validation rules
@@ -13,9 +14,9 @@ class Category extends AppModel {
  * @var array
  */
 	public $validate = array(
-		'name' => array(
-			'notempty' => array(
-				'rule' => array('notempty'),
+		'category_id' => array(
+			'numeric' => array(
+				'rule' => array('numeric'),
 				//'message' => 'Your custom message here',
 				//'allowEmpty' => false,
 				//'required' => false,
@@ -23,7 +24,7 @@ class Category extends AppModel {
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
-		'sort' => array(
+		'event_id' => array(
 			'numeric' => array(
 				'rule' => array('numeric'),
 				//'message' => 'Your custom message here',
@@ -38,42 +39,24 @@ class Category extends AppModel {
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
 
 /**
- * hasMany associations
+ * belongsTo associations
  *
  * @var array
  */
-	// public $hasMany = array(
-		// 'Event' => array(
-			// 'className' => 'Event',
-			// 'foreignKey' => 'category_id',
-			// 'dependent' => false,
-			// 'conditions' => '',
-			// 'fields' => '',
-			// 'order' => '',
-			// 'limit' => '',
-			// 'offset' => '',
-			// 'exclusive' => '',
-			// 'finderQuery' => '',
-			// 'counterQuery' => ''
-		// )
-	// );
-	
-	public $hasAndBelongsToMany = array(
-		'Event' => array(
-			'className' => 'Event',
-			'joinTable' => 'categories_events',
+	public $belongsTo = array(
+		'Category' => array(
+			'className' => 'Category',
 			'foreignKey' => 'category_id',
-			'associationForeignKey' => 'event_id',
-			'unique' => true,
 			'conditions' => '',
 			'fields' => '',
-			'order' => '',
-			'limit' => '',
-			'offset' => '',
-			'finderQuery' => '',
-			'deleteQuery' => '',
-			'insertQuery' => ''
+			'order' => ''
 		),
+		'Event' => array(
+			'className' => 'Event',
+			'foreignKey' => 'event_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
+		)
 	);
-
 }

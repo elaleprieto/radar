@@ -16,7 +16,21 @@ class EventsController extends AppController {
 		$this->Event->recursive = -1;
 		$events = $this->Event->find('all', array('fields'=>array('title', 'date_start', 'date_end')));
 		$categories = $this->Event->Category->find('list', array('fields'=>'name'));
+		// $this->Event->Behaviors->load('Containable');
+		// $categories = $this->Event->Category->find('list', array('conditions'=>'category_id=1'));
+		// $events = $this->Event->find('all', array('conditions'=>'id=1'));
+		// $events = $this->Event->find('all', array('conditions'=>'CategoriesEvents.category_id=1'));
+		// $events = $this->Event->find('all', array('conditions'=>array('id'=>$this->Event->Category->find('id'=>1))));
+		// $events = $this->Event->find('all');
 		
+		// $this->Event->bindModel(array('hasOne' => array('CategoriesEvents')));
+
+	    // $events = $this->Event->find('all', array(
+	                                        // 'conditions' => array('CategoriesEvents.category_id' => 2),
+	                                        // 'recursive' => 2
+	    // ));
+		
+		// debug($events);
 		//$this->set('events', $this->paginate());
 		$this->set(compact('events','categories'));
 	}
@@ -64,7 +78,8 @@ class EventsController extends AppController {
 				$this->Session->setFlash(__('The event could not be saved. Please, try again.'));
 			}
 		}
-		$categories = $this->Event->Category->find('list');
+		// $categories = $this->Event->Category->find('list');
+		$categories = $this->Event->Category->find('list', array('fields'=>array('id','name')));
 		$places = $this->Event->Place->find('list');
 		$this->set(compact('categories', 'places'));
 	}
@@ -136,16 +151,22 @@ class EventsController extends AppController {
 					'Event.long <' => $neLong,
 					'Event.long >' => $swLong,
 				);
+				$categories = array();
 				if(sizeof($eventCategory) > 0) {
 					$categoryConditions = array();
 					foreach($eventCategory as $key => $category) {
-						array_push($categoryConditions, array('Event.category_id =' => $category));
+						array_push($categoryConditions, array('CategoriesEvents.category_id =' => $category));
 					}
 					array_push($conditions, array("OR" => $categoryConditions));
 				}
 				$fields = array('Event.id', 'Event.title', 'Event.lat', 'Event.long');
-				$events = $this->Event->find('all', array('conditions' => $conditions, 'fields' => $fields));
 				
+				$this->Event->bindModel(array('hasOne' => array('CategoriesEvents')));
+			    $events = $this->Event->find('all', array(
+                    'conditions' => $conditions,
+                    'fields' => $fields,
+                    'recursive' => 0
+			    ));
 				return json_encode($events);
 			}
 		}

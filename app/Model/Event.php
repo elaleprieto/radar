@@ -54,16 +54,16 @@ class Event extends AppModel {
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
-		'category_id' => array(
-			'numeric' => array(
-				'rule' => array('numeric'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-		),
+		// 'category_id' => array(
+			// 'numeric' => array(
+				// 'rule' => array('numeric'),
+				// //'message' => 'Your custom message here',
+				// //'allowEmpty' => false,
+				// //'required' => false,
+				// //'last' => false, // Stop validation after this rule
+				// //'on' => 'create', // Limit validation to 'create' or 'update' operations
+			// ),
+		// ),
 		'place_id' => array(
 			'numeric' => array(
 				'rule' => array('numeric'),
@@ -84,13 +84,6 @@ class Event extends AppModel {
  * @var array
  */
 	public $belongsTo = array(
-		'Category' => array(
-			'className' => 'Category',
-			'foreignKey' => 'category_id',
-			'conditions' => '',
-			'fields' => '',
-			'order' => ''
-		),
 		'Place' => array(
 			'className' => 'Place',
 			'foreignKey' => 'place_id',
@@ -98,5 +91,23 @@ class Event extends AppModel {
 			'fields' => '',
 			'order' => ''
 		)
+	);
+	
+	public $hasAndBelongsToMany = array(
+		'Category' => array(
+			'className' => 'Category',
+			'joinTable' => 'categories_events',
+			'foreignKey' => 'event_id',
+			'associationForeignKey' => 'category_id',
+			'unique' => true,
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'finderQuery' => '',
+			'deleteQuery' => '',
+			'insertQuery' => ''
+		),
 	);
 }

@@ -35,10 +35,37 @@
 								</div>
 							</div>
 							<div class="row-fluid">
-								<div class="span6"><?php echo $this->Form->input('category_id', array('class'=>'textbox')) ?></div>
+								<div class="span6"><?php //echo $this->Form->input('category_id', array('class'=>'textbox')) ?></div>
 								<div class="span6"><?php echo $this->Form->input('place_id', array('class'=>'textbox')) ?></div>
 							</div>
 							<div>
+								 <fieldset>
+							        <legend><?php __('Categories');?></legend>
+							        <?php
+							 
+							        // output all the checkboxes at once
+							        echo $this->Form->input('Category',array(
+							            'label' => __('Categories',true),
+							            'type' => 'select',
+							            'multiple' => 'checkbox',
+							            'options' => $categories,
+							            'selected' => $this->Html->value('Category.Category'),
+							        ));
+							 
+							        /*
+							        // output all the checkboxes individually
+							        $checked = $form->value('Category.Category');
+							        echo $form->label(__('Categories',true));
+							        foreach ($categories as $id=>$label) {
+							            echo $form->input("Category.checkbox.$id", array(
+							                'label'=>$label,
+							                'type'=>'checkbox',
+							                'checked'=>(isset($checked[$id])?'checked':false),
+							            ));
+							        }
+							        */
+							        ?>
+							    </fieldset>
 							</div>
 							<div>
 								<!-- <input type="text" id="from" name="from" /> -->
