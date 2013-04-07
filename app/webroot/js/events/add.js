@@ -1,14 +1,15 @@
 (function() {
-  var createMarker, inicializar, noGeolocalizacion;
+  var categoriesCheckedCount, createMarker, inicializar, noGeolocalizacion, showAlertMessage;
 
   jQuery(function() {
     /*
     	Variables Globales
     */
-    var diaEnMilisegundos, oldTime, opciones;
+    var categoriesCheckbox, diaEnMilisegundos, oldTime, opciones;
+    diaEnMilisegundos = 24 * 60 * 60 * 1000;
+    window.alertMessageDisplayed = false;
     window.capital = new google.maps.LatLng(-34.603, -58.382);
     window.santafe = new google.maps.LatLng(-31.625906, -60.696774);
-    diaEnMilisegundos = 24 * 60 * 60 * 1000;
     /*
     	Inicialización de Objetos
     */
@@ -24,7 +25,6 @@
     */
     inicializar();
     google.maps.event.addListener(window.map, 'click', function(event) {
-      console.info("Latitude: " + event.latLng.lat() + " " + ", longitude: " + event.latLng.lng());
       $('#EventLat').val(event.latLng.lat());
       $('#EventLong').val(event.latLng.lng());
       if (window.marker) {
@@ -71,11 +71,22 @@
       time = $.timePicker(this).getTime();
       return $.timePicker(this).setTime(new Date(new Date(time.getTime())));
     });
-    return $("#time4").on('change', function() {
+    $("#time4").on('change', function() {
       if ($.timePicker("#time3").getTime() > $.timePicker(this).getTime()) {
         return $(this).parent().addClass("error");
       } else {
         return $(this).parent().removeClass("error");
+      }
+    });
+    /*
+    		Categories
+    */
+    categoriesCheckbox = $('#categoriesSelect').find('input[type="checkbox"]');
+    return $(categoriesCheckbox).on('click', function(event) {
+      if (categoriesCheckedCount() > 3) {
+        event.preventDefault();
+        showAlertMessage();
+        return false;
       }
     });
   });
@@ -116,6 +127,19 @@
       map: window.map,
       zIndex: Math.round(latlng.lat() * -100000) << 5
     });
+  };
+
+  categoriesCheckedCount = function() {
+    return $('#categoriesSelect').find('input:checked').length;
+  };
+
+  showAlertMessage = function() {
+    if (window.alertMessageDisplayed === false) {
+      window.alertMessageDisplayed = true;
+      return $('#alertMessage').fadeIn('slow').delay(5000).fadeOut('slow', function() {
+        return window.alertMessageDisplayed = false;
+      });
+    }
   };
 
 }).call(this);

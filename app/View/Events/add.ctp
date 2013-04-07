@@ -1,6 +1,10 @@
 <?php echo $this->Html->css(array('vendors/timePicker', 'http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css', 'events/add'), '', array('inline'=>false)) ?>
 <?php echo $this->Html->script(array('vendors/jquery.timePicker', 'http://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true', 'http://code.jquery.com/ui/1.10.2/jquery-ui.js', 'vendors/jquery.ui.datepicker-es', 'events/add'), array('inline'=>false)) ?>
 
+<div class="alert alert-error" id="alertMessage">
+	<button type="button" class="close" data-dismiss="alert">&times;</button>
+	<strong>¡Cuidado!</strong> Los eventos no pueden pertenecer a más de 3 (tres) categorías.
+</div>
 <h1><?php echo __('Add Event'); ?></h1>
 <div class="row-fluid">
 	<div class="span12">
@@ -34,22 +38,23 @@
 									<?php echo $this->Form->input('time4', array('class'=>'textbox', 'div'=>'control-group', 'id'=>'time4', 'label'=>FALSE, 'size'=>10, 'value'=>'09:00')) ?>
 								</div>
 							</div>
-							<div class="row-fluid">
+							<!-- <div class="row-fluid">
 								<div class="span6"><?php //echo $this->Form->input('category_id', array('class'=>'textbox')) ?></div>
-								<div class="span6"><?php echo $this->Form->input('place_id', array('class'=>'textbox')) ?></div>
-							</div>
-							<div>
+								<div class="span6"><?php //echo $this->Form->input('place_id', array('class'=>'textbox')) ?></div>
+							</div> -->
+							<div id="categoriesSelect">
 								 <fieldset>
 							        <legend><?php __('Categories');?></legend>
 							        <?php
 							 
 							        // output all the checkboxes at once
 							        echo $this->Form->input('Category',array(
+							        	// 'class' => 'categories',
 							            'label' => __('Categories',true),
-							            'type' => 'select',
 							            'multiple' => 'checkbox',
 							            'options' => $categories,
 							            'selected' => $this->Html->value('Category.Category'),
+							            'type' => 'select',
 							        ));
 							 
 							        /*
