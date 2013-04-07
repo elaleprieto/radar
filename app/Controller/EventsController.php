@@ -159,7 +159,7 @@ class EventsController extends AppController {
 					}
 					array_push($conditions, array("OR" => $categoryConditions));
 				}
-				$fields = array('Event.id', 'Event.title', 'Event.lat', 'Event.long');
+				$fields = array('Event.id', 'Event.title', 'Event.date_start', 'Event.date_end', 'Event.lat', 'Event.long');
 				
 				$this->Event->bindModel(array('hasOne' => array('CategoriesEvents')));
 			    $events = $this->Event->find('all', array(

@@ -5,6 +5,7 @@ jQuery ->
 	# vacío
 	window.capital = new google.maps.LatLng(-34.603, -58.382)
 	window.santafe = new google.maps.LatLng(-31.625906,-60.696774)
+	window.eventsListBody =  $('#eventsList tbody')
 
 	###
 	Inicialización de Objetos
@@ -65,12 +66,23 @@ actualizarEventos = () ->
 	options = {"eventCategory": window.eventCategory, "eventInterval": window.eventInterval, "neLat": ne.lat(), "neLong": ne.lng(), "swLat": sw.lat(), "swLong": sw.lng()}
 	
 	$.getJSON(WEBROOT + 'events/get', options, (data) ->
+		clearEventsList()
 		for event in data
 			for marker in window.markers
 				exist = on if marker.eventId == event.Event.id
-			createMarker(event.Event.id, event.Event.title, new google.maps.LatLng(event.Event.lat, event.Event.long)) if not exist
+			if not exist
+				createMarker(event.Event.id, event.Event.title, new google.maps.LatLng(event.Event.lat, event.Event.long)) 
+				addEventToList(event.Event.date_start, event.Event.date_end, event.Event.title)
 	)
+
+# Remove all events from events table
+clearEventsList = () ->
+	window.eventsListBody.html('')
 	
+# Removes the overlays from the map, but keeps them in the array.
+clearOverlays = () ->
+	setAllMap(null)
+
 # A function to create the marker and set up the event window function
 createMarker = (eventId, eventTitle, latlng) ->
 	marker = new google.maps.Marker({
@@ -82,25 +94,27 @@ createMarker = (eventId, eventTitle, latlng) ->
 	})
 	window.markers.push(marker)
 	
-# Sets the map on all markers in the array.
-setAllMap = (map) ->
-	for marker in window.markers
-		marker.setMap(map)
-
-# Removes the overlays from the map, but keeps them in the array.
-clearOverlays = () ->
-	setAllMap(null)
-
-# Shows any overlays currently in the array.
-showOverlays = () ->
-	setAllMap(map)
-
 # Deletes all markers in the array by removing references to them.
 deleteOverlays = () ->
 	clearOverlays()
 	window.markers = []
 	
-	
+# Sets the map on all markers in the array.
+setAllMap = (map) ->
+	for marker in window.markers
+		marker.setMap(map)
+
+# Shows any overlays currently in the array.
+showOverlays = () ->
+	setAllMap(map)
+
+# Add event to events table
+addEventToList = (date_start, date_end, title) ->
+	row = $('<tr></tr>')
+	row.append $('<td></td>').text(date_start)
+	row.append $('<td></td>').text(date_end)
+	row.append $('<td></td>').text(title)
+	window.eventsListBody.append row
 	
 	
 	

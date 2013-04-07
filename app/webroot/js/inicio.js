@@ -1,5 +1,5 @@
 (function() {
-  var actualizarEventos, clearOverlays, createMarker, deleteOverlays, inicializar, noGeolocalizacion, setAllMap, showOverlays;
+  var actualizarEventos, addEventToList, clearEventsList, clearOverlays, createMarker, deleteOverlays, inicializar, noGeolocalizacion, setAllMap, showOverlays;
 
   jQuery(function() {
     /*
@@ -8,6 +8,7 @@
     var opciones;
     window.capital = new google.maps.LatLng(-34.603, -58.382);
     window.santafe = new google.maps.LatLng(-31.625906, -60.696774);
+    window.eventsListBody = $('#eventsList tbody');
     /*
     	Inicialización de Objetos
     */
@@ -90,6 +91,7 @@
     };
     return $.getJSON(WEBROOT + 'events/get', options, function(data) {
       var event, exist, marker, _i, _j, _len, _len2, _ref, _results;
+      clearEventsList();
       _results = [];
       for (_i = 0, _len = data.length; _i < _len; _i++) {
         event = data[_i];
@@ -99,13 +101,22 @@
           if (marker.eventId === event.Event.id) exist = true;
         }
         if (!exist) {
-          _results.push(createMarker(event.Event.id, event.Event.title, new google.maps.LatLng(event.Event.lat, event.Event.long)));
+          createMarker(event.Event.id, event.Event.title, new google.maps.LatLng(event.Event.lat, event.Event.long));
+          _results.push(addEventToList(event.Event.date_start, event.Event.date_end, event.Event.title));
         } else {
           _results.push(void 0);
         }
       }
       return _results;
     });
+  };
+
+  clearEventsList = function() {
+    return window.eventsListBody.html('');
+  };
+
+  clearOverlays = function() {
+    return setAllMap(null);
   };
 
   createMarker = function(eventId, eventTitle, latlng) {
@@ -120,6 +131,11 @@
     return window.markers.push(marker);
   };
 
+  deleteOverlays = function() {
+    clearOverlays();
+    return window.markers = [];
+  };
+
   setAllMap = function(map) {
     var marker, _i, _len, _ref, _results;
     _ref = window.markers;
@@ -131,17 +147,17 @@
     return _results;
   };
 
-  clearOverlays = function() {
-    return setAllMap(null);
-  };
-
   showOverlays = function() {
     return setAllMap(map);
   };
 
-  deleteOverlays = function() {
-    clearOverlays();
-    return window.markers = [];
+  addEventToList = function(date_start, date_end, title) {
+    var row;
+    row = $('<tr></tr>');
+    row.append($('<td></td>').text(date_start));
+    row.append($('<td></td>').text(date_end));
+    row.append($('<td></td>').text(title));
+    return window.eventsListBody.append(row);
   };
 
 }).call(this);

@@ -21,7 +21,7 @@
 </div>
 <div class="row">
 	<div class="span12">
-		<table class="table table-striped">
+		<table id="eventsList" class="table table-striped">
 			<thead>
 				<tr>
 					<th>Fecha Inicio</th>
