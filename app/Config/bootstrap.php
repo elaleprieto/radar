@@ -179,3 +179,7 @@ CakeLog::config('error', array(
 	'types' => array('warning', 'error', 'critical', 'alert', 'emergency'),
 	'file' => 'error',
 ));
+
+# i18n
+Configure::write('Config.language', 'esp');
+

@@ -15,7 +15,7 @@
 						<?php echo $this->Form->create('Event'); ?>
 							<?php echo $this->Form->hidden('lat', array('id'=>'EventLat', 'class'=>'textbox')) ?>
 							<?php echo $this->Form->hidden('long', array('id'=>'EventLong', 'class'=>'textbox')) ?>
-							<?php echo $this->Form->input('title', array('class'=>'textbox')) ?>
+							<?php echo $this->Form->input('title', array('class'=>'textbox', 'label'=>__('Title'))) ?>
 							<div class="row-fluid">
 								<div class="span1">
 									<p>De:</p>

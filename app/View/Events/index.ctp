@@ -30,13 +30,6 @@
 				</tr>
 			</thead>
 			<tbody>
-				<?php foreach ($events as $event): ?>
-					<tr>
-						<td><?php echo $event['Event']['date_start'] ?></td>
-						<td><?php echo $event['Event']['date_end'] ?></td>
-						<td><?php echo $event['Event']['title'] ?></td>
-					</tr>
-				<?php endforeach ?>
 			</tbody>
 		</table>
 	</div>
