@@ -82,10 +82,25 @@
     		Categories
     */
     categoriesCheckbox = $('#categoriesSelect').find('input[type="checkbox"]');
-    return $(categoriesCheckbox).on('click', function(event) {
+    $(categoriesCheckbox).on('click', function(event) {
       if (categoriesCheckedCount() > 3) {
         event.preventDefault();
-        showAlertMessage();
+        showAlertMessage('Los eventos no pueden pertenecer a más de 3 (tres) categorías.');
+        return false;
+      }
+    });
+    /*
+    		Form submit
+    */
+    return $('form').on('submit', function(event) {
+      if ($('#EventLat').val() === '' || $('#EventLong').val() === '') {
+        event.preventDefault();
+        showAlertMessage('Debes seleccionar un lugar para el evento.');
+        return false;
+      }
+      if ($('#date_from').val() === '' || $('#date_to').val() === '' || $('#time3').val() === '' || $('#time4').val() === '') {
+        event.preventDefault();
+        showAlertMessage('Debes seleccionar una fecha para el evento.');
         return false;
       }
     });
@@ -133,8 +148,9 @@
     return $('#categoriesSelect').find('input:checked').length;
   };
 
-  showAlertMessage = function() {
-    if (window.alertMessageDisplayed === false) {
+  showAlertMessage = function(string) {
+    if (string !== '' && window.alertMessageDisplayed === false) {
+      $('#alertMessageString').text(' ' + string);
       window.alertMessageDisplayed = true;
       return $('#alertMessage').fadeIn('slow').delay(5000).fadeOut('slow', function() {
         return window.alertMessageDisplayed = false;

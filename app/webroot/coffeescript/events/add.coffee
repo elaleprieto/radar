@@ -101,7 +101,20 @@ jQuery ->
 	$(categoriesCheckbox).on 'click', (event) ->
 		if categoriesCheckedCount() > 3
 			event.preventDefault()
-			showAlertMessage()
+			showAlertMessage('Los eventos no pueden pertenecer a más de 3 (tres) categorías.')
+			return false
+
+	###
+		Form submit
+	###
+	$('form').on 'submit', (event) ->
+		if $('#EventLat').val() is '' or $('#EventLong').val() is ''
+			event.preventDefault()
+			showAlertMessage('Debes seleccionar un lugar para el evento.')
+			return false
+		if $('#date_from').val() is '' or $('#date_to').val() is '' or $('#time3').val() is '' or $('#time4').val() is ''
+			event.preventDefault()
+			showAlertMessage('Debes seleccionar una fecha para el evento.')
 			return false
 
 ###
@@ -138,9 +151,10 @@ createMarker = (latlng) ->
 categoriesCheckedCount = () ->
 	 return $('#categoriesSelect').find('input:checked').length
 	 
-showAlertMessage = () ->
-	if window.alertMessageDisplayed is off
+showAlertMessage = (string) ->
+	if string isnt '' and window.alertMessageDisplayed is off
+		$('#alertMessageString').text(' ' + string)
 		window.alertMessageDisplayed = on
 		$('#alertMessage').fadeIn('slow').delay(5000).fadeOut('slow', () ->
 			window.alertMessageDisplayed = off
-			)
+		)

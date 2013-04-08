@@ -3,7 +3,7 @@
 
 <div class="alert alert-error" id="alertMessage">
 	<button type="button" class="close" data-dismiss="alert">&times;</button>
-	<strong>¡Cuidado!</strong> Los eventos no pueden pertenecer a más de 3 (tres) categorías.
+	<strong>¡Cuidado!</strong><span id="alertMessageString"> Los eventos no pueden pertenecer a más de 3 (tres) categorías.</span>
 </div>
 <h1><?php echo __('Add Event'); ?></h1>
 <div class="row-fluid">
@@ -22,20 +22,20 @@
 								</div>
 								<div class="span3">
 									<?php //echo $this->Form->input('date_start', array('class'=>'dateField', 'dateFormat'=>'DMY', 'label'=>FALSE, 'selected'=>date("Y-m-d H:i:s"), 'type'=>'date')) ?>
-									<?php echo $this->Form->input('date_from', array('class'=>'textbox', 'id'=>'from', 'label'=>FALSE)) ?>
+									<?php echo $this->Form->input('date_from', array('class'=>'textbox', 'id'=>'from', 'label'=>FALSE, 'required'=>'required')) ?>
 								</div>
 								<div class="span2">
-									<?php echo $this->Form->input('time3', array('class'=>'textbox', 'id'=>'time3', 'label'=>FALSE, 'size'=>10, 'value'=>'08:00')) ?>
+									<?php echo $this->Form->input('time3', array('class'=>'textbox', 'id'=>'time3', 'label'=>FALSE, 'required'=>'required', 'size'=>10, 'value'=>'08:00')) ?>
 								</div>
 								<div class="span1">
 									<p>hasta</p>
 								</div>
 								<div class="span3">
 									<?php //echo $this->Form->input('date_end', array('class'=>'dateField', 'dateFormat'=>'DMY', 'label'=>FALSE, 'selected'=>date("Y-m-d H:i:s"), 'type'=>'date')) ?>
-									<?php echo $this->Form->input('date_to', array('class'=>'textbox', 'id'=>'to', 'label'=>FALSE)) ?>
+									<?php echo $this->Form->input('date_to', array('class'=>'textbox', 'id'=>'to', 'label'=>FALSE, 'required'=>'required')) ?>
 								</div>
 								<div class="span2">
-									<?php echo $this->Form->input('time4', array('class'=>'textbox', 'div'=>'control-group', 'id'=>'time4', 'label'=>FALSE, 'size'=>10, 'value'=>'09:00')) ?>
+									<?php echo $this->Form->input('time4', array('class'=>'textbox', 'div'=>'control-group', 'id'=>'time4', 'label'=>FALSE, 'required'=>'required', 'size'=>10, 'value'=>'09:00')) ?>
 								</div>
 							</div>
 							<!-- <div class="row-fluid">
