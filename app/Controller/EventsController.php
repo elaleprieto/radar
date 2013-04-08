@@ -13,8 +13,8 @@ class EventsController extends AppController {
  * @return void
  */
 	public function index() {
-		$this->Event->recursive = -1;
-		$events = $this->Event->find('all', array('fields'=>array('title', 'date_start', 'date_end')));
+		// $this->Event->recursive = -1;
+		// $events = $this->Event->find('all', array('fields'=>array('title', 'date_start', 'date_end')));
 		$categories = $this->Event->Category->find('list', array('fields'=>'name'));
 		// $this->Event->Behaviors->load('Containable');
 		// $categories = $this->Event->Category->find('list', array('conditions'=>'category_id=1'));
@@ -32,7 +32,8 @@ class EventsController extends AppController {
 		
 		// debug($events);
 		//$this->set('events', $this->paginate());
-		$this->set(compact('events','categories'));
+		// $this->set(compact('events','categories'));
+		$this->set(compact('categories'));
 	}
 
 /**
