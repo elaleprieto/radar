@@ -42,7 +42,13 @@
       deleteOverlays();
       return actualizarEventos();
     });
-    return google.maps.event.addListener(window.map, 'bounds_changed', function() {
+    google.maps.event.addListener(window.map, 'dragend', function() {
+      return actualizarEventos();
+    });
+    google.maps.event.addListener(window.map, 'tilesloaded', function() {
+      return actualizarEventos();
+    });
+    return google.maps.event.addListener(window.map, 'zoom_changed', function() {
       return actualizarEventos();
     });
   });
@@ -95,6 +101,7 @@
       _results = [];
       for (_i = 0, _len = data.length; _i < _len; _i++) {
         event = data[_i];
+        exist = false;
         _ref = window.markers;
         for (_j = 0, _len2 = _ref.length; _j < _len2; _j++) {
           marker = _ref[_j];

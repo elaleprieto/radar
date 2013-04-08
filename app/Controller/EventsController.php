@@ -145,12 +145,40 @@ class EventsController extends AppController {
 			$swLat = $this->request->query['swLat'];
 			$swLong = $this->request->query['swLong'];
 			if(isset($neLat) && isset($neLong)  && isset($swLat) && isset($swLong)) {
-				$conditions = array('Event.date_start >=' => date("Y-m-d"),
-					'Event.date_start <=' => date("Y-m-d", strtotime("+$eventInterval days")),
+				switch ($eventInterval) {
+					case '2':
+						$tomorrow = strtotime("+1 days");
+						$intervalConditions = array('OR' => array(
+								array('AND' => array(
+									array('Event.date_start >=' => date("Y-m-d", $tomorrow)), # Tomorrow
+									array('Event.date_start <' => date("Y-m-d", strtotime("+$eventInterval days"))) # After Tomorrow
+								)),
+								array('AND' => array(
+									'Event.date_start <' => date("Y-m-d", $tomorrow),
+									'Event.date_end >=' => date("Y-m-d", $tomorrow)
+								)),
+						));
+						break;
+					
+					default:
+						$intervalConditions = array('OR' => array(
+								array('AND' => array(
+									array('Event.date_start >=' => date("Y-m-d")),
+									array('Event.date_start <' => date("Y-m-d", strtotime("+$eventInterval days")))
+								)),
+								array('AND' => array(
+									'Event.date_start <' => date("Y-m-d"),
+									'Event.date_end >=' => date("Y-m-d")
+								)),
+						));
+						break;
+				}
+				$conditions = array(
 					'Event.lat <' => $neLat,
 					'Event.lat >' => $swLat,
 					'Event.long <' => $neLong,
 					'Event.long >' => $swLong,
+					$intervalConditions
 				);
 				$categories = array();
 				if(sizeof($eventCategory) > 0) {

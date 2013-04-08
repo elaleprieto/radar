@@ -34,7 +34,14 @@ jQuery ->
 		deleteOverlays()
 		actualizarEventos()
 	
-	google.maps.event.addListener window.map, 'bounds_changed', () ->
+	# google.maps.event.addListener window.map, 'bounds_changed', () ->
+	google.maps.event.addListener window.map, 'dragend', () ->
+		actualizarEventos()
+
+	google.maps.event.addListener window.map, 'tilesloaded', () ->
+		actualizarEventos()
+
+	google.maps.event.addListener window.map, 'zoom_changed', () ->
 		actualizarEventos()
 		
 ###
@@ -68,6 +75,7 @@ actualizarEventos = () ->
 	$.getJSON(WEBROOT + 'events/get', options, (data) ->
 		clearEventsList()
 		for event in data
+			exist = off
 			for marker in window.markers
 				exist = on if marker.eventId == event.Event.id
 			if not exist
