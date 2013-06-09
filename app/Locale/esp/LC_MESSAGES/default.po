@@ -1,12 +1,13 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Radar 0.2\n"
-"POT-Creation-Date: \n"
+"POT-Creation-Date: 2013-06-08 21:20-0300\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Ale Prieto <aleprieto@gmail.com>\n"
 "Language-Team: Radar Cultural <contacto@colectivolibre.com.ar>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-Language: Spanish\n"
 "X-Poedit-Country: ARGENTINA\n"
@@ -54,45 +55,41 @@ msgstr "Categoría borrada"
 msgid "Categories event was not deleted"
 msgstr "La categoría no ha sido borrada"
 
-#: Controller/EventsController.php:47;96;125
+#: Controller/EventsController.php:58;110;139
 msgid "Invalid event"
 msgstr "Evento inválido"
 
-#: Controller/EventsController.php:75;100
+#: Controller/EventsController.php:86;114
 msgid "The event has been saved"
 msgstr "El evento ha sido guardado"
 
-#: Controller/EventsController.php:78;103
+#: Controller/EventsController.php:89;117
 msgid "The event could not be saved. Please, try again."
 msgstr "El evento no ha sido guardado. Por favor, intente nuevamente."
 
-#: Controller/EventsController.php:129
+#: Controller/EventsController.php:143
 msgid "Event deleted"
 msgstr "Evento borrado"
 
-#: Controller/EventsController.php:132
+#: Controller/EventsController.php:146
 msgid "Event was not deleted"
 msgstr "El evento no ha sido borrado"
 
-#: Controller/PlacesController.php:29;61;87
-msgid "Invalid place"
+#: Controller/UsersController.php:61
+msgid "Invalid username or password, try again"
 msgstr ""
 
-#: Controller/PlacesController.php:44;65
-msgid "The place has been saved"
-msgstr ""
+#: Controller/UsersController.php:132;155
+msgid "The user could not be saved. Please, try again."
+msgstr "El usuario no ha sido guardado. Por favor, intente nuevamente."
 
-#: Controller/PlacesController.php:47;68
-msgid "The place could not be saved. Please, try again."
-msgstr ""
+#: Controller/UsersController.php:148
+msgid "Invalid user"
+msgstr "Evento inválido"
 
-#: Controller/PlacesController.php:91
-msgid "Place deleted"
-msgstr ""
-
-#: Controller/PlacesController.php:94
-msgid "Place was not deleted"
-msgstr ""
+#: Controller/UsersController.php:152
+msgid "The user has been saved"
+msgstr "El usuario ha sido guardado"
 
 #: View/Categories/add.ctp:4
 msgid "Add Category"
@@ -106,6 +103,8 @@ msgstr ""
 #: View/Events/edit.ctp:17
 #: View/Places/add.ctp:12
 #: View/Places/edit.ctp:13
+#: View/Users/add.ctp:46
+#: View/Users/edit.ctp:12
 msgid "Submit"
 msgstr "Enviar"
 
@@ -124,6 +123,9 @@ msgstr "Enviar"
 #: View/Places/edit.ctp:16
 #: View/Places/index.ctp:12;46
 #: View/Places/view.ctp:42;68
+#: View/Users/edit.ctp:15
+#: View/Users/index.ctp:11;44
+#: View/Users/view.ctp:37;58
 msgid "Actions"
 msgstr ""
 
@@ -188,6 +190,9 @@ msgstr ""
 #: View/Places/edit.ctp:19
 #: View/Places/index.ctp:26
 #: View/Places/view.ctp:88
+#: View/Users/edit.ctp:18
+#: View/Users/index.ctp:24
+#: View/Users/view.ctp:73
 msgid "Delete"
 msgstr ""
 
@@ -202,6 +207,9 @@ msgstr ""
 #: View/Places/edit.ctp:19
 #: View/Places/index.ctp:26
 #: View/Places/view.ctp:45;88
+#: View/Users/edit.ctp:18
+#: View/Users/index.ctp:24
+#: View/Users/view.ctp:40;73
 msgid "Are you sure you want to delete # %s?"
 msgstr ""
 
@@ -215,6 +223,8 @@ msgstr "Categorías"
 #: View/CategoriesEvents/index.ctp:24
 #: View/Places/index.ctp:24
 #: View/Places/view.ctp:86
+#: View/Users/index.ctp:22
+#: View/Users/view.ctp:71
 msgid "View"
 msgstr ""
 
@@ -223,24 +233,29 @@ msgstr ""
 #: View/CategoriesEvents/index.ctp:25
 #: View/Places/index.ctp:25
 #: View/Places/view.ctp:87
+#: View/Users/index.ctp:23
+#: View/Users/view.ctp:72
 msgid "Edit"
 msgstr ""
 
 #: View/Categories/index.ctp:30
 #: View/CategoriesEvents/index.ctp:34
 #: View/Places/index.ctp:34
+#: View/Users/index.ctp:32
 msgid "Page {:page} of {:pages}, showing {:current} records out of {:count} total, starting on record {:start}, ending on {:end}"
 msgstr ""
 
 #: View/Categories/index.ctp:35
 #: View/CategoriesEvents/index.ctp:39
 #: View/Places/index.ctp:39
+#: View/Users/index.ctp:37
 msgid "previous"
 msgstr ""
 
 #: View/Categories/index.ctp:37
 #: View/CategoriesEvents/index.ctp:41
 #: View/Places/index.ctp:41
+#: View/Users/index.ctp:39
 msgid "next"
 msgstr ""
 
@@ -266,13 +281,16 @@ msgstr ""
 #: View/CategoriesEvents/view.ctp:4
 #: View/Events/view.ctp:4
 #: View/Places/view.ctp:4;57
+#: View/Users/view.ctp:4;52
 msgid "Id"
 msgstr ""
 
 #: View/Categories/view.ctp:9
 #: View/Places/view.ctp:9
+#: View/Users/add.ctp:21
+#: View/Users/view.ctp:19
 msgid "Name"
-msgstr ""
+msgstr "Nombre"
 
 #: View/Categories/view.ctp:14
 #: View/Places/view.ctp:14
@@ -283,15 +301,17 @@ msgstr ""
 #: View/CategoriesEvents/view.ctp:19
 #: View/Events/view.ctp:39
 #: View/Places/view.ctp:29;64
+#: View/Users/view.ctp:24;55
 msgid "Created"
-msgstr ""
+msgstr "Creado"
 
 #: View/Categories/view.ctp:24;55
 #: View/CategoriesEvents/view.ctp:24
 #: View/Events/view.ctp:44
 #: View/Places/view.ctp:34;65
+#: View/Users/view.ctp:29;56
 msgid "Modified"
-msgstr ""
+msgstr "Modificado"
 
 #: View/Categories/view.ctp:35
 msgid "Delete Category"
@@ -303,8 +323,10 @@ msgid "Related Events"
 msgstr "Eventos relacionados"
 
 #: View/Categories/view.ctp:48
+#: View/Events/add.ctp:18
 #: View/Events/view.ctp:9
 #: View/Places/view.ctp:58
+#: View/Users/view.ctp:53
 msgid "Title"
 msgstr "Título"
 
@@ -436,4 +458,109 @@ msgstr ""
 #: View/Places/view.ctp:45
 msgid "Delete Place"
 msgstr ""
+
+#: View/Users/add.ctp:7
+msgid "Add User"
+msgstr "Nuevo usuario"
+
+#: View/Users/add.ctp:11
+#: View/Users/view.ctp:9
+msgid "Username"
+msgstr "Nombre de usuario"
+
+#: View/Users/add.ctp:16
+#: View/Users/view.ctp:14
+msgid "Password"
+msgstr "Contraseña"
+
+#: View/Users/add.ctp:26
+msgid "Email"
+msgstr "Correo Electrónico"
+
+#: View/Users/add.ctp:35
+msgid "Female"
+msgstr "Femenino"
+
+#: View/Users/add.ctp:36
+msgid "Male"
+msgstr "Masculino"
+
+#: View/Users/add.ctp:37
+msgid "Other"
+msgstr "Otro"
+
+#: View/Users/edit.ctp:4
+#: View/Users/view.ctp:39
+msgid "Edit User"
+msgstr "Editar Usuario"
+
+#: View/Users/edit.ctp:19
+#: View/Users/view.ctp:41
+msgid "List Users"
+msgstr "Listar Usuarios"
+
+#: View/Users/index.ctp:2
+msgid "Users"
+msgstr ""
+
+#: View/Users/index.ctp:46
+#: View/Users/view.ctp:42
+msgid "New User"
+msgstr ""
+
+#: View/Users/index.ctp:47
+#: View/Users/view.ctp:43
+msgid "List Noticias"
+msgstr ""
+
+#: View/Users/index.ctp:48
+#: View/Users/view.ctp:44;82
+msgid "New Noticia"
+msgstr ""
+
+#: View/Users/view.ctp:2
+msgid "User"
+msgstr ""
+
+#: View/Users/view.ctp:40
+msgid "Delete User"
+msgstr "Borrar Usuario"
+
+#: View/Users/view.ctp:48
+msgid "Related Noticias"
+msgstr "Noticias relacionadas"
+
+#: View/Users/view.ctp:54
+msgid "Body"
+msgstr ""
+
+#: View/Users/view.ctp:57
+msgid "User Id"
+msgstr ""
+
+#: Model/CategoriesEvent.php:validation
+#: for field category_id;validation
+#: event_id Model/Category.php:validation
+#: sort Model/Event.php:validation
+#: status;validation place_id Model/Place.php:validation
+msgid "numeric"
+msgstr ""
+
+#: Model/Category.php:validation
+#: for field name Model/Event.php:validation
+#: title Model/Place.php:validation
+#: Model/User.php:validation
+#: username;validation password;validation
+msgid "notempty"
+msgstr ""
+
+#: Model/Event.php:validation
+#: for field date_start;validation date_end
+msgid "datetime"
+msgstr ""
+
+#: Model/User.php:validation
+#: for field username
+msgid "This username has already been taken."
+msgstr "El usuario ya existe pero puede elegir otro :)"
 
