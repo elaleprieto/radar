@@ -17,7 +17,7 @@
 				var categories = [
 					'Arquitectura y diseño', 'Artes plásticas', 'Cine', 'Danza', 'Deporte',
 					'Escultura', 'Fotografía', 'Literatura', 'Música', 'Teatro', 'Tecnología',
-					'Infantiles'
+					'Infantiles',
 				];
 				for (var i = 0; i < categories.length; i++) {
 					document.write('<label class="checkbox inline"><input type="checkbox" name="category" value="' + i + '"> ' + categories[i] + '</label>');
