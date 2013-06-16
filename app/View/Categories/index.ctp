@@ -4,6 +4,7 @@
 	<tr>
 			<th><?php echo $this->Paginator->sort('id'); ?></th>
 			<th><?php echo $this->Paginator->sort('name'); ?></th>
+			<th><?php echo $this->Paginator->sort('logo'); ?></th>
 			<th><?php echo $this->Paginator->sort('sort'); ?></th>
 			<th><?php echo $this->Paginator->sort('created'); ?></th>
 			<th><?php echo $this->Paginator->sort('modified'); ?></th>
@@ -13,6 +14,10 @@
 	<tr>
 		<td><?php echo h($category['Category']['id']); ?>&nbsp;</td>
 		<td><?php echo h($category['Category']['name']); ?>&nbsp;</td>
+		<td>
+		    <?php echo h($category['Category']['logo']); ?>&nbsp;
+		    <?= $this->Html->image('categorias/'.$category['Category']['logo'])?>
+		    </td>
 		<td><?php echo h($category['Category']['sort']); ?>&nbsp;</td>
 		<td><?php echo h($category['Category']['created']); ?>&nbsp;</td>
 		<td><?php echo h($category['Category']['modified']); ?>&nbsp;</td>
