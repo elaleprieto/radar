@@ -42,8 +42,15 @@
 		<div class="navbar navbar-fixed-top">
 			<div class="navbar-inner">
 				<div class="container">
-					<?= $this->Html->link('Radar<strong>Cultural</strong>', '/', array('class'=>'brand', 'escape'=>FALSE)) ?>
-					<?= $this->Html->link('Agregar evento', array('controller'=>'events', 'action'=>'add'), array('class'=>'btn btn-primary pull-right')) ?>
+				    <ul class="nav">
+    				    <li><?= $this->Html->image('logoCulturaLibre.png', array('class' => 'menu'))?></li>
+                        <li><?= $this->Html->link('Radar<br><strong>CULTURAL</strong>', '/', array('class'=>'menu-brand', 'escape'=>FALSE)) ?></li>
+                        <li><?= $this->Html->link('Sobre Radar', '/', array('class'=>'menu')) ?></li>
+                        <li><?= $this->Html->link('Espacios', '/', array('class'=>'menu')) ?></li>
+                        <li><?= $this->Html->link('Eventos', '/', array('class'=>'menu')) ?></li>
+                        <li><?= $this->Html->link('Contacto', '/', array('class'=>'menu')) ?></li>    
+				    </ul>
+                    <?= $this->Html->link('Agregar evento', array('controller'=>'events', 'action'=>'add'), array('class'=>'btn btn-warning pull-right')) ?>
 				</div>
 			</div>
 		</div>
