@@ -1,2 +1,165 @@
+$blanco: #FFFFFF
+$celeste_claro: #34C8ED
+$celeste_oscuro: #00AAD4
+$gris: #D4D4D4
+$rojo_claro: #F28E8E
+$rojo_oscuro: #C83737
+$verde_claro: #AFDB00
+$verde_oscuro: #88AA00
+
+@font-face
+	font-family: "cantarell"
+	src: url(Cantarell-Regular.ttf) format("truetype")
+
+@font-face
+	font-family: "cafe"
+	src: url(cafe_brewery.ttf) format("truetype")
+	
 #map img
 	max-width: none
+	
+#map
+	height: 470px
+
+body
+	font:
+		family: 'cantarell'
+
+ul.nav
+	height: 50px
+
+.btn
+	font:
+		family: 'cafe'
+		weight: bold
+
+.btn-celeste
+	color: #FFFFFF
+	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25)
+	background-color: $celeste_oscuro
+	*background-color: $celeste_oscuro
+	background-image: -moz-linear-gradient(top, $celeste_claro, $celeste_oscuro)
+	background-image: -webkit-gradient(linear, 0 0, 0 100%, from($celeste_claro), to($celeste_oscuro))
+	background-image: -webkit-linear-gradient(top, $celeste_claro, $celeste_oscuro)
+	background-image: -o-linear-gradient(top, $celeste_claro, $celeste_oscuro)
+	background-image: linear-gradient(to bottom, $celeste_claro, $celeste_oscuro)
+	background-repeat: repeat-x
+	border-color: #00AAD4
+	border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25)
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$celeste_claro', endColorstr='$celeste_oscuro', GradientType=0)
+	filter: progid:DXImageTransform.Microsoft.gradient(enabled=false)
+	
+.btn-celeste:hover,
+.btn-celeste:active,
+.btn-celeste.active,
+.btn-celeste.disabled,
+.btn-celeste[disabled]
+	color: #FFFFFF
+	background-color: $celeste_oscuro
+	*background-color: #003bb3
+
+.btn-rojo
+	color: #FFFFFF
+	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25)
+	background-color: #C83737
+	*background-color: #C83737
+	background-image: -moz-linear-gradient(top, $rojo_claro, $rojo_oscuro)
+	background-image: -webkit-gradient(linear, 0 0, 0 100%, from($rojo_claro), to($rojo_oscuro))
+	background-image: -webkit-linear-gradient(top, $rojo_claro, $rojo_oscuro)
+	background-image: -o-linear-gradient(top, $rojo_claro, $rojo_oscuro)
+	background-image: linear-gradient(to bottom, $rojo_claro, $rojo_oscuro)
+	background-repeat: repeat-x
+	border-color: $rojo_oscuro
+	border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25)
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$rojo_claro', endColorstr='$rojo_oscuro', GradientType=0)
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$rojo_claro', endColorstr='$rojo_oscuro', GradientType=0)
+	filter: progid:DXImageTransform.Microsoft.gradient(enabled=false)
+
+.btn-rojo:hover,
+.btn-rojo:active,
+.btn-rojo.active,
+.btn-rojo.disabled,
+.btn-rojo[disabled]
+	color: #FFFFFF
+	background-color: $rojo_oscuro
+	*background-color: #003bb3
+
+.btn-verde
+	color: #FFFFFF
+	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25)
+	background-color: $verde_oscuro
+	*background-color: $verde_oscuro
+	background-image: -moz-linear-gradient(top, $verde_claro, $verde_oscuro)
+	background-image: -webkit-gradient(linear, 0 0, 0 100%, from($verde_claro), to($verde_oscuro))
+	background-image: -webkit-linear-gradient(top, $verde_claro, $verde_oscuro)
+	background-image: -o-linear-gradient(top, $verde_claro, $verde_oscuro)
+	background-image: linear-gradient(to bottom, $verde_claro, $verde_oscuro)
+	background-repeat: repeat-x
+	border-color: $verde_oscuro
+	border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25)
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$verde_claro', endColorstr='$verde_oscuro', GradientType=0)
+	filter: progid:DXImageTransform.Microsoft.gradient(enabled=false)
+
+.btn-verde:hover,
+.btn-verde:active,
+.btn-verde.active,
+.btn-verde.disabled,
+.btn-verde[disabled]
+	color: #FFFFFF
+	background-color: $verde_oscuro
+	*background-color: $verde_claro
+
+.icono-categoria
+	padding: 2px
+
+.label_categoria
+	background-color: #E7D785
+	background-image: linear-gradient(to bottom, #FFFEB8, #C49C38)
+	background-repeat: repeat-x
+	border-bottom-color: rgba(0, 0, 0, 0.25)
+	border-left-color-ltr-source: physical
+	border-left-color-rtl-source: physical
+	border-left-color-value: rgba(0, 0, 0, 0.1)
+	border-right-color-ltr-source: physical
+	border-right-color-rtl-source: physical
+	border-right-color-value: rgba(0, 0, 0, 0.1)
+	border-top-color: rgba(0, 0, 0, 0.1)
+	color: #FFFFFF
+	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25)
+
+.menu
+	padding: 3px
+	font:
+		family: 'cantarell'
+		weight: bold
+
+.navbar .btn, .navbar .btn-group
+	margin-top: 10px
+
+.navbar .nav > li > a.menu
+	height: 30px
+	padding:
+		bottom: 5px
+		top: 15px
+	
+.navbar .nav > li > a.menu-brand
+	font:
+		size: 20px
+	height: 40px
+	padding:
+		bottom: 5px
+		top: 5px
+
+.navbar .navbar-inner
+	height: 50px
+	background-color: $blanco
+	background-image: -moz-linear-gradient(top, $blanco, $blanco)
+	background-image: -webkit-gradient(linear, 0 0, 0 100%, from($blanco), to($blanco))
+	background-image: -webkit-linear-gradient(top, $blanco, $blanco)
+	background-image: -o-linear-gradient(top, $blanco, $blanco)
+	background-image: linear-gradient(to bottom, $blanco, $blanco)
+	background-repeat: repeat-x
+	border: 1px solid $gris
+
+.navbar-fixed-top .navbar-inner, .navbar-static-top .navbar-inner
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1)
