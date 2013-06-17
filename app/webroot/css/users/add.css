@@ -1,0 +1,5 @@
+/* line 1, ../../sass/users/add.sass */
+.gender label { display: inline-block; margin-right: 10px; }
+
+/* line 5, ../../sass/users/add.sass */
+.gender input[type="radio"] { margin: 0; margin-right: 2px; }

@@ -27,6 +27,9 @@
  */
 	// Router::connect('/', array('controller' => 'pages', 'action' => 'display', 'home'));
 	Router::connect('/', array('controller' => 'events', 'action' => 'index'));
+	Router::connect('/login', array('controller'=>'users', 'action'=>'login'));
+	Router::connect('/registrate', array('controller'=>'users', 'action'=>'add'));
+    
 /**
  * ...and connect the rest of 'Pages' controller's urls.
  */
