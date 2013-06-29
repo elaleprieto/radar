@@ -9,7 +9,7 @@
 
         public function beforeFilter() {
             parent::beforeFilter();
-            $this -> Auth -> allow('index', 'add');
+            $this -> Auth -> allow('get', 'index', 'indice', 'listar');
         }
 
         /**
@@ -18,10 +18,11 @@
          * @return void
          */
         public function index() {
-            // $this->Event->recursive = -1;
+            $this->Event->Category->recursive = -1;
             // $events = $this->Event->find('all', array('fields'=>array('title',
             // 'date_start', 'date_end')));
             $categories = $this -> Event -> Category -> find('list', array('fields' => 'name'));
+            $categorias = $this -> Event -> Category -> find('all', array('order'=>'Category.name ASC'));
             // $this->Event->Behaviors->load('Containable');
             // $categories = $this->Event->Category->find('list',
             // array('conditions'=>'category_id=1'));
@@ -43,7 +44,23 @@
             // debug($events);
             //$this->set('events', $this->paginate());
             // $this->set(compact('events','categories'));
-            $this -> set(compact('categories'));
+            $this -> set(compact('categories', 'categorias'));
+        }
+        
+        public function indice() {
+            $this->layout='ajax';
+        }
+ 
+        /**
+         * list method
+         *
+         * @return void
+         */
+        public function listar() {
+            $this->Event->Category->recursive = -1;
+            $categories = $this -> Event -> Category -> find('list', array('fields' => 'name'));
+            $categorias = $this -> Event -> Category -> find('all', array('order'=>'Category.name ASC'));
+            $this -> set(compact('categories', 'categorias'));
         }
 
         /**
@@ -196,6 +213,7 @@
                         $intervalConditions
                     );
                     $categories = array();
+                    $eventCategory = json_decode($eventCategory); # Angular lo manda en formato JSON
                     if (sizeof($eventCategory) > 0) {
                         $categoryConditions = array();
                         foreach ($eventCategory as $key => $category) {
