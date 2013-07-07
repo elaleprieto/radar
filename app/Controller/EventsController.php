@@ -107,12 +107,12 @@
                 }
             }
             // $categories = $this->Event->Category->find('list');
-            $categories = $this -> Event -> Category -> find('list', array('fields' => array(
-                    'id',
-                    'name'
-                )));
-            $places = $this -> Event -> Place -> find('list');
-            $this -> set(compact('categories', 'places'));
+            // $categories = $this -> Event -> Category -> find('list', array('fields' => array(
+                    // 'id',
+                    // 'name'
+                // )));
+            // $places = $this -> Event -> Place -> find('list');
+            // $this -> set(compact('categories', 'places'));
         }
 
         /**

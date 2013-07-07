@@ -5,14 +5,20 @@
 #map img { max-width: none; }
 
 /* line 8, ../../sass/events/add.sass */
-.dateField { width: 20%; }
+.categoriaLink { cursor: pointer; }
 
 /* line 11, ../../sass/events/add.sass */
-select { max-width: 100%; }
+.dateField { width: 20%; }
+
 /* line 14, ../../sass/events/add.sass */
-select[name*="month"] { min-width: 100px; }
+.highlight { background-color: yellow; }
+
 /* line 17, ../../sass/events/add.sass */
+select { max-width: 100%; }
+/* line 20, ../../sass/events/add.sass */
+select[name*="month"] { min-width: 100px; }
+/* line 23, ../../sass/events/add.sass */
 select[name*="year"] { min-width: 65px; }
 
-/* line 20, ../../sass/events/add.sass */
+/* line 26, ../../sass/events/add.sass */
 .textbox { width: 100%; width: -moz-available; }

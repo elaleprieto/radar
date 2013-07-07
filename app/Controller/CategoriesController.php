@@ -13,8 +13,15 @@ class CategoriesController extends AppController {
  * @return void
  */
 	public function index() {
-		$this->Category->recursive = 0;
-		$this->set('categories', $this->paginate());
+	    $this->autoRender = false;
+	    if ($this->request->is('ajax')) {
+	        $this->Category->recursive = -1;
+            return json_encode($this->Category->find('all'));
+        }
+        throw new NotFoundException("Categoría Inválida", 404);
+        
+		// $this->Category->recursive = 0;
+		// $this->set('categories', $this->paginate());
 	}
 
 /**

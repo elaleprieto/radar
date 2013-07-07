@@ -1,3 +1,5 @@
+@import compass/css3
+
 $blanco: #FFFFFF
 $celeste_claro: #34C8ED
 $celeste_oscuro: #00AAD4
@@ -7,14 +9,9 @@ $rojo_oscuro: #C83737
 $verde_claro: #AFDB00
 $verde_oscuro: #88AA00
 
-@font-face
-	font-family: "cantarell"
-	src: url(Cantarell-Regular.ttf) format("truetype")
++font-face("cantarell", font-files("cantarell_regular.ttf"))
++font-face("cafe", font-files("cafe_brewery.ttf"))
 
-@font-face
-	font-family: "cafe"
-	src: url(cafe_brewery.ttf) format("truetype")
-	
 #map img
 	max-width: none
 	

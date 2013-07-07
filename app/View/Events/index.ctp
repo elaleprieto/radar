@@ -34,7 +34,7 @@
     	</div>
     	
     	<!-- CATEGORÍAS -->
-    	<div class="span2" ng-app="App">
+    	<div class="span2">
     	    <p loading>Cargando Categorías...</p>
     	    <div ng-view></div>
     	    <div ng-controller="CategoriaController">
