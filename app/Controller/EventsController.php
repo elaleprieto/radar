@@ -9,7 +9,7 @@
 
         public function beforeFilter() {
             parent::beforeFilter();
-            $this -> Auth -> allow('index', 'add');
+            $this -> Auth -> allow('get', 'index', 'indice', 'listar');
         }
 
         /**
@@ -18,32 +18,26 @@
          * @return void
          */
         public function index() {
-            // $this->Event->recursive = -1;
-            // $events = $this->Event->find('all', array('fields'=>array('title',
-            // 'date_start', 'date_end')));
+            $this->Event->Category->recursive = -1;
+            $categories = $this->Event->Category->find('list', array('fields' => 'name'));
+            $categorias = $this -> Event -> Category -> find('all', array('order'=>'Category.name ASC'));
+            $this -> set(compact('categories', 'categorias'));
+        }
+        
+        public function indice() {
+            $this->layout='ajax';
+        }
+ 
+        /**
+         * list method
+         *
+         * @return void
+         */
+        public function listar() {
+            $this->Event->Category->recursive = -1;
             $categories = $this -> Event -> Category -> find('list', array('fields' => 'name'));
-            // $this->Event->Behaviors->load('Containable');
-            // $categories = $this->Event->Category->find('list',
-            // array('conditions'=>'category_id=1'));
-            // $events = $this->Event->find('all', array('conditions'=>'id=1'));
-            // $events = $this->Event->find('all',
-            // array('conditions'=>'CategoriesEvents.category_id=1'));
-            // $events = $this->Event->find('all',
-            // array('conditions'=>array('id'=>$this->Event->Category->find('id'=>1))));
-            // $events = $this->Event->find('all');
-
-            // $this->Event->bindModel(array('hasOne' =>
-            // array('CategoriesEvents')));
-
-            // $events = $this->Event->find('all', array(
-            // 'conditions' => array('CategoriesEvents.category_id' => 2),
-            // 'recursive' => 2
-            // ));
-
-            // debug($events);
-            //$this->set('events', $this->paginate());
-            // $this->set(compact('events','categories'));
-            $this -> set(compact('categories'));
+            $categorias = $this -> Event -> Category -> find('all', array('order'=>'Category.name ASC'));
+            $this -> set(compact('categories', 'categorias'));
         }
 
         /**
@@ -67,35 +61,37 @@
          * @return void
          */
         public function add() {
-            if ($this -> request -> is('post')) {
-                $event = $this -> request -> data;
-                $start = split('/', $event['Event']['date_from']);
-                $event['Event']['date_start']['day'] = $start[0];
-                $event['Event']['date_start']['month'] = $start[1];
-                $event['Event']['date_start']['year'] = $start[2];
-                $event['Event']['date_start']['hour'] = substr($event['Event']['time3'], 0, 2);
-                $event['Event']['date_start']['min'] = substr($event['Event']['time3'], 3, 2);
-                $end = split('/', $event['Event']['date_to']);
-                $event['Event']['date_end']['day'] = $end[0];
-                $event['Event']['date_end']['month'] = $end[1];
-                $event['Event']['date_end']['year'] = $end[2];
-                $event['Event']['date_end']['hour'] = substr($event['Event']['time4'], 0, 2);
-                $event['Event']['date_end']['min'] = substr($event['Event']['time4'], 3, 2);
-                $this -> Event -> create();
-                if ($this -> Event -> save($event)) {
-                    $this -> Session -> setFlash(__('The event has been saved'));
-                    $this -> redirect(array('action' => 'index'));
-                } else {
-                    $this -> Session -> setFlash(__('The event could not be saved. Please, try again.'));
+            if ($this->request->is('post')) {
+                $this->layout = 'ajax';
+                
+                $data = $this->request->input('json_decode');
+                // debug($data);
+                // return;
+                $date_start = strtotime($data->Event->date_from);
+                $time_start = strtotime($data->Event->time_from);
+                $date_end = strtotime($data->Event->date_to);
+                $time_end = strtotime($data->Event->time_to);
+
+                # Se arma el Evento
+                $event['Event']['date_start'] = date('Y-m-d ', $date_start) . date('H:i', $time_start);
+                $event['Event']['date_end'] = date('Y-m-d ', $date_end) . date('H:i', $time_end);
+                $event['Event']['title'] = $data->Event->title;
+                $event['Event']['address'] = $data->Event->address;
+                $event['Event']['description'] = $data->Event->description;
+                $event['Event']['lat'] = $data->Event->lat;
+                $event['Event']['long'] = $data->Event->long;
+                
+                // if(sizeof($data->Category) > 3)
+                $event['Event']['Category'] = $data->Category;
+                
+                # Se crea el evento
+                $this->Event->create();
+                if(!$this->Event->save($event)) {
+                    throw new Exception('Evento inválido', 1);
                 }
+                
+				$this->render();
             }
-            // $categories = $this->Event->Category->find('list');
-            $categories = $this -> Event -> Category -> find('list', array('fields' => array(
-                    'id',
-                    'name'
-                )));
-            $places = $this -> Event -> Place -> find('list');
-            $this -> set(compact('categories', 'places'));
         }
 
         /**
@@ -196,6 +192,7 @@
                         $intervalConditions
                     );
                     $categories = array();
+                    $eventCategory = json_decode($eventCategory); # Angular lo manda en formato JSON
                     if (sizeof($eventCategory) > 0) {
                         $categoryConditions = array();
                         foreach ($eventCategory as $key => $category) {
@@ -203,21 +200,23 @@
                         }
                         array_push($conditions, array("OR" => $categoryConditions));
                     }
-                    $fields = array(
-                        'Event.id',
-                        'Event.title',
-                        'Event.date_start',
-                        'Event.date_end',
-                        'Event.lat',
-                        'Event.long'
+                    $fields = array('Event.id'
+                        , 'Event.title'
+                        , 'Event.address'
+                        , 'Event.date_start'
+                        , 'Event.date_end'
+                        , 'Event.lat'
+                        , 'Event.long'
                     );
 
                     $this -> Event -> bindModel(array('hasOne' => array('CategoriesEvents')));
-                    $events = $this -> Event -> find('all', array(
-                        'conditions' => $conditions,
-                        'fields' => $fields,
-                        'recursive' => 0
-                    ));
+                    $events = $this -> Event -> find('all'
+                    	, array('conditions' => $conditions
+                        	, 'fields' => $fields
+                        	, 'group' => array('Event.id')
+                        	, 'recursive' => 0
+                    	)
+					);
                     return json_encode($events);
                 }
             }

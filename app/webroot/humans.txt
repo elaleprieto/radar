@@ -1,0 +1,19 @@
+# humanstxt.org/
+# The humans responsible & technology colophon
+
+# TEAM
+
+    <name> -- <role> -- <twitter>
+    Tere Sempere -- diseñadora -- @tereseta
+    Juli Weidmann -- diseñadora -- @juliweidmann
+    Cele Weidmann -- maquetadora y programadora -- @casiazul
+    Ale Prieto -- programador -- @elaleprieto
+
+# THANKS
+
+    <name>
+
+# TECHNOLOGY COLOPHON
+
+    HTML5, CSS3
+    jQuery, Modernizr

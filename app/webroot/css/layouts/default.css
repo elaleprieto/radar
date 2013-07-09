@@ -1,11 +1,11 @@
 /* line 1, ../../sass/layouts/default.sass */
 body { padding-top: 60px; }
 
-/* line 5, ../../sass/layouts/default.sass */
+/* line 4, ../../sass/layouts/default.sass */
 .checkbox.inline { margin-left: 0 !important; margin-right: 10px; }
 
-/* line 9, ../../sass/layouts/default.sass */
+/* line 8, ../../sass/layouts/default.sass */
 .username { margin-right: 10px; }
 
-/* line 12, ../../sass/layouts/default.sass */
+/* line 11, ../../sass/layouts/default.sass */
 #map { height: 400px; margin-bottom: 20px; width: 100%; }
