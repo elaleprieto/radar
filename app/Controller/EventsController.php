@@ -202,6 +202,7 @@
                     }
                     $fields = array('Event.id'
                         , 'Event.title'
+                        , 'Event.address'
                         , 'Event.date_start'
                         , 'Event.date_end'
                         , 'Event.lat'

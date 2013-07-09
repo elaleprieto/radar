@@ -82,6 +82,7 @@
     					<th>Fecha Inicio</th>
     					<th>Fecha Fin</th>
     					<th>Evento</th>
+    					<th>Dirección</th>
     				</tr>
     			</thead>
     			<tbody>
@@ -89,6 +90,7 @@
     			        <td ng-bind="evento.Event.date_start | isodate | date:'dd/MM/yyyy HH:mm'"></td>
     			        <td ng-bind="evento.Event.date_end | isodate | date:'dd/MM/yyyy HH:mm'"></td>
     			        <td ng-bind="evento.Event.title"></td>
+    			        <td ng-bind="evento.Event.address"></td>
     			    </tr>
     			</tbody>
     		</table>
