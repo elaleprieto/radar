@@ -27,7 +27,7 @@
 		<?php
             echo $this -> Html -> meta('icon');
 
-            echo $this -> Html -> css(array('bootstrap.min', 'layouts/default', 'radar', 'bootstrap-responsive.min'));
+            echo $this -> Html -> css(array('bootstrap.min', 'layouts/default', 'inicio', 'bootstrap-responsive.min'));
 
             echo $this -> fetch('meta');
             echo $this -> fetch('css');
@@ -44,10 +44,10 @@
     					<ul class="nav">
                             <li><?= $this->Html->image('logoCulturaLibre.png', array('class' => 'menu'))?></li>
                             <li><?= $this->Html->link('Radar<br><strong>CULTURAL</strong>', '/', array('class'=>'menu-brand', 'escape'=>FALSE)) ?></li>
-                            <li><?= $this->Html->link('Sobre Radar', '/', array('class'=>'menu')) ?></li>
-                            <li><?= $this->Html->link('Espacios', '/', array('class'=>'menu')) ?></li>
-                            <li><?= $this->Html->link('Eventos', '/', array('class'=>'menu')) ?></li>
-                            <li><?= $this->Html->link('Contacto', '/', array('class'=>'menu')) ?></li>
+                            <li><?= $this->Html->link('Sobre radar', array('controller' => 'pages', 'action' => 'display', 'about'), array('class'=>'menu')) ?></li>                           
+                            <li><?= $this->Html->link('Espacios', array('controller' => 'pages', 'action' => 'display', 'espacios'), array('class'=>'menu')) ?></li>
+                            <li><?= $this->Html->link('Eventos','/', array('class'=>'menu')) ?></li>
+                            <li><?= $this->Html->link('Contacto', array('controller' => 'pages', 'action' => 'display', 'contacto'), array('class'=>'menu')) ?></li>
                         </ul>
                         <ul class="nav pull-right">
                             <?php if ($this->Session->read('Auth.User.name') != ''): ?>
@@ -62,6 +62,7 @@
                                     ?>
                                 </li>
     					    <?php else: ?>
+                                
                                 <li>
                                     <?php echo $this->Html->link('Ingresar', array('controller'=>'users'
                                             , 'action'=>'login'),  array('class'=>'menu'))
