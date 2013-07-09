@@ -8,12 +8,8 @@ $verde_claro: #AFDB00
 $verde_oscuro: #88AA00
 
 @font-face
-	font-family: "cantarell"
-	src: url(Cantarell-Regular.ttf) format("truetype")
-
-@font-face
-	font-family: "cafe"
-	src: url(cafe_brewery.ttf) format("truetype")
+	font-family: "iso"
+	src: url(Isocpeur-Regular.ttf) format("truetype")
 	
 #map img
 	max-width: none
@@ -23,14 +19,16 @@ $verde_oscuro: #88AA00
 
 body
 	font:
-		family: 'cantarell'
+		family: 'iso'
+		size: 16px
 
 ul.nav
 	height: 50px
 
 .btn
 	font:
-		family: 'cafe'
+		family: 'iso'
+		size: 16px
 		weight: bold
 
 .btn-celeste
@@ -56,7 +54,7 @@ ul.nav
 .btn-celeste[disabled]
 	color: #FFFFFF
 	background-color: $celeste_oscuro
-	*background-color: #003bb3
+	*background-color: $celeste_claro
 
 .btn-rojo
 	color: #FFFFFF
@@ -82,7 +80,7 @@ ul.nav
 .btn-rojo[disabled]
 	color: #FFFFFF
 	background-color: $rojo_oscuro
-	*background-color: #003bb3
+	*background-color: $rojo_claro
 
 .btn-verde
 	color: #FFFFFF
@@ -130,7 +128,7 @@ ul.nav
 .menu
 	padding: 3px
 	font:
-		family: 'cantarell'
+		family: 'iso'
 		weight: bold
 
 .navbar .btn, .navbar .btn-group
