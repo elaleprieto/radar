@@ -84,7 +84,7 @@ RadarApp.controller 'EventController', ($scope, $http) ->
 		$http.post('/events/add', {Event: $scope.event, Category: $scope.event.categories})
 			.success (data) ->
 				console.log 'Evento guardado'
-			.fail ->
+			.error ->
 				console.log 'Ocurrió un error guardando el evento'
 		
 	$scope.geocoder = new google.maps.Geocoder()

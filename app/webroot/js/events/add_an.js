@@ -99,7 +99,7 @@
         Category: $scope.event.categories
       }).success(function(data) {
         return console.log('Evento guardado');
-      }).fail(function() {
+      }).error(function() {
         return console.log('Ocurrió un error guardando el evento');
       });
     };
