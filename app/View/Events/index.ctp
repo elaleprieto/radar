@@ -1,5 +1,7 @@
 <?php echo $this->Html->script(array('http://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true'
-    , 'events/index_an')
+    	, 'angular/filters'
+    	, 'events/index_an'
+	)
     , array('inline'=>false))
 ?>
 <?php echo $this->Html->scriptBlock('WEBROOT="' . $this -> Html -> url('/', true) . '"', $options = array('inline' => true)) # Se define la ruta base ?>
@@ -52,8 +54,8 @@
         	        </div>
         	    </div>
     	    </div>
-    	    
     	</div>
+    	
     	<!-- SPONSOR -->
     	<div class="span2">
     	    <ul class="thumbnails">
@@ -84,8 +86,8 @@
     			</thead>
     			<tbody>
     			    <tr ng-repeat="evento in eventos">
-    			        <td ng-bind="evento.Event.date_start"></td>
-    			        <td ng-bind="evento.Event.date_end"></td>
+    			        <td ng-bind="evento.Event.date_start | isodate | date:'dd/MM/yyyy HH:mm'"></td>
+    			        <td ng-bind="evento.Event.date_end | isodate | date:'dd/MM/yyyy HH:mm'"></td>
     			        <td ng-bind="evento.Event.title"></td>
     			    </tr>
     			</tbody>

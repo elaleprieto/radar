@@ -2,7 +2,7 @@
   'use strict';
   var RadarApp;
 
-  RadarApp = angular.module('RadarApp', []);
+  RadarApp = angular.module('RadarApp', ['fechaFilters']);
 
   RadarApp.directive('loading', [
     '$rootScope', function($rootScope) {

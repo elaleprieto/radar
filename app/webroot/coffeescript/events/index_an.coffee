@@ -1,7 +1,7 @@
 'use strict'
 
 # App = angular.module('App', ['fechaFilters', 'scroll'])
-RadarApp = angular.module('RadarApp', [])
+RadarApp = angular.module('RadarApp', ['fechaFilters'])
 
 # App.config(['$routeProvider', ($routeProvider) ->
     # $routeProvider.
