@@ -1,0 +1,13 @@
+@font-face { font-family: "isocpe"; src: url(Isocpeur-Regular.ttf) format("truetype"); }
+
+/* line 7, ../../sass/pages/contact.sass */
+label { font-family: "isocpe"; font-size: 18px; }
+
+/* line 12, ../../sass/pages/contact.sass */
+input { font-family: "isocpe"; }
+
+/* line 16, ../../sass/pages/contact.sass */
+textarea { font-family: "isocpe"; font-size: 14px; }
+
+/* line 21, ../../sass/pages/contact.sass */
+.formulario { font-family: "isocpe"; font-size: 18px; }
