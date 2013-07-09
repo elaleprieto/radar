@@ -1,5 +1,8 @@
 <?php echo $this->Html->css(array('vendors/timePicker', 'http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css', 'inicio','events/add'), '', array('inline'=>false)) ?>
 <?php echo $this->Html->script(array('vendors/jquery.timePicker', 'http://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true', 'http://code.jquery.com/ui/1.10.2/jquery-ui.js', 'vendors/jquery.ui.datepicker-es', 'events/add'), array('inline'=>false)) ?>
+<div class="row">
+    <h3><?php echo __('Add Event'); ?></h3>
+</div>
 <!-- BARRA PROGRESO -->
 <div class="row">
     <div class="progress">
@@ -15,9 +18,7 @@
         <strong>¡Cuidado!</strong><span id="alertMessageString"> Los eventos no pueden pertenecer a más de 3 (tres) categorías.</span>
     </div>    
 </div>
-<div class="row">
-    <h2><?php echo __('Add Event'); ?></h2>
-</div>
+
 <div class="row">
 	<div class="span12">
 		<div class="row">
