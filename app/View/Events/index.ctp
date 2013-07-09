@@ -85,7 +85,7 @@
     				</tr>
     			</thead>
     			<tbody>
-    			    <tr ng-repeat="evento in eventos">
+    			    <tr ng-repeat="evento in eventos | orderBy:'Event.date_start'">
     			        <td ng-bind="evento.Event.date_start | isodate | date:'dd/MM/yyyy HH:mm'"></td>
     			        <td ng-bind="evento.Event.date_end | isodate | date:'dd/MM/yyyy HH:mm'"></td>
     			        <td ng-bind="evento.Event.title"></td>
