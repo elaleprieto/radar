@@ -70,6 +70,8 @@
             </ul>
     	</div>
     </div>
+    
+    <!-- Events List -->
     <div class="row">
     	<div class="span12">
     		<table id="eventsList" class="table table-striped">
