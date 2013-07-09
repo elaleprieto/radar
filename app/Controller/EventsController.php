@@ -73,8 +73,8 @@
                 $time_end = strtotime($data->Event->time_to);
 
                 # Se arma el Evento
-                $event['Event']['date_start'] = date('Y-m-d ', $date_start) . date('H:m', $time_start);
-                $event['Event']['date_end'] = date('Y-m-d ', $date_end) . date('H:m', $time_end);
+                $event['Event']['date_start'] = date('Y-m-d ', $date_start) . date('H:i', $time_start);
+                $event['Event']['date_end'] = date('Y-m-d ', $date_end) . date('H:i', $time_end);
                 $event['Event']['title'] = $data->Event->title;
                 $event['Event']['address'] = $data->Event->address;
                 $event['Event']['description'] = $data->Event->description;
