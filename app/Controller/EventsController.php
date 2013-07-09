@@ -84,35 +84,37 @@
          * @return void
          */
         public function add() {
-            if ($this -> request -> is('post')) {
-                $event = $this -> request -> data;
-                $start = split('/', $event['Event']['date_from']);
-                $event['Event']['date_start']['day'] = $start[0];
-                $event['Event']['date_start']['month'] = $start[1];
-                $event['Event']['date_start']['year'] = $start[2];
-                $event['Event']['date_start']['hour'] = substr($event['Event']['time3'], 0, 2);
-                $event['Event']['date_start']['min'] = substr($event['Event']['time3'], 3, 2);
-                $end = split('/', $event['Event']['date_to']);
-                $event['Event']['date_end']['day'] = $end[0];
-                $event['Event']['date_end']['month'] = $end[1];
-                $event['Event']['date_end']['year'] = $end[2];
-                $event['Event']['date_end']['hour'] = substr($event['Event']['time4'], 0, 2);
-                $event['Event']['date_end']['min'] = substr($event['Event']['time4'], 3, 2);
-                $this -> Event -> create();
-                if ($this -> Event -> save($event)) {
-                    $this -> Session -> setFlash(__('The event has been saved'));
-                    $this -> redirect(array('action' => 'index'));
-                } else {
-                    $this -> Session -> setFlash(__('The event could not be saved. Please, try again.'));
+            if ($this->request->is('post')) {
+                $this->layout = 'ajax';
+                
+                $data = $this->request->input('json_decode');
+                // debug($data);
+                // return;
+                $date_start = strtotime($data->Event->date_from);
+                $time_start = strtotime($data->Event->time_from);
+                $date_end = strtotime($data->Event->date_to);
+                $time_end = strtotime($data->Event->time_to);
+
+                # Se arma el Evento
+                $event['Event']['date_start'] = date('Y-m-d ', $date_start) . date('H:m', $time_start);
+                $event['Event']['date_end'] = date('Y-m-d ', $date_end) . date('H:m', $time_end);
+                $event['Event']['title'] = $data->Event->title;
+                $event['Event']['address'] = $data->Event->address;
+                $event['Event']['description'] = $data->Event->description;
+                $event['Event']['lat'] = $data->Event->lat;
+                $event['Event']['long'] = $data->Event->long;
+                
+                // if(sizeof($data->Category) > 3)
+                $event['Event']['Category'] = $data->Category;
+                
+                # Se crea el evento
+                $this->Event->create();
+                if(!$this->Event->save($event)) {
+                    throw new Exception('Evento inválido', 1);
                 }
+                
+				$this->render();
             }
-            // $categories = $this->Event->Category->find('list');
-            // $categories = $this -> Event -> Category -> find('list', array('fields' => array(
-                    // 'id',
-                    // 'name'
-                // )));
-            // $places = $this -> Event -> Place -> find('list');
-            // $this -> set(compact('categories', 'places'));
         }
 
         /**

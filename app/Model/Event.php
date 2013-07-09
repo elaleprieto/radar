@@ -14,66 +14,17 @@ class Event extends AppModel {
  * @var array
  */
 	public $validate = array(
-		'title' => array(
-			'notempty' => array(
-				'rule' => array('notempty'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-		),
-		'status' => array(
-			'numeric' => array(
-				'rule' => array('numeric'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-		),
-		'date_start' => array(
-			'datetime' => array(
-				'rule' => array('datetime'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-		),
-		'date_end' => array(
-			'datetime' => array(
-				'rule' => array('datetime'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-		),
-		// 'category_id' => array(
-			// 'numeric' => array(
-				// 'rule' => array('numeric'),
-				// //'message' => 'Your custom message here',
-				// //'allowEmpty' => false,
-				// //'required' => false,
-				// //'last' => false, // Stop validation after this rule
-				// //'on' => 'create', // Limit validation to 'create' or 'update' operations
-			// ),
-		// ),
-		'place_id' => array(
-			'numeric' => array(
-				'rule' => array('numeric'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-		),
+		'title' => array('notempty' => array('rule' => array('notempty')))
+		, 'status' => array('numeric' => array('rule' => array('numeric')))
+		, 'date_start' => array('datetime' => array('rule' => array('datetime')))
+		, 'date_end' => array('datetime' => array('rule' => array('datetime')))
+		, 'place_id' => array('numeric' => array('rule' => array('numeric')))
+		, 'Category' => array(
+			'multiple' => array('rule' => array('multiple', array('min' => 1))
+			, 'message' => 'Es necesario seleccionar al menos una categoría'
+			, 'required' => true
+			)
+		)
 	);
 
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
@@ -110,4 +61,14 @@ class Event extends AppModel {
 			'insertQuery' => ''
 		),
 	);
+
+	public function beforeSave($options = array()){
+		foreach (array_keys($this->hasAndBelongsToMany) as $model) {
+			if(isset($this->data[$this->name][$model])) {
+				$this->data[$model] = $this->data[$this->name][$model];
+				unset($this->data[$this->name][$model]);
+			}
+		}
+		return true;
+	}
 }

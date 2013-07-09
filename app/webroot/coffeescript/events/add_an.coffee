@@ -5,14 +5,11 @@ RadarApp = angular.module('RadarApp', ['$strap.directives'])
 
 RadarApp.value('$strapConfig', {
 	datepicker: {
-		# language: 'fr',
+		language: 'es',
 		# format: 'M d, yyyy'
-	},
-	timepicker: {
-		time: "03:00",
-		time_from: "03:00"
-	},
-});
+	}
+})
+
 
 ### *******************************************************************************************************************
 								CATEGORIAS
@@ -34,6 +31,8 @@ RadarApp.controller 'CategoriaController', ($scope, $http) ->
 ******************************************************************************************************************* ###
 RadarApp.controller 'EventController', ($scope, $http) ->
 	date = new Date()
+	$scope.minutoEnMilisegundos = 60 * 1000
+	$scope.diaEnMilisegundos = 24 * 60 * $scope.minutoEnMilisegundos
 	$scope.event = {}
 	$scope.santafe = new google.maps.LatLng(-31.625906,-60.696774)
 	$scope.opciones = {zoom: 13, center: $scope.santafe, mapTypeId: google.maps.MapTypeId.ROADMAP}
@@ -42,7 +41,7 @@ RadarApp.controller 'EventController', ($scope, $http) ->
 	# $scope.event.date_to = "0000-00-01T00:00:00.000Z"
 	# $scope.event.time_from = date.getHours()-1 + ":00"
 	# $scope.event.time_to = (+date.getHours() + 1) + ":00"
-	$scope.event.categories = [] 
+	$scope.event.categories = []
 	
 	$scope.eventCategoriesAdd = (category) ->
 		if($scope.event.categories.length < 3)
@@ -73,23 +72,28 @@ RadarApp.controller 'EventController', ($scope, $http) ->
 			console.log "Tu navegador no soporta geolocalización. Iniciamos desde Santa Fe."	
 		
 	$scope.submit = ->
-		console.log $scope.eventForm.$valid
-		if $scope.event.categories.length <= 0
-			return console.error "Error: Debe seleccionar al menos una categoría"
-		console.log $scope.event
+		# Se verifica que se hayan rellenado todos los datos requeridos
+		if !$scope.eventForm.$valid
+			return @
 		
-	$scope.$watch 'event.date_from', (newValue) ->
-		console.log newValue
-
-
-	$scope.$watch 'event.address', (newValue) ->
-		$scope.setAddress(newValue)
-
+		# Se verifica que se haya seleccionado al menos una categoría
+		if $scope.event.categories.length <= 0
+			return console.error 'Error: Debe seleccionar al menos una categoría'
+			
+		# Se guarda el evento
+		$http.post('/events/add', {Event: $scope.event, Category: $scope.event.categories})
+			.success (data) ->
+				console.log 'Evento guardado'
+			.fail ->
+				console.log 'Ocurrió un error guardando el evento'
+		
 	$scope.geocoder = new google.maps.Geocoder()
 	
 	$scope.addAddressToMap = (response, status) ->
-		console.log response
-		if response.length is 0 or !response then return @ #si no pudo
+		if !response or response.length is 0 then return @ #si no pudo
+		
+		$scope.event.lat = response[0].geometry.location.lat()
+		$scope.event.long = response[0].geometry.location.lng()
 		
 		# blankicono que voy a usar para mostrar el punto en el mapa
 		icon = new google.maps.MarkerImage("http://gmaps-samples.googlecode.com/svn/trunk/markers/blue/blank.png"
@@ -101,19 +105,73 @@ RadarApp.controller 'EventController', ($scope, $http) ->
 		if $scope.marker? then $scope.marker.setMap(null)
 		
 		# creo el marcador con la posición, el mapa, y el icono
-		$scope.marker = new google.maps.Marker({'position': response[0].geometry.location
+		$scope.marker = new google.maps.Marker 
+			'position': response[0].geometry.location
 			, 'map': $scope.map
 			, 'icon': icon
-		})
 		
 		$scope.marker.setMap($scope.map) # inserto el marcador en el mapa
 	
-	
+	# setAddress hace la llamada al API y hace el callback
 	$scope.setAddress = (address) ->
 		request = new Object() # se crea un objeto request
 		request.address = address
 		request.bounds = $scope.map.getBounds()
-		$scope.geocoder.geocode(request, $scope.addAddressToMap) # geocode hace la conversión a un punto, y su segundo parámetro es una función de callback
+		request.region = 'AR'
+		# geocode hace la conversión a un punto, y su segundo parámetro es una función de callback
+		$scope.geocoder.geocode(request, $scope.addAddressToMap)
+	
+
+	# Se observa cuando cambia el address y se hace la llamada al API si la longitud es superior a 3
+	$scope.$watch 'event.address', (newValue) ->
+		$scope.setAddress(newValue) if newValue? and newValue.length > 3
+	
+	# Se observa cuando cambie el date_from y se setea el date_to
+	$scope.$watch 'event.date_from', (newValue) ->
+		# Se setea el mínimo día de finalización y el máximo día de finalización del evento
+		if newValue?
+			$('#date_to').datepicker('setDate', newValue)
+			$('#date_to').datepicker('setStartDate', newValue)
+			$('#date_to').datepicker('setEndDate', new Date(newValue.getTime() + (3 * $scope.diaEnMilisegundos)))
+			$scope.event.date_to = newValue
+
+	# Se observa cuando cambie el time_from y se setea el time_to
+	$scope.$watch 'event.time_from', (newValue) ->
+		# Se setea el mínimo tiempo de finalización y el máximo tiempo de finalización del evento
+		if newValue? then $scope.checkTimeTo()
+
+	# Se observa cuando cambie el time_to y se verifica que no sea menor a time_from
+	$scope.$watch 'event.time_to', (newValue) ->
+		# Se setea el mínimo tiempo de finalización y el máximo tiempo de finalización del evento
+		if newValue? then $scope.checkTimeTo()
+	
+	$scope.checkTimeTo = ->
+		# Se setea el mínimo tiempo de finalización y el máximo tiempo de finalización del evento
+		if $scope.event.time_from?
+			# Si las fechas de inicio y fin coinciden, el tiempo de inicio y finalización debería distar al menos
+			# 15 (quince) minutos.
+			if $scope.event.date_from is $scope.event.date_to
+				dateFrom = $scope.event.date_from
+				dateTo = $scope.event.date_to
+				timeFrom = ($scope.event.time_from).split(':')
+				dateStart = new Date(dateFrom.getFullYear(), dateFrom.getMonth(), dateFrom.getDate(), timeFrom[0], timeFrom[1])
+				dateEnd = new Date(dateStart.getTime() + (15 * $scope.minutoEnMilisegundos))
+				
+				# Si está vacío el time_to se autocompleta con una diferencia de 15 minutos
+				# si contiene algo, se verifica que la diferencia sea 15 minutos, sino se ajusta.
+				if !$scope.event.time_to?
+					$scope.event.time_to = dateEnd.getHours() + ':' + dateEnd.getMinutes()
+				else
+					timeTo = ($scope.event.time_to).split(':') 
+					dateEndAux = new Date(dateTo.getFullYear(), dateTo.getMonth(), dateTo.getDate(), timeTo[0], timeTo[1])
+					
+					# Se compara la dateEnd que debería ser con la dateEnd que es
+					# si la dateEnd que debería ser (15 minutos mayor a la dateStart), es mayor a la dateEnd calculada
+					# (dateEndAux), entonces se sobreescribe con la dateEnd que debería ser para respetar los 
+					# 15 minutos de diferencia. 
+					if dateEnd.getTime() > dateEndAux.getTime()
+						$scope.event.time_to = dateEnd.getHours() + ':' + dateEnd.getMinutes()
+		
 	
 # 
 # jQuery ->

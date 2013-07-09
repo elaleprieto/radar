@@ -5,10 +5,8 @@
   RadarApp = angular.module('RadarApp', ['$strap.directives']);
 
   RadarApp.value('$strapConfig', {
-    datepicker: {},
-    timepicker: {
-      time: "03:00",
-      time_from: "03:00"
+    datepicker: {
+      language: 'es'
     }
   });
 
@@ -42,6 +40,8 @@
   RadarApp.controller('EventController', function($scope, $http) {
     var date;
     date = new Date();
+    $scope.minutoEnMilisegundos = 60 * 1000;
+    $scope.diaEnMilisegundos = 24 * 60 * $scope.minutoEnMilisegundos;
     $scope.event = {};
     $scope.santafe = new google.maps.LatLng(-31.625906, -60.696774);
     $scope.opciones = {
@@ -88,25 +88,29 @@
       }
     };
     $scope.submit = function() {
-      console.log($scope.eventForm.$valid);
-      if ($scope.event.categories.length <= 0) {
-        return console.error("Error: Debe seleccionar al menos una categoría");
+      if (!$scope.eventForm.$valid) {
+        return this;
       }
-      return console.log($scope.event);
+      if ($scope.event.categories.length <= 0) {
+        return console.error('Error: Debe seleccionar al menos una categoría');
+      }
+      return $http.post('/events/add', {
+        Event: $scope.event,
+        Category: $scope.event.categories
+      }).success(function(data) {
+        return console.log('Evento guardado');
+      }).fail(function() {
+        return console.log('Ocurrió un error guardando el evento');
+      });
     };
-    $scope.$watch('event.date_from', function(newValue) {
-      return console.log(newValue);
-    });
-    $scope.$watch('event.address', function(newValue) {
-      return $scope.setAddress(newValue);
-    });
     $scope.geocoder = new google.maps.Geocoder();
     $scope.addAddressToMap = function(response, status) {
       var icon;
-      console.log(response);
-      if (response.length === 0 || !response) {
+      if (!response || response.length === 0) {
         return this;
       }
+      $scope.event.lat = response[0].geometry.location.lat();
+      $scope.event.long = response[0].geometry.location.lng();
       icon = new google.maps.MarkerImage("http://gmaps-samples.googlecode.com/svn/trunk/markers/blue/blank.png", new google.maps.Size(20, 34), new google.maps.Point(0, 0), new google.maps.Point(10, 34));
       if ($scope.marker != null) {
         $scope.marker.setMap(null);
@@ -118,12 +122,57 @@
       });
       return $scope.marker.setMap($scope.map);
     };
-    return $scope.setAddress = function(address) {
+    $scope.setAddress = function(address) {
       var request;
       request = new Object();
       request.address = address;
       request.bounds = $scope.map.getBounds();
+      request.region = 'AR';
       return $scope.geocoder.geocode(request, $scope.addAddressToMap);
+    };
+    $scope.$watch('event.address', function(newValue) {
+      if ((newValue != null) && newValue.length > 3) {
+        return $scope.setAddress(newValue);
+      }
+    });
+    $scope.$watch('event.date_from', function(newValue) {
+      if (newValue != null) {
+        $('#date_to').datepicker('setDate', newValue);
+        $('#date_to').datepicker('setStartDate', newValue);
+        $('#date_to').datepicker('setEndDate', new Date(newValue.getTime() + (3 * $scope.diaEnMilisegundos)));
+        return $scope.event.date_to = newValue;
+      }
+    });
+    $scope.$watch('event.time_from', function(newValue) {
+      if (newValue != null) {
+        return $scope.checkTimeTo();
+      }
+    });
+    $scope.$watch('event.time_to', function(newValue) {
+      if (newValue != null) {
+        return $scope.checkTimeTo();
+      }
+    });
+    return $scope.checkTimeTo = function() {
+      var dateEnd, dateEndAux, dateFrom, dateStart, dateTo, timeFrom, timeTo;
+      if ($scope.event.time_from != null) {
+        if ($scope.event.date_from === $scope.event.date_to) {
+          dateFrom = $scope.event.date_from;
+          dateTo = $scope.event.date_to;
+          timeFrom = $scope.event.time_from.split(':');
+          dateStart = new Date(dateFrom.getFullYear(), dateFrom.getMonth(), dateFrom.getDate(), timeFrom[0], timeFrom[1]);
+          dateEnd = new Date(dateStart.getTime() + (15 * $scope.minutoEnMilisegundos));
+          if ($scope.event.time_to == null) {
+            return $scope.event.time_to = dateEnd.getHours() + ':' + dateEnd.getMinutes();
+          } else {
+            timeTo = $scope.event.time_to.split(':');
+            dateEndAux = new Date(dateTo.getFullYear(), dateTo.getMonth(), dateTo.getDate(), timeTo[0], timeTo[1]);
+            if (dateEnd.getTime() > dateEndAux.getTime()) {
+              return $scope.event.time_to = dateEnd.getHours() + ':' + dateEnd.getMinutes();
+            }
+          }
+        }
+      }
     };
     /*
     	 time pickers

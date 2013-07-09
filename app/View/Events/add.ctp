@@ -36,19 +36,14 @@
         					    <div class="row-fluid">
                                     <h4>Información básica</h4>
                                 </div>
-        					    <?php //echo $this->Form->create('Event'); ?>
-        					        
-        					    
-        							<?php echo $this->Form->hidden('lat', array('id'=>'EventLat', 'class'=>'textbox')) ?>
-        							<?php echo $this->Form->hidden('long', array('id'=>'EventLong', 'class'=>'textbox')) ?>
         							
         							<!-- Título -->
         							<div class="row-fluid">
-                                        <?php //echo $this->Form->input('title', array('class'=>'textbox', 'label'=>__('Title'))) ?>
                                         <label for="EventTitle">Título</label>
                                         <input autofocus="true" class="textbox" id="EventTitle" maxlength="255" 
                                             ng-model="event.title" required="required" type="text">
         							</div>
+        							
         							<!-- Dirección -->
         							<div class="row-fluid">
                                         <label for="EventAddress">Dirección</label>
@@ -58,10 +53,6 @@
         							
         							<!-- Descripción -->
         							<div class="row-fluid">
-                                        <?php /*echo $this->Form->input('descripción', array('class'=>'textarea span12'
-                                            ,'rows' =>'4'
-                                            ,'label'=>__('Description')))*/
-                                        ?>
                                         <label for="EventDescripción">Descripción</label>
                                         <textarea class="textarea span12" cols="30" id="EventDescripción" 
                                             ng-model="event.description" required="required" rows="4">
@@ -149,47 +140,85 @@
                                     <h4>Ubicación</h4>
                                 </div>
         		                    <div class="row-fluid">
-                                        <label>Fecha y hora de inicio:</label>
+
                                         <!-- Fecha inicio -->
+                                        <label>Fecha y hora de inicio:</label>
                                         <div class="span6">
                                             <div class="control-group input-append">
-                                                <input bs-datepicker class="span9" data-date-format="dd/mm/yyyy" 
-                                                    ng-model="event.date_from" required="required" type="text" />
+                                                <input 
+                                                	autoclose = "true"
+                                                	bs-datepicker 
+                                                	class="span9" 
+                                                	data-date-format="dd/mm/yyyy"
+                                                	data-start-date="-1d" 
+                                                    id="date_from" 
+                                                    ng-model="event.date_from" 
+                                                    required="required" 
+                                                	today-btn="true" 
+                                                    type="text" 
+                                                />
                                                 <button type="button" class="btn" data-toggle="datepicker">
                                                     <i class="icon-calendar"></i>
                                                 </button>
                                             </div>
                                         </div>
+
                                         <!-- Hora inicio -->
                                         <div class="span4">
                                             <div class="control-group input-append">
-                                                <input bs-timepicker class="span9" data-show-meridian="false"
-                                                    id="time_from" ng-model="event.time_from" required="required" 
-                                                    type="text" />
+                                                <input 
+                                                	bs-timepicker 
+                                                	class="span9" 
+                                                	data-show-meridian="false"
+                                                    id="time_from" 
+                                                	ng-disabled="!event.date_from" 
+                                                    ng-model="event.time_from" 
+                                                    required="required" 
+                                                    type="text" 
+                                                />
                                                 <button type="button" class="btn" data-toggle="timepicker">
                                                     <i class="icon-time"></i>
                                                 </button>
                                             </div>
                                         </div>
                                     </div>
-                                    
                                     <div class="row-fluid">
-                                        <label>Fecha y hora de fin:</label>
+
                                         <!-- Fecha fin -->
+                                        <label>Fecha y hora de fin:</label>
                                         <div class="span6">
                                             <div class="control-group input-append">
-                                                <input bs-datepicker class="span9" data-date-format="dd/mm/yyyy" 
-                                                    ng-model="event.date_to" required="required" type="text" />
+                                                <input
+                                                	autoclose = "true" 
+                                                	bs-datepicker 
+                                                	class="span9" 
+                                                	data-end-date="12/07/2013" 
+                                                	id="date_to" 
+                                                	data-date-format="dd/mm/yyyy" 
+                                                	ng-disabled="!event.date_from" 
+                                                	ng-model="event.date_to" 
+                                                	required="required" 
+                                                	today-btn="true" 
+                                                	type="text" 
+                                                />
                                                 <button type="button" class="btn" data-toggle="datepicker">
                                                     <i class="icon-calendar"></i>
                                                 </button>
                                             </div>
                                         </div>
+
                                         <!-- Hora fin -->
                                         <div class="span4">
                                             <div class="control-group input-append">
-                                                <input bs-timepicker class="span9" data-show-meridian="false" 
-                                                    ng-model="event.time_to" required="required" type="text" />
+                                                <input 
+                                                	bs-timepicker 
+                                                	class="span9" 
+                                                	data-show-meridian="false"
+                                                	ng-disabled="!event.date_from && !event.time_from" 
+                                                    ng-model="event.time_to" 
+                                                    required="required" 
+                                                    type="text" 
+                                                />
                                                 <button type="button" class="btn" data-toggle="timepicker">
                                                     <i class="icon-time"></i>
                                                 </button>
