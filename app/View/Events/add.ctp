@@ -1,6 +1,20 @@
-<?php echo $this->Html->css(array('vendors/bootstrap-datepicker', 'vendors/bootstrap-timepicker', 'inicio','events/add'), '', array('inline'=>false)) ?>
-<?php echo $this->Html->script(array('http://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true'
-    , 'vendors/angular-strap.min', 'vendors/bootstrap-datepicker', 'vendors/bootstrap-timepicker', 'events/add_an'), array('inline'=>false)) ?>
+<?php
+echo $this->Html->css(array('vendors/bootstrap-datepicker'
+		, 'vendors/bootstrap-timepicker'
+		, 'inicio'
+		,'events/add'
+	)
+	, ''
+	, array('inline'=>false))
+
+echo $this->Html->script(array('http://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true'
+	    , 'vendors/angular-strap.min'
+	    , 'vendors/bootstrap-datepicker'
+	    , 'vendors/bootstrap-timepicker'
+	    , 'events/add_an'
+	)
+	, array('inline'=>false))
+?>
 
 <div ng-controller="EventController">
 
@@ -65,8 +79,13 @@
                                         <div ng-controller="CategoriaController">
                                             <div class="row-fluid">
                                                 <div class="span12">
-                                                    <div class="row-fluid categoriaLink" ng-class="{highlight:categoria.highlight}" 
-                                                       ng-model="categoria" ng-repeat="categoria in categorias" ng-click="show(categoria)">
+                                                    <div 
+                                                    	class="row-fluid categoriaLink"
+                                                    	ng-class="{highlight:categoria.highlight}"
+                                                    	ng-model="categoria"
+                                                    	ng-repeat="categoria in categorias"
+                                                    	ng-click="show(categoria)">
+                                                        
                                                         <div class="span1">
                                                             <img class="icono-categoria" 
                                                                ng-src="/img/categorias/{{categoria.Category.icon}}" />
@@ -76,58 +95,7 @@
                                                 </div>
                                             </div>
                                         </div>
-        							    
-                                        <?php // foreach ($categories as $categoria): ?>
-                                            <!-- <div class="categoria active span5"> -->
-                                                <?php /*
-                                                    $cat=str_replace("á","a",$categoria);
-                                                    $cat=str_replace("é","e",$cat);
-                                                    $cat=str_replace("í","i",$cat);
-                                                    $cat=str_replace("ó","o",$cat);
-                                                    $cat=str_replace("ú","u",$cat);
-                                                    $cat=str_replace("ñ","ni",$cat);
-                                                    echo $this->Html->image('categorias/'.strtolower(preg_replace("/[^A-z]/","",$cat)).'.png', array('class'=>'icono-categoria'));
-                                                    echo $categoria;
-                                                 * */
-                                                ?>
-                                                
-                                            <!-- </div> -->
-                                        <?php //endforeach ?>
         							</div>
-        							<!--
-        							<div id="categoriesSelect">
-        								 <fieldset>
-        							        <legend><?php __('Categories');?></legend>
-        							        <?php
-        							        $i = 0;
-        							        // output all the checkboxes at once
-        							        echo $this->Form->input('Category',array(
-        							        	// 'class' => 'categories',
-        							            'label' => __('Categories',true),
-        							            'multiple' => 'checkbox',
-        							            'options' => $categories,
-        							            'selected' => $this->Html->value('Category.Category'),
-        							            'type' => 'select',
-        							            'submit' => 'Category.logo',
-        							            'class' => 'checkbox',
-        							            //'class' => 'checkboxFour',
-        							        ));
-        							        /*
-        							        // output all the checkboxes individually
-        							        $checked = $form->value('Category.Category');
-        							        echo $form->label(__('Categories',true));
-        							        foreach ($categories as $id=>$label) {
-        							            echo $form->input("Category.checkbox.$id", array(
-        							                'label'=>$label,
-        							                'type'=>'checkbox',
-        							                'checked'=>(isset($checked[$id])?'checked':false),
-        							            ));
-        							        }
-        							        */
-        							        ?>
-        							    </fieldset>
-        							</div>-->
-        						<!--<?php echo $this->Form->end(__('Submit')); ?>-->
         					</div>
         				</div>
         			</div>
@@ -285,7 +253,12 @@
                                             no
                                         </label>
                                     </div>   
-                                    <?php echo $this->Form->input('precio', array('class'=>'textbox span4 inline', 'label'=>FALSE, 'placeholder'=>'precio')) ?>
+                                    <?php echo $this->Form->input('precio'
+                                    	, array('class'=>'textbox span4 inline'
+                                    		, 'label'=>FALSE, 'placeholder'=>'precio'
+											)
+										) 
+									?>
                                 </div>
                                 <div class="row-fluid">
                                     <?php echo $this->Form->input('web', array('class'=>'textbox', 'label'=>__('web'))) ?>
@@ -294,7 +267,12 @@
                                     <?php echo $this->Form->input('video', array('class'=>'textbox', 'label'=>__('video'))) ?>
                                 </div>
                                 <div class="row-fluid">
-                                    <?php echo $this->Form->input('noticia', array('class'=>'textbox', 'label'=>__('fuente de noticias'))) ?>
+                                    <?php echo $this->Form->input('noticia'
+                                    	, array('class'=>'textbox'
+                                    		, 'label'=>__('fuente de noticias')
+											)
+										)
+									?>
                                 </div>
                                 <div class="row-fluid">
                                     <?php echo $this->Form->input('foto', array('class'=>'textbox', 'label'=>__('foto'))) ?>
