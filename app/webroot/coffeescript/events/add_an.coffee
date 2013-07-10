@@ -84,6 +84,7 @@ RadarApp.controller 'EventController', ($scope, $http) ->
 		$http.post('/events/add', {Event: $scope.event, Category: $scope.event.categories})
 			.success (data) ->
 				console.log 'Evento guardado'
+				window.location.pathname = 'events'
 			.error ->
 				console.log 'Ocurrió un error guardando el evento'
 		

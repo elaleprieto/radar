@@ -98,7 +98,8 @@
         Event: $scope.event,
         Category: $scope.event.categories
       }).success(function(data) {
-        return console.log('Evento guardado');
+        console.log('Evento guardado');
+        return window.location.pathname = 'events';
       }).error(function() {
         return console.log('Ocurrió un error guardando el evento');
       });
