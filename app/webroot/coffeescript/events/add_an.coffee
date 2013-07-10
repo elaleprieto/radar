@@ -72,20 +72,37 @@ RadarApp.controller 'EventController', ($scope, $http) ->
 			console.log "Tu navegador no soporta geolocalización. Iniciamos desde Santa Fe."	
 		
 	$scope.submit = ->
+		# Se actualiza el mensaje
+		$scope.cargando = 'Cargando.'
+		
 		# Se verifica que se hayan rellenado todos los datos requeridos
 		if !$scope.eventForm.$valid
+			# Se actualiza el mensaje
+			$scope.cargando = null
 			return @
+		
+		# Se actualiza el mensaje
+		$scope.cargando = 'Cargando..'
 		
 		# Se verifica que se haya seleccionado al menos una categoría
 		if $scope.event.categories.length <= 0
+			# Se actualiza el mensaje
+			$scope.cargando = 'Error: Debe seleccionar al menos una categoría'
 			return console.error 'Error: Debe seleccionar al menos una categoría'
 			
+		# Se actualiza el mensaje
+		$scope.cargando = 'Cargando...'
+
 		# Se guarda el evento
 		$http.post('/events/add', {Event: $scope.event, Category: $scope.event.categories})
 			.success (data) ->
+				# Se actualiza el mensaje
+				$scope.cargando = '¡Evento guardado!'
 				console.log 'Evento guardado'
 				window.location.pathname = 'events'
 			.error ->
+				# Se actualiza el mensaje
+				$scope.cargando = 'Ocurrió un error guardando el evento'
 				console.log 'Ocurrió un error guardando el evento'
 		
 	$scope.geocoder = new google.maps.Geocoder()

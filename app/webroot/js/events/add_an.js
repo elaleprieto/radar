@@ -88,19 +88,26 @@
       }
     };
     $scope.submit = function() {
+      $scope.cargando = 'Cargando.';
       if (!$scope.eventForm.$valid) {
+        $scope.cargando = null;
         return this;
       }
+      $scope.cargando = 'Cargando..';
       if ($scope.event.categories.length <= 0) {
+        $scope.cargando = 'Error: Debe seleccionar al menos una categoría';
         return console.error('Error: Debe seleccionar al menos una categoría');
       }
+      $scope.cargando = 'Cargando...';
       return $http.post('/events/add', {
         Event: $scope.event,
         Category: $scope.event.categories
       }).success(function(data) {
+        $scope.cargando = '¡Evento guardado!';
         console.log('Evento guardado');
         return window.location.pathname = 'events';
       }).error(function() {
+        $scope.cargando = 'Ocurrió un error guardando el evento';
         return console.log('Ocurrió un error guardando el evento');
       });
     };

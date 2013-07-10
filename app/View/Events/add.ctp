@@ -5,7 +5,8 @@ echo $this->Html->css(array('vendors/bootstrap-datepicker'
 		,'events/add'
 	)
 	, ''
-	, array('inline'=>false))
+	, array('inline'=>false)
+);
 
 echo $this->Html->script(array('http://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true'
 	    , 'vendors/angular-strap.min'
@@ -13,7 +14,8 @@ echo $this->Html->script(array('http://maps.googleapis.com/maps/api/js?v=3.exp&s
 	    , 'vendors/bootstrap-timepicker'
 	    , 'events/add_an'
 	)
-	, array('inline'=>false))
+	, array('inline'=>false)
+);
 ?>
 
 <div ng-controller="EventController">
@@ -279,8 +281,14 @@ echo $this->Html->script(array('http://maps.googleapis.com/maps/api/js?v=3.exp&s
                                 </div>
                            </div>
                         </div>
-                        
-                         <?php echo $this->Form->end(__('Submit')); ?>
+                        <div class="row-fluid">
+							<input type="submit" value="Enviar">
+						</div>
+                        <div class="row-fluid" ng-show='cargando'>
+                        	<div class="alert alert-info span12">
+								<span ng-bind='cargando'></span>
+                        	</div>
+						</div>
         			</div>
                 </form>
     		</div>
