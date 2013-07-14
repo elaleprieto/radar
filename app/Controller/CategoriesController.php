@@ -12,7 +12,7 @@ class CategoriesController extends AppController {
 	**************************************************************************************************************/
     public function beforeFilter() {
         parent::beforeFilter();
-        $this -> Auth -> allow('get', 'index', 'indice', 'listar');
+        $this -> Auth -> allow('index');
     }
 	
 	public function isAuthorized($user) {

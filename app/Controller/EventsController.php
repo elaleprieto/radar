@@ -12,7 +12,7 @@
 		**************************************************************************************************************/
         public function beforeFilter() {
             parent::beforeFilter();
-            $this -> Auth -> allow('get', 'index', 'indice', 'listar');
+            $this -> Auth -> allow('get', 'index', 'indice');
         }
 		
 		public function isAuthorized($user) {
@@ -50,18 +50,6 @@
         
         public function indice() {
             $this->layout='ajax';
-        }
- 
-        /**
-         * list method
-         *
-         * @return void
-         */
-        public function listar() {
-            $this->Event->Category->recursive = -1;
-            $categories = $this -> Event -> Category -> find('list', array('fields' => 'name'));
-            $categorias = $this -> Event -> Category -> find('all', array('order'=>'Category.name ASC'));
-            $this -> set(compact('categories', 'categorias'));
         }
 
         /**
