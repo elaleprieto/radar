@@ -189,6 +189,8 @@ RadarApp.controller 'EventController', ($scope, $http) ->
 					# 15 minutos de diferencia. 
 					if dateEnd.getTime() > dateEndAux.getTime()
 						$scope.event.time_to = dateEnd.getHours() + ':' + dateEnd.getMinutes()
+						# Ajuste de minutos cuando es cero
+						if dateEnd.getMinutes() is 0 then $scope.event.time_to += '0'
 		
 	
 # 

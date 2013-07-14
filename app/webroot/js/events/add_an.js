@@ -176,7 +176,10 @@
             timeTo = $scope.event.time_to.split(':');
             dateEndAux = new Date(dateTo.getFullYear(), dateTo.getMonth(), dateTo.getDate(), timeTo[0], timeTo[1]);
             if (dateEnd.getTime() > dateEndAux.getTime()) {
-              return $scope.event.time_to = dateEnd.getHours() + ':' + dateEnd.getMinutes();
+              $scope.event.time_to = dateEnd.getHours() + ':' + dateEnd.getMinutes();
+              if (dateEnd.getMinutes() === 0) {
+                return $scope.event.time_to += '0';
+              }
             }
           }
         }
