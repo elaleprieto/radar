@@ -6,11 +6,32 @@
      * @property Event $Event
      */
     class EventsController extends AppController {
-
+		
+		/*
+		 *  Authentication
+		 */
         public function beforeFilter() {
             parent::beforeFilter();
             $this -> Auth -> allow('get', 'index', 'indice', 'listar');
         }
+		
+		public function isAuthorized($user) {
+		    # All registered users can add events
+		    if ($this->action === 'add') {
+		        return true;
+		    }
+		
+		    # The owner of an event can edit and delete it
+		    if (in_array($this->action, array('edit', 'delete'))) {
+		        $eventId = $this->request->params['pass'][0];
+		        if ($this->Event->isOwnedBy($eventId, $user['id'])) {
+		            return true;
+		        }
+		    }
+		
+		    return parent::isAuthorized($user);
+		}
+		
 
         /**
          * index method
