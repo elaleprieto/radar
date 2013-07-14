@@ -12,7 +12,7 @@
 		**************************************************************************************************************/
         public function beforeFilter() {
             parent::beforeFilter();
-            $this -> Auth -> allow('get', 'index', 'indice');
+            $this -> Auth -> allow('get', 'index');
         }
 		
 		public function isAuthorized($user) {
@@ -47,10 +47,6 @@
             $categorias = $this -> Event -> Category -> find('all', array('order'=>'Category.name ASC'));
             $this -> set(compact('categories', 'categorias'));
         }
-        
-        public function indice() {
-            $this->layout='ajax';
-        }
 
         /**
          * view method
@@ -75,10 +71,9 @@
         public function add() {
             if ($this->request->is('post')) {
                 $this->layout = 'ajax';
-                
+                date_default_timezone_set('UTC');
+				
                 $data = $this->request->input('json_decode');
-                // debug($data);
-                // return;
                 $date_start = strtotime($data->Event->date_from);
                 $time_start = strtotime($data->Event->time_from);
                 $date_end = strtotime($data->Event->date_to);
