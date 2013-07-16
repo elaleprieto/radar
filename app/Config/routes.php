@@ -27,6 +27,10 @@
  */
 	// Router::connect('/', array('controller' => 'pages', 'action' => 'display', 'home'));
 	Router::connect('/', array('controller' => 'events', 'action' => 'index'));
+	Router::connect('/about', array('controller'=>'pages', 'action'=>'display', 'about'));
+	Router::connect('/contacto', array('controller'=>'pages', 'action'=>'display', 'contacto'));
+	Router::connect('/espacios', array('controller'=>'places', 'action'=>'index'));
+	Router::connect('/eventos', array('controller'=>'events', 'action'=>'index'));
 	Router::connect('/login', array('controller'=>'users', 'action'=>'login'));
 	Router::connect('/registrate', array('controller'=>'users', 'action'=>'add'));
     
