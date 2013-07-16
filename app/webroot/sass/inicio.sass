@@ -1,17 +1,21 @@
 @import compass/css3
 
 $blanco: #FFFFFF
-$celeste_claro: #34C8ED
-$celeste_oscuro: #00AAD4
 $gris: #D4D4D4
-$rojo_claro: #F28E8E
-$rojo_oscuro: #C83737
-$verde_claro: #AFDB00
-$verde_oscuro: #88AA00
+$verde_claro: #C7E64D
+$verde_oscuro: #7A9900
+
+@font-face 
+	font-family: "isocpe"
+	src: url(Isocpeur-Regular.ttf) format("truetype")
 	
-+font-face("cantarell", font-files("cantarell_regular.ttf"))
-+font-face("cafe", font-files("cafe_brewery.ttf"))
-+font-face("iso", font-files("Isocpeur-Regular.ttf"))
+@font-face 
+	font-family: "codeBold"
+	src: url(CODE_Bold.otf) format("opentype")
+	
+@font-face
+	font-family: "liberation"
+	src: url(LiberationSans-Regular.ttf) format("truetype")
 
 #map img
 	max-width: none
@@ -21,68 +25,17 @@ $verde_oscuro: #88AA00
 
 body
 	font:
-		family: 'iso'
-		size: 16px
+		family: 'liberation'
+		size: 14px
 
 ul.nav
-	height: 50px
+	height: 55px
 
 .btn
 	font:
-		family: 'iso'
+		family: 'isocpe'
 		size: 16px
 		weight: bold
-
-.btn-celeste
-	color: #FFFFFF
-	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25)
-	background-color: $celeste_oscuro
-	*background-color: $celeste_oscuro
-	background-image: -moz-linear-gradient(top, $celeste_claro, $celeste_oscuro)
-	background-image: -webkit-gradient(linear, 0 0, 0 100%, from($celeste_claro), to($celeste_oscuro))
-	background-image: -webkit-linear-gradient(top, $celeste_claro, $celeste_oscuro)
-	background-image: -o-linear-gradient(top, $celeste_claro, $celeste_oscuro)
-	background-image: linear-gradient(to bottom, $celeste_claro, $celeste_oscuro)
-	background-repeat: repeat-x
-	border-color: #00AAD4
-	border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25)
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$celeste_claro', endColorstr='$celeste_oscuro', GradientType=0)
-	filter: progid:DXImageTransform.Microsoft.gradient(enabled=false)
-	
-.btn-celeste:hover,
-.btn-celeste:active,
-.btn-celeste.active,
-.btn-celeste.disabled,
-.btn-celeste[disabled]
-	color: #FFFFFF
-	background-color: $celeste_oscuro
-	*background-color: $celeste_claro
-
-.btn-rojo
-	color: #FFFFFF
-	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25)
-	background-color: #C83737
-	*background-color: #C83737
-	background-image: -moz-linear-gradient(top, $rojo_claro, $rojo_oscuro)
-	background-image: -webkit-gradient(linear, 0 0, 0 100%, from($rojo_claro), to($rojo_oscuro))
-	background-image: -webkit-linear-gradient(top, $rojo_claro, $rojo_oscuro)
-	background-image: -o-linear-gradient(top, $rojo_claro, $rojo_oscuro)
-	background-image: linear-gradient(to bottom, $rojo_claro, $rojo_oscuro)
-	background-repeat: repeat-x
-	border-color: $rojo_oscuro
-	border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25)
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$rojo_claro', endColorstr='$rojo_oscuro', GradientType=0)
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$rojo_claro', endColorstr='$rojo_oscuro', GradientType=0)
-	filter: progid:DXImageTransform.Microsoft.gradient(enabled=false)
-
-.btn-rojo:hover,
-.btn-rojo:active,
-.btn-rojo.active,
-.btn-rojo.disabled,
-.btn-rojo[disabled]
-	color: #FFFFFF
-	background-color: $rojo_oscuro
-	*background-color: $rojo_claro
 
 .btn-verde
 	color: #FFFFFF
@@ -128,30 +81,30 @@ ul.nav
 	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25)
 
 .menu
-	padding: 3px
 	font:
-		family: 'iso'
+		family: 'isocpe'
 		weight: bold
+		size: 18px
 
 .navbar .btn, .navbar .btn-group
 	margin-top: 10px
 
 .navbar .nav > li > a.menu
-	height: 30px
+	height: 33px
 	padding:
 		bottom: 5px
-		top: 15px
+		top: 18px
 	
 .navbar .nav > li > a.menu-brand
 	font:
 		size: 20px
-	height: 40px
+	height: 35px
 	padding:
 		bottom: 5px
 		top: 5px
 
 .navbar .navbar-inner
-	height: 50px
+	height: 55px
 	background-color: $blanco
 	background-image: -moz-linear-gradient(top, $blanco, $blanco)
 	background-image: -webkit-gradient(linear, 0 0, 0 100%, from($blanco), to($blanco))
