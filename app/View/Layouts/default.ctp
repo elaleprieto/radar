@@ -65,11 +65,26 @@
 			<div id="footer"></div>
 		</div>
 
-		<?php echo $this->Html->script(array('https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js', 'https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js', 'vendors/bootstrap.min'))
+		<?php echo $this->Html->script(array('https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js'
+			, 'https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js'
+			, 'vendors/bootstrap.min'
+			)
+		)
 		?>
 		<?php echo $this->fetch('script')
 		?>
 
 		<?php echo $this -> element('sql_dump'); ?>
+		
+		<script type="text/javascript">
+		  var _gaq = _gaq || [];
+		  _gaq.push(['_setAccount', 'UA-27799433-2']);
+		  _gaq.push(['_trackPageview']);
+		  (function() {
+		    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		  })();
+		</script>
 	</body>
 </html>
