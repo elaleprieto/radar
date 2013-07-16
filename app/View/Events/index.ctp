@@ -14,7 +14,6 @@
         <!-- MAPA -->
         <div class="span8">
             <div class="row">
-                <p>Una agenda de cultura, <b>hecha por todxs</b></p>
                 <div id="map"></div>
     		</div>
             <div class="row">
@@ -23,8 +22,8 @@
     			<div id="eventInterval" class="control-group btn-group" data-toggle="buttons-radio">
     			    <button type="button" class="btn disabled">qué hacer...</button>
     				<button type="button" class="btn btn-verde active" ng-click="setEventInterval(1)">Hoy</button>
-    				<button type="button" class="btn btn-celeste" ng-click="setEventInterval(2)">Mañana</button>
-    				<button type="button" class="btn btn-rojo" ng-click="setEventInterval(7)">Próximos 7 días</button>
+    				<button type="button" class="btn btn-verde" ng-click="setEventInterval(2)">Mañana</button>
+    				<button type="button" class="btn btn-verde" ng-click="setEventInterval(7)">Próximos 7 días</button>
     			</div>
     			<div id="eventInterval" class="control-group btn-group pull-right" data-toggle="buttons-radio">
                     <?php echo $this->Html->link('Agregar evento'
