@@ -1,5 +1,12 @@
-/* line 1, ../../sass/users/add.sass */
+@font-face { font-family: "isocpe"; src: url(../Isocpeur-Regular.ttf) format("truetype"); }
+
+@font-face { font-family: "codebold"; src: url(../CODE_Bold.otf); }
+
+/* line 12, ../../sass/users/add.sass */
 .gender label { display: inline-block; margin-right: 10px; }
 
-/* line 5, ../../sass/users/add.sass */
+/* line 16, ../../sass/users/add.sass */
 .gender input[type="radio"] { margin: 0; margin-right: 2px; }
+
+/* line 20, ../../sass/users/add.sass */
+.resaltado { background-color: #a1ca00; color: white; font-family: "codebold"; font-size: 20px; padding-bottom: 2px; padding-top: 2px; }

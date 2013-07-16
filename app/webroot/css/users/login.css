@@ -1,0 +1,4 @@
+@font-face { font-family: "isocpe"; src: url(../Isocpeur-Regular.ttf) format("truetype"); }
+
+/* line 5, ../../sass/users/login.sass */
+h1 { font-family: "isocpe"; }

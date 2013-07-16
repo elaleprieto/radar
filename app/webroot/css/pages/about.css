@@ -1,0 +1,8 @@
+/* line 4, ../../sass/pages/about.sass */
+li { text-align: justify; }
+
+/* line 7, ../../sass/pages/about.sass */
+p { text-align: justify; }
+
+/* line 10, ../../sass/pages/about.sass */
+.resaltado { background-color: #a1ca00; color: white; font-family: "isocpe"; font-size: 20px; padding-bottom: 2px; padding-top: 2px; }

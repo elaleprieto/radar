@@ -87,7 +87,6 @@ echo $this->Html->script(array('http://maps.googleapis.com/maps/api/js?v=3.exp&s
                                                     	ng-model="categoria"
                                                     	ng-repeat="categoria in categorias"
                                                     	ng-click="show(categoria)">
-                                                        
                                                         <div class="span1">
                                                             <img class="icono-categoria" 
                                                                ng-src="/img/categorias/{{categoria.Category.icon}}" />

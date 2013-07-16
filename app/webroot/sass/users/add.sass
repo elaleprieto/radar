@@ -1,3 +1,14 @@
+$blanco: #FFFFFF
+$verde: #A1CA00
+
+@font-face 
+	font-family: "isocpe"
+	src: url(../Isocpeur-Regular.ttf) format("truetype")
+	
+@font-face 
+	font-family: "codebold"
+	src: url(../CODE_Bold.otf)
+
 .gender label
 	display: inline-block
 	margin-right: 10px
@@ -5,3 +16,14 @@
 .gender input[type="radio"]
 	margin: 0
 	margin-right: 2px
+		
+.resaltado
+	background:
+		color: $verde
+	color: $blanco
+	font:
+		family: 'codebold'
+		size: 20px
+	padding:
+		bottom: 2px
+		top: 2px

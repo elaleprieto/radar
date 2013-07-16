@@ -1,0 +1,19 @@
+@font-face { font-family: "codebold"; src: url(CODE_Bold.otf); }
+
+/* line 9, ../../sass/pages/contact.sass */
+label { font-family: "liberation"; font-size: 14px; }
+
+/* line 14, ../../sass/pages/contact.sass */
+input { font-family: "liberation"; }
+
+/* line 18, ../../sass/pages/contact.sass */
+textarea { font-family: "liberation"; font-size: 14px; }
+
+/* line 23, ../../sass/pages/contact.sass */
+.formulario { font-family: "isocpe"; font-size: 18px; }
+
+/* line 28, ../../sass/pages/contact.sass */
+.resaltado { background-color: #a1ca00; color: white; font-family: "codebold"; padding-top: 1px; text-align: center; }
+
+/* line 39, ../../sass/pages/contact.sass */
+.titulo { text-align: center; }
