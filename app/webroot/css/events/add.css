@@ -14,11 +14,11 @@
 .highlight { background-color: yellow; }
 
 /* line 17, ../../sass/events/add.sass */
-select { max-width: 100%; }
-/* line 20, ../../sass/events/add.sass */
-select[name*="month"] { min-width: 100px; }
-/* line 23, ../../sass/events/add.sass */
-select[name*="year"] { min-width: 65px; }
-
-/* line 26, ../../sass/events/add.sass */
 .textbox { width: 100%; width: -moz-available; }
+
+/* line 21, ../../sass/events/add.sass */
+select { max-width: 100%; }
+/* line 24, ../../sass/events/add.sass */
+select[name*="month"] { min-width: 100px; }
+/* line 27, ../../sass/events/add.sass */
+select[name*="year"] { min-width: 65px; }

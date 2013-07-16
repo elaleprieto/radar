@@ -5,7 +5,10 @@ body { padding-top: 60px; }
 .checkbox.inline { margin-left: 0 !important; margin-right: 10px; }
 
 /* line 8, ../../sass/layouts/default.sass */
-.username { margin-right: 10px; }
+.menu_icono { padding: 0; }
 
 /* line 11, ../../sass/layouts/default.sass */
+.username { font-family: "isocpe"; font-size: 18px; font-weight: bold; margin-right: 20px; padding-top: 10px; }
+
+/* line 21, ../../sass/layouts/default.sass */
 #map { height: 400px; margin-bottom: 20px; width: 100%; }

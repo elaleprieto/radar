@@ -1,5 +1,5 @@
-/* line 1, ../../sass/events/index.sass */
+/* line 4, ../../sass/events/index.sass */
 .categoriaLink { cursor: pointer; }
 
-/* line 4, ../../sass/events/index.sass */
-.highlight { background-color: yellow; }
+/* line 7, ../../sass/events/index.sass */
+.highlight { background-color: #ddf094; color: white; }
