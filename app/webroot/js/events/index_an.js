@@ -189,7 +189,7 @@
     $scope.showOverlays = function() {
       return $scope.setAllMap($scope.map);
     };
-    return $scope.inicializar();
+    return $scope.setDefaultLocation();
   });
 
 }).call(this);

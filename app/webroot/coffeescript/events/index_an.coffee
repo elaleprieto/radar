@@ -206,7 +206,8 @@ RadarApp.controller 'EventoController', ($scope, $http) ->
 		$scope.setAllMap($scope.map)
 	
 	# Se inicializa el mapa
-	$scope.inicializar()
+	# $scope.inicializar() # Se lo quito por ahora pero debería centrar el mapa en el lugar del visitante..
+	$scope.setDefaultLocation() # Se agrega esta línea para inicializar el mapa pero la idea es que inicialice con inicializar()
 	
 	
 	
