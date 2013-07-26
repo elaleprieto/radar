@@ -1,5 +1,8 @@
-/* line 4, ../../sass/events/index.sass */
+/* line 5, ../../sass/events/index.sass */
 .categoriaLink { cursor: pointer; }
 
-/* line 7, ../../sass/events/index.sass */
-.highlight { background-color: #ddf094; color: white; }
+/* line 8, ../../sass/events/index.sass */
+.highlight { background-color: #f8f8f8; }
+
+/* line 12, ../../sass/events/index.sass */
+.itemcate { height: 30px; line-height: 30px; display: inline-block; vertical-align: middle; padding-left: 3px; }
