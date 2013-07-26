@@ -48,7 +48,7 @@
                 	            <img class="icono-categoria" 
                 	               ng-src="<?php echo IMAGES_URL ?>categorias/{{categoria.Category.icon}}" />
             	            </div>
-                	        <div class="span10" ng-bind="categoria.Category.name"></div>
+                	        <div class="span10 itemcate" ng-bind="categoria.Category.name"></div>
             	        </div>
         	        </div>
         	    </div>
