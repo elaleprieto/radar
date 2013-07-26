@@ -19,7 +19,7 @@
 				<div class="navbar-inner">
 					<div class="container">
     					<ul class="nav">
-                            <li><?= $this->Html->link( $this->Html->image("logoapaisado.png", array('alt'=>'logo')),'/', array('class'=>'menu_icono','style'=>'padding-top: 2px','escape' => false));?></li>
+                            <li><?= $this->Html->link( $this->Html->image("logoOk.png", array('alt'=>'logo')),'/', array('class'=>'menu_icono','style'=>'padding-top: 2px','escape' => false));?></li>
                             <li><?= $this->Html->link('Espacios', '/espacios', array('class'=>'menu')) ?></li>
                             <li><?= $this->Html->link('Eventos','/', array('class'=>'menu')) ?></li>
                             <li><?= $this->Html->link('Sobre radar', '/about', array('class'=>'menu')) ?></li>
