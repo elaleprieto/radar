@@ -87,18 +87,30 @@ RadarApp.controller 'CategoriaController', ($scope) ->
 								EVENTOS
 ******************************************************************************************************************* ###
 
-RadarApp.controller 'EventoController', ($scope, $http) ->
+RadarApp.controller 'EventoController', ($scope, $http, $timeout) ->
 
 	### ***************************************************************************************************************
 			Inicialización de Objetos
 	*************************************************************************************************************** ###
-	$scope.capital = new google.maps.LatLng(-34.603, -58.382)
-	$scope.santafe = new google.maps.LatLng(-31.625906,-60.696774)
 	$scope.eventCategory = []
 	$scope.eventInterval = 1
-	$scope.opciones = {zoom: 13, center: window.santafe, mapTypeId: google.maps.MapTypeId.ROADMAP}
+
+	# Cities
+	$scope.capital = new google.maps.LatLng(-34.603, -58.382)
+	$scope.cordoba = new google.maps.LatLng(-31.388813, -64.179726)
+	$scope.santafe = new google.maps.LatLng(-31.625906,-60.696774)
+	$scope.cordobaSantafe = new google.maps.LatLng(-31.52081,-62.411469)
+	$scope.locationDefault = $scope.cordobaSantafe
+	$scope.zoomDefault = 8
+	$scope.zoomSantafe = 12
+	$scope.zoomCordoba = 11
+	$scope.zoomCity = 12
+	
+	# Map defaults
+	$scope.opciones = {zoom: $scope.zoomDefault, center: $scope.locationDefault, mapTypeId: google.maps.MapTypeId.ROADMAP}
 	$scope.map = new google.maps.Map(document.getElementById("map"), $scope.opciones)
 	$scope.markers = []
+	
 
 	### ***************************************************************************************************************
 			Eventos
@@ -155,6 +167,20 @@ RadarApp.controller 'EventoController', ($scope, $http) ->
 				.success (data) ->
 					$scope.eventos = data
 	
+	# centerMap: centers map with parameter city
+	$scope.centerMap = (city) ->
+		$scope.map.setZoom($scope.zoomDefault)
+		
+		switch city
+			when 'cordoba' 
+				location = $scope.cordoba
+				$scope.map.setZoom($scope.zoomCordoba)
+			when 'santafe'
+				location = $scope.santafe
+				$scope.map.setZoom($scope.zoomSantafe)
+			else location = $scope.locationDefault
+		$scope.map.setCenter(location)
+	
 	# Inicializa el mapa
 	$scope.inicializar = ->
 		if navigator.geolocation
@@ -163,7 +189,7 @@ RadarApp.controller 'EventoController', ($scope, $http) ->
 				initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude)
 				$scope.map.setCenter(initialLocation)
 			, ->
-				$scope.setDefaultLocation()
+				$scope.setLocationDefault()
 	
 	# A function to create the marker and set up the event window function
 	$scope.createMarker = (eventId, eventTitle, latlng) ->
@@ -183,16 +209,6 @@ RadarApp.controller 'EventoController', ($scope, $http) ->
 		$scope.clearOverlays()
 		$scope.markers = []
 
-	# Setea una localización por defecto		
-	$scope.setDefaultLocation = ->
-		initialLocation = $scope.santafe
-		$scope.map.setCenter(initialLocation)
-	
-		if window.browserSupportFlag is on
-			console.log "El servicio de geolocalización falló. Iniciamos desde Santa Fe."
-		else
-			console.log "Tu navegador no soporta geolocalización. Iniciamos desde Santa Fe."
-	
 	# Sets the map on all markers in the array.
 	$scope.setAllMap = (map) ->
 		for marker in $scope.markers
@@ -201,13 +217,34 @@ RadarApp.controller 'EventoController', ($scope, $http) ->
 	$scope.setEventInterval = (interval) ->
 		$scope.eventInterval = interval
 	
+	$scope.setLocation = ->
+		$scope.map.setZoom(14)
+		if navigator.geolocation
+			window.browserSupportFlag = on
+			navigator.geolocation.getCurrentPosition (position) ->
+					location = new google.maps.LatLng(position.coords.latitude, position.coords.longitude)
+					$scope.map.setCenter(location)
+				, ->
+					$scope.errorLocation = 'Debes autorizar la captura de tu ubicación'
+					$scope.setLocationDefault()
+					$timeout ->
+							$scope.errorLocation = null
+						, 2000
+		else
+			$scope.errorLocation = 'Esta función no está soportada por tu navegador'
+
+	# Setea una localización por defecto		
+	$scope.setLocationDefault = ->
+		$scope.map.setZoom($scope.zoomDefault)
+		$scope.map.setCenter($scope.locationDefault)
+	
 	# Shows any overlays currently in the array.
 	$scope.showOverlays = ->
 		$scope.setAllMap($scope.map)
 	
 	# Se inicializa el mapa
 	# $scope.inicializar() # Se lo quito por ahora pero debería centrar el mapa en el lugar del visitante..
-	$scope.setDefaultLocation() # Se agrega esta línea para inicializar el mapa pero la idea es que inicialice con inicializar()
+	$scope.setLocationDefault() # Se agrega esta línea para inicializar el mapa pero la idea es que inicialice con inicializar()
 	
 	
 	

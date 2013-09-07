@@ -58,19 +58,26 @@
   */
 
 
-  RadarApp.controller('EventoController', function($scope, $http) {
+  RadarApp.controller('EventoController', function($scope, $http, $timeout) {
     /* ***************************************************************************************************************
     			Inicialización de Objetos
     	***************************************************************************************************************
     */
 
-    $scope.capital = new google.maps.LatLng(-34.603, -58.382);
-    $scope.santafe = new google.maps.LatLng(-31.625906, -60.696774);
     $scope.eventCategory = [];
     $scope.eventInterval = 1;
+    $scope.capital = new google.maps.LatLng(-34.603, -58.382);
+    $scope.cordoba = new google.maps.LatLng(-31.388813, -64.179726);
+    $scope.santafe = new google.maps.LatLng(-31.625906, -60.696774);
+    $scope.cordobaSantafe = new google.maps.LatLng(-31.52081, -62.411469);
+    $scope.locationDefault = $scope.cordobaSantafe;
+    $scope.zoomDefault = 8;
+    $scope.zoomSantafe = 12;
+    $scope.zoomCordoba = 11;
+    $scope.zoomCity = 12;
     $scope.opciones = {
-      zoom: 13,
-      center: window.santafe,
+      zoom: $scope.zoomDefault,
+      center: $scope.locationDefault,
       mapTypeId: google.maps.MapTypeId.ROADMAP
     };
     $scope.map = new google.maps.Map(document.getElementById("map"), $scope.opciones);
@@ -133,6 +140,23 @@
         });
       }
     };
+    $scope.centerMap = function(city) {
+      var location;
+      $scope.map.setZoom($scope.zoomDefault);
+      switch (city) {
+        case 'cordoba':
+          location = $scope.cordoba;
+          $scope.map.setZoom($scope.zoomCordoba);
+          break;
+        case 'santafe':
+          location = $scope.santafe;
+          $scope.map.setZoom($scope.zoomSantafe);
+          break;
+        default:
+          location = $scope.locationDefault;
+      }
+      return $scope.map.setCenter(location);
+    };
     $scope.inicializar = function() {
       if (navigator.geolocation) {
         window.browserSupportFlag = true;
@@ -141,7 +165,7 @@
           initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
           return $scope.map.setCenter(initialLocation);
         }, function() {
-          return $scope.setDefaultLocation();
+          return $scope.setLocationDefault();
         });
       }
     };
@@ -163,16 +187,6 @@
       $scope.clearOverlays();
       return $scope.markers = [];
     };
-    $scope.setDefaultLocation = function() {
-      var initialLocation;
-      initialLocation = $scope.santafe;
-      $scope.map.setCenter(initialLocation);
-      if (window.browserSupportFlag === true) {
-        return console.log("El servicio de geolocalización falló. Iniciamos desde Santa Fe.");
-      } else {
-        return console.log("Tu navegador no soporta geolocalización. Iniciamos desde Santa Fe.");
-      }
-    };
     $scope.setAllMap = function(map) {
       var marker, _i, _len, _ref, _results;
       _ref = $scope.markers;
@@ -186,10 +200,33 @@
     $scope.setEventInterval = function(interval) {
       return $scope.eventInterval = interval;
     };
+    $scope.setLocation = function() {
+      $scope.map.setZoom(14);
+      if (navigator.geolocation) {
+        window.browserSupportFlag = true;
+        return navigator.geolocation.getCurrentPosition(function(position) {
+          var location;
+          location = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+          return $scope.map.setCenter(location);
+        }, function() {
+          $scope.errorLocation = 'Debes autorizar la captura de tu ubicación';
+          $scope.setLocationDefault();
+          return $timeout(function() {
+            return $scope.errorLocation = null;
+          }, 2000);
+        });
+      } else {
+        return $scope.errorLocation = 'Esta función no está soportada por tu navegador';
+      }
+    };
+    $scope.setLocationDefault = function() {
+      $scope.map.setZoom($scope.zoomDefault);
+      return $scope.map.setCenter($scope.locationDefault);
+    };
     $scope.showOverlays = function() {
       return $scope.setAllMap($scope.map);
     };
-    return $scope.setDefaultLocation();
+    return $scope.setLocationDefault();
   });
 
 }).call(this);
