@@ -143,6 +143,9 @@ RadarApp.controller 'EventoController', ($scope, $http, $timeout) ->
 
 	google.maps.event.addListener $scope.map, 'zoom_changed', () ->
 		$scope.eventsUpdate()
+
+	google.maps.event.addListener $scope.map, 'position_changed', () ->
+		$scope.eventsUpdate()
 	
 	
 	### *************************************************************************************************************** 
@@ -240,7 +243,6 @@ RadarApp.controller 'EventoController', ($scope, $http, $timeout) ->
 	$scope.setLocationDefault = ->
 		$scope.map.setZoom($scope.zoomDefault)
 		$scope.map.setCenter($scope.locationDefault)
-		$scope.eventsUpdate()
 	
 	# Shows any overlays currently in the array.
 	$scope.showOverlays = ->

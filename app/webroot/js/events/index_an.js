@@ -112,6 +112,9 @@
     google.maps.event.addListener($scope.map, 'zoom_changed', function() {
       return $scope.eventsUpdate();
     });
+    google.maps.event.addListener($scope.map, 'position_changed', function() {
+      return $scope.eventsUpdate();
+    });
     /* *************************************************************************************************************** 
     			Funciones
     			Aquí se escriben las funciones
@@ -223,8 +226,7 @@
     };
     $scope.setLocationDefault = function() {
       $scope.map.setZoom($scope.zoomDefault);
-      $scope.map.setCenter($scope.locationDefault);
-      return $scope.eventsUpdate();
+      return $scope.map.setCenter($scope.locationDefault);
     };
     $scope.showOverlays = function() {
       return $scope.setAllMap($scope.map);
