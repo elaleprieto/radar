@@ -126,12 +126,13 @@ RadarApp.controller 'EventoController', ($scope, $http, $timeout) ->
 		$scope.eventsUpdate() 
 
 	# Se observa el listado de eventos
-	$scope.$watch 'eventos.length', () ->
-		$scope.deleteOverlays()
-		angular.forEach $scope.eventos, (event, key) ->
-			latlng = new google.maps.LatLng(event.Event.lat, event.Event.long)
-			$scope.createMarker(event.Event.id, event.Event.title, latlng)
-		$scope.showOverlays()
+	$scope.$watch 'eventos', ->
+			$scope.deleteOverlays()
+			angular.forEach $scope.eventos, (event, key) ->
+				latlng = new google.maps.LatLng(event.Event.lat, event.Event.long)
+				$scope.createMarker(event.Event.id, event.Event.title, latlng)
+			$scope.showOverlays()
+		, true
 	
 	# # google.maps.event.addListener window.map, 'bounds_changed', () ->
 	google.maps.event.addListener $scope.map, 'dragend', () ->
@@ -163,7 +164,7 @@ RadarApp.controller 'EventoController', ($scope, $http, $timeout) ->
 				, "swLat": sw.lat()
 				, "swLong": sw.lng()
 			
-			$http.get('/events/get', {cache: false, params: options})
+			$http.get('/events/get', {cache: true, params: options})
 				.success (data) ->
 					$scope.eventos = data
 	

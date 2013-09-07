@@ -94,7 +94,7 @@
     $scope.$watch('eventInterval', function() {
       return $scope.eventsUpdate();
     });
-    $scope.$watch('eventos.length', function() {
+    $scope.$watch('eventos', function() {
       $scope.deleteOverlays();
       angular.forEach($scope.eventos, function(event, key) {
         var latlng;
@@ -102,7 +102,7 @@
         return $scope.createMarker(event.Event.id, event.Event.title, latlng);
       });
       return $scope.showOverlays();
-    });
+    }, true);
     google.maps.event.addListener($scope.map, 'dragend', function() {
       return $scope.eventsUpdate();
     });
@@ -133,7 +133,7 @@
           "swLong": sw.lng()
         };
         return $http.get('/events/get', {
-          cache: false,
+          cache: true,
           params: options
         }).success(function(data) {
           return $scope.eventos = data;
