@@ -119,11 +119,11 @@ RadarApp.controller 'EventoController', ($scope, $http, $timeout) ->
 	
 	# Se observan las categorías seleccionadas
 	$scope.$watch 'eventCategory.length', () ->
-		$scope.actualizarEventos() 
+		$scope.eventsUpdate() 
 
 	# Se observa el intervalo seleccionado: Hoy, Mañana ó Próximos 7 días
 	$scope.$watch 'eventInterval', () ->
-		$scope.actualizarEventos() 
+		$scope.eventsUpdate() 
 
 	# Se observa el listado de eventos
 	$scope.$watch 'eventos.length', () ->
@@ -135,13 +135,13 @@ RadarApp.controller 'EventoController', ($scope, $http, $timeout) ->
 	
 	# # google.maps.event.addListener window.map, 'bounds_changed', () ->
 	google.maps.event.addListener $scope.map, 'dragend', () ->
-		$scope.actualizarEventos()
+		$scope.eventsUpdate()
 
 	google.maps.event.addListener $scope.map, 'tilesloaded', () ->
-		$scope.actualizarEventos()
+		$scope.eventsUpdate()
 
 	google.maps.event.addListener $scope.map, 'zoom_changed', () ->
-		$scope.actualizarEventos()
+		$scope.eventsUpdate()
 	
 	
 	### *************************************************************************************************************** 
@@ -151,7 +151,7 @@ RadarApp.controller 'EventoController', ($scope, $http, $timeout) ->
 	
 	# Se consulta al servidor por los eventos dentro de los límites del mapa y que cumplen las condiciones
 	# de categoría e intervalo seleccionadas.
-	$scope.actualizarEventos = () ->
+	$scope.eventsUpdate = () ->
 		if $scope.map.getBounds()?
 			bounds = $scope.map.getBounds()
 			ne = bounds.getNorthEast()
@@ -163,7 +163,7 @@ RadarApp.controller 'EventoController', ($scope, $http, $timeout) ->
 				, "swLat": sw.lat()
 				, "swLong": sw.lng()
 			
-			$http.get('/events/get', {cache: true, params: options})
+			$http.get('/events/get', {cache: false, params: options})
 				.success (data) ->
 					$scope.eventos = data
 	
@@ -180,6 +180,7 @@ RadarApp.controller 'EventoController', ($scope, $http, $timeout) ->
 				$scope.map.setZoom($scope.zoomSantafe)
 			else location = $scope.locationDefault
 		$scope.map.setCenter(location)
+		$scope.eventsUpdate()
 	
 	# Inicializa el mapa
 	$scope.inicializar = ->
@@ -224,6 +225,7 @@ RadarApp.controller 'EventoController', ($scope, $http, $timeout) ->
 			navigator.geolocation.getCurrentPosition (position) ->
 					location = new google.maps.LatLng(position.coords.latitude, position.coords.longitude)
 					$scope.map.setCenter(location)
+					$scope.eventsUpdate()
 				, ->
 					$scope.errorLocation = 'Debes autorizar la captura de tu ubicación'
 					$scope.setLocationDefault()
@@ -237,6 +239,7 @@ RadarApp.controller 'EventoController', ($scope, $http, $timeout) ->
 	$scope.setLocationDefault = ->
 		$scope.map.setZoom($scope.zoomDefault)
 		$scope.map.setCenter($scope.locationDefault)
+		$scope.eventsUpdate()
 	
 	# Shows any overlays currently in the array.
 	$scope.showOverlays = ->

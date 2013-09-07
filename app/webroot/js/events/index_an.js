@@ -89,10 +89,10 @@
     */
 
     $scope.$watch('eventCategory.length', function() {
-      return $scope.actualizarEventos();
+      return $scope.eventsUpdate();
     });
     $scope.$watch('eventInterval', function() {
-      return $scope.actualizarEventos();
+      return $scope.eventsUpdate();
     });
     $scope.$watch('eventos.length', function() {
       $scope.deleteOverlays();
@@ -104,13 +104,13 @@
       return $scope.showOverlays();
     });
     google.maps.event.addListener($scope.map, 'dragend', function() {
-      return $scope.actualizarEventos();
+      return $scope.eventsUpdate();
     });
     google.maps.event.addListener($scope.map, 'tilesloaded', function() {
-      return $scope.actualizarEventos();
+      return $scope.eventsUpdate();
     });
     google.maps.event.addListener($scope.map, 'zoom_changed', function() {
-      return $scope.actualizarEventos();
+      return $scope.eventsUpdate();
     });
     /* *************************************************************************************************************** 
     			Funciones
@@ -118,7 +118,7 @@
     	***************************************************************************************************************
     */
 
-    $scope.actualizarEventos = function() {
+    $scope.eventsUpdate = function() {
       var bounds, ne, options, sw;
       if ($scope.map.getBounds() != null) {
         bounds = $scope.map.getBounds();
@@ -133,7 +133,7 @@
           "swLong": sw.lng()
         };
         return $http.get('/events/get', {
-          cache: true,
+          cache: false,
           params: options
         }).success(function(data) {
           return $scope.eventos = data;
@@ -155,7 +155,8 @@
         default:
           location = $scope.locationDefault;
       }
-      return $scope.map.setCenter(location);
+      $scope.map.setCenter(location);
+      return $scope.eventsUpdate();
     };
     $scope.inicializar = function() {
       if (navigator.geolocation) {
@@ -207,7 +208,8 @@
         return navigator.geolocation.getCurrentPosition(function(position) {
           var location;
           location = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-          return $scope.map.setCenter(location);
+          $scope.map.setCenter(location);
+          return $scope.eventsUpdate();
         }, function() {
           $scope.errorLocation = 'Debes autorizar la captura de tu ubicación';
           $scope.setLocationDefault();
@@ -221,7 +223,8 @@
     };
     $scope.setLocationDefault = function() {
       $scope.map.setZoom($scope.zoomDefault);
-      return $scope.map.setCenter($scope.locationDefault);
+      $scope.map.setCenter($scope.locationDefault);
+      return $scope.eventsUpdate();
     };
     $scope.showOverlays = function() {
       return $scope.setAllMap($scope.map);
