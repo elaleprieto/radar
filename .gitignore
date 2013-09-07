@@ -1,4 +1,5 @@
 .htaccess
+.metadata/*
 .project
 build.properties
 build.xml
