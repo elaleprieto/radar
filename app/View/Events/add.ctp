@@ -281,7 +281,7 @@ echo $this->Html->script(array('http://maps.googleapis.com/maps/api/js?v=3.exp&s
                            </div>
                         </div>
                         <div class="row-fluid">
-							<input type="submit" value="Enviar">
+							<input type="submit" value="Enviar" class="btn btn-verde pull-right">
 						</div>
                         <div class="row-fluid" ng-show='cargando'>
                         	<div class="alert alert-info span12">

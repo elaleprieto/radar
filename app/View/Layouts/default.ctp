@@ -32,9 +32,9 @@
                                        <?php echo $this->Session->read('Auth.User.name') ?>
                                     </span></a>
                                 </li>
-                                <li class="active">
+                                <li>
                                     <?php echo $this->Html->link('Salir', array('controller'=>'users'
-                                        , 'action'=>'logout'), array('class'=>'menu'))
+                                        , 'action'=>'logout'), array('class'=>'menu menu_derecha'))
                                     ?>
                                 </li>
     					    <?php else: ?>

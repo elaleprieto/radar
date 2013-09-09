@@ -10,14 +10,19 @@
 <?php //debug($categorias) ?>
 
 <div ng-controller="EventoController">
-	<div class="row">
-		<div class="span4 offset2">
-			<button class="btn btn-verde" ng-click="centerMap('cordoba')">Córdoba</button>
-			<button class="btn btn-verde" ng-click="centerMap('santafe')">Santa Fe</button>
-			<button class="btn btn-primary" ng-click="centerMap()">Región</button>
-		</div>
-		<div class="span2">
-			<button class="btn btn-info" ng-click="setLocation()">Mi Ubicación</button>
+	<div class="row"><br>
+		<div class="span8">
+			<div class="row">
+				<div id="eventInterval" class="control-group btn-group" data-toggle="buttons-radio">
+	    			<button class="btn btn-verde" ng-click="centerMap()">Región</button>
+	    			<button class="btn btn-verde" ng-click="centerMap('cordoba')">Córdoba</button>
+					<button class="btn btn-verde" ng-click="centerMap('santafe')">Santa Fe</button>
+					<button class="btn btn-warning" ng-click="setLocation()">Mi Ubicación</button>
+				</div>
+				<div id="eventInterval" class="control-group btn-group pull-right" data-toggle="buttons-radio">
+              	
+              	</div>
+			</div>
 		</div>
 		<div class="span4" ng-show="errorLocation">
 			<span class="alert" ng-bind="errorLocation"></span>
