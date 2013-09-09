@@ -68,7 +68,7 @@
                                                     <div class="row-fluid categoriaLink" ng-class="{highlight:categoria.highlight}" ng-model="categoria" ng-repeat="categoria in categorias" ng-click="show(categoria)">
                                                         <div class="span1">
                                                             <img class="icono-categoria" 
-                                                               ng-src="/img/categorias/{{categoria.Category.icon}}" />
+                                                            	ng-src="/img/categorias/{{categoria.Category.icon}}" />
                                                         </div>
                                                         <div class="span10" ng-bind="categoria.Category.name"></div>
                                                     </div>
