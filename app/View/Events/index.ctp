@@ -10,6 +10,19 @@
 <?php //debug($categorias) ?>
 
 <div ng-controller="EventoController">
+	<div class="row">
+		<div class="span4 offset2">
+			<button class="btn btn-verde" ng-click="centerMap('cordoba')">Córdoba</button>
+			<button class="btn btn-verde" ng-click="centerMap('santafe')">Santa Fe</button>
+			<button class="btn btn-primary" ng-click="centerMap()">Región</button>
+		</div>
+		<div class="span2">
+			<button class="btn btn-info" ng-click="setLocation()">Mi Ubicación</button>
+		</div>
+		<div class="span4" ng-show="errorLocation">
+			<span class="alert" ng-bind="errorLocation"></span>
+		</div>
+	</div>
     <div class="row">
         <!-- MAPA -->
         <div class="span8">

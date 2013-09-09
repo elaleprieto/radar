@@ -1,6 +1,22 @@
-<?php echo $this->Html->css(array('vendors/bootstrap-datepicker', 'vendors/bootstrap-timepicker', 'inicio','events/add'), '', array('inline'=>false)) ?>
-<?php echo $this->Html->script(array('http://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true'
-    , 'vendors/angular-strap.min', 'vendors/bootstrap-datepicker', 'vendors/bootstrap-timepicker', 'events/add_an'), array('inline'=>false)) ?>
+<?php
+echo $this->Html->css(array('vendors/bootstrap-datepicker'
+		, 'vendors/bootstrap-timepicker'
+		, 'inicio'
+		,'events/add'
+	)
+	, ''
+	, array('inline'=>false)
+);
+
+echo $this->Html->script(array('http://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true'
+	    , 'vendors/angular-strap.min'
+	    , 'vendors/bootstrap-datepicker'
+	    , 'vendors/bootstrap-timepicker'
+	    , 'events/add_an'
+	)
+	, array('inline'=>false)
+);
+?>
 
 <div ng-controller="EventController">
 
@@ -65,7 +81,12 @@
                                         <div ng-controller="CategoriaController">
                                             <div class="row-fluid">
                                                 <div class="span12">
-                                                    <div class="row-fluid categoriaLink" ng-class="{highlight:categoria.highlight}" ng-model="categoria" ng-repeat="categoria in categorias" ng-click="show(categoria)">
+                                                    <div 
+                                                    	class="row-fluid categoriaLink"
+                                                    	ng-class="{highlight:categoria.highlight}"
+                                                    	ng-model="categoria"
+                                                    	ng-repeat="categoria in categorias"
+                                                    	ng-click="show(categoria)">
                                                         <div class="span1">
                                                             <img class="icono-categoria" 
                                                             	ng-src="/img/categorias/{{categoria.Category.icon}}" />
@@ -74,7 +95,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>        							    
+                                        </div>
         							</div>
         					</div>
         				</div>
@@ -233,7 +254,12 @@
                                             no
                                         </label>
                                     </div>   
-                                    <?php echo $this->Form->input('precio', array('class'=>'textbox span4 inline', 'label'=>FALSE, 'placeholder'=>'precio')) ?>
+                                    <?php echo $this->Form->input('precio'
+                                    	, array('class'=>'textbox span4 inline'
+                                    		, 'label'=>FALSE, 'placeholder'=>'precio'
+											)
+										) 
+									?>
                                 </div>
                                 <div class="row-fluid">
                                     <?php echo $this->Form->input('web', array('class'=>'textbox', 'label'=>__('web'))) ?>
@@ -242,15 +268,26 @@
                                     <?php echo $this->Form->input('video', array('class'=>'textbox', 'label'=>__('video'))) ?>
                                 </div>
                                 <div class="row-fluid">
-                                    <?php echo $this->Form->input('noticia', array('class'=>'textbox', 'label'=>__('fuente de noticias'))) ?>
+                                    <?php echo $this->Form->input('noticia'
+                                    	, array('class'=>'textbox'
+                                    		, 'label'=>__('fuente de noticias')
+											)
+										)
+									?>
                                 </div>
                                 <div class="row-fluid">
                                     <?php echo $this->Form->input('foto', array('class'=>'textbox', 'label'=>__('foto'))) ?>
                                 </div>
                            </div>
                         </div>
-                        
-                         <?php echo $this->Form->end(__('Submit')); ?>
+                        <div class="row-fluid">
+							<input type="submit" value="Enviar">
+						</div>
+                        <div class="row-fluid" ng-show='cargando'>
+                        	<div class="alert alert-info span12">
+								<span ng-bind='cargando'></span>
+                        	</div>
+						</div>
         			</div>
                 </form>
     		</div>

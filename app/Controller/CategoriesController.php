@@ -7,6 +7,35 @@ App::uses('AppController', 'Controller');
  */
 class CategoriesController extends AppController {
 
+	/**************************************************************************************************************
+	 *  Authentication
+	**************************************************************************************************************/
+    public function beforeFilter() {
+        parent::beforeFilter();
+        $this -> Auth -> allow('index');
+    }
+	
+	public function isAuthorized($user) {
+	    # All registered users can add events
+	    if ($this->action === 'index') {
+	        return true;
+	    }
+	
+	    // # The owner of a category can edit and delete it
+	    // if (in_array($this->action, array('edit', 'delete'))) {
+	        // $categoryId = $this->request->params['pass'][0];
+	        // if ($this->Event->isOwnedBy($categoryId, $user['id'])) {
+	            // return true;
+	        // }
+	    // }
+	
+	    return parent::isAuthorized($user);
+	}
+	/**************************************************************************************************************
+	 *  /authentication
+	**************************************************************************************************************/
+		
+
 /**
  * index method
  *

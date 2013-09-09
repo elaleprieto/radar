@@ -6,11 +6,35 @@
      * @property Event $Event
      */
     class EventsController extends AppController {
-
+		
+		/**************************************************************************************************************
+		 *  Authentication
+		**************************************************************************************************************/
         public function beforeFilter() {
             parent::beforeFilter();
-            $this -> Auth -> allow('get', 'index', 'indice', 'listar');
+            $this -> Auth -> allow('get', 'index');
         }
+		
+		public function isAuthorized($user) {
+		    # All registered users can add events
+		    if ($this->action === 'add') {
+		        return true;
+		    }
+		
+		    # The owner of an event can edit and delete it
+		    if (in_array($this->action, array('edit', 'delete'))) {
+		        $eventId = $this->request->params['pass'][0];
+		        if ($this->Event->isOwnedBy($eventId, $user['id'])) {
+		            return true;
+		        }
+		    }
+		
+		    return parent::isAuthorized($user);
+		}
+		/**************************************************************************************************************
+		 *  /authentication
+		**************************************************************************************************************/
+		
 
         /**
          * index method
@@ -20,22 +44,6 @@
         public function index() {
             $this->Event->Category->recursive = -1;
             $categories = $this->Event->Category->find('list', array('fields' => 'name'));
-            $categorias = $this -> Event -> Category -> find('all', array('order'=>'Category.name ASC'));
-            $this -> set(compact('categories', 'categorias'));
-        }
-        
-        public function indice() {
-            $this->layout='ajax';
-        }
- 
-        /**
-         * list method
-         *
-         * @return void
-         */
-        public function listar() {
-            $this->Event->Category->recursive = -1;
-            $categories = $this -> Event -> Category -> find('list', array('fields' => 'name'));
             $categorias = $this -> Event -> Category -> find('all', array('order'=>'Category.name ASC'));
             $this -> set(compact('categories', 'categorias'));
         }
@@ -63,10 +71,9 @@
         public function add() {
             if ($this->request->is('post')) {
                 $this->layout = 'ajax';
-                
+                date_default_timezone_set('UTC');
+				
                 $data = $this->request->input('json_decode');
-                // debug($data);
-                // return;
                 $date_start = strtotime($data->Event->date_from);
                 $time_start = strtotime($data->Event->time_from);
                 $date_end = strtotime($data->Event->date_to);

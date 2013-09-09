@@ -88,18 +88,26 @@
       }
     };
     $scope.submit = function() {
+      $scope.cargando = 'Cargando.';
       if (!$scope.eventForm.$valid) {
+        $scope.cargando = null;
         return this;
       }
+      $scope.cargando = 'Cargando..';
       if ($scope.event.categories.length <= 0) {
+        $scope.cargando = 'Error: Debe seleccionar al menos una categoría';
         return console.error('Error: Debe seleccionar al menos una categoría');
       }
+      $scope.cargando = 'Cargando...';
       return $http.post('/events/add', {
         Event: $scope.event,
         Category: $scope.event.categories
       }).success(function(data) {
-        return console.log('Evento guardado');
+        $scope.cargando = '¡Evento guardado!';
+        console.log('Evento guardado');
+        return window.location.pathname = 'events';
       }).error(function() {
+        $scope.cargando = 'Ocurrió un error guardando el evento';
         return console.log('Ocurrió un error guardando el evento');
       });
     };
@@ -168,7 +176,10 @@
             timeTo = $scope.event.time_to.split(':');
             dateEndAux = new Date(dateTo.getFullYear(), dateTo.getMonth(), dateTo.getDate(), timeTo[0], timeTo[1]);
             if (dateEnd.getTime() > dateEndAux.getTime()) {
-              return $scope.event.time_to = dateEnd.getHours() + ':' + dateEnd.getMinutes();
+              $scope.event.time_to = dateEnd.getHours() + ':' + dateEnd.getMinutes();
+              if (dateEnd.getMinutes() === 0) {
+                return $scope.event.time_to += '0';
+              }
             }
           }
         }
