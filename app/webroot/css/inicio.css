@@ -35,25 +35,25 @@ ul.nav { height: 55px; }
 .menu { font-family: "isocpe"; font-weight: bold; font-size: 18px; }
 
 /* line 90, ../sass/inicio.sass */
-.menu_derecha { font-size: 14px; }
+.menu_derecha { font-size: 14px; padding-top: 8px; }
 
-/* line 94, ../sass/inicio.sass */
+/* line 96, ../sass/inicio.sass */
 .navbar .btn, .navbar .btn-group { margin-top: 10px; }
 
-/* line 97, ../sass/inicio.sass */
+/* line 99, ../sass/inicio.sass */
 .navbar .nav > li > a.menu { height: 33px; padding-bottom: 5px; padding-top: 18px; }
 
-/* line 103, ../sass/inicio.sass */
+/* line 105, ../sass/inicio.sass */
 .navbar .nav > li > a.menu-brand { font-size: 20px; height: 35px; padding-bottom: 5px; padding-top: 5px; }
 
-/* line 111, ../sass/inicio.sass */
+/* line 113, ../sass/inicio.sass */
 .navbar .navbar-inner { height: 55px; background-color: white; background-image: -moz-linear-gradient(top, white, white); background-image: -webkit-gradient(linear, 0 0, 0 100%, from(white), to(white)); background-image: -webkit-linear-gradient(top, white, white); background-image: -o-linear-gradient(top, white, white); background-image: linear-gradient(to bottom, #ffffff, #ffffff); background-repeat: repeat-x; border: 1px solid #d4d4d4; }
 
-/* line 122, ../sass/inicio.sass */
+/* line 124, ../sass/inicio.sass */
 .navbar-fixed-top .navbar-inner, .navbar-static-top .navbar-inner { box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); }
 
-/* line 125, ../sass/inicio.sass */
+/* line 127, ../sass/inicio.sass */
 .titulo { color: #a1ca00; font-family: "codebold"; padding-top: 15px; }
 
-/* line 132, ../sass/inicio.sass */
+/* line 134, ../sass/inicio.sass */
 .whipala { text-align: center; padding: 15px; }

@@ -1,6 +1,40 @@
+$azul_claro: #4883CC
+$azul_oscuro: #275692
+
 @font-face 
 	font-family: "isocpe"
 	src: url(../Isocpeur-Regular.ttf) format("truetype")
+
+a
+	color: #FFFFFF
+	&:hover
+		color: #FFFFFF
+		text-decoration: none
+	
+.btn-facebook
+	color: #FFFFFF
+	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25)
+	background-color: $azul_oscuro
+	*background-color: $azul_claro
+	background-image: -moz-linear-gradient(top, $azul_claro, $azul_oscuro)
+	background-image: -webkit-gradient(linear, 0 0, 0 100%, from($azul_claro), to($azul_oscuro))
+	background-image: -webkit-linear-gradient(top, $azul_claro, $azul_oscuro)
+	background-image: -o-linear-gradient(top, $azul_claro, $azul_oscuro)
+	background-image: linear-gradient(to bottom, $azul_claro, $azul_oscuro)
+	background-repeat: repeat-x
+	border-color: $azul_oscuro
+	border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25)
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$azul_claro', endColorstr='$azul_oscuro', GradientType=0)
+	filter: progid:DXImageTransform.Microsoft.gradient(enabled=false)
+
+.btn-facebook:hover,
+.btn-facebook:active,
+.btn-facebook.active,
+.btn-facebook.disabled,
+.btn-facebook[disabled]
+	color: #FFFFFF
+	background-color: $azul_oscuro
+	*background-color: $azul_claro
 	
 h1
 	font:
