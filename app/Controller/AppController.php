@@ -35,6 +35,7 @@
      * @link http://book.cakephp.org/2.0/en/controllers.html#the-app-controller
      */
     class AppController extends Controller {
+        	
         public $components = array(
             'Session',
             'Auth' => array(
@@ -54,8 +55,13 @@
                     'action' => 'index'
                 ),
                 'authorize' => array('Controller'),
-            )
+            ),
+            'Facebook.Connect' => array(
+            	'model' => 'User'
+			),
         );
+		
+		public $helpers = array('Facebook.Facebook');
 
         public function beforeFilter() {
             if (AuthComponent::user('role') === 'admin') {
@@ -73,5 +79,20 @@
             // Default deny
             return false;
         }
-
+		
+	/**
+	 *  Facebook Plugin
+	 */
+		public function beforeFacebookSave(){
+    		$this->Connect->authUser['User']['email'] = $this->Connect->user('email');
+			$this->Connect->authUser['User']['username'] = $this->Connect->user('username');
+			$this->Connect->authUser['User']['name'] = $this->Connect->user('name');
+			return true; //Must return true or will not save.
+		}
+		
+		public function afterFacebookLogin(){
+    		//Logic to happen after successful facebook login.
+    	  	$this->redirect($this -> Auth -> redirect());
+		}
+		
     }

@@ -64,8 +64,21 @@
         }
 
         public function logout() {
-            $this -> redirect($this -> Auth -> logout());
-        }
+        	//Logout según Cakephp
+            //$this -> redirect($this -> Auth -> logout());
+			
+			//Logout a partir de plugin de facebook
+			if ($this->Connect->FB->getUser() == 0){
+                    $this->redirect($this->Auth->logout());
+        	} else {
+                //ditch FB data for safety
+                $this->Connect->FB->destroysession();
+                //hope its all gone with this
+        		session_destroy();
+                //logout and redirect to the screen that you usually do.
+        		$this->redirect($this->Auth->logout());
+        	}
+		}
 
         public function isAuthorized($user) {
             // All registered users can add posts
@@ -112,14 +125,15 @@
         // $this -> set('user', $this -> User -> read(null, $id));
         // }
         //
+     
         /**
          * add method
          *
          * @return void
          */
-        public function add() {
+        public function add() {		
             if ($this -> request -> is('post')) {
-                $this -> User -> create();
+                $this -> User -> create();		            
                 if ($this -> User -> save($this -> request -> data)) {
                     $id = $this -> User -> id;
                     $this -> request -> data['User'] = array_merge($this -> request -> data['User'], array('id' => $id));
@@ -127,21 +141,22 @@
                     $this -> redirect(array(
                         'controller' => 'events',
                         'action' => 'index'
-                    ));
+                    ));               	
                 } else {
-                    $this -> Session -> setFlash(__('The user could not be saved. Please, try again.'));
+                	 $this -> Session -> setFlash(__('The user could not be saved. Please, try again.'));
                 }
             }
         }
 
-        //
-        // /**
-        // * edit method
-        // *
-        // * @throws NotFoundException
-        // * @param string $id
-        // * @return void
-        // */
+   	
+
+		/**
+         * edit method
+         *
+         * @throws NotFoundException
+         * @param string $id
+         * @return void
+         */
         public function edit($id = null) {
             $this -> User -> id = $id;
             if (!$this -> User -> exists()) {
@@ -275,6 +290,5 @@
         // $this -> Session -> setFlash(__('User was not deleted'));
         // $this -> redirect(array('action' => 'index'));
         // }
-        //
-
+        //	 
     }
