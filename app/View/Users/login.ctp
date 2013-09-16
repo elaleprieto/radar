@@ -24,8 +24,13 @@ echo $this -> Html -> script(array('login'), array('inline' => FALSE));
 						<button type="submit" class="btn btn-verde span6">Entrar</button>
 						<!--<button type="reset" class="btn span3">Borrar	</button>-->
 						<?php echo $this->Html->link('¡Registrate!', '/registrate', array('class'=>'btn span6')) ?>
-					</div>		
+					</div>
 				</form>
+				<div class="row-fluid">
+					<div class="btn btn-facebook span6">
+						<?php echo $this->Facebook->login(array('perms' => 'email,publish_stream', 'class'=>'span6')); ?>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
