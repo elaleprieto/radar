@@ -52,6 +52,14 @@
 							echo $this -> Form -> end($options);
 		        		?>	
 		        	</div>
+		        	<!--<div class="row-fluid">
+						<?php 
+							echo $this->Facebook->registration(array(
+  														'fields' => 'name,email,location',
+  														'width' => '500'
+														));
+						?>
+		        	</div>-->
 		        </fieldset>
     		</div>
     	</div>
