@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html>
+<!--<html>-->
+<?php echo $this->Facebook->html(); ?>
 	<head>
 		<?php echo $this -> Html -> charset(); ?>
 		<title> #RadarCultural :: <?php echo $title_for_layout; ?></title>
@@ -32,10 +33,21 @@
                                        <?php echo $this->Session->read('Auth.User.name') ?>
                                     </span></a>
                                 </li>
-                                <li>
-                                    <?php echo $this->Html->link('Salir', array('controller'=>'users'
+                                <li class="menu_derecha">
+                                    <!--<?php echo $this->Html->link('Salir', array('controller'=>'users'
                                         , 'action'=>'logout'), array('class'=>'menu menu_derecha'))
-                                    ?>
+                                    ?>-->
+                                    <!-- Logout de facebook -->
+                                    <?php echo $this->Facebook->logout(
+                                    	array(
+                                    		'label' => 'Salir', 
+                                    		'redirect' => array(
+                                    			'controller' => 'users', 
+                                    			'action' => 'logout'),
+											),
+											array('class'=>'menu menu_derecha')
+										); 
+									?>
                                 </li>
     					    <?php else: ?>
                                 
@@ -68,7 +80,7 @@
 		?>
 		<?php echo $this->fetch('script')
 		?>
-		<?php echo $this -> element('sql_dump'); ?>
+		<?php echo $this -> element('sql_dump'); ?>	
 		
 		<script type="text/javascript">
 		  var _gaq = _gaq || [];
@@ -80,5 +92,7 @@
 		    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
 		  })();
 		</script>
+		<!-- Plugin Facebook-->
+		<?php echo $this->Facebook->init(); ?>
 	</body>
 </html>
