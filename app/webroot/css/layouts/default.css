@@ -1,11 +1,11 @@
 /* line 1, ../../sass/layouts/default.sass */
-body { padding-top: 60px; }
+body { padding-top: 80px; }
 
 /* line 4, ../../sass/layouts/default.sass */
 .checkbox.inline { margin-left: 0 !important; margin-right: 10px; }
 
 /* line 8, ../../sass/layouts/default.sass */
-.menu_icono { padding: 0; }
+.menu_icono { padding-top: 10px; }
 
 /* line 11, ../../sass/layouts/default.sass */
 .username { font-family: "isocpe"; font-size: 18px; font-weight: bold; margin-right: 20px; padding-top: 10px; }

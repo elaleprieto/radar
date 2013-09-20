@@ -20,10 +20,13 @@
 				<div class="navbar-inner">
 					<div class="container">
     					<ul class="nav">
-                            <li><?= $this->Html->link( $this->Html->image("logoOk.png", array('alt'=>'logo')),'/', array('class'=>'menu_icono','style'=>'padding-top: 2px','escape' => false));?></li>
+                            <li><?= $this->Html->link( $this->Html->image("logoOk.png", array('alt'=>'logo')),'/', array('class'=>'menu_icono','style'=>'padding-top: 8px','escape' => false));?></li>
                             <li><?= $this->Html->link('Espacios', '/espacios', array('class'=>'menu')) ?></li>
+                            <li><a id="menu_naranja">|</a></li>
                             <li><?= $this->Html->link('Eventos','/', array('class'=>'menu')) ?></li>
+                            <li><a id="menu_naranja">|</a></li>
                             <li><?= $this->Html->link('Sobre radar', '/about', array('class'=>'menu')) ?></li>
+                            <li><a id="menu_naranja">|</a></li>
                             <li><?= $this->Html->link('Contacto', '/contacto', array('class'=>'menu')) ?></li>
                         </ul>
                         <ul class="nav pull-right">
@@ -45,7 +48,7 @@
                                     			'controller' => 'users', 
                                     			'action' => 'logout'),
 											),
-											array('class'=>'menu menu_derecha')
+											array('class'=>'menu_derecha')
 										); 
 									?>
                                 </li>
@@ -53,11 +56,12 @@
                                 
                                 <li>
                                     <?php echo $this->Html->link('Ingresar', array('controller'=>'users'
-                                            , 'action'=>'login'),  array('class'=>'menu'))
+                                            , 'action'=>'login'),  array('id'=>'menu_derecha_verde'))
                                     ?>
                                 </li>
+                                <li id="menu_derecha_verde">|</li>
                                 <li>
-                                    <?php echo $this->Html->link('¡Registrate!', '/registrate', array('class'=>'menu'))
+                                    <?php echo $this->Html->link('¡Registrate!', '/registrate', array('class'=>'menu_derecha'))
                                         ?>
                                 </li>
     					    <?php endif ?>
