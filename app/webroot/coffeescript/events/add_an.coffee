@@ -35,7 +35,8 @@ RadarApp.controller 'EventController', ($scope, $http) ->
 	$scope.diaEnMilisegundos = 24 * 60 * $scope.minutoEnMilisegundos
 	$scope.event = {}
 	$scope.santafe = new google.maps.LatLng(-31.625906,-60.696774)
-	$scope.opciones = {zoom: 13, center: $scope.santafe, mapTypeId: google.maps.MapTypeId.ROADMAP}
+	$scope.argentina = new google.maps.LatLng(-31.659226,-60.485229)
+	$scope.opciones = {zoom: 5, center: $scope.argentina, mapTypeId: google.maps.MapTypeId.ROADMAP}
 	$scope.map = new google.maps.Map(document.getElementById("map"), $scope.opciones)
 	# $scope.event.date_from = "0000-00-01T00:00:00.000Z"
 	# $scope.event.date_to = "0000-00-01T00:00:00.000Z"
@@ -113,6 +114,10 @@ RadarApp.controller 'EventController', ($scope, $http) ->
 		$scope.event.lat = response[0].geometry.location.lat()
 		$scope.event.long = response[0].geometry.location.lng()
 		
+		# Center Map
+		$scope.map.setCenter(response[0].geometry.location)
+		$scope.map.setZoom(13)
+		
 		# blankicono que voy a usar para mostrar el punto en el mapa
 		icon = new google.maps.MarkerImage("http://gmaps-samples.googlecode.com/svn/trunk/markers/blue/blank.png"
 			, new google.maps.Size(20, 34)
@@ -131,18 +136,20 @@ RadarApp.controller 'EventController', ($scope, $http) ->
 		$scope.marker.setMap($scope.map) # inserto el marcador en el mapa
 	
 	# setAddress hace la llamada al API y hace el callback
-	$scope.setAddress = (address) ->
+	$scope.setAddress = () ->
 		request = new Object() # se crea un objeto request
-		request.address = address
-		request.bounds = $scope.map.getBounds()
+		request.address = $scope.event.address
+		# se comenta para que busque en todo el país y no solo en el mapa que se ve
+		# request.bounds = $scope.map.getBounds()
 		request.region = 'AR'
 		# geocode hace la conversión a un punto, y su segundo parámetro es una función de callback
 		$scope.geocoder.geocode(request, $scope.addAddressToMap)
 	
 
+	# Se comenta esto para hacerlo con un botón
 	# Se observa cuando cambia el address y se hace la llamada al API si la longitud es superior a 3
-	$scope.$watch 'event.address', (newValue) ->
-		$scope.setAddress(newValue) if newValue? and newValue.length > 3
+	# $scope.$watch 'event.address', (newValue) ->
+		# $scope.setAddress(newValue) if newValue? and newValue.length > 3
 	
 	# Se observa cuando cambie el date_from y se setea el date_to
 	$scope.$watch 'event.date_from', (newValue) ->

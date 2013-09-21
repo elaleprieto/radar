@@ -44,9 +44,10 @@
     $scope.diaEnMilisegundos = 24 * 60 * $scope.minutoEnMilisegundos;
     $scope.event = {};
     $scope.santafe = new google.maps.LatLng(-31.625906, -60.696774);
+    $scope.argentina = new google.maps.LatLng(-31.659226, -60.485229);
     $scope.opciones = {
-      zoom: 13,
-      center: $scope.santafe,
+      zoom: 5,
+      center: $scope.argentina,
       mapTypeId: google.maps.MapTypeId.ROADMAP
     };
     $scope.map = new google.maps.Map(document.getElementById("map"), $scope.opciones);
@@ -119,6 +120,8 @@
       }
       $scope.event.lat = response[0].geometry.location.lat();
       $scope.event.long = response[0].geometry.location.lng();
+      $scope.map.setCenter(response[0].geometry.location);
+      $scope.map.setZoom(13);
       icon = new google.maps.MarkerImage("http://gmaps-samples.googlecode.com/svn/trunk/markers/blue/blank.png", new google.maps.Size(20, 34), new google.maps.Point(0, 0), new google.maps.Point(10, 34));
       if ($scope.marker != null) {
         $scope.marker.setMap(null);
@@ -130,19 +133,13 @@
       });
       return $scope.marker.setMap($scope.map);
     };
-    $scope.setAddress = function(address) {
+    $scope.setAddress = function() {
       var request;
       request = new Object();
-      request.address = address;
-      request.bounds = $scope.map.getBounds();
+      request.address = $scope.event.address;
       request.region = 'AR';
       return $scope.geocoder.geocode(request, $scope.addAddressToMap);
     };
-    $scope.$watch('event.address', function(newValue) {
-      if ((newValue != null) && newValue.length > 3) {
-        return $scope.setAddress(newValue);
-      }
-    });
     $scope.$watch('event.date_from', function(newValue) {
       if (newValue != null) {
         $('#date_to').datepicker('setDate', newValue);

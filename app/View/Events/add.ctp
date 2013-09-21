@@ -62,9 +62,15 @@ echo $this->Html->script(array('http://maps.googleapis.com/maps/api/js?v=3.exp&s
         							
         							<!-- Dirección -->
         							<div class="row-fluid">
-                                        <label for="EventAddress">Dirección</label>
-                                        <input class="textbox" id="EventAddress" maxlength="255" 
-                                            ng-model="event.address" required="required" type="text">
+        								<div class="input-append">
+											<!-- <input class="span2" id="appendedInputButton" type="text"> -->
+	                                        <label for="EventAddress">Dirección</label>
+	                                        <input class="textbox span11" id="EventAddress" maxlength="255" 
+	                                            ng-model="event.address" required="required" type="text">
+											<button class="btn" ng-click="setAddress()" type="button">
+												<i class="icon-map-marker"></i>
+											</button>
+										</div>
         							</div>
         							
         							<!-- Descripción -->
@@ -106,7 +112,7 @@ echo $this->Html->script(array('http://maps.googleapis.com/maps/api/js?v=3.exp&s
                         <div class="row-fluid">
                 	       <div class="span12">
                 	           <div class="row-fluid">
-                                    <h4>Ubicación</h4>
+                                    <h4>Fecha</h4>
                                 </div>
         		                    <div class="row-fluid">
 
@@ -196,7 +202,6 @@ echo $this->Html->script(array('http://maps.googleapis.com/maps/api/js?v=3.exp&s
                                     </div>
         			             </div>
         			    <div class="row-fluid">
-        			        <div>Selecciona el lugar:</div>
                             <div id="map"></div>
         			    </div>
         			    </div>
