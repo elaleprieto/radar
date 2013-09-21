@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Radar 0.2\n"
-"POT-Creation-Date: 2013-06-08 21:20-0300\n"
+"POT-Creation-Date: 2013-09-21 18:24-0300\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Ale Prieto <aleprieto@gmail.com>\n"
 "Language-Team: Radar Cultural <contacto@colectivolibre.com.ar>\n"
@@ -15,25 +15,25 @@ msgstr ""
 
 # LANGUAGE translation of CakePHP Application
 # Copyright YEAR NAME <EMAIL@ADDRESS>
-#: Controller/CategoriesController.php:29;61;87
+#: Controller/CategoriesController.php:65;97;123
 msgid "Invalid category"
-msgstr ""
+msgstr "Categoría inválida"
 
-#: Controller/CategoriesController.php:44;65
+#: Controller/CategoriesController.php:80;101
 msgid "The category has been saved"
-msgstr ""
+msgstr "La categoría ha sido guardada"
 
-#: Controller/CategoriesController.php:47;68
+#: Controller/CategoriesController.php:83;104
 msgid "The category could not be saved. Please, try again."
-msgstr ""
+msgstr "La categoría no ha sido guardada. Intente nuevamente."
 
-#: Controller/CategoriesController.php:91
+#: Controller/CategoriesController.php:127
 msgid "Category deleted"
-msgstr ""
+msgstr "Categoría eliminada"
 
-#: Controller/CategoriesController.php:94
+#: Controller/CategoriesController.php:130
 msgid "Category was not deleted"
-msgstr ""
+msgstr "La categoría no ha sido eliminada"
 
 #: Controller/CategoriesEventsController.php:29;64;93
 msgid "Invalid categories event"
@@ -55,68 +55,66 @@ msgstr "Categoría borrada"
 msgid "Categories event was not deleted"
 msgstr "La categoría no ha sido borrada"
 
-#: Controller/EventsController.php:58;110;139
+#: Controller/EventsController.php:60;113;142
 msgid "Invalid event"
 msgstr "Evento inválido"
 
-#: Controller/EventsController.php:86;114
+#: Controller/EventsController.php:117
 msgid "The event has been saved"
 msgstr "El evento ha sido guardado"
 
-#: Controller/EventsController.php:89;117
+#: Controller/EventsController.php:120
 msgid "The event could not be saved. Please, try again."
 msgstr "El evento no ha sido guardado. Por favor, intente nuevamente."
 
-#: Controller/EventsController.php:143
+#: Controller/EventsController.php:146
 msgid "Event deleted"
 msgstr "Evento borrado"
 
-#: Controller/EventsController.php:146
+#: Controller/EventsController.php:149
 msgid "Event was not deleted"
 msgstr "El evento no ha sido borrado"
 
 #: Controller/UsersController.php:61
 msgid "Invalid username or password, try again"
-msgstr ""
+msgstr "Usuario o contraseña inválida, intente nuevamente"
 
-#: Controller/UsersController.php:132;155
+#: Controller/UsersController.php:146;170
 msgid "The user could not be saved. Please, try again."
 msgstr "El usuario no ha sido guardado. Por favor, intente nuevamente."
 
-#: Controller/UsersController.php:148
+#: Controller/UsersController.php:163
 msgid "Invalid user"
 msgstr "Evento inválido"
 
-#: Controller/UsersController.php:152
+#: Controller/UsersController.php:167
 msgid "The user has been saved"
 msgstr "El usuario ha sido guardado"
 
 #: View/Categories/add.ctp:4
 msgid "Add Category"
-msgstr ""
+msgstr "Agregar Categoría"
 
 #: View/Categories/add.ctp:10
 #: View/Categories/edit.ctp:11
 #: View/CategoriesEvents/add.ctp:10
 #: View/CategoriesEvents/edit.ctp:11
-#: View/Events/add.ctp:79
 #: View/Events/edit.ctp:17
 #: View/Places/add.ctp:12
 #: View/Places/edit.ctp:13
-#: View/Users/add.ctp:46
+#: View/Users/add.ctp:51
 #: View/Users/edit.ctp:12
 msgid "Submit"
 msgstr "Enviar"
 
 #: View/Categories/add.ctp:13
 #: View/Categories/edit.ctp:14
-#: View/Categories/index.ctp:10;42
+#: View/Categories/index.ctp:11;47
 #: View/Categories/view.ctp:32;58
 #: View/CategoriesEvents/add.ctp:13
 #: View/CategoriesEvents/edit.ctp:14
 #: View/CategoriesEvents/index.ctp:10;46
 #: View/CategoriesEvents/view.ctp:32
-#: View/Events/add.ctp:96
 #: View/Events/edit.ctp:20
 #: View/Events/view.ctp:62
 #: View/Places/add.ctp:15
@@ -127,7 +125,7 @@ msgstr "Enviar"
 #: View/Users/index.ctp:11;44
 #: View/Users/view.ctp:37;58
 msgid "Actions"
-msgstr ""
+msgstr "Acciones"
 
 #: View/Categories/add.ctp:16
 #: View/Categories/edit.ctp:18
@@ -136,21 +134,19 @@ msgstr ""
 #: View/CategoriesEvents/edit.ctp:19
 #: View/CategoriesEvents/index.ctp:49
 #: View/CategoriesEvents/view.ctp:38
-#: View/Events/add.ctp:99
 #: View/Events/edit.ctp:25
 #: View/Events/view.ctp:68
 msgid "List Categories"
-msgstr ""
+msgstr "Listar Categorías"
 
 #: View/Categories/add.ctp:17
 #: View/Categories/edit.ctp:19
-#: View/Categories/index.ctp:45
+#: View/Categories/index.ctp:50
 #: View/Categories/view.ctp:38
 #: View/CategoriesEvents/add.ctp:19
 #: View/CategoriesEvents/edit.ctp:21
 #: View/CategoriesEvents/index.ctp:51
 #: View/CategoriesEvents/view.ctp:40
-#: View/Events/add.ctp:98
 #: View/Events/edit.ctp:24
 #: View/Events/view.ctp:66
 #: View/Places/add.ctp:19
@@ -162,7 +158,7 @@ msgstr "Listar Eventos"
 
 #: View/Categories/add.ctp:18
 #: View/Categories/edit.ctp:20
-#: View/Categories/index.ctp:46
+#: View/Categories/index.ctp:51
 #: View/Categories/view.ctp:39;87
 #: View/CategoriesEvents/add.ctp:20
 #: View/CategoriesEvents/edit.ctp:22
@@ -179,10 +175,10 @@ msgstr "Nuevo Evento"
 #: View/Categories/edit.ctp:4
 #: View/Categories/view.ctp:34
 msgid "Edit Category"
-msgstr ""
+msgstr "Editar Categoría"
 
 #: View/Categories/edit.ctp:17
-#: View/Categories/index.ctp:22
+#: View/Categories/index.ctp:27
 #: View/Categories/view.ctp:78
 #: View/CategoriesEvents/edit.ctp:17
 #: View/CategoriesEvents/index.ctp:26
@@ -194,10 +190,10 @@ msgstr ""
 #: View/Users/index.ctp:24
 #: View/Users/view.ctp:73
 msgid "Delete"
-msgstr ""
+msgstr "Eliminar"
 
 #: View/Categories/edit.ctp:17
-#: View/Categories/index.ctp:22
+#: View/Categories/index.ctp:27
 #: View/Categories/view.ctp:35;78
 #: View/CategoriesEvents/edit.ctp:17
 #: View/CategoriesEvents/index.ctp:26
@@ -211,14 +207,13 @@ msgstr ""
 #: View/Users/index.ctp:24
 #: View/Users/view.ctp:40;73
 msgid "Are you sure you want to delete # %s?"
-msgstr ""
+msgstr "¿Está seguro que desea eliminar # %s?"
 
 #: View/Categories/index.ctp:2
-#: View/Events/add.ctp:47;53
 msgid "Categories"
 msgstr "Categorías"
 
-#: View/Categories/index.ctp:20
+#: View/Categories/index.ctp:25
 #: View/Categories/view.ctp:76
 #: View/CategoriesEvents/index.ctp:24
 #: View/Places/index.ctp:24
@@ -226,9 +221,9 @@ msgstr "Categorías"
 #: View/Users/index.ctp:22
 #: View/Users/view.ctp:71
 msgid "View"
-msgstr ""
+msgstr "Ver"
 
-#: View/Categories/index.ctp:21
+#: View/Categories/index.ctp:26
 #: View/Categories/view.ctp:77
 #: View/CategoriesEvents/index.ctp:25
 #: View/Places/index.ctp:25
@@ -236,46 +231,45 @@ msgstr ""
 #: View/Users/index.ctp:23
 #: View/Users/view.ctp:72
 msgid "Edit"
-msgstr ""
+msgstr "Editar"
 
-#: View/Categories/index.ctp:30
+#: View/Categories/index.ctp:35
 #: View/CategoriesEvents/index.ctp:34
 #: View/Places/index.ctp:34
 #: View/Users/index.ctp:32
 msgid "Page {:page} of {:pages}, showing {:current} records out of {:count} total, starting on record {:start}, ending on {:end}"
-msgstr ""
+msgstr "Página {:page} de {:pages}, mostrando el registro {:current} de un total de {:count}, empezando en el registro {:start} y terminando en {:end}"
 
-#: View/Categories/index.ctp:35
+#: View/Categories/index.ctp:40
 #: View/CategoriesEvents/index.ctp:39
 #: View/Places/index.ctp:39
 #: View/Users/index.ctp:37
 msgid "previous"
-msgstr ""
+msgstr "anterior"
 
-#: View/Categories/index.ctp:37
+#: View/Categories/index.ctp:42
 #: View/CategoriesEvents/index.ctp:41
 #: View/Places/index.ctp:41
 #: View/Users/index.ctp:39
 msgid "next"
-msgstr ""
+msgstr "siguiente"
 
-#: View/Categories/index.ctp:44
+#: View/Categories/index.ctp:49
 #: View/Categories/view.ctp:37
 #: View/CategoriesEvents/add.ctp:18
 #: View/CategoriesEvents/edit.ctp:20
 #: View/CategoriesEvents/index.ctp:50
 #: View/CategoriesEvents/view.ctp:39
-#: View/Events/add.ctp:100
 #: View/Events/edit.ctp:26
 #: View/Events/view.ctp:69
 msgid "New Category"
-msgstr ""
+msgstr "Nueva Categoría"
 
 #: View/Categories/view.ctp:2
 #: View/CategoriesEvents/view.ctp:9
 #: View/Events/view.ctp:49
 msgid "Category"
-msgstr ""
+msgstr "Categoría"
 
 #: View/Categories/view.ctp:4;47
 #: View/CategoriesEvents/view.ctp:4
@@ -287,7 +281,7 @@ msgstr ""
 
 #: View/Categories/view.ctp:9
 #: View/Places/view.ctp:9
-#: View/Users/add.ctp:21
+#: View/Users/add.ctp:25
 #: View/Users/view.ctp:19
 msgid "Name"
 msgstr "Nombre"
@@ -295,7 +289,7 @@ msgstr "Nombre"
 #: View/Categories/view.ctp:14
 #: View/Places/view.ctp:14
 msgid "Sort"
-msgstr ""
+msgstr "Ordenar"
 
 #: View/Categories/view.ctp:19;54
 #: View/CategoriesEvents/view.ctp:19
@@ -315,7 +309,7 @@ msgstr "Modificado"
 
 #: View/Categories/view.ctp:35
 msgid "Delete Category"
-msgstr ""
+msgstr "Eliminar Categoría"
 
 #: View/Categories/view.ctp:43
 #: View/Places/view.ctp:53
@@ -323,7 +317,6 @@ msgid "Related Events"
 msgstr "Eventos relacionados"
 
 #: View/Categories/view.ctp:48
-#: View/Events/add.ctp:18
 #: View/Events/view.ctp:9
 #: View/Places/view.ctp:58
 #: View/Users/view.ctp:53
@@ -334,41 +327,41 @@ msgstr "Título"
 #: View/Events/view.ctp:14
 #: View/Places/view.ctp:19;59
 msgid "Lat"
-msgstr ""
+msgstr "Latitud"
 
 #: View/Categories/view.ctp:50
 #: View/Events/view.ctp:19
 #: View/Places/view.ctp:24;60
 msgid "Long"
-msgstr ""
+msgstr "Longitud"
 
 #: View/Categories/view.ctp:51
 #: View/Events/view.ctp:24
 #: View/Places/view.ctp:61
 msgid "Status"
-msgstr ""
+msgstr "Estado"
 
 #: View/Categories/view.ctp:52
 #: View/Events/view.ctp:29
 #: View/Places/view.ctp:62
 msgid "Date Start"
-msgstr ""
+msgstr "Fecha de Inicio"
 
 #: View/Categories/view.ctp:53
 #: View/Events/view.ctp:34
 #: View/Places/view.ctp:63
 msgid "Date End"
-msgstr ""
+msgstr "Fecha de Finalización"
 
 #: View/Categories/view.ctp:56
 #: View/Places/view.ctp:66
 msgid "Category Id"
-msgstr ""
+msgstr "Categoría Id"
 
 #: View/Categories/view.ctp:57
 #: View/Places/view.ctp:67
 msgid "Place Id"
-msgstr ""
+msgstr "Lugar Id"
 
 #: View/CategoriesEvents/add.ctp:4
 msgid "Add Categories Event"
@@ -407,25 +400,25 @@ msgstr "Evento"
 msgid "Delete Categories Event"
 msgstr "Borrar Categoría"
 
-#: View/Events/add.ctp:8
+#: View/Events/add.ctp:42
 msgid "Add Event"
 msgstr "Agregar Evento"
 
-#: View/Events/add.ctp:101
-#: View/Events/edit.ctp:27
-#: View/Events/view.ctp:70
-#: View/Places/add.ctp:18
-#: View/Places/edit.ctp:20
-#: View/Places/view.ctp:46
-msgid "List Places"
+#: View/Events/add.ctp:265
+msgid "web"
 msgstr ""
 
-#: View/Events/add.ctp:102
-#: View/Events/edit.ctp:28
-#: View/Events/view.ctp:71
-#: View/Places/index.ctp:48
-#: View/Places/view.ctp:47
-msgid "New Place"
+#: View/Events/add.ctp:268
+msgid "video"
+msgstr ""
+
+#: View/Events/add.ctp:273
+#, fuzzy
+msgid "fuente de noticias"
+msgstr "Noticias relacionadas"
+
+#: View/Events/add.ctp:279
+msgid "foto"
 msgstr ""
 
 #: View/Events/edit.ctp:4
@@ -433,10 +426,25 @@ msgstr ""
 msgid "Edit Event"
 msgstr "Editar Evento"
 
+#: View/Events/edit.ctp:27
+#: View/Events/view.ctp:70
+#: View/Places/add.ctp:18
+#: View/Places/edit.ctp:20
+#: View/Places/view.ctp:46
+msgid "List Places"
+msgstr "Listar Lugares"
+
+#: View/Events/edit.ctp:28
+#: View/Events/view.ctp:71
+#: View/Places/index.ctp:48
+#: View/Places/view.ctp:47
+msgid "New Place"
+msgstr "Nuevo Lugar"
+
 #: View/Events/view.ctp:54
 #: View/Places/view.ctp:2
 msgid "Place"
-msgstr ""
+msgstr "Lugar"
 
 #: View/Events/view.ctp:65
 msgid "Delete Event"
@@ -444,48 +452,44 @@ msgstr "Borrar Evento"
 
 #: View/Places/add.ctp:4
 msgid "Add Place"
-msgstr ""
+msgstr "Agregar Lugar"
 
 #: View/Places/edit.ctp:4
 #: View/Places/view.ctp:44
 msgid "Edit Place"
-msgstr ""
+msgstr "Editar Lugar"
 
 #: View/Places/index.ctp:2
 msgid "Places"
-msgstr ""
+msgstr "Lugares"
 
 #: View/Places/view.ctp:45
 msgid "Delete Place"
-msgstr ""
+msgstr "Eliminar Lugar"
 
-#: View/Users/add.ctp:7
-msgid "Add User"
-msgstr "Nuevo usuario"
-
-#: View/Users/add.ctp:11
+#: View/Users/add.ctp:15
 #: View/Users/view.ctp:9
 msgid "Username"
 msgstr "Nombre de usuario"
 
-#: View/Users/add.ctp:16
+#: View/Users/add.ctp:20
 #: View/Users/view.ctp:14
 msgid "Password"
 msgstr "Contraseña"
 
-#: View/Users/add.ctp:26
+#: View/Users/add.ctp:30
 msgid "Email"
 msgstr "Correo Electrónico"
 
-#: View/Users/add.ctp:35
+#: View/Users/add.ctp:38
 msgid "Female"
 msgstr "Femenino"
 
-#: View/Users/add.ctp:36
+#: View/Users/add.ctp:39
 msgid "Male"
 msgstr "Masculino"
 
-#: View/Users/add.ctp:37
+#: View/Users/add.ctp:40
 msgid "Other"
 msgstr "Otro"
 
@@ -501,26 +505,26 @@ msgstr "Listar Usuarios"
 
 #: View/Users/index.ctp:2
 msgid "Users"
-msgstr ""
+msgstr "Usuarios"
 
 #: View/Users/index.ctp:46
 #: View/Users/view.ctp:42
 msgid "New User"
-msgstr ""
+msgstr "Nuevo Usuario"
 
 #: View/Users/index.ctp:47
 #: View/Users/view.ctp:43
 msgid "List Noticias"
-msgstr ""
+msgstr "Listar Noticias"
 
 #: View/Users/index.ctp:48
 #: View/Users/view.ctp:44;82
 msgid "New Noticia"
-msgstr ""
+msgstr "Nueva Noticia"
 
 #: View/Users/view.ctp:2
 msgid "User"
-msgstr ""
+msgstr "Usuario"
 
 #: View/Users/view.ctp:40
 msgid "Delete User"
@@ -532,11 +536,11 @@ msgstr "Noticias relacionadas"
 
 #: View/Users/view.ctp:54
 msgid "Body"
-msgstr ""
+msgstr "Cuerpo"
 
 #: View/Users/view.ctp:57
 msgid "User Id"
-msgstr ""
+msgstr "Usuario Id"
 
 #: Model/CategoriesEvent.php:validation
 #: for field category_id;validation
@@ -544,7 +548,7 @@ msgstr ""
 #: sort Model/Event.php:validation
 #: status;validation place_id Model/Place.php:validation
 msgid "numeric"
-msgstr ""
+msgstr "numérico"
 
 #: Model/Category.php:validation
 #: for field name Model/Event.php:validation
@@ -552,11 +556,16 @@ msgstr ""
 #: Model/User.php:validation
 #: username;validation password;validation
 msgid "notempty"
-msgstr ""
+msgstr "no vacío"
 
 #: Model/Event.php:validation
 #: for field date_start;validation date_end
 msgid "datetime"
+msgstr "fecha"
+
+#: Model/Event.php:validation
+#: for field Category
+msgid "Es necesario seleccionar al menos una categoría"
 msgstr ""
 
 #: Model/User.php:validation
@@ -564,3 +573,230 @@ msgstr ""
 msgid "This username has already been taken."
 msgstr "El usuario ya existe pero puede elegir otro :)"
 
+#: View/Errors/error400.ctp:21
+#: View/Errors/error500.ctp:21
+msgid "Error"
+msgstr ""
+
+#: View/Errors/error400.ctp:23
+msgid "The requested address %s was not found on this server."
+msgstr "La dirección requerida %s no se encuentra en este servidor."
+
+#: View/Errors/error500.ctp:22
+msgid "An Internal Error Has Occurred."
+msgstr "Ocurrió un error"
+
+#: View/Layouts/Copy of default.ctp:19
+#: View/Layouts/error.ctp:19
+msgid "CakePHP: the rapid development php framework"
+msgstr ""
+
+#: View/Pages/home.ctp:26
+msgid "Release Notes for CakePHP %s."
+msgstr ""
+
+#: View/Pages/home.ctp:27
+msgid "Read the changelog"
+msgstr ""
+
+#: View/Pages/home.ctp:34
+msgid "URL rewriting is not properly configured on your server."
+msgstr ""
+
+#: View/Pages/home.ctp:42
+msgid "Your version of PHP is 5.2.8 or higher."
+msgstr ""
+
+#: View/Pages/home.ctp:46
+msgid "Your version of PHP is too low. You need PHP 5.2.8 or higher to use CakePHP."
+msgstr ""
+
+#: View/Pages/home.ctp:55
+msgid "Your tmp directory is writable."
+msgstr ""
+
+#: View/Pages/home.ctp:59
+msgid "Your tmp directory is NOT writable."
+msgstr ""
+
+#: View/Pages/home.ctp:69
+msgid "The %s is being used for core caching. To change the config edit APP/Config/core.php "
+msgstr ""
+
+#: View/Pages/home.ctp:73
+msgid "Your cache is NOT working. Please check the settings in APP/Config/core.php"
+msgstr ""
+
+#: View/Pages/home.ctp:83
+msgid "Your database configuration file is present."
+msgstr ""
+
+#: View/Pages/home.ctp:88
+msgid "Your database configuration file is NOT present."
+msgstr ""
+
+#: View/Pages/home.ctp:90
+msgid "Rename APP/Config/database.php.default to APP/Config/database.php"
+msgstr ""
+
+#: View/Pages/home.ctp:115
+msgid "Cake is able to connect to the database."
+msgstr ""
+
+#: View/Pages/home.ctp:119
+msgid "Cake is NOT able to connect to the database."
+msgstr ""
+
+#: View/Pages/home.ctp:131
+msgid "PCRE has not been compiled with Unicode support."
+msgstr ""
+
+#: View/Pages/home.ctp:133
+msgid "Recompile PCRE with Unicode support by adding <code>--enable-unicode-properties</code> when configuring"
+msgstr ""
+
+#: View/Pages/home.ctp:142
+msgid "DebugKit plugin is present"
+msgstr ""
+
+#: View/Pages/home.ctp:146
+msgid "DebugKit is not installed. It will help you inspect and debug different aspects of your application."
+msgstr ""
+
+#: View/Pages/home.ctp:148
+msgid "You can install it from %s"
+msgstr ""
+
+#: View/Pages/home.ctp:154
+msgid "Editing this Page"
+msgstr ""
+
+#: View/Pages/home.ctp:157
+msgid ""
+"To change the content of this page, edit: APP/View/Pages/home.ctp.<br />\n"
+"To change its layout, edit: APP/View/Layouts/default.ctp.<br />\n"
+"You can also add some CSS styles for your pages at: APP/webroot/css."
+msgstr ""
+
+#: View/Pages/home.ctp:163
+msgid "Getting Started"
+msgstr ""
+
+#: View/Pages/home.ctp:167
+msgid "New"
+msgstr ""
+
+#: View/Pages/home.ctp:167
+msgid "CakePHP 2.0 Docs"
+msgstr ""
+
+#: View/Pages/home.ctp:176
+msgid "The 15 min Blog Tutorial"
+msgstr ""
+
+#: View/Pages/home.ctp:183
+msgid "Official Plugins"
+msgstr ""
+
+#: View/Pages/home.ctp:188
+msgid "provides a debugging toolbar and enhanced debugging tools for CakePHP applications."
+msgstr ""
+
+#: View/Pages/home.ctp:192
+msgid "contains various localized validation classes and translations for specific countries"
+msgstr ""
+
+#: View/Pages/home.ctp:197
+msgid "More about Cake"
+msgstr ""
+
+#: View/Pages/home.ctp:199
+msgid "CakePHP is a rapid development framework for PHP which uses commonly known design patterns like Active Record, Association Data Mapping, Front Controller and MVC."
+msgstr ""
+
+#: View/Pages/home.ctp:202
+msgid "Our primary goal is to provide a structured framework that enables PHP users at all levels to rapidly develop robust web applications, without any loss to flexibility."
+msgstr ""
+
+#: View/Pages/home.ctp:206
+msgid "Cake Software Foundation"
+msgstr ""
+
+#: View/Pages/home.ctp:207
+msgid "Promoting development related to CakePHP"
+msgstr ""
+
+#: View/Pages/home.ctp:208
+msgid "CakePHP"
+msgstr ""
+
+#: View/Pages/home.ctp:209
+msgid "The Rapid Development Framework"
+msgstr ""
+
+#: View/Pages/home.ctp:210
+msgid "CakePHP Documentation"
+msgstr ""
+
+#: View/Pages/home.ctp:211
+msgid "Your Rapid Development Cookbook"
+msgstr ""
+
+#: View/Pages/home.ctp:212
+msgid "CakePHP API"
+msgstr ""
+
+#: View/Pages/home.ctp:213
+msgid "Quick Reference"
+msgstr ""
+
+#: View/Pages/home.ctp:214
+msgid "The Bakery"
+msgstr ""
+
+#: View/Pages/home.ctp:215
+msgid "Everything CakePHP"
+msgstr ""
+
+#: View/Pages/home.ctp:216
+msgid "CakePHP plugins repo"
+msgstr ""
+
+#: View/Pages/home.ctp:217
+msgid "A comprehensive list of all CakePHP plugins created by the community"
+msgstr ""
+
+#: View/Pages/home.ctp:218
+msgid "CakePHP Google Group"
+msgstr ""
+
+#: View/Pages/home.ctp:219
+msgid "Community mailing list"
+msgstr ""
+
+#: View/Pages/home.ctp:221
+msgid "Live chat about CakePHP"
+msgstr ""
+
+#: View/Pages/home.ctp:222
+msgid "CakePHP Code"
+msgstr ""
+
+#: View/Pages/home.ctp:223
+msgid "For the Development of CakePHP Git repository, Downloads"
+msgstr ""
+
+#: View/Pages/home.ctp:224
+msgid "CakePHP Lighthouse"
+msgstr ""
+
+#: View/Pages/home.ctp:225
+msgid "CakePHP Tickets, Wiki pages, Roadmap"
+msgstr ""
+
+#: webroot/test.php:87
+msgid "Debug setting does not allow access to this url."
+msgstr ""
+
+#~ msgid "Add User"
+#~ msgstr "Nuevo usuario"
