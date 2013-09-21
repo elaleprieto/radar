@@ -87,6 +87,7 @@
                 $event['Event']['description'] = $data->Event->description;
                 $event['Event']['lat'] = $data->Event->lat;
                 $event['Event']['long'] = $data->Event->long;
+                $event['Event']['website'] = $data->Event->website;
                 $event['Event']['cost'] = $data->Event->cost;
                 
                 // if(sizeof($data->Category) > 3)

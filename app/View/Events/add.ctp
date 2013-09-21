@@ -270,7 +270,11 @@ echo $this->Html->script(array('http://maps.googleapis.com/maps/api/js?v=3.exp&s
 									</div>
                                 </div>
                                 <div class="row-fluid">
-                                    <?php echo $this->Form->input('web', array('class'=>'textbox', 'label'=>__('web'))) ?>
+                                    <?php //echo $this->Form->input('website', array('class'=>'textbox', 'label'=>__('web'))) ?>
+                                    <div class="input text">
+                                    	<label for="web">web</label>
+                                    	<input class="textbox" ng-model="event.website" type="text" />
+                                    </div>
                                 </div>
                                 <div class="row-fluid">
                                     <?php echo $this->Form->input('video', array('class'=>'textbox', 'label'=>__('video'))) ?>
