@@ -244,22 +244,25 @@ echo $this->Html->script(array('http://maps.googleapis.com/maps/api/js?v=3.exp&s
                                     <div class="span12">
                                         <p>venta de entradas</p>
                                     </div>
-                                    <div class="span4">
+                                    <div class="span4" ng-init="hasCost=0">
                                         <label class="radio inline">
-                                            <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+                                            <input ng-checked="hasCost" ng-click="hasCost=1" ng-model="event.hasCost" 
+                                            	type="radio" />
                                             si
                                         </label>
                                         <label class="radio inline">
-                                            <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+                                            <input ng-checked="!hasCost" ng-click="hasCost=0; event.cost=null" 
+                                            	ng-model="event.hasCost" type="radio" />
                                             no
                                         </label>
                                     </div>   
-                                    <?php echo $this->Form->input('precio'
-                                    	, array('class'=>'textbox span4 inline'
-                                    		, 'label'=>FALSE, 'placeholder'=>'precio'
-											)
-										) 
-									?>
+									<div class="input text" ng-show="hasCost" ng-cloak>
+										<input class="textbox span4 inline" name="cost" ng-disabled="!hasCost" ng-model="event.cost" 
+											placeholder="<?php __('Cost') ?>" type="number" />
+										<span class="alert-danger" ng-show="!eventForm.cost.$valid">
+        									<?php echo __('invalid') ?>
+        								</span>
+									</div>
                                 </div>
                                 <div class="row-fluid">
                                     <?php echo $this->Form->input('web', array('class'=>'textbox', 'label'=>__('web'))) ?>
