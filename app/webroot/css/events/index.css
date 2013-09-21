@@ -2,7 +2,7 @@
 .categoriaLink { cursor: pointer; }
 
 /* line 8, ../../sass/events/index.sass */
-.highlight { background-color: #f8f8f8; }
+.highlight { background-color: #c5c5c5; }
 
 /* line 11, ../../sass/events/index.sass */
 .itemcate { height: 30px; line-height: 30px; display: inline-block; vertical-align: middle; padding-left: 3px; }

@@ -191,7 +191,7 @@
                                 ));
                             break;
                     }
-                    $conditions = array(
+                    $options['conditions'] = array(
                         'Event.lat <' => $neLat,
                         'Event.lat >' => $swLat,
                         'Event.long <' => $neLong,
@@ -203,27 +203,43 @@
                     if (sizeof($eventCategory) > 0) {
                         $categoryConditions = array();
                         foreach ($eventCategory as $key => $category) {
-                            array_push($categoryConditions, array('CategoriesEvents.category_id =' => $category));
+                            array_push($categoryConditions, array('CategoriesEvent.category_id =' => $category));
                         }
-                        array_push($conditions, array("OR" => $categoryConditions));
+                        // array_push($conditions, array("OR" => $categoryConditions));
+                        array_push($options['conditions'], array("OR" => $categoryConditions));
                     }
-                    $fields = array('Event.id'
+                    $options['fields'] = array('Event.id'
                         , 'Event.title'
                         , 'Event.address'
                         , 'Event.date_start'
                         , 'Event.date_end'
                         , 'Event.lat'
                         , 'Event.long'
+                        , 'CategoriesEvent.category_id'
+                        , 'Category.icon'
                     );
-
-                    $this -> Event -> bindModel(array('hasOne' => array('CategoriesEvents')));
-                    $events = $this -> Event -> find('all'
-                    	, array('conditions' => $conditions
-                        	, 'fields' => $fields
-                        	, 'group' => array('Event.id')
-                        	, 'recursive' => 0
-                    	)
+					$options['group'] = array('Event.id');
+					$options['recursive'] = 0;
+					
+					$options['joins'] = array(
+					    array('table' => 'categories_events',
+					        'alias' => 'CategoriesEvent',
+					        'type' => 'LEFT',
+					        'conditions' => array(
+					            'Event.id = CategoriesEvent.event_id',
+					        )
+					    )
+					    , array('table' => 'categories',
+					        'alias' => 'Category',
+					        'type' => 'LEFT',
+					        'conditions' => array(
+					            'Category.id = CategoriesEvent.category_id',
+					        )
+					    )
 					);
+
+                    // $this -> Event -> bindModel(array('hasOne' => array('CategoriesEvents')));
+                    $events = $this -> Event -> find('all', $options);
                     return json_encode($events);
                 }
             }

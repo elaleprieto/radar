@@ -130,7 +130,7 @@ RadarApp.controller 'EventoController', ($scope, $http, $timeout) ->
 			$scope.deleteOverlays()
 			angular.forEach $scope.eventos, (event, key) ->
 				latlng = new google.maps.LatLng(event.Event.lat, event.Event.long)
-				$scope.createMarker(event.Event.id, event.Event.title, latlng)
+				$scope.createMarker(event.Event.id, event.Event.title, event.Category.icon, latlng)
 			$scope.showOverlays()
 		, true
 	
@@ -197,11 +197,19 @@ RadarApp.controller 'EventoController', ($scope, $http, $timeout) ->
 				$scope.setLocationDefault()
 	
 	# A function to create the marker and set up the event window function
-	$scope.createMarker = (eventId, eventTitle, latlng) ->
+	$scope.createMarker = (eventId, eventTitle, eventCategory, latlng) ->
+		# icon = new google.maps.MarkerImage("http://gmaps-samples.googlecode.com/svn/trunk/markers/blue/blank.png"
+		icon = new google.maps.MarkerImage('/img/categorias/' + eventCategory
+			, new google.maps.Size(25, 26)
+			, new google.maps.Point(0, 0)
+			, new google.maps.Point(10, 34)
+		)
+		
 		marker = new google.maps.Marker eventId: eventId
-			, title: eventTitle
-			, position: latlng
 			, map: $scope.map
+			, icon: icon
+			, position: latlng
+			, title: eventTitle
 			, zIndex: Math.round(latlng.lat()*-100000)<<5
 		$scope.markers.push(marker)
 

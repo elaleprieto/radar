@@ -99,7 +99,7 @@
       angular.forEach($scope.eventos, function(event, key) {
         var latlng;
         latlng = new google.maps.LatLng(event.Event.lat, event.Event.long);
-        return $scope.createMarker(event.Event.id, event.Event.title, latlng);
+        return $scope.createMarker(event.Event.id, event.Event.title, event.Category.icon, latlng);
       });
       return $scope.showOverlays();
     }, true);
@@ -173,13 +173,15 @@
         });
       }
     };
-    $scope.createMarker = function(eventId, eventTitle, latlng) {
-      var marker;
+    $scope.createMarker = function(eventId, eventTitle, eventCategory, latlng) {
+      var icon, marker;
+      icon = new google.maps.MarkerImage('/img/categorias/' + eventCategory, new google.maps.Size(25, 26), new google.maps.Point(0, 0), new google.maps.Point(10, 34));
       marker = new google.maps.Marker({
         eventId: eventId,
-        title: eventTitle,
-        position: latlng,
         map: $scope.map,
+        icon: icon,
+        position: latlng,
+        title: eventTitle,
         zIndex: Math.round(latlng.lat() * -100000) << 5
       });
       return $scope.markers.push(marker);
