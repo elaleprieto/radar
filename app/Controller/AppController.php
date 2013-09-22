@@ -24,7 +24,7 @@
      */
 
     App::uses('Controller', 'Controller');
-
+	
     /**
      * Application Controller
      *
@@ -56,7 +56,7 @@
                 ),
                 'authorize' => array('Controller'),
             ),
-            'Facebook.Connect' => array(
+			'Facebook.Connect' => array(
             	'model' => 'User'
 			),
         );
@@ -81,18 +81,27 @@
         }
 		
 	/**
-	 *  Facebook Plugin
+	 *  Facebook Plugin. Guardo los datos del usuario en la bd
 	 */
 		public function beforeFacebookSave(){
+			$usuario = $this->Connect->user();
     		$this->Connect->authUser['User']['email'] = $this->Connect->user('email');
 			$this->Connect->authUser['User']['username'] = $this->Connect->user('username');
 			$this->Connect->authUser['User']['name'] = $this->Connect->user('name');
+			$this->Connect->authUser['User']['location'] = $usuario['location']['name'];
+
+			if($usuario['gender']=='female'){
+				$this->Connect->authUser['User']['gender'] = '1';
+			} else {
+				$this->Connect->authUser['User']['gender'] = '2';
+			}  
+			$this->Connect->authUser['User']['birthday'] = date('Y-m-d ',strtotime($this->Connect->user('birthday')));
+				
 			return true; //Must return true or will not save.
 		}
 		
 		public function afterFacebookLogin(){
     		//Logic to happen after successful facebook login.
     	  	$this->redirect($this -> Auth -> redirect());
-		}
-		
-    }
+		} 
+}
