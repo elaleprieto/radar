@@ -10,38 +10,35 @@
 		        <fieldset>
 		        	<h1 class="titulo" >REGISTRO</h1>
 		        	<?php
-		            	echo $this -> Form -> input('username', array(
-		                	'class' => 'span12',
-		                    'label' => __('Username'),
-		                    'required' => 'required'
+		            	echo $this -> Form -> input('username', array('class' => 'span12'
+		            		, 'label' => __('Username')
+		            		, 'required' => 'required'
 		                ));
-		                echo $this -> Form -> input('password', array(
-		                    'class' => 'span12',
-		                    'label' => __('Password'),
-		                    'required' => 'required'
+		                echo $this -> Form -> input('password', array('class' => 'span12'
+		                	, 'label' => __('Password')
+		                	, 'required' => 'required'
 		                ));
-		                echo $this -> Form -> input('name', array(
-		                    'class' => 'span12',
-		                    'label' => __('Name'),
-		                    'required' => 'required'
+		                echo $this -> Form -> input('name', array('class' => 'span12'
+		                	, 'label' => __('Name')
+		                	, 'placeholder' => __('Your Name')
+		                    , 'required' => 'required'
 		               	));
-		                echo $this -> Form -> input('email', array(
-		                    'class' => 'span12',
-		                    'label' => __('Email'),
-		                    'required' => 'required'
+		                echo $this -> Form -> input('email', array('class' => 'span12'
+		                	, 'label' => __('Email')
+		                	, 'placeholder' => __('example@example.com')
+		                    , 'required' => 'required'
+		                ));
+		                echo $this -> Form -> input('location', array('class' => 'span12'
+		                	, 'label' => __('Your Location')
+		                	, 'placeholder' => __('Example: Roma, Italia or Barcelona, Spain.')
+		                	, 'required' => 'required'
 		                ));
 		            ?>    
 		            <div class="row-fluid">
 		            	<div class="gender span12">
 		                	<?php
-		                    	$options = array(
-		                        	'1' => __('Female'),
-		                            '2' => __('Male'),
-		                            '3' => __('Other')
-		                        );
-		                        echo $this -> Form -> radio('gender', $options, array(
-		                        	'legend' => false
-		                        ));
+		                    	$options = array('1' => __('Female'), '2' => __('Male'), '3' => __('Other'));
+		                        echo $this -> Form -> radio('gender', $options, array('legend' => false ));
 		                   	?>
 		                </div>
 					</div>

@@ -52,6 +52,7 @@
     };
     $scope.map = new google.maps.Map(document.getElementById("map"), $scope.opciones);
     $scope.event.categories = [];
+    $scope.geocoder = new google.maps.Geocoder();
     $scope.eventCategoriesAdd = function(category) {
       if ($scope.event.categories.length < 3) {
         $scope.event.categories.push(category.Category.id);
@@ -112,7 +113,6 @@
         return console.log('Ocurrió un error guardando el evento');
       });
     };
-    $scope.geocoder = new google.maps.Geocoder();
     $scope.addAddressToMap = function(response, status) {
       var icon;
       if (!response || response.length === 0) {

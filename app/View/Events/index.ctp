@@ -1,15 +1,16 @@
-<?php echo $this->Html->script(array('http://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true'
+<?php 
+echo $this->Html->css(array('inicio', 'events/index'), '', array('inline'=>false));
+echo $this->Html->script(array('http://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true'
     	, 'angular/filters'
     	, 'events/index_an'
 	)
-    , array('inline'=>false))
+    , array('inline'=>false)
+);
 ?>
-<?php echo $this->Html->scriptBlock('WEBROOT="' . $this -> Html -> url('/', true) . '"', $options = array('inline' => true)) # Se define la ruta base ?>
-<?php echo $this->Html->css(array('inicio', 'events/index'), '', array('inline'=>false)) ?>
 
-<?php //debug($categorias) ?>
+<?php //debug(AuthComponent::user('location')) ?>
 
-<div ng-controller="EventoController">
+<div ng-controller="EventoController" ng-init="user.location='<?php echo AuthComponent::user('location'); ?>'">
     <div class="row">
         <!-- MAPA -->
         <div class="span8">
@@ -22,12 +23,11 @@
 							<button class="btn btn-verde" ng-click="centerMap('santafe')">Santa Fe</button>
 							<button class="btn btn-warning" ng-click="setLocation()">Mi Ubicación</button>
 						</div>
-						<div id="eventInterval" class="control-group btn-group pull-right" data-toggle="buttons-radio">
-              	
-              			</div>
 					</div>
 				</div>
-				<div class="span4" ng-show="errorLocation">
+				
+				<!-- Error Message -->
+				<div class="span4" ng-show="errorLocation" ng-cloak>
 					<span class="alert" ng-bind="errorLocation"></span>
 				</div>
 			</div>
