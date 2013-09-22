@@ -20,7 +20,10 @@
 				<div class="navbar-inner">
 					<div class="container">
     					<ul class="nav">
-                            <li><?= $this->Html->link( $this->Html->image("logoOk.png", array('alt'=>'logo')),'/', array('class'=>'menu_icono','style'=>'padding-top: 8px','escape' => false));?></li>
+                            <li>
+                            	<?= $this->Html->link( $this->Html->image("logoOk.png", array('alt'=>'logo')),'/', array('class'=>'menu_icono','style'=>'padding-top: 8px','escape' => false));?>
+                            	 <div class="beta">[beta]</div>
+                            </li>
                             <li><?= $this->Html->link('Espacios', '/espacios', array('class'=>'menu')) ?></li>
                             <li><a id="menu_naranja">|</a></li>
                             <li><?= $this->Html->link('Eventos','/', array('class'=>'menu')) ?></li>
