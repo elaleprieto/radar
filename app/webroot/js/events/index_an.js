@@ -66,6 +66,7 @@
 
     $scope.eventCategory = [];
     $scope.eventInterval = 1;
+    $scope.user = {};
     $scope.capital = new google.maps.LatLng(-34.603, -58.382);
     $scope.cordoba = new google.maps.LatLng(-31.388813, -64.179726);
     $scope.santafe = new google.maps.LatLng(-31.625906, -60.696774);
@@ -74,7 +75,7 @@
     $scope.zoomDefault = 8;
     $scope.zoomSantafe = 12;
     $scope.zoomCordoba = 11;
-    $scope.zoomCity = 12;
+    $scope.zoomCity = 13;
     $scope.opciones = {
       zoom: $scope.zoomDefault,
       center: $scope.locationDefault,
@@ -82,6 +83,7 @@
     };
     $scope.map = new google.maps.Map(document.getElementById("map"), $scope.opciones);
     $scope.markers = [];
+    $scope.geocoder = new google.maps.Geocoder();
     /* ***************************************************************************************************************
     			Eventos
     			Aquí se registran los eventos para los objetos de la vista
@@ -103,6 +105,11 @@
       });
       return $scope.showOverlays();
     }, true);
+    $scope.$watch('user.location', function(location) {
+      if ((location != null) && location.length > 0) {
+        return $scope.setLocationByUserLocation(location);
+      }
+    });
     google.maps.event.addListener($scope.map, 'dragend', function() {
       return $scope.eventsUpdate();
     });
@@ -173,6 +180,12 @@
         });
       }
     };
+    $scope.centerMapByUserLocation = function(response, status) {
+      if ((response[0] != null) && (response[0].geometry != null) && (response[0].geometry.location != null)) {
+        $scope.map.setCenter(response[0].geometry.location);
+        return $scope.map.setZoom($scope.zoomCity);
+      }
+    };
     $scope.createMarker = function(eventId, eventTitle, eventCategory, latlng) {
       var icon, marker;
       icon = new google.maps.MarkerImage('/img/categorias/' + eventCategory, new google.maps.Size(25, 26), new google.maps.Point(0, 0), new google.maps.Point(10, 34));
@@ -225,6 +238,12 @@
       } else {
         return $scope.errorLocation = 'Esta función no está soportada por tu navegador';
       }
+    };
+    $scope.setLocationByUserLocation = function(location) {
+      var request;
+      request = new Object();
+      request.address = location;
+      return $scope.geocoder.geocode(request, $scope.centerMapByUserLocation);
     };
     $scope.setLocationDefault = function() {
       $scope.map.setZoom($scope.zoomDefault);

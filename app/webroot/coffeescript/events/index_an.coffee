@@ -94,6 +94,7 @@ RadarApp.controller 'EventoController', ($scope, $http, $timeout) ->
 	*************************************************************************************************************** ###
 	$scope.eventCategory = []
 	$scope.eventInterval = 1
+	$scope.user = {}
 
 	# Cities
 	$scope.capital = new google.maps.LatLng(-34.603, -58.382)
@@ -104,12 +105,13 @@ RadarApp.controller 'EventoController', ($scope, $http, $timeout) ->
 	$scope.zoomDefault = 8
 	$scope.zoomSantafe = 12
 	$scope.zoomCordoba = 11
-	$scope.zoomCity = 12
+	$scope.zoomCity = 13
 	
 	# Map defaults
 	$scope.opciones = {zoom: $scope.zoomDefault, center: $scope.locationDefault, mapTypeId: google.maps.MapTypeId.ROADMAP}
 	$scope.map = new google.maps.Map(document.getElementById("map"), $scope.opciones)
 	$scope.markers = []
+	$scope.geocoder = new google.maps.Geocoder()
 	
 
 	### ***************************************************************************************************************
@@ -134,6 +136,11 @@ RadarApp.controller 'EventoController', ($scope, $http, $timeout) ->
 			$scope.showOverlays()
 		, true
 	
+	# Se observa el user.location
+	$scope.$watch 'user.location', (location) ->
+		if location? and location.length > 0
+			$scope.setLocationByUserLocation(location)
+
 	# # google.maps.event.addListener window.map, 'bounds_changed', () ->
 	google.maps.event.addListener $scope.map, 'dragend', () ->
 		$scope.eventsUpdate()
@@ -195,7 +202,16 @@ RadarApp.controller 'EventoController', ($scope, $http, $timeout) ->
 				$scope.map.setCenter(initialLocation)
 			, ->
 				$scope.setLocationDefault()
-	
+
+		
+	# centerMap: centers map with parameter location, called by setLocationByUserLocation
+	$scope.centerMapByUserLocation = (response, status) ->
+		if response[0]? and response[0].geometry? and response[0].geometry.location?
+			# Center Map
+			$scope.map.setCenter(response[0].geometry.location)
+			$scope.map.setZoom($scope.zoomCity)
+
+
 	# A function to create the marker and set up the event window function
 	$scope.createMarker = (eventId, eventTitle, eventCategory, latlng) ->
 		# icon = new google.maps.MarkerImage("http://gmaps-samples.googlecode.com/svn/trunk/markers/blue/blank.png"
@@ -246,6 +262,13 @@ RadarApp.controller 'EventoController', ($scope, $http, $timeout) ->
 						, 2000
 		else
 			$scope.errorLocation = 'Esta función no está soportada por tu navegador'
+
+	$scope.setLocationByUserLocation = (location) ->
+		request = new Object() # se crea un objeto request
+		request.address = location
+		# request.region = 'AR'
+		# geocode hace la conversión a un punto, y su segundo parámetro es una función de callback
+		$scope.geocoder.geocode(request, $scope.centerMapByUserLocation)
 
 	# Setea una localización por defecto		
 	$scope.setLocationDefault = ->

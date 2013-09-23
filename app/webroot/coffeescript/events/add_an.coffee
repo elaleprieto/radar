@@ -43,6 +43,7 @@ RadarApp.controller 'EventController', ($scope, $http) ->
 	# $scope.event.time_from = date.getHours()-1 + ":00"
 	# $scope.event.time_to = (+date.getHours() + 1) + ":00"
 	$scope.event.categories = []
+	$scope.geocoder = new google.maps.Geocoder()
 	
 	$scope.eventCategoriesAdd = (category) ->
 		if($scope.event.categories.length < 3)
@@ -106,8 +107,6 @@ RadarApp.controller 'EventController', ($scope, $http) ->
 				$scope.cargando = 'Ocurrió un error guardando el evento'
 				console.log 'Ocurrió un error guardando el evento'
 		
-	$scope.geocoder = new google.maps.Geocoder()
-	
 	$scope.addAddressToMap = (response, status) ->
 		if !response or response.length is 0 then return @ #si no pudo
 		
