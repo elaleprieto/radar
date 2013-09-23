@@ -2,23 +2,26 @@
 #alertMessage { display: none; float: right; }
 
 /* line 7, ../../sass/events/add.sass */
-#map img { max-width: none; }
+#label_simple { font-weight: normal; }
 
 /* line 10, ../../sass/events/add.sass */
-.categoriaLink { cursor: pointer; }
+#map img { max-width: none; }
 
 /* line 13, ../../sass/events/add.sass */
-.dateField { width: 20%; }
+.categoriaLink { cursor: pointer; }
 
 /* line 16, ../../sass/events/add.sass */
-.highlight { background-color: #c5c5c5; }
+.dateField { width: 20%; }
 
 /* line 19, ../../sass/events/add.sass */
+.highlight { background-color: #dfdfdf; }
+
+/* line 22, ../../sass/events/add.sass */
 .textbox { width: 100%; width: -moz-available; }
 
-/* line 23, ../../sass/events/add.sass */
-select { max-width: 100%; }
 /* line 26, ../../sass/events/add.sass */
-select[name*="month"] { min-width: 100px; }
+select { max-width: 100%; }
 /* line 29, ../../sass/events/add.sass */
+select[name*="month"] { min-width: 100px; }
+/* line 32, ../../sass/events/add.sass */
 select[name*="year"] { min-width: 65px; }
