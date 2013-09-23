@@ -3,7 +3,7 @@
 <?php echo $this->Html->css(array('inicio'), '', array('inline'=>false)) ?>
 
 <div class="row">
-	<div class="span12">
+	<div class="col-sm-12">
 		<div id="map"></div>
 		<form method="post" action="/event/get/">
 			<input value="1" name="interval" type="hidden">

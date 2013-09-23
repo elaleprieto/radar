@@ -1,4 +1,27 @@
+$blanco: #FFFFFF
 $verde_beta:#BCD35F
+$verde_oscuro: #7A9900
+
+@font-face 
+	font-family: "isocpe"
+	src: url(Isocpeur-Regular.ttf) format("truetype")
+
+#menu_superior
+	margin-left: 20px
+	background-color: rgba(255, 255, 255, 0.9)
+	height: 50px
+	
+#menu_superior_derecha
+	background-color: rgba(255, 255, 255, 0.9)
+	height: 50px
+
+#menu_superior_derecha_verde
+	color: $verde_oscuro
+	font:
+		size: 14px
+
+.nav > li > a:hover, .nav > li > a:focus
+	background-color: $blanco
  
 .beta
 	border: 0
@@ -13,8 +36,18 @@ body
 	margin-left: 0 !important
 	margin-right: 10px
 
+.menu
+	font:
+		family: 'isocpe'
+		weight: bold
+		size: 18px
+	padding:
+		left: 4px
+		right: 4px
+
 .menu_icono
 	padding-top: 10px
+	background-color: rgba(255, 255, 255, 0.95)
 
 .username
 	font:

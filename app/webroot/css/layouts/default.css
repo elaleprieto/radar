@@ -1,17 +1,34 @@
-/* line 3, ../../sass/layouts/default.sass */
-.beta { border: 0; color: #bcd35f; position: absolute; top: 46px; }
+@font-face { font-family: "isocpe"; src: url(Isocpeur-Regular.ttf) format("truetype"); }
 
 /* line 9, ../../sass/layouts/default.sass */
+#menu_superior { margin-left: 20px; background-color: rgba(255, 255, 255, 0.9); height: 50px; }
+
+/* line 14, ../../sass/layouts/default.sass */
+#menu_superior_derecha { background-color: rgba(255, 255, 255, 0.9); height: 50px; }
+
+/* line 18, ../../sass/layouts/default.sass */
+#menu_superior_derecha_verde { color: #7a9900; font-size: 14px; }
+
+/* line 23, ../../sass/layouts/default.sass */
+.nav > li > a:hover, .nav > li > a:focus { background-color: white; }
+
+/* line 26, ../../sass/layouts/default.sass */
+.beta { border: 0; color: #bcd35f; position: absolute; top: 46px; }
+
+/* line 32, ../../sass/layouts/default.sass */
 body { padding-top: 80px; }
 
-/* line 12, ../../sass/layouts/default.sass */
+/* line 35, ../../sass/layouts/default.sass */
 .checkbox.inline { margin-left: 0 !important; margin-right: 10px; }
 
-/* line 16, ../../sass/layouts/default.sass */
-.menu_icono { padding-top: 10px; }
+/* line 39, ../../sass/layouts/default.sass */
+.menu { font-family: "isocpe"; font-weight: bold; font-size: 18px; padding-left: 4px; padding-right: 4px; }
 
-/* line 19, ../../sass/layouts/default.sass */
+/* line 48, ../../sass/layouts/default.sass */
+.menu_icono { padding-top: 10px; background-color: rgba(255, 255, 255, 0.95); }
+
+/* line 52, ../../sass/layouts/default.sass */
 .username { font-family: "isocpe"; font-size: 18px; font-weight: bold; margin-right: 20px; padding-top: 10px; }
 
-/* line 29, ../../sass/layouts/default.sass */
+/* line 62, ../../sass/layouts/default.sass */
 #map { height: 400px; margin-bottom: 20px; width: 100%; }

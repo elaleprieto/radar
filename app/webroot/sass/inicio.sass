@@ -3,8 +3,10 @@
 $blanco: #FFFFFF
 $gris: #D4D4D4
 $verde: #A1CA00
-$verde_claro: #C7E64D
-$verde_oscuro: #7A9900
+//$verde_claro: #C7E64D
+$verde_claro: #BDDA4D
+//$verde_oscuro: #7A9900
+$verde_oscuro: #AACF19
 
 @font-face 
 	font-family: "isocpe"
@@ -29,9 +31,6 @@ body
 		family: 'liberation'
 		size: 14px
 
-ul.nav
-	height: 70px
-
 .btn
 	font:
 		family: 'isocpe'
@@ -39,29 +38,41 @@ ul.nav
 		weight: bold
 
 .btn-verde
-	color: #FFFFFF
-	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25)
-	background-color: $verde_oscuro
-	*background-color: $verde_oscuro
-	background-image: -moz-linear-gradient(top, $verde_claro, $verde_oscuro)
-	background-image: -webkit-gradient(linear, 0 0, 0 100%, from($verde_claro), to($verde_oscuro))
-	background-image: -webkit-linear-gradient(top, $verde_claro, $verde_oscuro)
-	background-image: -o-linear-gradient(top, $verde_claro, $verde_oscuro)
-	background-image: linear-gradient(to bottom, $verde_claro, $verde_oscuro)
-	background-repeat: repeat-x
+	color: #ffffff
+	background-color: $verde_claro
 	border-color: $verde_oscuro
-	border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25)
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$verde_claro', endColorstr='$verde_oscuro', GradientType=0)
-	filter: progid:DXImageTransform.Microsoft.gradient(enabled=false)
 
 .btn-verde:hover,
+.btn-verde:focus,
 .btn-verde:active,
 .btn-verde.active,
-.btn-verde.disabled,
-.btn-verde[disabled]
-	color: #FFFFFF
+.open .dropdown-toggle.btn-verde
+	color: #ffffff
 	background-color: $verde_oscuro
-	*background-color: $verde_claro
+	border-color: $verde_oscuro
+
+.btn-verde:active,
+.btn-verde.active,
+.open .dropdown-toggle.btn-verde
+	background-image: none
+
+.btn-verde.disabled,
+.btn-verde[disabled],
+fieldset[disabled] .btn-verde,
+.btn-verde.disabled:hover,
+.btn-verde[disabled]:hover,
+fieldset[disabled] .btn-verde:hover,
+.btn-verde.disabled:focus,
+.btn-verde[disabled]:focus,
+fieldset[disabled] .btn-verde:focus,
+.btn-verde.disabled:active,
+.btn-verde[disabled]:active,
+fieldset[disabled] .btn-verde:active,
+.btn-verde.disabled.active,
+.btn-verde[disabled].active,
+fieldset[disabled] .btn-verde.active
+	background-color: $verde_claro
+	border-color: $verde_claro
 
 .icono-categoria
 	padding: 2px
@@ -80,43 +91,7 @@ ul.nav
 	border-top-color: rgba(0, 0, 0, 0.1)
 	color: #FFFFFF
 	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25)
-
-.menu
-	font:
-		family: 'isocpe'
-		weight: bold
-		size: 18px
-	padding:
-		left: 4px
-		right: 4px
-
-.menu_derecha
-	font:
-		size: 14px
-	padding:
-		top: 8px
-
-#menu_derecha_verde
-	color: $verde_oscuro
-	font:
-		size: 14px
-	padding:
-		top: 8px
-
-#menu_naranja
-	font:
-		family: 'isocpe'
-		weight: bold
-		size: 18px
-	color: orange
-	padding:
-		left: 1px
-		right: 1px
-		top: 42px
 		
-.navbar .btn, .navbar .btn-group
-	margin-top: 10px
-
 .navbar .nav > li > a.menu
 	height: 33px
 	padding:
@@ -130,21 +105,6 @@ ul.nav
 	padding:
 		bottom: 5px
 		top: 5px
-
-.navbar .navbar-inner
-	height: 55px
-	background-color: $blanco
-	background-image: -moz-linear-gradient(top, $blanco, $blanco)
-	background-image: -webkit-gradient(linear, 0 0, 0 100%, from($blanco), to($blanco))
-	background-image: -webkit-linear-gradient(top, $blanco, $blanco)
-	background-image: -o-linear-gradient(top, $blanco, $blanco)
-	background-image: linear-gradient(to bottom, $blanco, $blanco)
-	background-repeat: repeat-x
-	border: 1px solid $gris
-
-.navbar-fixed-top .navbar-inner, .navbar-static-top .navbar-inner
-	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1)
-	height: 70px
 
 .titulo
 	color: $verde
