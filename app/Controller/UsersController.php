@@ -180,28 +180,15 @@
 
 			define('CONSUMER_KEY', 'gJos51nlduv7o47481Mg4A');
 			define('CONSUMER_SECRET', 'rwa1AfOL2vbnPrrHoYcdHaLd4m37x4fDEGc0Pm11Q');
-			// define('OAUTH_CALLBACK', '/users/callbackTwitter');
 			define('OAUTH_CALLBACK', Router::url(array('controller'=>'users', 'action'=>'callbackTwitter'), true));
 			
-			// if(!CakeSession::read('twitter_status')) {
-				
-				$twitter = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET);
-				$twitterAux = $twitter->getRequestToken(OAUTH_CALLBACK);
-				CakeSession::write('twitter_token_aux', $twitterAux['oauth_token']);
-				CakeSession::write('twitter_token_secret_aux', $twitterAux['oauth_token_secret']);
-				
-				$twitterURL = $twitter->getAuthorizeURL($twitterAux['oauth_token']);
-				// debug($twitterURL);
-				$this->redirect($twitterURL);
-				// header('Location: ' . $twitterURL);
-			// } else {
-				// $twitter = new TwitterOAuth(CONSUMER_KEY
-					// , CONSUMER_SECRET
-					// , CakeSession::read('twitter_token')
-					// , CakeSession::read('twitter_token_secret')
-				// );
-				// debug($twitter->get('account/verify_credentials'));
-			// }
+			$twitter = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET);
+			$twitterAux = $twitter->getRequestToken(OAUTH_CALLBACK);
+			CakeSession::write('twitter_token_aux', $twitterAux['oauth_token']);
+			CakeSession::write('twitter_token_secret_aux', $twitterAux['oauth_token_secret']);
+			
+			$twitterURL = $twitter->getAuthorizeURL($twitterAux['oauth_token']);
+			$this->redirect($twitterURL);
 	    }
 	
 	    public function callbackTwitter() {
