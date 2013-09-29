@@ -31,6 +31,12 @@ echo $this -> Html -> script(array('login'), array('inline' => FALSE));
 						<?php echo $this->Facebook->login(array('perms' => 'email,publish_stream', 'class'=>'span6')); ?>
 					</div>
 				</div>
+				<br />
+				<div class="row-fluid">
+					<div class="btn span6">
+						<a href="/users/loginTwitter">Twitter</a>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>

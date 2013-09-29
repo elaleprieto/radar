@@ -11,7 +11,7 @@
         public function beforeFilter() {
             parent::beforeFilter();
             // $this -> Auth -> allow('contactar', 'mailup', 'logout');
-            $this -> Auth -> allow('add', 'edit', 'logout');
+            $this -> Auth -> allow('add', 'auth_login', 'auth_callback', 'callbackTwitter', 'loginTwitter', 'edit', 'logout');
             // $this -> Auth -> allow('contactar');
         }
 
@@ -173,6 +173,92 @@
                 $this -> request -> data = $this -> User -> read(null, $id);
             }
         }
+
+
+		public function loginTwitter() {
+			App::import('Vendor', 'twitteroauth/twitteroauth');
+
+			define('CONSUMER_KEY', 'gJos51nlduv7o47481Mg4A');
+			define('CONSUMER_SECRET', 'rwa1AfOL2vbnPrrHoYcdHaLd4m37x4fDEGc0Pm11Q');
+			// define('OAUTH_CALLBACK', '/users/callbackTwitter');
+			define('OAUTH_CALLBACK', Router::url(array('controller'=>'users', 'action'=>'callbackTwitter'), true));
+			
+			// if(!CakeSession::read('twitter_status')) {
+				
+				$twitter = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET);
+				$twitterAux = $twitter->getRequestToken(OAUTH_CALLBACK);
+				CakeSession::write('twitter_token_aux', $twitterAux['oauth_token']);
+				CakeSession::write('twitter_token_secret_aux', $twitterAux['oauth_token_secret']);
+				
+				$twitterURL = $twitter->getAuthorizeURL($twitterAux['oauth_token']);
+				// debug($twitterURL);
+				$this->redirect($twitterURL);
+				// header('Location: ' . $twitterURL);
+			// } else {
+				// $twitter = new TwitterOAuth(CONSUMER_KEY
+					// , CONSUMER_SECRET
+					// , CakeSession::read('twitter_token')
+					// , CakeSession::read('twitter_token_secret')
+				// );
+				// debug($twitter->get('account/verify_credentials'));
+			// }
+	    }
+	
+	    public function callbackTwitter() {
+	        App::import('Vendor', 'twitteroauth/twitteroauth');
+
+			define('CONSUMER_KEY', 'gJos51nlduv7o47481Mg4A');
+			define('CONSUMER_SECRET', 'rwa1AfOL2vbnPrrHoYcdHaLd4m37x4fDEGc0Pm11Q');
+			define('OAUTH_CALLBACK', '/users/callbackTwitter');
+			
+			$twitter = new TwitterOAuth(CONSUMER_KEY
+				, CONSUMER_SECRET
+				, CakeSession::read('twitter_token_aux')
+				, CakeSession::read('twitter_token_secret_aux')
+			);
+			$twitterToken = $twitter->getAccessToken($this->request->query['oauth_verifier']);
+			
+			if($twitter->http_code == 200) {
+				CakeSession::write('twitter_token', $twitterToken['oauth_token']);
+				CakeSession::write('twitter_token_secret', $twitterToken['oauth_token_secret']);
+				CakeSession::write('twitter_status', true);
+				
+				$twitter = new TwitterOAuth(CONSUMER_KEY
+					, CONSUMER_SECRET
+					, $twitterToken['oauth_token']
+					, $twitterToken['oauth_token_secret']
+				);
+				
+				# Se obtienen los datos de twitter
+				$twitterData = $twitter->get('account/verify_credentials');
+				
+				# Se busca el usuario a través del id de twitter
+				$existentUser = $this->User->find('first', array('conditions' => array('User.twitter_id' => $twitterData->id)));
+				
+				# Si no existe, se crea y se logea con él. Si existe, sólo se logea.
+				if(sizeof($existentUser) == 0) {
+					$user['User']['username'] = 'tw_'.$twitterData->screen_name; 
+					$user['User']['password'] = $twitterToken['oauth_token']; 
+					$user['User']['name'] = $twitterData->name; 
+					$user['User']['location'] = $twitterData->location; 
+					$user['User']['twitter_id'] = $twitterData->id;
+					
+					$this->User->create();
+					if($this->User->save($user)) {
+						$user = $this->User->read(null, $this->User->id);
+	                    $this->Auth->login($user['User']);
+					} else {
+						$this->redirect(Router::url(array('controller'=>'users', 'action'=>'login')));
+					}
+				} else {
+                    $this->Auth->login($existentUser['User']);
+				}
+				
+				# Se redirige al inicio.
+                $this->redirect(array('controller' => 'events', 'action' => 'index'));
+			}
+	    }
+		
 
         //
         // /**
