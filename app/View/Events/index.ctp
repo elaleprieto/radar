@@ -8,9 +8,33 @@ echo $this->Html->script(array('http://maps.googleapis.com/maps/api/js?v=3.exp&s
 );
 ?>
 
-<?php //debug(AuthComponent::user('location')) ?>
+<?php //debug($this->request->clientIp()) ?>
+<?php
+# User Location
+if(AuthComponent::user('location')) {
+	$userLocation = AuthComponent::user('location');
+} else {
+	$ip = '190.183.62.72';
+	// $ip = $this->request->clientIp();
+	$ipData = @json_decode(file_get_contents("http://www.geoplugin.net/json.gp?ip=".$ip));
+	
+	if($ipData && $ipData->geoplugin_countryName != null){
+		$userLocation = $ipData->geoplugin_city . ', ' . $ipData->geoplugin_countryName;
+		
+		# Se guarda el userLocation
+		if($userId = AuthComponent::user('id')) {
+			// $this->requestAction(array('controller' => 'users', 'action' => 'setLocation')
+				// , array('pass' => array($userId, $userLocation))
+			// );
+			$this->requestAction("/users/setLocation/$userId/$userLocation");
+		}
+	} else {
+		$userLocation = null;
+	}
+}
+?>
 
-<div ng-controller="EventoController" ng-init="user.location='<?php echo AuthComponent::user('location'); ?>'">
+<div ng-controller="EventoController" ng-init="user.location='<?php echo $userLocation; ?>'">
     <div class="row">
         <!-- MAPA -->
         <div class="span8">

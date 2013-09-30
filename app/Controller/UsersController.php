@@ -11,7 +11,7 @@
         public function beforeFilter() {
             parent::beforeFilter();
             // $this -> Auth -> allow('contactar', 'mailup', 'logout');
-            $this -> Auth -> allow('add', 'auth_login', 'auth_callback', 'callbackTwitter', 'loginTwitter', 'edit', 'logout');
+            $this->Auth->allow('add', 'callbackTwitter', 'loginTwitter', 'edit', 'logout');
             // $this -> Auth -> allow('contactar');
         }
 
@@ -85,6 +85,11 @@
             // if ($this -> action === 'add') {
             // return true;
             // }
+            
+            // Todos los usuarios registrados podrán cambiar su location
+            if ($this->action === 'setLocation') {
+            	return true;
+            }
 
             // The owner of a post can edit and delete it
             // if (in_array($this -> action, array(
@@ -245,6 +250,14 @@
                 $this->redirect(array('controller' => 'events', 'action' => 'index'));
 			}
 	    }
+
+	public function setLocation($id = null, $location = null) {
+		$this->autoRender = false;
+		if($id && $location) {
+			$this->User->id = $id;
+			$this->User->saveField('location', $location);
+		}
+	}
 		
 
         //
