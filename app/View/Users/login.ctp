@@ -14,29 +14,31 @@ echo $this -> Html -> script(array('login'), array('inline' => FALSE));
     			<h1 class="titulo">Bienvenidos</h1>
 				<?php echo $this->Form->create('User') ?>
 					<?php
-						echo $this->Form->label('username', 'Usuario');
-						echo $this->Form->input('username', array('class'=>'span12','label'=>FALSE, 'placehorlder'=>'Usuario'));
-						echo $this->Form->label('password', 'Contraseña');
-						echo $this->Form->input('password', array('class'=>'span12','label'=>FALSE, 'placehorlder'=>'Contraseña'));
+						echo $this->Form->label('username', __('User'));
+						echo $this->Form->input('username'
+							, array('class'=>'span12','label'=>FALSE, 'placehorlder'=>__('User'))
+						);
+						echo $this->Form->label('password', __('Password'));
+						echo $this->Form->input('password'
+							, array('class'=>'span12','label'=>FALSE, 'placehorlder'=>__('Password'))
+						);
 					?>
 					<br>
 					<div class="row-fluid">
-						<button type="submit" class="btn btn-verde span6">Entrar</button>
+						<button type="submit" class="btn btn-verde span6"><?php echo __('Login'); ?></button>
 						<!--<button type="reset" class="btn span3">Borrar	</button>-->
-						<?php echo $this->Html->link('¡Registrate!', '/registrate', array('class'=>'btn span6')) ?>
+						<?php echo $this->Html->link(__('Register!'), '/registrate', array('class'=>'btn span6')) ?>
 					</div>
 				</form>
 				<div class="row-fluid">
 					<div class="btn btn-facebook span6">
 						<?php echo $this->Facebook->login(array('perms' => 'email,publish_stream', 'class'=>'span6')); ?>
 					</div>
-				</div>
-				<br />
-				<div class="row-fluid">
-					<div class="btn span6">
-						<a href="/users/loginTwitter">Twitter</a>
+					<div class="btn btn-info span6">
+						<a href="/users/loginTwitter"><?php echo __('Login with Twitter'); ?></a>
 					</div>
 				</div>
+				<br />
 			</div>
 		</div>
 	</div>
