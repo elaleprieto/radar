@@ -1,41 +1,41 @@
 <?php echo $this -> Html -> css(array('users/add'), null, array('inline' => FALSE)) ?>
 <div class="row">
-    <div class="span10">
-    	<div class="row-fluid">
-    		<div class="span4 whipala">
+    <div class="col-sm-10">
+    	<div class="row">
+    		<div class="col-sm-4 whipala">
 				<img src="img/whipalaRadar.png" class="whipala">
 			</div>
-    		<div class="span6">
+    		<div class="col-sm-6">
     			<?php echo $this -> Form -> create('User'); ?>
 		        <fieldset>
 		        	<h1 class="titulo" >REGISTRO</h1>
 		        	<?php
-		            	echo $this -> Form -> input('username', array('class' => 'span12'
+		            	echo $this -> Form -> input('username', array('class' => 'col-sm-12 form-group form-control'
 		            		, 'label' => __('Username')
 		            		, 'required' => 'required'
 		                ));
-		                echo $this -> Form -> input('password', array('class' => 'span12'
+		                echo $this -> Form -> input('password', array('class' => 'col-sm-12 form-group form-control'
 		                	, 'label' => __('Password')
 		                	, 'required' => 'required'
 		                ));
-		                echo $this -> Form -> input('name', array('class' => 'span12'
+		                echo $this -> Form -> input('name', array('class' => 'col-sm-12 form-group form-control'
 		                	, 'label' => __('Name')
 		                	, 'placeholder' => __('Your Name')
 		                    , 'required' => 'required'
 		               	));
-		                echo $this -> Form -> input('email', array('class' => 'span12'
+		                echo $this -> Form -> input('email', array('class' => 'col-sm-12 form-group form-control'
 		                	, 'label' => __('Email')
 		                	, 'placeholder' => __('example@example.com')
 		                    , 'required' => 'required'
 		                ));
-		                echo $this -> Form -> input('location', array('class' => 'span12'
+		                echo $this -> Form -> input('location', array('class' => 'col-sm-12 form-group form-control'
 		                	, 'label' => __('Your Location')
 		                	, 'placeholder' => __('Example: Roma, Italia or Barcelona, Spain.')
 		                	, 'required' => 'required'
 		                ));
 		            ?>    
 		            <div class="row-fluid">
-		            	<div class="gender span12">
+		            	<div class="gender col-sm-12 form-group">
 		                	<?php
 		                    	$options = array('1' => __('Female'), '2' => __('Male'), '3' => __('Other'));
 		                        echo $this -> Form -> radio('gender', $options, array('legend' => false ));
@@ -43,9 +43,9 @@
 		                </div>
 					</div>
 					<br>
-		        	<div class="row-fluid">
+		        	<div class="row">
 		        		<?php 
-		        			$options = array('label' => __('Submit'),'class' => 'btn btn-verde btn-block');
+		        			$options = array('label' => __('Submit'),'class' => 'btn btn-verde btn-block btn-lg');
 							echo $this -> Form -> end($options);
 		        		?>	
 		        	</div>
@@ -62,14 +62,12 @@
     	</div>
     </div>
 <!-- SPONSOR -->
-	<div class="span2">
-	    <ul class="thumbnails">
-            <li class="span2">
-                <a href="#" class="thumbnail"><?=$this->Html->image('sponsor/santafedisenia.jpg');?></a>
-            </li>
-            <li class="span2">
-                <a href="#" class="thumbnail"><?=$this->Html->image('sponsor/tallercandombe.jpg');?></a>
-            </li>
-        </ul>
+	<div class="col-sm-2">
+	    <div class="col-sm-12">
+	    	  <a href="#" class="thumbnail"><?=$this->Html->image('sponsor/santafedisenia.jpg');?></a>
+	    </div>
+	    <div class="col-sm-12">
+	    	    <a href="#" class="thumbnail"><?=$this->Html->image('sponsor/tallercandombe.jpg');?></a>
+	    </div>
 	</div>
 </div>

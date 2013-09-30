@@ -1,14 +1,14 @@
 <?php echo $this->Html->css(array( 'font-awesome/css/font-awesome.min'), '', array('inline'=>false)) ?>
 <?php echo $this->Html->css(array('pages/about'), '', array('inline'=>false)) ?>
 <div class="row">
-	<div class="span9">
-		<div class="row-fluid">		
-			 <div class="span6 ">
+	<div class="col-sm-10">
+		<div class="row">		
+			 <div class="col-sm-6 ">
 			 	<h4 class="resaltado"><i class="icon-double-angle-right icon-1x"></i>  ¿Qué es RadarCultural?</h4>
 			 </div>
 		</div>
-		<div class="row-fluid">
-			<div class="span11 offset1">
+		<div class="row">
+			<div class="col-sm-11 col-sm-offset-1">
 				<p>	Radar Cultural es una plataforma web 2.0 a través de la cual, artistas, instituciones, colectivos, 
 				actores del ámbito cultural y público en general, podrán compartir información de sus actividades, 
 				proyectos y programación, con el fin de conformar agendas culturales colaborativas de distintas 
@@ -28,13 +28,13 @@
 				derechos culturales.</p>
 			</div>
 		</div>
-		<div class="row-fluid">
-			<div class="span6">
+		<div class="row">
+			<div class="col-sm-6">
 			 	<h4 class="resaltado"><i class="icon-double-angle-right "></i>  ¿Cómo funciona?</h4>
 			</div>
 		</div>
-		<div class="row-fluid">
-			<div class="span11 offset1">
+		<div class="row">
+			<div class="col-sm-11 col-sm-offset-1">
 				<p>
 				<ol>
 					<li>A través de LA PLATAFORMA www.radarcultural.org.ar el/la usuario/a podrá:</br>
@@ -66,13 +66,13 @@
 				</p>
 			</div>
 		</div>
-		<div class="row-fluid">
-			<div class="span6">
+		<div class="row">
+			<div class="col-sm-6">
 			 	<h4 class="resaltado"><i class="icon-double-angle-right"></i>  ¿A quién está dirigido?</h4>
 			</div>
 		</div>
-		<div class="row-fluid">
-			<div class="span11 offset1">
+		<div class="row">
+			<div class="col-sm-11 col-sm-offset-1">
 				<p>
 				<ul>
 					<li>A un público amplio, mayoritariamente joven, urbano (en una primera instancia de las tres ciudades donde se va a implementar: 
@@ -90,14 +90,12 @@
 		</div>
 	</div>
 <!-- SPONSOR -->
-	<div class="span2 offset1">
-	    <ul class="thumbnails">
-            <li class="span2">
-                <a href="#" class="thumbnail"><?=$this->Html->image('sponsor/santafedisenia.jpg');?></a>
-            </li>
-            <li class="span2">
-                <a href="#" class="thumbnail"><?=$this->Html->image('sponsor/tallercandombe.jpg');?></a>
-            </li>
-        </ul>
+	<div class="col-sm-2">
+	    <div class="col-sm-12">
+	    	  <a href="#" class="thumbnail"><?=$this->Html->image('sponsor/santafedisenia.jpg');?></a>
+	    </div>
+	    <div class="col-sm-12">
+	    	    <a href="#" class="thumbnail"><?=$this->Html->image('sponsor/tallercandombe.jpg');?></a>
+	    </div>
 	</div>
 </div>

@@ -1,9 +1,9 @@
 @font-face { font-family: "isocpe"; src: url(../Isocpeur-Regular.ttf) format("truetype"); }
 
 /* line 8, ../../sass/users/login.sass */
-a { color: white; }
+.btn-facebook a { color: white; }
 /* line 10, ../../sass/users/login.sass */
-a:hover { color: white; text-decoration: none; }
+.btn-facebook a:hover { color: white; text-decoration: none; }
 
 /* line 14, ../../sass/users/login.sass */
 .btn-facebook { color: white; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25); background-color: #275692; *background-color: #4883cc; background-image: -moz-linear-gradient(top, #4883cc, #275692); background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#4883cc), to(#275692)); background-image: -webkit-linear-gradient(top, #4883cc, #275692); background-image: -o-linear-gradient(top, #4883cc, #275692); background-image: linear-gradient(to bottom, #4883cc, #275692); background-repeat: repeat-x; border-color: #275692; border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25); filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$azul_claro', endColorstr='$azul_oscuro', GradientType=0); filter: progid:DXImageTransform.Microsoft.gradient(enabled=false); }

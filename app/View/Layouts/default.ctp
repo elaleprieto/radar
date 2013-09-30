@@ -4,9 +4,10 @@
 	<head>
 		<?php echo $this -> Html -> charset(); ?>
 		<title> #RadarCultural :: <?php echo $title_for_layout; ?></title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<?php
             echo $this -> Html -> meta('icon');
-            echo $this -> Html -> css(array( 'layouts/default','bootstrap.min', 'inicio', 'bootstrap-responsive.min'));
+            echo $this -> Html -> css(array( 'bootstrap.min','layouts/default',  'inicio', /*'bootstrap-responsive.min'*/));
             echo $this -> fetch('meta');
             echo $this -> fetch('css');
 		?>
@@ -16,62 +17,53 @@
 	</head>
 	<body ng-app="RadarApp">
 		<div id="container">
-			<div class="navbar navbar-fixed-top">
-				<div class="navbar-inner">
-					<div class="container">
-    					<ul class="nav">
+			<nav class="navbar navbar-fixed-top" role="navigation">
+				<div class="container">
+    				<ul class="nav navbar-nav">
+    					<li>
+                        	<?= $this->Html->link( $this->Html->image("logoBeta.png", array('alt'=>'logo')),'/', array('class'=>'menu_icono','style'=>'padding-top: 8px','escape' => false));?>
+                        </li>
+    				</ul>
+    				<ul class="nav navbar-nav" id="menu_superior">
+                        <li class="menu"><?= $this->Html->link('Espacios', '/espacios') ?></li>
+                        <li class="menu"><?= $this->Html->link('Eventos','/') ?></li>
+                        <li class="menu"><?= $this->Html->link('Sobre radar', '/about') ?></li>
+                        <li class="menu"><?= $this->Html->link('Contacto', '/contacto') ?></li>
+                    </ul>
+                    <ul id="menu_superior_derecha" class="nav navbar-nav navbar-right">
+                        <?php if ($this->Session->read('Auth.User.name') != ''): ?>
                             <li>
-                            	<?= $this->Html->link( $this->Html->image("logoOk.png", array('alt'=>'logo')),'/', array('class'=>'menu_icono','style'=>'padding-top: 8px','escape' => false));?>
-                            	 <div class="beta">[beta]</div>
+                            	<a> 
+                               	<span><?php echo $this->Session->read('Auth.User.name') ?></span></a>
                             </li>
-                            <li><?= $this->Html->link('Espacios', '/espacios', array('class'=>'menu')) ?></li>
-                            <li><a id="menu_naranja">|</a></li>
-                            <li><?= $this->Html->link('Eventos','/', array('class'=>'menu')) ?></li>
-                            <li><a id="menu_naranja">|</a></li>
-                            <li><?= $this->Html->link('Sobre radar', '/about', array('class'=>'menu')) ?></li>
-                            <li><a id="menu_naranja">|</a></li>
-                            <li><?= $this->Html->link('Contacto', '/contacto', array('class'=>'menu')) ?></li>
-                        </ul>
-                        <ul class="nav pull-right">
-                            <?php if ($this->Session->read('Auth.User.name') != ''): ?>
-                                <li><a> 
-                                    <span class="username navbar-text">
-                                       <?php echo $this->Session->read('Auth.User.name') ?>
-                                    </span></a>
-                                </li>
-                                <li class="menu_derecha">
+                            <li>
                                     <!--<?php echo $this->Html->link('Salir', array('controller'=>'users'
                                         , 'action'=>'logout'), array('class'=>'menu menu_derecha'))
                                     ?>-->
                                     <!-- Logout de facebook -->
-                                    <?php echo $this->Facebook->logout(
-                                    	array(
-                                    		'label' => 'Salir', 
-                                    		'redirect' => array(
-                                    			'controller' => 'users', 
-                                    			'action' => 'logout'),
-											),
-											array('class'=>'menu_derecha')
-										); 
-									?>
-                                </li>
-    					    <?php else: ?>
-                                
-                                <li>
-                                    <?php echo $this->Html->link('Ingresar', array('controller'=>'users'
-                                            , 'action'=>'login'),  array('id'=>'menu_derecha_verde'))
-                                    ?>
-                                </li>
-                                <li id="menu_derecha_verde">|</li>
-                                <li>
-                                    <?php echo $this->Html->link('¡Registrate!', '/registrate', array('class'=>'menu_derecha'))
-                                        ?>
-                                </li>
-    					    <?php endif ?>
-                        </ul>
-					</div>
+                                <?php echo $this->Facebook->logout(
+                                  	array(
+                                   		'label' => 'Salir', 
+                                   		'redirect' => array(
+                                  			'controller' => 'users', 
+                                   			'action' => 'logout'),
+										)
+									); 
+								?>
+                            </li>
+    					<?php else: ?>
+                        	<li>
+                                <?php echo $this->Html->link('Ingresar', array('controller'=>'users'
+                                            , 'action'=>'login'),  array('id'=>'menu_superior_derecha_verde'))
+                                ?>
+                            </li>
+                            <li>
+                               <?php echo $this->Html->link('¡Registrate!', '/registrate', array('class'=>'menu_superior_derecha'))?>
+                            </li>
+    					<?php endif ?>
+                    </ul>
 				</div>
-			</div>
+			</nav>
 			<div id="header"></div>
 			<div class="container">
 				<?php echo $this -> Session -> flash(); ?>

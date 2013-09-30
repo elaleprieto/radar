@@ -37,86 +37,82 @@ if(AuthComponent::user('location')) {
 <div ng-controller="EventoController" ng-init="user.location='<?php echo $userLocation; ?>'">
     <div class="row">
         <!-- MAPA -->
-        <div class="span8">
+        <div class="col-sm-8">
         	<div class="row"><br>
-				<div class="span4">
+				<div class="col-sm-8">
 					<div class="row">
-						<div id="eventInterval" class="control-group btn-group" data-toggle="buttons-radio">
-	    					<button class="btn btn-verde" ng-click="centerMap()">Región</button>
-	    					<button class="btn btn-verde" ng-click="centerMap('cordoba')">Córdoba</button>
-							<button class="btn btn-verde" ng-click="centerMap('santafe')">Santa Fe</button>
-							<button class="btn btn-warning" ng-click="setLocation()">Mi Ubicación</button>
+						<div id="eventInterval" class="btn-group" data-toggle="buttons-radio">
+	    					<button class="btn btn-verde" data-toggle="button" ng-click="centerMap()">Región</button>
+	    					<button class="btn btn-verde" data-toggle="button" ng-click="centerMap('cordoba')">Córdoba</button>
+							<button class="btn btn-verde" data-toggle="button" ng-click="centerMap('santafe')">Santa Fe</button>
+							<button class="btn btn-warning" data-toggle="button" ng-click="setLocation()">Mi Ubicación</button>
 						</div>
 					</div>
 				</div>
 				
 				<!-- Error Message -->
-				<div class="span4" ng-show="errorLocation" ng-cloak>
+				<div class="col-sm-4" ng-show="errorLocation" ng-cloak>
 					<span class="alert" ng-bind="errorLocation"></span>
 				</div>
+			</div><br>
+			<div class="row">
+				<div class="col-sm-12">
+                	<div id="map"></div>
+    			</div>
 			</div>
-            <div class="row">
-                <div id="map"></div>
-    		</div>
             <div class="row">
                 <?php $this->Form->create('Event') ?>
                 <input value="1" name="interval" type="hidden">
-    			<div id="eventInterval" class="control-group btn-group" data-toggle="buttons-radio">
-    			    <button type="button" class="btn disabled">qué hacer...</button>
-    				<button type="button" class="btn btn-verde active" ng-click="setEventInterval(1)">Hoy</button>
-    				<button type="button" class="btn btn-verde" ng-click="setEventInterval(2)">Mañana</button>
-    				<button type="button" class="btn btn-verde" ng-click="setEventInterval(7)">Próximos 7 días</button>
+    			<div id="eventInterval" class="control-group btn-group" data-toggle="buttons">
+    			    <button type="radio" data-toggle="button" class="btn disabled">qué hacer...</button>
+    				<button type="radio" data-toggle="button" class="btn btn-verde " ng-click="setEventInterval(1)">Hoy</button>
+    				<button type="radio" data-toggle="button" class="btn btn-verde"  ng-click="setEventInterval(2)">Mañana</button>
+    				<button type="radio" data-toggle="button" class="btn btn-verde" ng-click="setEventInterval(7)">Próximos 7 días</button>
     			</div>
-    			<div id="eventInterval" class="control-group btn-group pull-right" data-toggle="buttons-radio">
+    			<div id="eventInterval" class="control-group btn-group pull-right">
                     <?php echo $this->Html->link('Agregar evento'
                         , array('controller'=>'events', 'action'=>'add')
                         , array('class'=>'btn btn-warning pull-right'))
                     ?>
-                </div>
+                </div>                
             </div>   
     	</div>
     	
     	<!-- CATEGORÍAS -->
-    	<div class="span2">
+    	<div class="col-sm-2">
     	    <p loading>Cargando Categorías...</p>
     	    <div ng-view></div>
     	    <div ng-controller="CategoriaController">
                 <p loaded>Categorías</p>
-        	    <div class="row-fluid" ng-init='categorias=<?php echo json_encode($categorias) ?>'>
-        	        <div class="span12">
-            	        <div class="row-fluid categoriaLink" ng-class="{highlight:categoria.highlight}" 
+        	    <div class="row" ng-init='categorias=<?php echo json_encode($categorias) ?>'>
+        	        <div class="col-sm-12">
+            	        <div class="row categoriaLink" ng-class="{highlight:categoria.highlight}" 
             	           ng-model="categoria" ng-repeat="categoria in categorias" ng-click="show(categoria)">
-                	        <div class="span2">
+                	        <div class="col-sm-3">
                 	            <img class="icono-categoria" 
                 	               ng-src="<?php echo IMAGES_URL ?>categorias/{{categoria.Category.icon}}" />
             	            </div>
-                	        <div class="span10 itemcate" ng-bind="categoria.Category.name"></div>
+                	        <div class="col-sm-9 itemcate" ng-bind="categoria.Category.name"></div>
             	        </div>
         	        </div>
         	    </div>
     	    </div>
     	</div>
-    	
-    	<!-- SPONSOR -->
-    	<div class="span2">
-    	    <ul class="thumbnails">
-                <li class="span2">
-                    <a href="#" class="thumbnail">
-                        <?=$this->Html->image('sponsor/santafedisenia.jpg');?>
-                    </a>
-                </li>
-                <li class="span2">
-                    <a href="#" class="thumbnail">
-                        <?=$this->Html->image('sponsor/tallercandombe.jpg');?>
-                    </a>
-                </li>
-            </ul>
-    	</div>
-    </div>
+
+	<!-- SPONSOR -->
+		<div class="col-sm-2">
+	    	<div class="col-sm-12">
+	    		<a href="#" class="thumbnail"><?=$this->Html->image('sponsor/santafedisenia.jpg');?></a>
+	    	</div>
+	    	<div class="col-sm-12">
+	    	    <a href="#" class="thumbnail"><?=$this->Html->image('sponsor/tallercandombe.jpg');?></a>
+	    	</div>
+		</div>
+	</div>
     
     <!-- Events List -->
     <div class="row">
-    	<div class="span12">
+    	<div class="col-sm-12">
     		<table id="eventsList" class="table table-striped">
     			<thead>
     				<tr>

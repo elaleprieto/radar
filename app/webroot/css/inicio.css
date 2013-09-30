@@ -4,62 +4,44 @@
 
 @font-face { font-family: "liberation"; src: url(LiberationSans-Regular.ttf) format("truetype"); }
 
-/* line 21, ../sass/inicio.sass */
+/* line 23, ../sass/inicio.sass */
 #map img { max-width: none; }
 
-/* line 24, ../sass/inicio.sass */
+/* line 26, ../sass/inicio.sass */
 #map { height: 470px; }
 
-/* line 27, ../sass/inicio.sass */
+/* line 29, ../sass/inicio.sass */
 body { font-family: "liberation"; font-size: 14px; }
 
-/* line 32, ../sass/inicio.sass */
-ul.nav { height: 70px; }
-
-/* line 35, ../sass/inicio.sass */
+/* line 34, ../sass/inicio.sass */
 .btn { font-family: "isocpe"; font-size: 16px; font-weight: bold; }
 
-/* line 41, ../sass/inicio.sass */
-.btn-verde { color: white; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25); background-color: #7a9900; *background-color: #7a9900; background-image: -moz-linear-gradient(top, #c7e64d, #7a9900); background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#c7e64d), to(#7a9900)); background-image: -webkit-linear-gradient(top, #c7e64d, #7a9900); background-image: -o-linear-gradient(top, #c7e64d, #7a9900); background-image: linear-gradient(to bottom, #c7e64d, #7a9900); background-repeat: repeat-x; border-color: #7a9900; border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25); filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$verde_claro', endColorstr='$verde_oscuro', GradientType=0); filter: progid:DXImageTransform.Microsoft.gradient(enabled=false); }
+/* line 40, ../sass/inicio.sass */
+.btn-verde { color: white; background-color: #bdda4d; border-color: #aacf19; }
 
-/* line 57, ../sass/inicio.sass */
-.btn-verde:hover, .btn-verde:active, .btn-verde.active, .btn-verde.disabled, .btn-verde[disabled] { color: white; background-color: #7a9900; *background-color: #c7e64d; }
+/* line 45, ../sass/inicio.sass */
+.btn-verde:hover, .btn-verde:focus, .btn-verde:active, .btn-verde.active, .open .dropdown-toggle.btn-verde { color: white; background-color: #aacf19; border-color: #aacf19; }
 
-/* line 66, ../sass/inicio.sass */
+/* line 54, ../sass/inicio.sass */
+.btn-verde:active, .btn-verde.active, .open .dropdown-toggle.btn-verde { background-image: none; }
+
+/* line 59, ../sass/inicio.sass */
+.btn-verde.disabled, .btn-verde[disabled], fieldset[disabled] .btn-verde, .btn-verde.disabled:hover, .btn-verde[disabled]:hover, fieldset[disabled] .btn-verde:hover, .btn-verde.disabled:focus, .btn-verde[disabled]:focus, fieldset[disabled] .btn-verde:focus, .btn-verde.disabled:active, .btn-verde[disabled]:active, fieldset[disabled] .btn-verde:active, .btn-verde.disabled.active, .btn-verde[disabled].active, fieldset[disabled] .btn-verde.active { background-color: #bdda4d; border-color: #bdda4d; }
+
+/* line 77, ../sass/inicio.sass */
 .icono-categoria { padding: 2px; }
 
-/* line 69, ../sass/inicio.sass */
+/* line 80, ../sass/inicio.sass */
 .label_categoria { background-color: #e7d785; background-image: linear-gradient(to bottom, #fffeb8, #c49c38); background-repeat: repeat-x; border-bottom-color: rgba(0, 0, 0, 0.25); border-left-color-ltr-source: physical; border-left-color-rtl-source: physical; border-left-color-value: rgba(0, 0, 0, 0.1); border-right-color-ltr-source: physical; border-right-color-rtl-source: physical; border-right-color-value: rgba(0, 0, 0, 0.1); border-top-color: rgba(0, 0, 0, 0.1); color: white; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25); }
 
-/* line 84, ../sass/inicio.sass */
-.menu { font-family: "isocpe"; font-weight: bold; font-size: 18px; padding-left: 4px; padding-right: 4px; }
-
-/* line 93, ../sass/inicio.sass */
-.menu_derecha { font-size: 14px; padding-top: 8px; }
-
-/* line 99, ../sass/inicio.sass */
-#menu_derecha_verde { color: #7a9900; font-size: 14px; padding-top: 8px; }
-
-/* line 106, ../sass/inicio.sass */
-#menu_naranja { font-family: "isocpe"; font-weight: bold; font-size: 18px; color: orange; padding-left: 1px; padding-right: 1px; padding-top: 42px; }
-
-/* line 117, ../sass/inicio.sass */
-.navbar .btn, .navbar .btn-group { margin-top: 10px; }
-
-/* line 120, ../sass/inicio.sass */
+/* line 95, ../sass/inicio.sass */
 .navbar .nav > li > a.menu { height: 33px; padding-bottom: 5px; padding-top: 42px; }
 
-/* line 126, ../sass/inicio.sass */
+/* line 101, ../sass/inicio.sass */
 .navbar .nav > li > a.menu-brand { font-size: 20px; height: 35px; padding-bottom: 5px; padding-top: 5px; }
 
-/* line 134, ../sass/inicio.sass */
-.navbar .navbar-inner { height: 55px; background-color: white; background-image: -moz-linear-gradient(top, white, white); background-image: -webkit-gradient(linear, 0 0, 0 100%, from(white), to(white)); background-image: -webkit-linear-gradient(top, white, white); background-image: -o-linear-gradient(top, white, white); background-image: linear-gradient(to bottom, #ffffff, #ffffff); background-repeat: repeat-x; border: 1px solid #d4d4d4; }
-
-/* line 145, ../sass/inicio.sass */
-.navbar-fixed-top .navbar-inner, .navbar-static-top .navbar-inner { box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); height: 70px; }
-
-/* line 149, ../sass/inicio.sass */
+/* line 109, ../sass/inicio.sass */
 .titulo { color: #a1ca00; font-family: "codebold"; padding-top: 15px; }
 
-/* line 156, ../sass/inicio.sass */
+/* line 116, ../sass/inicio.sass */
 .whipala { text-align: center; padding: 15px; }
