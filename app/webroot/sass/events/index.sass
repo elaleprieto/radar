@@ -2,17 +2,65 @@ $blanco: #FFFFFF
 $verde: #DDF094
 $gris: #F8F8F8
 
+html, body
+	height: 100%
+	overflow: hidden
+
+nav
+	position: absolute
+	top: 0
+	z-index: 1
+
+.display-inline
+	display: inline-block
+	vertical-align: top
+
+.background-white
+	background-color: $blanco
+
 .categoriaLink
 	cursor: pointer
-	
+
 .highlight
 	background-color: darken($gris, 10%)
 	
-.itemcate
+.item-categoria
 	height: 30px
-	line:
-		height: 30px
+	line-height: 30px
 	display: inline-block
-	vertical:
-		align: middle
+	vertical-align: middle
 	padding-left: 3px
+
+#east, #west, #south
+	position: absolute
+	z-index: 1
+
+#east
+	left: 0
+	top: 10%
+
+#map_row
+	// height: 1050px
+	height: 100%
+	left: 0
+	position: absolute
+	top: 0
+	width: 100%
+	z-index: 0
+
+#map
+	height: 100%
+	left: 0
+	top: 0
+	position: absolute
+	width: 100%
+
+#south
+	background: $blanco
+	left: 0
+	bottom: 0
+	width: 100%
+
+#west
+	right: 0
+	top: 10%

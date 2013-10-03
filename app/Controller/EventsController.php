@@ -42,6 +42,7 @@
          * @return void
          */
         public function index() {
+        	$this->layout = 'index';
             $this->Event->Category->recursive = -1;
             $categories = $this->Event->Category->find('list', array('fields' => 'name'));
             $categorias = $this -> Event -> Category -> find('all', array('order'=>'Category.name ASC'));

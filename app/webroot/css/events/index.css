@@ -1,8 +1,38 @@
 /* line 5, ../../sass/events/index.sass */
+html, body { height: 100%; overflow: hidden; }
+
+/* line 9, ../../sass/events/index.sass */
+nav { position: absolute; top: 0; z-index: 1; }
+
+/* line 14, ../../sass/events/index.sass */
+.display-inline { display: inline-block; vertical-align: top; }
+
+/* line 18, ../../sass/events/index.sass */
+.background-white { background-color: white; }
+
+/* line 21, ../../sass/events/index.sass */
 .categoriaLink { cursor: pointer; }
 
-/* line 8, ../../sass/events/index.sass */
+/* line 24, ../../sass/events/index.sass */
 .highlight { background-color: #dfdfdf; }
 
-/* line 11, ../../sass/events/index.sass */
-.itemcate { height: 30px; line-height: 30px; display: inline-block; vertical-align: middle; padding-left: 3px; }
+/* line 27, ../../sass/events/index.sass */
+.item-categoria { height: 30px; line-height: 30px; display: inline-block; vertical-align: middle; padding-left: 3px; }
+
+/* line 34, ../../sass/events/index.sass */
+#east, #west, #south { position: absolute; z-index: 1; }
+
+/* line 38, ../../sass/events/index.sass */
+#east { left: 0; top: 10%; }
+
+/* line 42, ../../sass/events/index.sass */
+#map_row { height: 100%; left: 0; position: absolute; top: 0; width: 100%; z-index: 0; }
+
+/* line 51, ../../sass/events/index.sass */
+#map { height: 100%; left: 0; top: 0; position: absolute; width: 100%; }
+
+/* line 58, ../../sass/events/index.sass */
+#south { background: white; left: 0; bottom: 0; width: 100%; }
+
+/* line 64, ../../sass/events/index.sass */
+#west { right: 0; top: 10%; }

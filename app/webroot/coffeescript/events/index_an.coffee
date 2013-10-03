@@ -107,8 +107,21 @@ RadarApp.controller 'EventoController', ($scope, $http, $timeout) ->
 	$scope.zoomCordoba = 11
 	$scope.zoomCity = 13
 	
+	# Map constants
+	$scope.ROADMAP = google.maps.MapTypeId.ROADMAP
+	$scope.SATELLITE = google.maps.MapTypeId.SATELLITE
+	
 	# Map defaults
-	$scope.opciones = {zoom: $scope.zoomDefault, center: $scope.locationDefault, mapTypeId: google.maps.MapTypeId.ROADMAP}
+	$scope.opciones = center: $scope.locationDefault
+		, mapTypeId: google.maps.MapTypeId.SATELLITE
+		, panControl: false
+		, zoomControl: false
+		, mapTypeControl: false
+		, scaleControl: false
+		, streetViewControl: false
+		, overviewMapControl: false
+		, zoom: $scope.zoomDefault
+	
 	$scope.map = new google.maps.Map(document.getElementById("map"), $scope.opciones)
 	$scope.markers = []
 	$scope.geocoder = new google.maps.Geocoder()
@@ -274,6 +287,9 @@ RadarApp.controller 'EventoController', ($scope, $http, $timeout) ->
 	$scope.setLocationDefault = ->
 		$scope.map.setZoom($scope.zoomDefault)
 		$scope.map.setCenter($scope.locationDefault)
+		
+	$scope.setMapType = (mapTypeId) ->
+		$scope.map.setMapTypeId(mapTypeId)
 	
 	# Shows any overlays currently in the array.
 	$scope.showOverlays = ->

@@ -76,10 +76,18 @@
     $scope.zoomSantafe = 12;
     $scope.zoomCordoba = 11;
     $scope.zoomCity = 13;
+    $scope.ROADMAP = google.maps.MapTypeId.ROADMAP;
+    $scope.SATELLITE = google.maps.MapTypeId.SATELLITE;
     $scope.opciones = {
-      zoom: $scope.zoomDefault,
       center: $scope.locationDefault,
-      mapTypeId: google.maps.MapTypeId.ROADMAP
+      mapTypeId: google.maps.MapTypeId.SATELLITE,
+      panControl: false,
+      zoomControl: false,
+      mapTypeControl: false,
+      scaleControl: false,
+      streetViewControl: false,
+      overviewMapControl: false,
+      zoom: $scope.zoomDefault
     };
     $scope.map = new google.maps.Map(document.getElementById("map"), $scope.opciones);
     $scope.markers = [];
@@ -248,6 +256,9 @@
     $scope.setLocationDefault = function() {
       $scope.map.setZoom($scope.zoomDefault);
       return $scope.map.setCenter($scope.locationDefault);
+    };
+    $scope.setMapType = function(mapTypeId) {
+      return $scope.map.setMapTypeId(mapTypeId);
     };
     $scope.showOverlays = function() {
       return $scope.setAllMap($scope.map);

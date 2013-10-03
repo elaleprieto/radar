@@ -29,6 +29,3 @@ body { padding-top: 80px; }
 
 /* line 52, ../../sass/layouts/default.sass */
 .username { font-family: "isocpe"; font-size: 18px; font-weight: bold; margin-right: 20px; padding-top: 10px; }
-
-/* line 62, ../../sass/layouts/default.sass */
-#map { height: 400px; margin-bottom: 20px; width: 100%; }
