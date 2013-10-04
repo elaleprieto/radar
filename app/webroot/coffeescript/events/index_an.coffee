@@ -105,7 +105,7 @@ RadarApp.controller 'EventoController', ($scope, $http, $timeout) ->
 	$scope.zoomDefault = 8
 	$scope.zoomSantafe = 12
 	$scope.zoomCordoba = 11
-	$scope.zoomCity = 13
+	$scope.zoomCity = 15
 	
 	# Map constants
 	$scope.ROADMAP = google.maps.MapTypeId.ROADMAP
@@ -113,7 +113,7 @@ RadarApp.controller 'EventoController', ($scope, $http, $timeout) ->
 	
 	# Map defaults
 	$scope.opciones = center: $scope.locationDefault
-		, mapTypeId: google.maps.MapTypeId.SATELLITE
+		, mapTypeId: $scope.ROADMAP
 		, panControl: false
 		, zoomControl: false
 		, mapTypeControl: false
@@ -260,7 +260,7 @@ RadarApp.controller 'EventoController', ($scope, $http, $timeout) ->
 		$scope.eventInterval = interval
 	
 	$scope.setLocation = ->
-		$scope.map.setZoom(14)
+		$scope.map.setZoom($scope.zoomCity)
 		if navigator.geolocation
 			window.browserSupportFlag = on
 			navigator.geolocation.getCurrentPosition (position) ->

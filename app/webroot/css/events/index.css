@@ -26,13 +26,10 @@ nav { position: absolute; top: 0; z-index: 1; }
 #east { left: 0; top: 10%; }
 
 /* line 42, ../../sass/events/index.sass */
-#map_row { height: 100%; left: 0; position: absolute; top: 0; width: 100%; z-index: 0; }
+#map { height: 100%; left: 0; top: 0; position: absolute; width: 100%; z-index: 0; }
 
-/* line 51, ../../sass/events/index.sass */
-#map { height: 100%; left: 0; top: 0; position: absolute; width: 100%; }
+/* line 50, ../../sass/events/index.sass */
+#south { left: 0; bottom: 0; width: 100%; }
 
-/* line 58, ../../sass/events/index.sass */
-#south { background: white; left: 0; bottom: 0; width: 100%; }
-
-/* line 64, ../../sass/events/index.sass */
+/* line 55, ../../sass/events/index.sass */
 #west { right: 0; top: 10%; }

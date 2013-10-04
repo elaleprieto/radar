@@ -51,12 +51,12 @@
 	<!-- EAST -->
 	<div id="east" ng-cloak>
 
-		<!-- CATEGORÍAS -->
+		<!-- CATEGORIES -->
 		<div ng-controller="CategoriaController">
 			<div class="row" ng-init='categorias=<?php echo json_encode($categorias) ?>'>
 				<div class="col-sm-12">
 
-					<div class="background-white display-inline" ng-show="displayCategories">
+					<div class="background-white display-inline" ng-hide="hideCategories">
 						<p class="text-center"><?php echo __('Categories'); ?></p>
 						<div class="row categoriaLink" ng-class="{highlight:categoria.highlight}" 
 							ng-model="categoria" ng-repeat="categoria in categorias" ng-click="show(categoria)">
@@ -69,11 +69,11 @@
 					</div>
 					
 					<!-- Button to Display or Hide Categories -->
-					<div class="display-inline" ng-click="displayCategories = !displayCategories">
-						<span class="btn btn-primary" ng-show="displayCategories">
+					<div class="display-inline" ng-click="hideCategories = !hideCategories">
+						<span class="btn btn-primary" ng-hide="hideCategories">
 							<i class="glyphicon glyphicon-chevron-left"></i>
 						</span>
-						<span class="btn btn-primary" ng-hide="displayCategories">
+						<span class="btn btn-primary" ng-show="hideCategories">
 							<i class="glyphicon glyphicon-chevron-right"></i>
 						</span>
 					</div>
@@ -90,17 +90,17 @@
 			<div class="col-sm-12">
 				
 				<!-- Button to Display or Hide Sponsors -->
-				<div class="display-inline" ng-click="displaySponsors = !displaySponsors">
-					<span class="btn btn-primary" ng-hide="displaySponsors">
+				<div class="display-inline" ng-click="hideSponsors = !hideSponsors">
+					<span class="btn btn-primary" ng-show="hideSponsors">
 						<i class="glyphicon glyphicon-chevron-left"></i>
 					</span>
-					<span class="btn btn-primary" ng-show="displaySponsors">
+					<span class="btn btn-primary" ng-hide="hideSponsors">
 						<i class="glyphicon glyphicon-chevron-right"></i>
 					</span>
 				</div>
 				
 				<!-- Sponsors	 -->
-				<div class="background-white display-inline" ng-show="displaySponsors">
+				<div class="background-white display-inline" ng-hide="hideSponsors">
 					<div class="col-sm-12">
 						<a href="#"><?=$this -> Html -> image('sponsor/santafedisenia.jpg'); ?></a>
 					</div>
@@ -113,72 +113,82 @@
 	</div>
 
 	<!-- SOUTH -->
-	<div id="south">
-
-		<div class="row">
-
-			<!-- Location Shortcuts -->
-			<div class="col-sm-4">
-				<div id="locationShortcuts" class="btn-group" data-toggle="buttons-radio">
-					<button class="btn btn-verde" data-toggle="button" ng-click="centerMap()">Región</button>
-					<button class="btn btn-verde" data-toggle="button" ng-click="centerMap('cordoba')">Córdoba</button>
-					<button class="btn btn-verde" data-toggle="button" ng-click="centerMap('santafe')">Santa Fe</button>
-					<button class="btn btn-warning" data-toggle="button" ng-click="setLocation()">Mi Ubicación</button>
+	<div id="south" ng-cloak>
+		
+		<div class="background-white">
+			<div class="row">
+	
+				<!-- Location Shortcuts -->
+				<div class="col-sm-4">
+					<div id="locationShortcuts" class="btn-group" data-toggle="buttons-radio">
+						<button class="btn btn-verde" data-toggle="button" ng-click="centerMap()">Región</button>
+						<button class="btn btn-verde" data-toggle="button" ng-click="centerMap('cordoba')">Córdoba</button>
+						<button class="btn btn-verde" data-toggle="button" ng-click="centerMap('santafe')">Santa Fe</button>
+						<button class="btn btn-warning" data-toggle="button" ng-click="setLocation()">Mi Ubicación</button>
+					</div>
+				</div>
+	
+				<!-- Event Interval -->
+				<div class="col-sm-4">
+					<input value="1" name="interval" type="hidden">
+					<div id="eventInterval" class="control-group btn-group" data-toggle="buttons">
+						<button type="radio" data-toggle="button" class="btn disabled">qué hacer...</button>
+						<button type="radio" data-toggle="button" class="btn btn-verde " ng-click="setEventInterval(1)">Hoy</button>
+						<button type="radio" data-toggle="button" class="btn btn-verde"  ng-click="setEventInterval(2)">Mañana</button>
+						<button type="radio" data-toggle="button" class="btn btn-verde" ng-click="setEventInterval(7)">Próximos 7 días</button>
+					</div>
+					<div id="eventInterval" class="control-group btn-group pull-right">
+						<?php echo $this->Html->link('Agregar evento'
+							, array('controller'=>'events', 'action'=>'add')
+							, array('class'=>'btn btn-warning pull-right'))
+						?>
+					</div>
+				</div>
+	
+				<!-- Map Types -->
+				<div class="col-sm-4 text-right">
+					
+					<!-- Button to Display or Hide South Menu -->
+					<span ng-click="hideSouthMenu = !hideSouthMenu">
+						<span class="btn btn-primary" ng-hide="hideSouthMenu">
+							<i class="glyphicon glyphicon-chevron-down"></i>
+						</span>
+						<span class="btn btn-primary" ng-show="hideSouthMenu">
+							<i class="glyphicon glyphicon-chevron-up"></i>
+						</span>
+					</span>
+					
+					<span class="btn btn-primary" ng-click="setMapType(ROADMAP)"><?php echo __('Map'); ?></span>
+					<span class="btn btn-primary" ng-click="setMapType(SATELLITE)"><?php echo __('Satellite'); ?></span>
 				</div>
 			</div>
-
-			<!-- Event Interval -->
-			<div class="col-sm-4">
-				<input value="1" name="interval" type="hidden">
-				<div id="eventInterval" class="control-group btn-group" data-toggle="buttons">
-					<button type="radio" data-toggle="button" class="btn disabled">qué hacer...</button>
-					<button type="radio" data-toggle="button" class="btn btn-verde " ng-click="setEventInterval(1)">Hoy</button>
-					<button type="radio" data-toggle="button" class="btn btn-verde"  ng-click="setEventInterval(2)">Mañana</button>
-					<button type="radio" data-toggle="button" class="btn btn-verde" ng-click="setEventInterval(7)">Próximos 7 días</button>
-				</div>
-				<div id="eventInterval" class="control-group btn-group pull-right">
-					<?php echo $this->Html->link('Agregar evento'
-						, array('controller'=>'events', 'action'=>'add')
-						, array('class'=>'btn btn-warning pull-right'))
-					?>
-				</div>
-			</div>
-
-			<!-- Map Types -->
-			<div class="col-sm-4 text-right">
-				<span class="btn btn-primary" ng-click="setMapType(ROADMAP)"><?php echo __('Map'); ?></span>
-				<span class="btn btn-primary" ng-click="setMapType(SATELLITE)"><?php echo __('Satellite'); ?></span>
-			</div>
+	
+	
+		    <!-- Events List -->
+		    <div class="row" ng-hide="hideSouthMenu">
+		    	<div class="col-sm-12">
+		    		<table id="eventsList" class="table table-striped">
+		    			<thead>
+		    				<tr>
+		    					<th>Fecha Inicio</th>
+		    					<th>Fecha Fin</th>
+		    					<th>Evento</th>
+		    					<th>Dirección</th>
+		    				</tr>
+		    			</thead>
+		    			<tbody>
+		    			    <tr ng-repeat="evento in eventos | orderBy:'Event.date_start'">
+		    			        <td ng-bind="evento.Event.date_start | isodate | date:'dd/MM/yyyy HH:mm'"></td>
+		    			        <td ng-bind="evento.Event.date_end | isodate | date:'dd/MM/yyyy HH:mm'"></td>
+		    			        <td ng-bind="evento.Event.title"></td>
+		    			        <td ng-bind="evento.Event.address"></td>
+		    			    </tr>
+		    			</tbody>
+		    		</table>
+		    	</div>
+		    </div>
 		</div>
-
-
-	    <!-- Events List -->
-	    <div class="row">
-	    	<div class="col-sm-12">
-	    		<table id="eventsList" class="table table-striped">
-	    			<thead>
-	    				<tr>
-	    					<th>Fecha Inicio</th>
-	    					<th>Fecha Fin</th>
-	    					<th>Evento</th>
-	    					<th>Dirección</th>
-	    				</tr>
-	    			</thead>
-	    			<tbody>
-	    			    <tr ng-repeat="evento in eventos | orderBy:'Event.date_start'">
-	    			        <td ng-bind="evento.Event.date_start | isodate | date:'dd/MM/yyyy HH:mm'"></td>
-	    			        <td ng-bind="evento.Event.date_end | isodate | date:'dd/MM/yyyy HH:mm'"></td>
-	    			        <td ng-bind="evento.Event.title"></td>
-	    			        <td ng-bind="evento.Event.address"></td>
-	    			    </tr>
-	    			</tbody>
-	    		</table>
-	    	</div>
-	    </div>
     </div>
     
-	
-	<div id="map_row">
-	   	<div id="map"></div>
-	</div>
+   	<div id="map"></div>
 </div>
