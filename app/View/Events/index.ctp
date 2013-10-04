@@ -43,7 +43,7 @@ if (AuthComponent::user('location')) {
 
 	<!-- NORTH -->
 	<div id="north" ng-cloak>
-		<nav class="navbar navbar-default navbar-fixed-top" id="navSmall" ng-show="hideNavLarge" role="navigation">
+		<nav class="navbar navbar-default navbar-fixed-top" id="nav-small" ng-show="hideNavLarge" role="navigation">
 			<div class="container">
 				<div class="navbar-header">
 					<button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
@@ -59,13 +59,19 @@ if (AuthComponent::user('location')) {
 						<li class="menu"><?php echo $this->Html->link('Eventos', '/') ?></li>
 						<li class="menu"><?php echo $this->Html->link('Sobre radar', '/about') ?></li>
 						<li class="menu"><?php echo $this->Html->link('Contacto', '/contacto') ?></li>
-						<li class="menu"><a href="#" ng-click="hideNavLarge = !hideNavLarge">Agrandar</a></li>
+					</ul>
+					<ul class="nav navbar-nav navbar-right">
+						<li class="menu">
+							<span ng-click="hideNavLarge = !hideNavLarge" >
+								<i class="glyphicon glyphicon-plus-sign icon-plus" title="Mostrar Más"></i>
+							</span>
+						</li>
 					</ul>
 				</div><!--/.nav-collapse -->
 			</div>
 		</nav>
 
-		<nav class="navbar navbar-fixed-top" ng-hide="hideNavLarge" role="navigation">
+		<nav class="navbar navbar-fixed-top" id="nav-large" ng-hide="hideNavLarge" role="navigation">
 			<div class="container">
 				<ul class="nav navbar-nav">
 					<li>
@@ -77,7 +83,11 @@ if (AuthComponent::user('location')) {
 					<li class="menu"><?php echo $this->Html->link('Eventos', '/') ?></li>
 					<li class="menu"><?php echo $this->Html->link('Sobre radar', '/about') ?></li>
 					<li class="menu"><?php echo $this->Html->link('Contacto', '/contacto') ?></li>
-					<li class="menu"><a href="#" ng-click="hideNavLarge = !hideNavLarge">Ocultar</a></li>
+					<li class="menu">
+						<span ng-click="hideNavLarge = !hideNavLarge">
+							<i class="glyphicon glyphicon-minus-sign icon-minus" title="Mostrar Menos"></i>
+						</span>
+					</li>
 				</ul>
 				<ul id="menu_superior_derecha" class="nav navbar-nav navbar-right">
 					<?php if ($this->Session->read('Auth.User.name') != ''): ?>

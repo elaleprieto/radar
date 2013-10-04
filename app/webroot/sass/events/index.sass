@@ -1,4 +1,7 @@
+@import compass/css3
+
 $blanco: #FFFFFF
+$blue: #428BCA
 $verde: #DDF094
 $gris: #F8F8F8
 
@@ -31,8 +34,23 @@ nav
 	vertical-align: middle
 	padding-left: 3px
 
-#navSmall 
-	min-height: 30px
+.menu
+	padding-top: 2px
+	
+
+#nav-large
+	.icon-minus
+		color: $blue
+		cursor: pointer
+
+ 
+#nav-small 
+	min-height: 20px
+	+opacity(0.8)
+
+	.icon-plus
+		font-size: 12px
+		cursor: pointer
 
 	& a
 		padding: 10px
