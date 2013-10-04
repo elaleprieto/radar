@@ -20,16 +20,21 @@ nav { position: absolute; top: 0; z-index: 1; }
 .item-categoria { height: 30px; line-height: 30px; display: inline-block; vertical-align: middle; padding-left: 3px; }
 
 /* line 34, ../../sass/events/index.sass */
+#navSmall { min-height: 30px; }
+/* line 37, ../../sass/events/index.sass */
+#navSmall a { padding: 10px; }
+
+/* line 40, ../../sass/events/index.sass */
 #east, #west, #south { position: absolute; z-index: 1; }
 
-/* line 38, ../../sass/events/index.sass */
+/* line 44, ../../sass/events/index.sass */
 #east { left: 0; top: 10%; }
 
-/* line 42, ../../sass/events/index.sass */
+/* line 48, ../../sass/events/index.sass */
 #map { height: 100%; left: 0; top: 0; position: absolute; width: 100%; z-index: 0; }
 
-/* line 50, ../../sass/events/index.sass */
+/* line 56, ../../sass/events/index.sass */
 #south { left: 0; bottom: 0; width: 100%; }
 
-/* line 55, ../../sass/events/index.sass */
+/* line 61, ../../sass/events/index.sass */
 #west { right: 0; top: 10%; }

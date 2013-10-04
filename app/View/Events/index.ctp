@@ -1,39 +1,32 @@
 <?php
-	echo $this -> Html -> css(array(
-		'inicio',
-		'events/index'
-	), '', array('inline' => false));
-	echo $this -> Html -> script(array(
-		'http://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true',
-		'angular/filters',
-		'events/index_an'
-	), array('inline' => false));
+echo $this->Html->css(array('inicio', 'events/index'), '', array('inline' => false));
+echo $this->Html->script(array('http://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true', 'angular/filters', 'events/index_an'), array('inline' => false));
 ?>
 
 <?php //debug($this->request->clientIp()) ?>
 <?php
-	# User Location
-	if (AuthComponent::user('location')) {
-		$userLocation = AuthComponent::user('location');
-	} else {
-		$ip = '190.183.62.72';
-		// $ip = $this->request->clientIp();
-		$ipData = @json_decode(file_get_contents("http://www.geoplugin.net/json.gp?ip=" . $ip));
+# User Location
+if (AuthComponent::user('location')) {
+	$userLocation = AuthComponent::user('location');
+} else {
+	$ip = '190.183.62.72';
+	// $ip = $this->request->clientIp();
+	$ipData = @json_decode(file_get_contents("http://www.geoplugin.net/json.gp?ip=" . $ip));
 
-		if ($ipData && $ipData -> geoplugin_countryName != null) {
-			$userLocation = $ipData -> geoplugin_city . ', ' . $ipData -> geoplugin_countryName;
+	if ($ipData && $ipData->geoplugin_countryName != null) {
+		$userLocation = $ipData->geoplugin_city . ', ' . $ipData->geoplugin_countryName;
 
-			# Se guarda el userLocation
-			if ($userId = AuthComponent::user('id')) {
-				// $this->requestAction(array('controller' => 'users', 'action' => 'setLocation')
-				// , array('pass' => array($userId, $userLocation))
-				// );
-				$this -> requestAction("/users/setLocation/$userId/$userLocation");
-			}
-		} else {
-			$userLocation = null;
+		# Se guarda el userLocation
+		if ($userId = AuthComponent::user('id')) {
+			// $this->requestAction(array('controller' => 'users', 'action' => 'setLocation')
+			// , array('pass' => array($userId, $userLocation))
+			// );
+			$this->requestAction("/users/setLocation/$userId/$userLocation");
 		}
+	} else {
+		$userLocation = null;
 	}
+}
 ?>
 
 <div ng-controller="EventoController" ng-init="user.location='<?php echo $userLocation; ?>'">
@@ -46,6 +39,75 @@
 				</div>
 			</div><br>
 		</div>
+	</div>
+
+	<!-- NORTH -->
+	<div id="north" ng-cloak>
+		<nav class="navbar navbar-default navbar-fixed-top" id="navSmall" ng-show="hideNavLarge" role="navigation">
+			<div class="container">
+				<div class="navbar-header">
+					<button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a href="#" class="navbar-brand">RADAR</a>
+				</div>
+				<div class="collapse navbar-collapse">
+					<ul class="nav navbar-nav">
+						<li class="menu"><?php echo $this->Html->link('Espacios', '/espacios') ?></li>
+						<li class="menu"><?php echo $this->Html->link('Eventos', '/') ?></li>
+						<li class="menu"><?php echo $this->Html->link('Sobre radar', '/about') ?></li>
+						<li class="menu"><?php echo $this->Html->link('Contacto', '/contacto') ?></li>
+						<li class="menu"><a href="#" ng-click="hideNavLarge = !hideNavLarge">Agrandar</a></li>
+					</ul>
+				</div><!--/.nav-collapse -->
+			</div>
+		</nav>
+
+		<nav class="navbar navbar-fixed-top" ng-hide="hideNavLarge" role="navigation">
+			<div class="container">
+				<ul class="nav navbar-nav">
+					<li>
+						<?php echo $this->Html->link($this->Html->image("logoBeta.png", array('alt' => 'logo')), '/', array('class' => 'menu_icono', 'style' => 'padding-top: 8px', 'escape' => false)); ?>
+					</li>
+				</ul>
+				<ul class="nav navbar-nav" id="menu_superior">
+					<li class="menu"><?php echo $this->Html->link('Espacios', '/espacios') ?></li>
+					<li class="menu"><?php echo $this->Html->link('Eventos', '/') ?></li>
+					<li class="menu"><?php echo $this->Html->link('Sobre radar', '/about') ?></li>
+					<li class="menu"><?php echo $this->Html->link('Contacto', '/contacto') ?></li>
+					<li class="menu"><a href="#" ng-click="hideNavLarge = !hideNavLarge">Ocultar</a></li>
+				</ul>
+				<ul id="menu_superior_derecha" class="nav navbar-nav navbar-right">
+					<?php if ($this->Session->read('Auth.User.name') != ''): ?>
+						<li>
+							<a> 
+								<span><?php echo $this->Session->read('Auth.User.name') ?></span>
+							</a>
+						</li>
+						<li>
+							<!--<?php 
+								// echo $this->Html->link('Salir', array('controller'=>'users'
+								//	, 'action'=>'logout'), array('class'=>'menu menu_derecha'))
+							?>-->
+							<!-- Logout de facebook -->
+							<?php echo $this->Facebook->logout(array('label' => 'Salir', 'redirect' => array('controller' => 'users', 'action' => 'logout'), )); ?>
+						</li>
+					<?php else: ?>
+						<li>
+							<?php
+							echo $this->Html->link('Ingresar', array('controller'=>'users'
+								, 'action'=>'login'),  array('id'=>'menu_superior_derecha_verde'))
+							?>
+						</li>
+						<li>
+							<?php echo $this->Html->link('¡Registrate!', '/registrate', array('class'=>'menu_superior_derecha'))?>
+						</li>
+					<?php endif ?>
+				</ul>
+			</div>
+		</nav>
 	</div>
 
 	<!-- EAST -->
@@ -102,10 +164,10 @@
 				<!-- Sponsors	 -->
 				<div class="background-white display-inline" ng-hide="hideSponsors">
 					<div class="col-sm-12">
-						<a href="#"><?=$this -> Html -> image('sponsor/santafedisenia.jpg'); ?></a>
+						<a href="#"><?=$this->Html->image('sponsor/santafedisenia.jpg'); ?></a>
 					</div>
 					<div class="col-sm-12">
-						<a href="#"><?=$this -> Html -> image('sponsor/tallercandombe.jpg'); ?></a>
+						<a href="#"><?=$this->Html->image('sponsor/tallercandombe.jpg'); ?></a>
 					</div>
 				</div>
 			</div>
