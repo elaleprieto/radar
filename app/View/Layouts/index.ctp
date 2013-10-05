@@ -17,54 +17,6 @@
 	</head>
 	<body ng-app="RadarApp">
 		
-			<nav class="navbar navbar-fixed-top" role="navigation">
-				<div class="container">
-    				<ul class="nav navbar-nav">
-    					<li>
-                        	<?= $this->Html->link( $this->Html->image("logoBeta.png", array('alt'=>'logo')),'/', array('class'=>'menu_icono','style'=>'padding-top: 8px','escape' => false));?>
-                        </li>
-    				</ul>
-    				<ul class="nav navbar-nav" id="menu_superior">
-                        <li class="menu"><?= $this->Html->link('Espacios', '/espacios') ?></li>
-                        <li class="menu"><?= $this->Html->link('Eventos','/') ?></li>
-                        <li class="menu"><?= $this->Html->link('Sobre radar', '/about') ?></li>
-                        <li class="menu"><?= $this->Html->link('Contacto', '/contacto') ?></li>
-                    </ul>
-                    <ul id="menu_superior_derecha" class="nav navbar-nav navbar-right">
-                        <?php if ($this->Session->read('Auth.User.name') != ''): ?>
-                            <li>
-                            	<a> 
-                               	<span><?php echo $this->Session->read('Auth.User.name') ?></span></a>
-                            </li>
-                            <li>
-                                    <!--<?php echo $this->Html->link('Salir', array('controller'=>'users'
-                                        , 'action'=>'logout'), array('class'=>'menu menu_derecha'))
-                                    ?>-->
-                                    <!-- Logout de facebook -->
-                                <?php echo $this->Facebook->logout(
-                                  	array(
-                                   		'label' => 'Salir', 
-                                   		'redirect' => array(
-                                  			'controller' => 'users', 
-                                   			'action' => 'logout'),
-										)
-									); 
-								?>
-                            </li>
-    					<?php else: ?>
-                        	<li>
-                                <?php echo $this->Html->link('Ingresar', array('controller'=>'users'
-                                            , 'action'=>'login'),  array('id'=>'menu_superior_derecha_verde'))
-                                ?>
-                            </li>
-                            <li>
-                               <?php echo $this->Html->link('¡Registrate!', '/registrate', array('class'=>'menu_superior_derecha'))?>
-                            </li>
-    					<?php endif ?>
-                    </ul>
-				</div>
-			</nav>
-			
 			<div id="header"></div>
 				<?php echo $this -> Session -> flash(); ?>
 				<?php echo $this -> fetch('content'); ?>
