@@ -1,31 +1,35 @@
-@font-face { font-family: "isocpe"; src: url(Isocpeur-Regular.ttf) format("truetype"); }
+@font-face { font-family: "isocpe"; src: url('/fonts/Isocpeur-Regular.ttf') format('truetype'); }
 
-/* line 9, ../../sass/layouts/default.sass */
+@font-face { font-family: "codeBold"; src: url('/fonts/CODE_Bold.otf') format('opentype'); }
+
+@font-face { font-family: "liberation"; src: url('/fonts/LiberationSans-Regular.ttf') format('truetype'); }
+
+/* line 7, ../../sass/layouts/default.sass */
 #menu_superior { margin-left: 20px; background-color: rgba(255, 255, 255, 0.9); height: 50px; }
 
-/* line 14, ../../sass/layouts/default.sass */
+/* line 12, ../../sass/layouts/default.sass */
 #menu_superior_derecha { background-color: rgba(255, 255, 255, 0.9); height: 50px; }
 
-/* line 18, ../../sass/layouts/default.sass */
+/* line 16, ../../sass/layouts/default.sass */
 #menu_superior_derecha_verde { color: #7a9900; font-size: 14px; }
 
-/* line 23, ../../sass/layouts/default.sass */
+/* line 21, ../../sass/layouts/default.sass */
 .nav > li > a:hover, .nav > li > a:focus { background-color: white; }
 
-/* line 26, ../../sass/layouts/default.sass */
+/* line 24, ../../sass/layouts/default.sass */
 .beta { border: 0; color: #bcd35f; position: absolute; top: 46px; }
 
-/* line 32, ../../sass/layouts/default.sass */
+/* line 30, ../../sass/layouts/default.sass */
 body { padding-top: 80px; }
 
-/* line 35, ../../sass/layouts/default.sass */
+/* line 33, ../../sass/layouts/default.sass */
 .checkbox.inline { margin-left: 0 !important; margin-right: 10px; }
 
-/* line 39, ../../sass/layouts/default.sass */
+/* line 37, ../../sass/layouts/default.sass */
 .menu { font-family: "isocpe"; font-weight: bold; font-size: 18px; padding-left: 4px; padding-right: 4px; }
 
-/* line 48, ../../sass/layouts/default.sass */
+/* line 46, ../../sass/layouts/default.sass */
 .menu_icono { padding-top: 10px; background-color: rgba(255, 255, 255, 0.95); }
 
-/* line 52, ../../sass/layouts/default.sass */
+/* line 50, ../../sass/layouts/default.sass */
 .username { font-family: "isocpe"; font-size: 18px; font-weight: bold; margin-right: 20px; padding-top: 10px; }
