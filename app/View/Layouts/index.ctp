@@ -27,6 +27,7 @@
 			, '//ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js'
 			, 'vendors/bootstrap.min'
 			, 'vendors/jquery.cookie'
+			, 'styles'
 			)
 		)
 		?>

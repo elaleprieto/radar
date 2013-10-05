@@ -46,8 +46,9 @@ if (AuthComponent::user('location')) {
 	</div>
 
 	<!-- NORTH -->
-	<div id="north" ng-cloak>
+	<div id="north" class="row" ng-cloak>
 		
+		<!-- NAV SMALL -->
 		<nav class="navbar navbar-default navbar-fixed-top" id="nav-small" ng-show="hideNavLarge" role="navigation">
 			<div class="container">
 				<div class="navbar-header">
@@ -76,6 +77,7 @@ if (AuthComponent::user('location')) {
 			</div>
 		</nav>
 
+		<!-- NAV LARGE -->
 		<nav class="navbar navbar-fixed-top" id="nav-large" ng-hide="hideNavLarge" role="navigation">
 			<div class="container">
 				<ul class="nav navbar-nav">

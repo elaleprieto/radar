@@ -4,70 +4,70 @@
 
 @font-face { font-family: "liberation"; src: url('/fonts/LiberationSans-Regular.ttf') format('truetype'); }
 
-/* line 8, ../../sass/events/index.sass */
-::-webkit-scrollbar { width: 12px; }
+/* line 1, ../../sass/_scroll.sass */
+::-webkit-scrollbar { width: 10px; }
 
 /* Track */
-/* line 12, ../../sass/events/index.sass */
+/* line 5, ../../sass/_scroll.sass */
 ::-webkit-scrollbar-track { -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3); -webkit-border-radius: 10px; border-radius: 10px; }
 
 /* Handle */
-/* line 18, ../../sass/events/index.sass */
+/* line 11, ../../sass/_scroll.sass */
 ::-webkit-scrollbar-thumb { -webkit-border-radius: 10px; border-radius: 10px; background: #6aa3d5; -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5); }
 
-/* line 24, ../../sass/events/index.sass */
+/* line 17, ../../sass/_scroll.sass */
 ::-webkit-scrollbar-thumb:window-inactive { background: #b9d4ec; }
 
-/* line 27, ../../sass/events/index.sass */
+/* line 3, ../../sass/events/index.sass */
 html, body { height: 100%; overflow: hidden; }
 
-/* line 31, ../../sass/events/index.sass */
+/* line 7, ../../sass/events/index.sass */
 nav { position: absolute; top: 0; z-index: 1; }
 
-/* line 36, ../../sass/events/index.sass */
+/* line 12, ../../sass/events/index.sass */
 .display-inline { display: inline-block; vertical-align: top; }
 
-/* line 40, ../../sass/events/index.sass */
+/* line 16, ../../sass/events/index.sass */
 .background-white { background-color: white; }
 
-/* line 43, ../../sass/events/index.sass */
+/* line 19, ../../sass/events/index.sass */
 .categoriaLink { cursor: pointer; }
 
-/* line 46, ../../sass/events/index.sass */
+/* line 22, ../../sass/events/index.sass */
 .highlight { background-color: #dfdfdf; }
 
-/* line 49, ../../sass/events/index.sass */
+/* line 25, ../../sass/events/index.sass */
 .item-categoria { height: 30px; line-height: 30px; display: inline-block; vertical-align: middle; padding-left: 3px; }
 
-/* line 56, ../../sass/events/index.sass */
+/* line 32, ../../sass/events/index.sass */
 .menu { padding-top: 2px; }
 
-/* line 59, ../../sass/events/index.sass */
-#categoryScroll { height: 200px; overflow-y: scroll; overflow-x: hidden; }
-/* line 64, ../../sass/events/index.sass */
+/* line 35, ../../sass/events/index.sass */
+#categoryScroll { overflow-y: auto; overflow-x: hidden; }
+/* line 39, ../../sass/events/index.sass */
 #categoryScroll > div { margin: 0; width: 100%; }
 
-/* line 69, ../../sass/events/index.sass */
+/* line 44, ../../sass/events/index.sass */
 #nav-large .icon-minus { color: #428bca; cursor: pointer; }
 
-/* line 74, ../../sass/events/index.sass */
+/* line 49, ../../sass/events/index.sass */
 #nav-small { min-height: 20px; filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=80); opacity: 0.8; }
-/* line 78, ../../sass/events/index.sass */
+/* line 53, ../../sass/events/index.sass */
 #nav-small .icon-plus { font-size: 12px; cursor: pointer; }
-/* line 82, ../../sass/events/index.sass */
+/* line 57, ../../sass/events/index.sass */
 #nav-small a { padding: 10px; }
 
-/* line 85, ../../sass/events/index.sass */
+/* line 60, ../../sass/events/index.sass */
 #east, #west, #south { position: absolute; z-index: 1; }
 
-/* line 89, ../../sass/events/index.sass */
+/* line 64, ../../sass/events/index.sass */
 #east { left: 0; top: 10%; }
 
-/* line 93, ../../sass/events/index.sass */
+/* line 68, ../../sass/events/index.sass */
 #map { height: 100%; left: 0; top: 0; position: absolute; width: 100%; z-index: 0; }
 
-/* line 101, ../../sass/events/index.sass */
+/* line 76, ../../sass/events/index.sass */
 #south { left: 0; bottom: 0; width: 100%; }
 
-/* line 106, ../../sass/events/index.sass */
+/* line 81, ../../sass/events/index.sass */
 #west { right: 0; top: 10%; }
