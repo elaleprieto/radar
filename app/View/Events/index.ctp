@@ -135,13 +135,15 @@ if (AuthComponent::user('location')) {
 
 					<div class="background-white display-inline" ng-hide="hideCategories">
 						<p class="text-center"><?php echo __('Categories'); ?></p>
-						<div class="row categoriaLink" ng-class="{highlight:categoria.highlight}" 
-							ng-model="categoria" ng-repeat="categoria in categorias" ng-click="show(categoria)">
-							<div class="col-sm-3">
-								<img class="icono-categoria" 
-									ng-src="<?php echo IMAGES_URL ?>categorias/{{categoria.Category.icon}}" />
+						<div id="categoryScroll">
+							<div class="row categoriaLink" ng-class="{highlight:categoria.highlight}" 
+								ng-model="categoria" ng-repeat="categoria in categorias" ng-click="show(categoria)">
+								<div class="col-sm-3">
+									<img class="icono-categoria" 
+										ng-src="<?php echo IMAGES_URL ?>categorias/{{categoria.Category.icon}}" />
+								</div>
+								<div class="col-sm-9 item-categoria" ng-bind="categoria.Category.name"></div>
 							</div>
-							<div class="col-sm-9 item-categoria" ng-bind="categoria.Category.name"></div>
 						</div>
 					</div>
 					
