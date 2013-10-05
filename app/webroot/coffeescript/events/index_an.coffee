@@ -73,28 +73,68 @@ RadarApp.directive('loaded', ['$rootScope', ($rootScope) ->
 ### *******************************************************************************************************************
 								CATEGORIAS
 ******************************************************************************************************************* ###
-RadarApp.controller 'CategoriaController', ($scope) ->
+RadarApp.controller 'CategoriaController', ['$scope', '$timeout', ($scope, $timeout) ->
+	
+	$scope.searchById = (id) ->
+		if $scope.categorias?
+			aux = $scope.categorias.filter (category) ->
+				+category.Category.id is +id
+			aux[0]
+	
 	$scope.show = (categoria) ->
 		categoria.highlight = !categoria.highlight
 		if categoria.highlight
 			$scope.eventCategory.push(categoria.Category.id)
+			
+			$.cookie.json = true
+			$.cookie("eventCategory"
+				, $scope.eventCategory
+				, {
+					# expires in 10 days
+					expires: 360,
+	
+					# The value of the path attribute of the cookie 
+					# (default: path of page that created the cookie).
+					path: '/'
+	
+					# domain: '.radar.workspace.com'
+					# The value of the domain attribute of the cookie
+					# (default: domain of page that created the cookie).
+		
+					# If set to true the secure attribute of the cookie
+					# will be set and the cookie transmission will
+					# require a secure protocol (defaults to false).
+					# secure  : true
+				}
+			);
+			
 		else
 			$scope.eventCategory.splice($scope.eventCategory.indexOf(categoria.Category.id), 1)
-		
-		
+	
+	$scope.$watch 'categorias.length', ->
+		if $scope.categorias.length > 0
+			$.cookie.json = true
+			lastValEventCategory = $.cookie('eventCategory')
+			if lastValEventCategory? and lastValEventCategory.length > 0
+				angular.forEach lastValEventCategory, (categoryId, index) ->
+					$scope.show($scope.searchById(categoryId))
+
+	]
 
 ### *******************************************************************************************************************
 								EVENTOS
 ******************************************************************************************************************* ###
 
-RadarApp.controller 'EventoController', ($scope, $http, $timeout) ->
+RadarApp.controller 'EventoController'
+	, ['$http', '$scope', '$timeout'
+		, ($http, $scope, $timeout) ->
 
 	### ***************************************************************************************************************
 			Inicialización de Objetos
 	*************************************************************************************************************** ###
-	$scope.eventCategory = []
 	$scope.eventInterval = 1
 	$scope.user = {}
+	$scope.eventCategory = []
 
 	# Cities
 	$scope.capital = new google.maps.LatLng(-34.603, -58.382)
@@ -134,7 +174,30 @@ RadarApp.controller 'EventoController', ($scope, $http, $timeout) ->
 	
 	# Se observan las categorías seleccionadas
 	$scope.$watch 'eventCategory.length', () ->
-		$scope.eventsUpdate() 
+		$scope.eventsUpdate()
+		# $cookieStore.put('eventCategory', $scope.eventCategory)
+		# Cookies.setItem('eventoCategory', $scope.eventCategory, { expires:7, domain:'.radar.workspace.com', secure:true})
+		# $.cookie("eventCategory"
+			# , $scope.eventCategory
+			# , {
+				# # expires in 10 days
+				# expires: 360,
+# 
+				# # The value of the path attribute of the cookie 
+				# # (default: path of page that created the cookie).
+				# path: '/',
+# 
+				# # domain: 'jquery.com',
+				# # The value of the domain attribute of the cookie
+				# # (default: domain of page that created the cookie).
+# 	
+				# # If set to true the secure attribute of the cookie
+				# # will be set and the cookie transmission will
+				# # require a secure protocol (defaults to false).
+				# secure  : true
+			# }
+		# );
+		
 
 	# Se observa el intervalo seleccionado: Hoy, Mañana ó Próximos 7 días
 	$scope.$watch 'eventInterval', () ->
@@ -299,5 +362,5 @@ RadarApp.controller 'EventoController', ($scope, $http, $timeout) ->
 	# $scope.inicializar() # Se lo quito por ahora pero debería centrar el mapa en el lugar del visitante..
 	$scope.setLocationDefault() # Se agrega esta línea para inicializar el mapa pero la idea es que inicialice con inicializar()
 	
-	
+	]
 	

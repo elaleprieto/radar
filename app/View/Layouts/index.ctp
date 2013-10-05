@@ -69,16 +69,16 @@
 				<?php echo $this -> Session -> flash(); ?>
 				<?php echo $this -> fetch('content'); ?>
 			<div id="footer"></div>
-		<?php echo $this->Html->script(array('https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js'
-			, 'https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js'
+		
+		<!-- Scripts -->
+		<?php echo $this->Html->script(array('//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js'
+			, '//ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js'
 			, 'vendors/bootstrap.min'
+			, 'vendors/jquery.cookie'
 			)
 		)
 		?>
-		<?php echo $this->fetch('script')
-		?>
-		<?php echo $this -> element('sql_dump'); ?>	
-		
+		<?php echo $this->fetch('script')?>
 		<script type="text/javascript">
 		  var _gaq = _gaq || [];
 		  _gaq.push(['_setAccount', 'UA-27799433-2']);
@@ -89,7 +89,11 @@
 		    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
 		  })();
 		</script>
+		
 		<!-- Plugin Facebook-->
 		<?php echo $this->Facebook->init(); ?>
+
+		<!-- SQL Dump -->
+		<?php echo $this -> element('sql_dump'); ?>	
 	</body>
 </html>
