@@ -9,8 +9,12 @@ echo $this->Html->script(array('http://maps.googleapis.com/maps/api/js?v=3.exp&s
 if (AuthComponent::user('location')) {
 	$userLocation = AuthComponent::user('location');
 } else {
-	$ip = '190.183.62.72';
-	// $ip = $this->request->clientIp();
+	
+	$ip = $this->request->clientIp();
+	
+	if($ip == '127.0.0.1')
+		$ip = '190.183.62.72';
+	
 	$ipData = @json_decode(file_get_contents("http://www.geoplugin.net/json.gp?ip=" . $ip));
 
 	if ($ipData && $ipData->geoplugin_countryName != null) {
@@ -43,6 +47,7 @@ if (AuthComponent::user('location')) {
 
 	<!-- NORTH -->
 	<div id="north" ng-cloak>
+		
 		<nav class="navbar navbar-default navbar-fixed-top" id="nav-small" ng-show="hideNavLarge" role="navigation">
 			<div class="container">
 				<div class="navbar-header">
