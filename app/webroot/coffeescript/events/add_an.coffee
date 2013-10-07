@@ -34,10 +34,25 @@ RadarApp.controller 'EventController', ($scope, $http) ->
 	$scope.minutoEnMilisegundos = 60 * 1000
 	$scope.diaEnMilisegundos = 24 * 60 * $scope.minutoEnMilisegundos
 	$scope.event = {}
-	$scope.santafe = new google.maps.LatLng(-31.625906,-60.696774)
-	$scope.argentina = new google.maps.LatLng(-31.659226,-60.485229)
-	$scope.zoomCity = 5
-	$scope.opciones = {zoom: $scope.zoomCity, center: $scope.argentina, mapTypeId: google.maps.MapTypeId.ROADMAP}
+	
+	# Map constants
+	$scope.SANTAFE = new google.maps.LatLng(-31.625906,-60.696774)
+	$scope.ARGENTINA = new google.maps.LatLng(-31.659226,-60.485229)
+	$scope.ZOOMCITY = 5
+	$scope.ROADMAP = google.maps.MapTypeId.ROADMAP
+	$scope.SATELLITE = google.maps.MapTypeId.SATELLITE
+	
+	# Map defaults
+	$scope.opciones = center: $scope.ARGENTINA
+		, mapTypeId: $scope.ROADMAP
+		, panControl: false
+		, zoomControl: false
+		, mapTypeControl: false
+		, scaleControl: false
+		, streetViewControl: false
+		, overviewMapControl: false
+		, zoom: $scope.ZOOMCITY
+		
 	$scope.map = new google.maps.Map(document.getElementById("map"), $scope.opciones)
 	# $scope.event.date_from = "0000-00-01T00:00:00.000Z"
 	# $scope.event.date_to = "0000-00-01T00:00:00.000Z"
@@ -67,7 +82,7 @@ RadarApp.controller 'EventController', ($scope, $http) ->
 				$scope.noGeolocalizacion()
 
 	$scope.noGeolocalizacion = ->
-		initialLocation = $scope.santafe
+		initialLocation = $scope.SANTAFE
 		$scope.map.setCenter(initialLocation)
 		if window.browserSupportFlag is on
 			console.log "El servicio de geolocalización falló. Iniciamos desde Santa Fe."
@@ -140,7 +155,7 @@ RadarApp.controller 'EventController', ($scope, $http) ->
 		if response[0]? and response[0].geometry? and response[0].geometry.location?
 			# Center Map
 			$scope.map.setCenter(response[0].geometry.location)
-			$scope.map.setZoom($scope.zoomCity)
+			$scope.map.setZoom($scope.ZOOMCITY)
 	
 	# setAddress hace la llamada al API y hace el callback
 	$scope.setAddress = () ->

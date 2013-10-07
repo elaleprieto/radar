@@ -16,13 +16,21 @@
     $scope.minutoEnMilisegundos = 60 * 1000;
     $scope.diaEnMilisegundos = 24 * 60 * $scope.minutoEnMilisegundos;
     $scope.event = {};
-    $scope.santafe = new google.maps.LatLng(-31.625906, -60.696774);
-    $scope.argentina = new google.maps.LatLng(-31.659226, -60.485229);
-    $scope.zoomCity = 5;
+    $scope.SANTAFE = new google.maps.LatLng(-31.625906, -60.696774);
+    $scope.ARGENTINA = new google.maps.LatLng(-31.659226, -60.485229);
+    $scope.ZOOMCITY = 5;
+    $scope.ROADMAP = google.maps.MapTypeId.ROADMAP;
+    $scope.SATELLITE = google.maps.MapTypeId.SATELLITE;
     $scope.opciones = {
-      zoom: $scope.zoomCity,
-      center: $scope.argentina,
-      mapTypeId: google.maps.MapTypeId.ROADMAP
+      center: $scope.ARGENTINA,
+      mapTypeId: $scope.ROADMAP,
+      panControl: false,
+      zoomControl: false,
+      mapTypeControl: false,
+      scaleControl: false,
+      streetViewControl: false,
+      overviewMapControl: false,
+      zoom: $scope.ZOOMCITY
     };
     $scope.map = new google.maps.Map(document.getElementById("map"), $scope.opciones);
     $scope.event.categories = [];
@@ -41,7 +49,7 @@
     };
     $scope.noGeolocalizacion = function() {
       var initialLocation;
-      initialLocation = $scope.santafe;
+      initialLocation = $scope.SANTAFE;
       $scope.map.setCenter(initialLocation);
       if (window.browserSupportFlag === true) {
         return console.log("El servicio de geolocalización falló. Iniciamos desde Santa Fe.");
@@ -52,7 +60,7 @@
     $scope.centerMapByUserLocation = function(response, status) {
       if ((response[0] != null) && (response[0].geometry != null) && (response[0].geometry.location != null)) {
         $scope.map.setCenter(response[0].geometry.location);
-        return $scope.map.setZoom($scope.zoomCity);
+        return $scope.map.setZoom($scope.ZOOMCITY);
       }
     };
     $scope.setAddress = function() {
