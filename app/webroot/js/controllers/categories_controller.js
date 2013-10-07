@@ -49,13 +49,11 @@
           if (($scope.categorias != null) && ($.cookie != null) && $scope.categorias.length > 0) {
             $.cookie.json = true;
             lastValEventCategory = $.cookie('eventCategory');
-            console.log('EventCategory:', $scope.eventCategory);
             if ((lastValEventCategory != null) && lastValEventCategory.length > 0) {
-              angular.forEach(lastValEventCategory, function(categoryId, index) {
+              return angular.forEach(lastValEventCategory, function(categoryId, index) {
                 return $scope.show($scope.searchById(categoryId));
               });
             }
-            return console.log('EventCategoria:', $scope.eventCategory);
           }
         }
       });

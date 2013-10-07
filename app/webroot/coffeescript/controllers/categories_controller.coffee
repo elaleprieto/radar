@@ -58,10 +58,10 @@ angular.module('RadarApp').controller 'CategoriesController'
 			if $scope.categorias? and $.cookie? and $scope.categorias.length > 0
 				$.cookie.json = true
 				lastValEventCategory = $.cookie('eventCategory')
-				console.log 'EventCategory:', $scope.eventCategory
 				if lastValEventCategory? and lastValEventCategory.length > 0
 					angular.forEach lastValEventCategory, (categoryId, index) ->
 						$scope.show($scope.searchById(categoryId))
-				console.log 'EventCategoria:', $scope.eventCategory
 
 	]
+	
+

@@ -6,17 +6,17 @@ echo $this->Html->css(array(
 	'events/add'
 ), '', array('inline' => false));
 
-echo $this->Html->script(array(
-	'http://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true',
-	'vendors/angular-strap.min',
-	'app',
-	'controllers/categories_controller',
-	'controllers/events_controller',
-	'vendors/bootstrap-datepicker',
-	'vendors/bootstrap-timepicker',
-	'filters',
-	'vendors/jquery.cookie',
-), array('inline' => false));
+// echo $this->Html->script(array(
+	// 'http://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true',
+	// 'vendors/angular-strap.min',
+	// 'app',
+	// 'controllers/categories_controller',
+	// 'controllers/events_controller',
+	// 'vendors/bootstrap-datepicker',
+	// 'vendors/bootstrap-timepicker',
+	// 'filters',
+	// 'vendors/jquery.cookie',
+// ), array('inline' => false));
 
 # User Location
 if (AuthComponent::user('location')) {

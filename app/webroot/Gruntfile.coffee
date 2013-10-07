@@ -7,17 +7,19 @@ module.exports = (grunt) ->
 			options: {
 				banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
 			},
-			# build: {
-				# # src: 'js/<%= pkg.name %>.js',
-				# # dest: 'js/<%= pkg.name %>.min.js'
-				# src: 'js/*.js',
-				# dest: 'js/operaciones.min.js'
-			# }
-			# contacto: {
-				# files: {
-					# 'js/pages/contacto.min.js': ['js/pages/contacto.js']
-				# }
-			# }
+			build: {
+				src: ['js/app.js'
+					, 'js/vendors/bootstrap-datepicker.js'
+					, 'js/vendors/bootstrap-timepicker.js'
+					, 'js/controllers/events_controller.js'
+					, 'js/controllers/categories_controller.js'
+					, 'js/directives.js'
+					, 'js/filters.js'
+					, 'js/styles.js'
+					, 'js/vendors/jquery.cookie.js'
+				]
+				dest: 'js/radar.min.js'
+			}
 		}
 
 		coffee: {
@@ -56,6 +58,10 @@ module.exports = (grunt) ->
 			js: {
 				files: ['coffeescript/**/*.coffee'],
 				tasks: ['coffee'],
+			}
+			ugly: {
+				files: ['js/**/*.js', '!js/radar.min.js'],
+				tasks: ['uglify'],
 			}
 		}
 	})

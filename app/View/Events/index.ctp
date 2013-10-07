@@ -3,15 +3,15 @@ echo $this->Html->css(array(
 	'inicio',
 	'events/index'
 ), '', array('inline' => false));
-echo $this->Html->script(array(
-	'http://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true',
-	'app',
-	'vendors/angular-strap.min',
-	'controllers/events_controller',
-	'controllers/categories_controller',
-	'directives',
-	'filters',
-), array('inline' => false));
+// echo $this->Html->script(array(
+	// 'http://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true',
+	// 'vendors/angular-strap.min',
+	// 'app',
+	// 'controllers/events_controller',
+	// 'controllers/categories_controller',
+	// 'directives',
+	// 'filters',
+// ), array('inline' => false));
 ?>
 
 <?php //debug($this->request->clientIp()) ?>

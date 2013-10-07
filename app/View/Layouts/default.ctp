@@ -71,15 +71,10 @@
 			</div>
 			<div id="footer"></div>
 		</div>
-		<?php echo $this->Html->script(array('https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js'
-			, 'https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js'
-			, 'vendors/bootstrap.min'
-			)
-		)
+		<?php
+			echo $this->element('scripts');
+			echo $this->fetch('script');
 		?>
-		<?php echo $this->fetch('script')
-		?>
-		<?php echo $this -> element('sql_dump'); ?>	
 		
 		<script type="text/javascript">
 		  var _gaq = _gaq || [];
@@ -93,5 +88,8 @@
 		</script>
 		<!-- Plugin Facebook-->
 		<?php echo $this->Facebook->init(); ?>
+
+		<?php echo $this -> element('sql_dump'); ?>	
+
 	</body>
 </html>
