@@ -1,29 +1,29 @@
 'use strict'
 
-RadarApp = angular.module('RadarApp', ['$strap.directives'])
-
-
-RadarApp.value('$strapConfig', {
-	datepicker: {
-		language: 'es',
-		# format: 'M d, yyyy'
-	}
-})
+# RadarApp = angular.module('RadarApp', ['$strap.directives'])
+# 
+# 
+# RadarApp.value('$strapConfig', {
+	# datepicker: {
+		# language: 'es',
+		# # format: 'M d, yyyy'
+	# }
+# })
 
 
 ### *******************************************************************************************************************
 								CATEGORIAS
 ******************************************************************************************************************* ###
-RadarApp.controller 'CategoriaController', ($scope, $http) ->
-	$http.get('/categories ', {cache: true})
-			.success (data) ->
-				$scope.categorias = data
-					
-	$scope.show = (category) ->
-		if not category.highlight
-			$scope.$parent.eventCategoriesAdd(category)
-		else
-			$scope.$parent.eventCategoriesDelete(category)
+# RadarApp.controller 'CategoriaController', ($scope, $http) ->
+	# $http.get('/categories ', {cache: true})
+			# .success (data) ->
+				# $scope.categorias = data
+# 					
+	# $scope.show = (category) ->
+		# if not category.highlight
+			# $scope.$parent.eventCategoriesAdd(category)
+		# else
+			# $scope.$parent.eventCategoriesDelete(category)
 
 
 ### *******************************************************************************************************************
@@ -36,7 +36,8 @@ RadarApp.controller 'EventController', ($scope, $http) ->
 	$scope.event = {}
 	$scope.santafe = new google.maps.LatLng(-31.625906,-60.696774)
 	$scope.argentina = new google.maps.LatLng(-31.659226,-60.485229)
-	$scope.opciones = {zoom: 5, center: $scope.argentina, mapTypeId: google.maps.MapTypeId.ROADMAP}
+	$scope.zoomCity = 5
+	$scope.opciones = {zoom: $scope.zoomCity, center: $scope.argentina, mapTypeId: google.maps.MapTypeId.ROADMAP}
 	$scope.map = new google.maps.Map(document.getElementById("map"), $scope.opciones)
 	# $scope.event.date_from = "0000-00-01T00:00:00.000Z"
 	# $scope.event.date_to = "0000-00-01T00:00:00.000Z"
@@ -45,16 +46,16 @@ RadarApp.controller 'EventController', ($scope, $http) ->
 	$scope.event.categories = []
 	$scope.geocoder = new google.maps.Geocoder()
 	
-	$scope.eventCategoriesAdd = (category) ->
-		if($scope.event.categories.length < 3)
-			$scope.event.categories.push(category.Category.id)
-			category.highlight = true
-
-	$scope.eventCategoriesDelete = (category) ->
-		index = $scope.event.categories.indexOf(category.Category.id)
-		if index >= 0 
-			$scope.event.categories.splice(index, 1)
-			category.highlight = false
+	# $scope.eventCategoriesAdd = (category) ->
+		# if($scope.event.categories.length < 3)
+			# $scope.event.categories.push(category.Category.id)
+			# category.highlight = true
+# 
+	# $scope.eventCategoriesDelete = (category) ->
+		# index = $scope.event.categories.indexOf(category.Category.id)
+		# if index >= 0 
+			# $scope.event.categories.splice(index, 1)
+			# category.highlight = false
 
 	$scope.inicializar = ->
 		if navigator.geolocation
@@ -73,66 +74,73 @@ RadarApp.controller 'EventController', ($scope, $http) ->
 		else
 			console.log "Tu navegador no soporta geolocalización. Iniciamos desde Santa Fe."	
 		
-	$scope.submit = ->
-		# Se actualiza el mensaje
-		$scope.cargando = 'Cargando.'
-		
-		# Se verifica que se hayan rellenado todos los datos requeridos
-		if !$scope.eventForm.$valid
-			# Se actualiza el mensaje
-			$scope.cargando = null
-			return @
-		
-		# Se actualiza el mensaje
-		$scope.cargando = 'Cargando..'
-		
-		# Se verifica que se haya seleccionado al menos una categoría
-		if $scope.event.categories.length <= 0
-			# Se actualiza el mensaje
-			$scope.cargando = 'Error: Debe seleccionar al menos una categoría'
-			return console.error 'Error: Debe seleccionar al menos una categoría'
-			
-		# Se actualiza el mensaje
-		$scope.cargando = 'Cargando...'
+	# $scope.submit = ->
+		# # Se actualiza el mensaje
+		# $scope.cargando = 'Cargando.'
+# 		
+		# # Se verifica que se hayan rellenado todos los datos requeridos
+		# if !$scope.eventForm.$valid
+			# # Se actualiza el mensaje
+			# $scope.cargando = null
+			# return @
+# 		
+		# # Se actualiza el mensaje
+		# $scope.cargando = 'Cargando..'
+# 		
+		# # Se verifica que se haya seleccionado al menos una categoría
+		# if $scope.event.categories.length <= 0
+			# # Se actualiza el mensaje
+			# $scope.cargando = 'Error: Debe seleccionar al menos una categoría'
+			# return console.error 'Error: Debe seleccionar al menos una categoría'
+# 			
+		# # Se actualiza el mensaje
+		# $scope.cargando = 'Cargando...'
+# 
+		# # Se guarda el evento
+		# $http.post('/events/add', {Event: $scope.event, Category: $scope.event.categories})
+			# .success (data) ->
+				# # Se actualiza el mensaje
+				# $scope.cargando = '¡Evento guardado!'
+				# console.log 'Evento guardado'
+				# window.location.pathname = 'events'
+			# .error ->
+				# # Se actualiza el mensaje
+				# $scope.cargando = 'Ocurrió un error guardando el evento'
+				# console.log 'Ocurrió un error guardando el evento'		
 
-		# Se guarda el evento
-		$http.post('/events/add', {Event: $scope.event, Category: $scope.event.categories})
-			.success (data) ->
-				# Se actualiza el mensaje
-				$scope.cargando = '¡Evento guardado!'
-				console.log 'Evento guardado'
-				window.location.pathname = 'events'
-			.error ->
-				# Se actualiza el mensaje
-				$scope.cargando = 'Ocurrió un error guardando el evento'
-				console.log 'Ocurrió un error guardando el evento'
-		
-	$scope.addAddressToMap = (response, status) ->
-		if !response or response.length is 0 then return @ #si no pudo
-		
-		$scope.event.lat = response[0].geometry.location.lat()
-		$scope.event.long = response[0].geometry.location.lng()
-		
-		# Center Map
-		$scope.map.setCenter(response[0].geometry.location)
-		$scope.map.setZoom(13)
-		
-		# blankicono que voy a usar para mostrar el punto en el mapa
-		icon = new google.maps.MarkerImage("http://gmaps-samples.googlecode.com/svn/trunk/markers/blue/blank.png"
-			, new google.maps.Size(20, 34)
-			, new google.maps.Point(0, 0)
-			, new google.maps.Point(10, 34)
-		)
-		
-		if $scope.marker? then $scope.marker.setMap(null)
-		
-		# creo el marcador con la posición, el mapa, y el icono
-		$scope.marker = new google.maps.Marker 
-			'position': response[0].geometry.location
-			, 'map': $scope.map
-			, 'icon': icon
-		
-		$scope.marker.setMap($scope.map) # inserto el marcador en el mapa
+	# $scope.addAddressToMap = (response, status) ->
+		# if !response or response.length is 0 then return @ #si no pudo
+# 		
+		# $scope.event.lat = response[0].geometry.location.lat()
+		# $scope.event.long = response[0].geometry.location.lng()
+# 		
+		# # Center Map
+		# $scope.map.setCenter(response[0].geometry.location)
+		# $scope.map.setZoom(13)
+# 		
+		# # blankicono que voy a usar para mostrar el punto en el mapa
+		# icon = new google.maps.MarkerImage("http://gmaps-samples.googlecode.com/svn/trunk/markers/blue/blank.png"
+			# , new google.maps.Size(20, 34)
+			# , new google.maps.Point(0, 0)
+			# , new google.maps.Point(10, 34)
+		# )
+# 		
+		# if $scope.marker? then $scope.marker.setMap(null)
+# 		
+		# # creo el marcador con la posición, el mapa, y el icono
+		# $scope.marker = new google.maps.Marker 
+			# 'position': response[0].geometry.location
+			# , 'map': $scope.map
+			# , 'icon': icon
+# 		
+		# $scope.marker.setMap($scope.map) # inserto el marcador en el mapa
+# 	
+	# centerMap: centers map with parameter location, called by setLocationByUserLocation
+	$scope.centerMapByUserLocation = (response, status) ->
+		if response[0]? and response[0].geometry? and response[0].geometry.location?
+			# Center Map
+			$scope.map.setCenter(response[0].geometry.location)
+			$scope.map.setZoom($scope.zoomCity)
 	
 	# setAddress hace la llamada al API y hace el callback
 	$scope.setAddress = () ->
@@ -144,6 +152,12 @@ RadarApp.controller 'EventController', ($scope, $http) ->
 		# geocode hace la conversión a un punto, y su segundo parámetro es una función de callback
 		$scope.geocoder.geocode(request, $scope.addAddressToMap)
 	
+	$scope.setLocationByUserLocation = (location) ->
+		request = new Object() # se crea un objeto request
+		request.address = location
+		# request.region = 'AR'
+		# geocode hace la conversión a un punto, y su segundo parámetro es una función de callback
+		$scope.geocoder.geocode(request, $scope.centerMapByUserLocation)
 
 	# Se comenta esto para hacerlo con un botón
 	# Se observa cuando cambia el address y se hace la llamada al API si la longitud es superior a 3
@@ -168,6 +182,11 @@ RadarApp.controller 'EventController', ($scope, $http) ->
 	$scope.$watch 'event.time_to', (newValue) ->
 		# Se setea el mínimo tiempo de finalización y el máximo tiempo de finalización del evento
 		if newValue? then $scope.checkTimeTo()
+
+	# Se observa el user.location
+	$scope.$watch 'user.location', (location) ->
+		if location? and location.length > 0
+			$scope.setLocationByUserLocation(location)
 	
 	$scope.checkTimeTo = ->
 		# Se setea el mínimo tiempo de finalización y el máximo tiempo de finalización del evento

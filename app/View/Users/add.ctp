@@ -30,7 +30,7 @@
 		                ));
 		                echo $this -> Form -> input('location', array('class' => 'col-sm-12 form-group form-control'
 		                	, 'label' => __('Your Location')
-		                	, 'placeholder' => __('Example: Roma, Italia or Barcelona, Spain.')
+		                	, 'placeholder' => __('Example: Rome, Italy or Barcelona, Spain.')
 		                	, 'required' => 'required'
 		                ));
 		            ?>    

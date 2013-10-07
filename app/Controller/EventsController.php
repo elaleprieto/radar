@@ -70,7 +70,7 @@
          * @return void
          */
         public function add() {
-            if ($this->request->is('post')) {
+            if ($this->request->is('post') && AuthComponent::user('id')) {
                 $this->layout = 'ajax';
                 date_default_timezone_set('UTC');
 				
@@ -90,6 +90,7 @@
                 $event['Event']['long'] = $data->Event->long;
                 $event['Event']['website'] = $data->Event->website;
                 $event['Event']['cost'] = $data->Event->cost;
+                $event['Event']['user_id'] = AuthComponent::user('id');
                 
                 // if(sizeof($data->Category) > 3)
                 $event['Event']['Category'] = $data->Category;

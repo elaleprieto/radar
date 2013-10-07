@@ -1,6 +1,17 @@
 <?php
-echo $this->Html->css(array('inicio', 'events/index'), '', array('inline' => false));
-echo $this->Html->script(array('http://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true', 'angular/filters', 'events/index_an'), array('inline' => false));
+echo $this->Html->css(array(
+	'inicio',
+	'events/index'
+), '', array('inline' => false));
+echo $this->Html->script(array(
+	'http://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true',
+	'app',
+	'vendors/angular-strap.min',
+	'controllers/events_controller',
+	'controllers/categories_controller',
+	'directives',
+	'filters',
+), array('inline' => false));
 ?>
 
 <?php //debug($this->request->clientIp()) ?>
@@ -9,12 +20,12 @@ echo $this->Html->script(array('http://maps.googleapis.com/maps/api/js?v=3.exp&s
 if (AuthComponent::user('location')) {
 	$userLocation = AuthComponent::user('location');
 } else {
-	
+
 	$ip = $this->request->clientIp();
-	
-	if($ip == '127.0.0.1')
+
+	if ($ip == '127.0.0.1')
 		$ip = '190.183.62.72';
-	
+
 	$ipData = @json_decode(file_get_contents("http://www.geoplugin.net/json.gp?ip=" . $ip));
 
 	if ($ipData && $ipData->geoplugin_countryName != null) {
@@ -33,7 +44,7 @@ if (AuthComponent::user('location')) {
 }
 ?>
 
-<div ng-controller="EventoController" ng-init="user.location='<?php echo $userLocation; ?>'">
+<div ng-controller="EventsController" ng-init="user.location='<?php echo $userLocation; ?>'">
 	<div class="row">
 		<div class="col-sm-8">
 			<div class="row">
@@ -82,7 +93,12 @@ if (AuthComponent::user('location')) {
 			<div class="container">
 				<ul class="nav navbar-nav">
 					<li>
-						<?php echo $this->Html->link($this->Html->image("logoBeta.png", array('alt' => 'logo')), '/', array('class' => 'menu_icono', 'style' => 'padding-top: 8px', 'escape' => false)); ?>
+						<?php echo $this->Html->link($this->Html->image("logoBeta.png", array('alt' => 'logo')), '/', array(
+							'class' => 'menu_icono',
+							'style' => 'padding-top: 8px',
+							'escape' => false
+						));
+ ?>
 					</li>
 				</ul>
 				<ul class="nav navbar-nav" id="menu_superior">
@@ -109,7 +125,14 @@ if (AuthComponent::user('location')) {
 								//	, 'action'=>'logout'), array('class'=>'menu menu_derecha'))
 							?>-->
 							<!-- Logout de facebook -->
-							<?php echo $this->Facebook->logout(array('label' => 'Salir', 'redirect' => array('controller' => 'users', 'action' => 'logout'), )); ?>
+							<?php echo $this->Facebook->logout(array(
+									'label' => 'Salir',
+									'redirect' => array(
+										'controller' => 'users',
+										'action' => 'logout'
+									),
+								));
+ ?>
 						</li>
 					<?php else: ?>
 						<li>
@@ -131,8 +154,8 @@ if (AuthComponent::user('location')) {
 	<div id="east" ng-cloak>
 
 		<!-- CATEGORIES -->
-		<div ng-controller="CategoriaController">
-			<div class="row" ng-init='categorias=<?php echo json_encode($categorias) ?>'>
+		<div ng-controller="CategoriesController">
+			<div class="row">
 				<div class="col-sm-12">
 
 					<div class="background-white display-inline" ng-hide="hideCategories">

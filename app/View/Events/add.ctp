@@ -1,24 +1,46 @@
 <?php
-echo $this->Html->css(array('vendors/bootstrap-datepicker'
-		, 'vendors/bootstrap-timepicker'
-		, 'inicio'
-		,'events/add'
-	)
-	, ''
-	, array('inline'=>false)
-);
+echo $this->Html->css(array(
+	'vendors/bootstrap-datepicker',
+	'vendors/bootstrap-timepicker',
+	'inicio',
+	'events/add'
+), '', array('inline' => false));
 
-echo $this->Html->script(array('http://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true'
-	    , 'vendors/angular-strap.min'
-	    , 'vendors/bootstrap-datepicker'
-	    , 'vendors/bootstrap-timepicker'
-	    , 'events/add_an'
-	)
-	, array('inline'=>false)
-);
+echo $this->Html->script(array(
+	'http://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true',
+	'vendors/angular-strap.min',
+	'app',
+	'controllers/categories_controller',
+	'controllers/events_controller',
+	'vendors/bootstrap-datepicker',
+	'vendors/bootstrap-timepicker',
+	'filters',
+	'vendors/jquery.cookie',
+), array('inline' => false));
+
+# User Location
+if (AuthComponent::user('location')) {
+	$userLocation = AuthComponent::user('location');
+} else {
+	$ip = $this->request->clientIp();
+	if ($ip == '127.0.0.1')
+		$ip = '190.183.62.72';
+
+	$ipData = @json_decode(file_get_contents("http://www.geoplugin.net/json.gp?ip=" . $ip));
+	if ($ipData && $ipData->geoplugin_countryName != null) {
+		$userLocation = $ipData->geoplugin_city . ', ' . $ipData->geoplugin_countryName;
+
+		# Se guarda el userLocation
+		if ($userId = AuthComponent::user('id')) {
+			$this->requestAction("/users/setLocation/$userId/$userLocation");
+		}
+	} else {
+		$userLocation = null;
+	}
+}
 ?>
 
-<div ng-controller="EventController">
+<div ng-controller="EventsController" ng-init="user.location='<?php echo $userLocation; ?>'">
 
     <!-- BARRA PROGRESO -->
     <div class="row">
@@ -88,7 +110,7 @@ echo $this->Html->script(array('http://maps.googleapis.com/maps/api/js?v=3.exp&s
     							<!-- Categorías -->
         						<div class="row">
         							<p>¿De qué se trata?</p>
-                                    <div ng-controller="CategoriaController">
+                                    <div ng-controller="CategoriesController">
                                         <div class="row form-group">
                                             <div class="col-sm-12">
                                                 <div 
@@ -96,7 +118,7 @@ echo $this->Html->script(array('http://maps.googleapis.com/maps/api/js?v=3.exp&s
                                                     	ng-class="{highlight:categoria.highlight}"
                                                     	ng-model="categoria"
                                                     	ng-repeat="categoria in categorias"
-                                                    	ng-click="show(categoria)">
+                                                    	ng-click="addCategoryToEvent(categoria)">
                                                         <div class="col-sm-1">
                                                             <img class="icono-categoria" 
                                                             	ng-src="/img/categorias/{{categoria.Category.icon}}" />

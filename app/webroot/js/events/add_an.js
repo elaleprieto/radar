@@ -1,41 +1,14 @@
 (function() {
   'use strict';
-  var RadarApp;
-
-  RadarApp = angular.module('RadarApp', ['$strap.directives']);
-
-  RadarApp.value('$strapConfig', {
-    datepicker: {
-      language: 'es'
-    }
-  });
-
   /* *******************************************************************************************************************
   								CATEGORIAS
   *******************************************************************************************************************
   */
 
-
-  RadarApp.controller('CategoriaController', function($scope, $http) {
-    $http.get('/categories ', {
-      cache: true
-    }).success(function(data) {
-      return $scope.categorias = data;
-    });
-    return $scope.show = function(category) {
-      if (!category.highlight) {
-        return $scope.$parent.eventCategoriesAdd(category);
-      } else {
-        return $scope.$parent.eventCategoriesDelete(category);
-      }
-    };
-  });
-
   /* *******************************************************************************************************************
   								EVENTOS
   *******************************************************************************************************************
   */
-
 
   RadarApp.controller('EventController', function($scope, $http) {
     var date;
@@ -45,28 +18,15 @@
     $scope.event = {};
     $scope.santafe = new google.maps.LatLng(-31.625906, -60.696774);
     $scope.argentina = new google.maps.LatLng(-31.659226, -60.485229);
+    $scope.zoomCity = 5;
     $scope.opciones = {
-      zoom: 5,
+      zoom: $scope.zoomCity,
       center: $scope.argentina,
       mapTypeId: google.maps.MapTypeId.ROADMAP
     };
     $scope.map = new google.maps.Map(document.getElementById("map"), $scope.opciones);
     $scope.event.categories = [];
     $scope.geocoder = new google.maps.Geocoder();
-    $scope.eventCategoriesAdd = function(category) {
-      if ($scope.event.categories.length < 3) {
-        $scope.event.categories.push(category.Category.id);
-        return category.highlight = true;
-      }
-    };
-    $scope.eventCategoriesDelete = function(category) {
-      var index;
-      index = $scope.event.categories.indexOf(category.Category.id);
-      if (index >= 0) {
-        $scope.event.categories.splice(index, 1);
-        return category.highlight = false;
-      }
-    };
     $scope.inicializar = function() {
       if (navigator.geolocation) {
         window.browserSupportFlag = true;
@@ -89,49 +49,11 @@
         return console.log("Tu navegador no soporta geolocalización. Iniciamos desde Santa Fe.");
       }
     };
-    $scope.submit = function() {
-      $scope.cargando = 'Cargando.';
-      if (!$scope.eventForm.$valid) {
-        $scope.cargando = null;
-        return this;
+    $scope.centerMapByUserLocation = function(response, status) {
+      if ((response[0] != null) && (response[0].geometry != null) && (response[0].geometry.location != null)) {
+        $scope.map.setCenter(response[0].geometry.location);
+        return $scope.map.setZoom($scope.zoomCity);
       }
-      $scope.cargando = 'Cargando..';
-      if ($scope.event.categories.length <= 0) {
-        $scope.cargando = 'Error: Debe seleccionar al menos una categoría';
-        return console.error('Error: Debe seleccionar al menos una categoría');
-      }
-      $scope.cargando = 'Cargando...';
-      return $http.post('/events/add', {
-        Event: $scope.event,
-        Category: $scope.event.categories
-      }).success(function(data) {
-        $scope.cargando = '¡Evento guardado!';
-        console.log('Evento guardado');
-        return window.location.pathname = 'events';
-      }).error(function() {
-        $scope.cargando = 'Ocurrió un error guardando el evento';
-        return console.log('Ocurrió un error guardando el evento');
-      });
-    };
-    $scope.addAddressToMap = function(response, status) {
-      var icon;
-      if (!response || response.length === 0) {
-        return this;
-      }
-      $scope.event.lat = response[0].geometry.location.lat();
-      $scope.event.long = response[0].geometry.location.lng();
-      $scope.map.setCenter(response[0].geometry.location);
-      $scope.map.setZoom(13);
-      icon = new google.maps.MarkerImage("http://gmaps-samples.googlecode.com/svn/trunk/markers/blue/blank.png", new google.maps.Size(20, 34), new google.maps.Point(0, 0), new google.maps.Point(10, 34));
-      if ($scope.marker != null) {
-        $scope.marker.setMap(null);
-      }
-      $scope.marker = new google.maps.Marker({
-        'position': response[0].geometry.location,
-        'map': $scope.map,
-        'icon': icon
-      });
-      return $scope.marker.setMap($scope.map);
     };
     $scope.setAddress = function() {
       var request;
@@ -139,6 +61,12 @@
       request.address = $scope.event.address;
       request.region = 'AR';
       return $scope.geocoder.geocode(request, $scope.addAddressToMap);
+    };
+    $scope.setLocationByUserLocation = function(location) {
+      var request;
+      request = new Object();
+      request.address = location;
+      return $scope.geocoder.geocode(request, $scope.centerMapByUserLocation);
     };
     $scope.$watch('event.date_from', function(newValue) {
       if (newValue != null) {
@@ -156,6 +84,11 @@
     $scope.$watch('event.time_to', function(newValue) {
       if (newValue != null) {
         return $scope.checkTimeTo();
+      }
+    });
+    $scope.$watch('user.location', function(location) {
+      if ((location != null) && location.length > 0) {
+        return $scope.setLocationByUserLocation(location);
       }
     });
     return $scope.checkTimeTo = function() {
