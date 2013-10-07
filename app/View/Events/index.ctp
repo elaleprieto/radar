@@ -115,8 +115,8 @@ if (AuthComponent::user('location')) {
 				<ul id="menu_superior_derecha" class="nav navbar-nav navbar-right">
 					<?php if ($this->Session->read('Auth.User.name') != ''): ?>
 						<li>
-							<a> 
-								<span><?php echo $this->Session->read('Auth.User.name') ?></span>
+							<a href="/users/edit/<?php echo AuthComponent::user('id'); ?>"> 
+								<span><?php echo AuthComponent::user('name') ?></span>
 							</a>
 						</li>
 						<li>
