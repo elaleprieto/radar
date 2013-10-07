@@ -129,6 +129,20 @@ if (AuthComponent::user('location')) {
 
 	<!-- EAST -->
 	<div id="east" ng-cloak>
+		
+		<!-- Location Shortcuts -->
+		<div class="row">
+			<div class="col-sm-12">
+				<div id="locationShortcuts" class="btn-group" data-toggle="buttons-radio">
+					<button class="btn btn-verde" data-toggle="button" ng-click="centerMap()">Región</button>
+					<button class="btn btn-verde" data-toggle="button" ng-click="centerMap('cordoba')">Córdoba</button>
+					<button class="btn btn-verde" data-toggle="button" ng-click="centerMap('santafe')">Santa Fe</button>
+					<button class="btn btn-warning" data-toggle="button" ng-click="setLocation()">Mi Ubicación</button>
+				</div>
+			</div>
+		</div>
+
+		<br />
 
 		<!-- CATEGORIES -->
 		<div ng-controller="CategoriaController">
@@ -199,18 +213,8 @@ if (AuthComponent::user('location')) {
 		<div class="background-white">
 			<div class="row">
 	
-				<!-- Location Shortcuts -->
-				<div class="col-sm-4">
-					<div id="locationShortcuts" class="btn-group" data-toggle="buttons-radio">
-						<button class="btn btn-verde" data-toggle="button" ng-click="centerMap()">Región</button>
-						<button class="btn btn-verde" data-toggle="button" ng-click="centerMap('cordoba')">Córdoba</button>
-						<button class="btn btn-verde" data-toggle="button" ng-click="centerMap('santafe')">Santa Fe</button>
-						<button class="btn btn-warning" data-toggle="button" ng-click="setLocation()">Mi Ubicación</button>
-					</div>
-				</div>
-	
 				<!-- Event Interval -->
-				<div class="col-sm-4">
+				<div class="col-sm-6">
 					<input value="1" name="interval" type="hidden">
 					<div id="eventInterval" class="control-group btn-group" data-toggle="buttons">
 						<button type="radio" data-toggle="button" class="btn disabled">qué hacer...</button>
@@ -227,7 +231,7 @@ if (AuthComponent::user('location')) {
 				</div>
 	
 				<!-- Map Types -->
-				<div class="col-sm-4 text-right">
+				<div class="col-sm-6 text-right">
 					
 					<!-- Button to Display or Hide South Menu -->
 					<span ng-click="hideSouthMenu = !hideSouthMenu">

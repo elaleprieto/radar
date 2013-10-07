@@ -45,10 +45,18 @@
     $scope.event = {};
     $scope.santafe = new google.maps.LatLng(-31.625906, -60.696774);
     $scope.argentina = new google.maps.LatLng(-31.659226, -60.485229);
+    $scope.ROADMAP = google.maps.MapTypeId.ROADMAP;
+    $scope.SATELLITE = google.maps.MapTypeId.SATELLITE;
     $scope.opciones = {
-      zoom: 5,
       center: $scope.argentina,
-      mapTypeId: google.maps.MapTypeId.ROADMAP
+      mapTypeId: $scope.ROADMAP,
+      panControl: false,
+      zoomControl: false,
+      mapTypeControl: false,
+      scaleControl: false,
+      streetViewControl: false,
+      overviewMapControl: false,
+      zoom: 5
     };
     $scope.map = new google.maps.Map(document.getElementById("map"), $scope.opciones);
     $scope.event.categories = [];

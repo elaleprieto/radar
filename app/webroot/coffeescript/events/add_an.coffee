@@ -36,7 +36,23 @@ RadarApp.controller 'EventController', ($scope, $http) ->
 	$scope.event = {}
 	$scope.santafe = new google.maps.LatLng(-31.625906,-60.696774)
 	$scope.argentina = new google.maps.LatLng(-31.659226,-60.485229)
-	$scope.opciones = {zoom: 5, center: $scope.argentina, mapTypeId: google.maps.MapTypeId.ROADMAP}
+	
+	
+	# Map constants
+	$scope.ROADMAP = google.maps.MapTypeId.ROADMAP
+	$scope.SATELLITE = google.maps.MapTypeId.SATELLITE
+	
+	# Map defaults
+	$scope.opciones = center: $scope.argentina
+		, mapTypeId: $scope.ROADMAP
+		, panControl: false
+		, zoomControl: false
+		, mapTypeControl: false
+		, scaleControl: false
+		, streetViewControl: false
+		, overviewMapControl: false
+		, zoom: 5
+		
 	$scope.map = new google.maps.Map(document.getElementById("map"), $scope.opciones)
 	# $scope.event.date_from = "0000-00-01T00:00:00.000Z"
 	# $scope.event.date_to = "0000-00-01T00:00:00.000Z"
