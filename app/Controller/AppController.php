@@ -88,7 +88,9 @@
     		$this->Connect->authUser['User']['email'] = $this->Connect->user('email');
 			$this->Connect->authUser['User']['username'] = $this->Connect->user('username');
 			$this->Connect->authUser['User']['name'] = $this->Connect->user('name');
-			$this->Connect->authUser['User']['location'] = $usuario['location']['name'];
+			
+			if(isset($usuario['location']['name']))
+				$this->Connect->authUser['User']['location'] = $usuario['location']['name'];
 
 			if($usuario['gender']=='female'){
 				$this->Connect->authUser['User']['gender'] = '1';
