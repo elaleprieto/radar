@@ -1,32 +1,23 @@
 <?php
+# Styles
 echo $this->Html->css(array(
 	'inicio',
 	'events/index'
 ), '', array('inline' => false));
-?>
 
-<?php //debug($this->request->clientIp()) ?>
-<?php
 # User Location
 if (AuthComponent::user('location')) {
 	$userLocation = AuthComponent::user('location');
 } else {
-
 	$ip = $this->request->clientIp();
-
 	if ($ip == '127.0.0.1')
 		$ip = '190.183.62.72';
-
 	$ipData = @json_decode(file_get_contents("http://www.geoplugin.net/json.gp?ip=" . $ip));
-
 	if ($ipData && $ipData->geoplugin_countryName != null) {
 		$userLocation = $ipData->geoplugin_city . ', ' . $ipData->geoplugin_countryName;
 
 		# Se guarda el userLocation
 		if ($userId = AuthComponent::user('id')) {
-			// $this->requestAction(array('controller' => 'users', 'action' => 'setLocation')
-			// , array('pass' => array($userId, $userLocation))
-			// );
 			$this->requestAction("/users/setLocation/$userId/$userLocation");
 		}
 	} else {
@@ -35,7 +26,7 @@ if (AuthComponent::user('location')) {
 }
 ?>
 
-<div ng-controller="EventsController" ng-init="user.location='<?php echo $userLocation; ?>'">
+<div ng-controller="EventsController" ng-init="user.locationAux='<?php echo $userLocation; ?>'">
 	<div class="row">
 		<div class="col-sm-8">
 			<div class="row">
@@ -143,15 +134,49 @@ if (AuthComponent::user('location')) {
 
 	<!-- EAST -->
 	<div id="east" ng-cloak>
-		
-		<!-- Location Shortcuts -->
-		<div class="row">
-			<div class="col-sm-12">
+		<div>
+			
+			<!-- Location Shortcuts -->
+			<div>
 				<div id="locationShortcuts" class="btn-group" data-toggle="buttons-radio">
-					<button class="btn btn-verde" data-toggle="button" ng-click="centerMap()">Región</button>
+					<button class="btn btn-verde" data-toggle="button" ng-click="centerMap()">
+						<?php echo __('Region'); ?>
+					</button>
 					<button class="btn btn-verde" data-toggle="button" ng-click="centerMap('cordoba')">Córdoba</button>
 					<button class="btn btn-verde" data-toggle="button" ng-click="centerMap('santafe')">Santa Fe</button>
-					<button class="btn btn-warning" data-toggle="button" ng-click="setLocation()">Mi Ubicación</button>
+					<button class="btn btn-warning" data-toggle="button" ng-click="setLocation()">
+						<?php echo __('My Location'); ?>
+					</button>
+				</div>
+			</div>
+		</div>
+			
+		<div>
+			<!-- Location Advertise -->
+			<div ng-hide="hideLocationAdvertise" ng-show="user.location">
+				<div class="background-white alert alert-dismissable" ng-hide="showSearchLocationBar">
+					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+					<strong ng-bind='user.location'></strong>
+					<br />
+					<?php echo __('Is not your current location?'); ?>
+					<a href="#" ng-click="showSearchLocationBar = !showSearchLocationBar">
+						<?php echo __('Change'); ?>
+					</a> 
+				</div>
+				<div ng-show="showSearchLocationBar">
+					<div class="input-group">
+						<input class="form-control" ng-model="locationSearched" 
+							placeholder="<?php echo __('City: Rome, Italy'); ?>" type="text" 
+							ui-keypress="{13:'searchLocation(locationSearched)'}" />
+						<span class="input-group-addon" ng-click="searchLocation(locationSearched)"
+							title="<?php echo __('Search'); ?>">
+							<i class="glyphicon glyphicon-search"></i>
+						</span>
+						<span class="input-group-addon" ng-click="showSearchLocationBar = !showSearchLocationBar" 
+								title="<?php echo __('Hide'); ?>">
+							<i class="glyphicon glyphicon-eye-close"></i>
+						</span>
+					</div>
 				</div>
 			</div>
 		</div>

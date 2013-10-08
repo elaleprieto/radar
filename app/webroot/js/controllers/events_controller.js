@@ -12,7 +12,7 @@
       	***************************************************************************************************************
       */
 
-      var date, userMapCenter, userMapTypeId, userMapZoom;
+      var date, findResult, setUserLocationString, userLastLocationString, userMapCenter, userMapTypeId, userMapZoom;
       $scope.eventInterval = 1;
       $scope.user = {};
       $scope.eventCategory = [];
@@ -33,7 +33,7 @@
       $scope.ROADMAP = google.maps.MapTypeId.ROADMAP;
       $scope.SATELLITE = google.maps.MapTypeId.SATELLITE;
       $scope.opciones = {
-        center: $scope.locationDefault,
+        center: $scope.locationAux,
         mapTypeId: $scope.ROADMAP,
         panControl: false,
         zoomControl: false,
@@ -48,6 +48,7 @@
         userMapCenter = $.cookie('userMapCenter');
         userMapTypeId = $.cookie('userMapTypeId');
         userMapZoom = $.cookie('userMapZoom');
+        userLastLocationString = $.cookie('userLastLocationString');
         if (userMapCenter != null) {
           $scope.opciones.center = new google.maps.LatLng(userMapCenter.lat, userMapCenter.lng);
         }
@@ -57,6 +58,12 @@
         if (userMapZoom != null) {
           $scope.opciones.zoom = userMapZoom;
         }
+        if (userLastLocationString != null) {
+          $scope.user.location = userLastLocationString;
+        }
+        $timeout(function() {
+          return $scope.setUserLocationByLatLng($scope.opciones.center);
+        }, 50);
       }
       $scope.map = new google.maps.Map(document.getElementById("map"), $scope.opciones);
       $scope.markers = [];
@@ -168,7 +175,9 @@
       $scope.centerMapByUserLocation = function(response, status) {
         if ((response[0] != null) && (response[0].geometry != null) && (response[0].geometry.location != null)) {
           $scope.map.setCenter(response[0].geometry.location);
-          return $scope.map.setZoom($scope.zoomCity);
+          $scope.map.setZoom($scope.zoomCity);
+          $scope.saveUserMapCenter();
+          return setUserLocationString(response[0]);
         }
       };
       $scope.createMarker = function(eventId, eventTitle, eventCategory, latlng) {
@@ -263,6 +272,12 @@
           });
         }
       };
+      $scope.saveUserLocationString = function() {
+        $.cookie.json = true;
+        return $.cookie("userLastLocationString", $scope.user.location, {
+          expires: 30
+        });
+      };
       $scope.saveUserMapCenter = function() {
         $.cookie.json = true;
         return $.cookie("userMapCenter", {
@@ -283,6 +298,9 @@
         return $.cookie("userMapZoom", $scope.map.getZoom(), {
           expires: 30
         });
+      };
+      $scope.searchLocation = function(location) {
+        return $scope.setLocationByUserLocation(location);
       };
       $scope.setAllMap = function(map) {
         var marker, _i, _len, _ref, _results;
@@ -334,6 +352,14 @@
         $scope.map.setZoom($scope.zoomDefault);
         return $scope.map.setCenter($scope.locationDefault);
       };
+      $scope.setUserLocationByLatLng = function(location) {
+        var request;
+        request = {};
+        request.location = location;
+        return $scope.geocoder.geocode(request, function(response, status) {
+          return setUserLocationString(response[0]);
+        });
+      };
       $scope.setMapType = function(mapTypeId) {
         $scope.map.setMapTypeId(mapTypeId);
         return $scope.saveUserMapTypeId();
@@ -341,7 +367,7 @@
       $scope.showOverlays = function() {
         return $scope.setAllMap($scope.map);
       };
-      return $scope.submit = function() {
+      $scope.submit = function() {
         $scope.cargando = 'Cargando.';
         if (!$scope.eventForm.$valid) {
           $scope.cargando = null;
@@ -364,6 +390,35 @@
           $scope.cargando = 'Ocurrió un error guardando el evento';
           return console.log('Ocurrió un error guardando el evento');
         });
+      };
+      /* *************************************************************************************************************** 
+      			Funciones Auxiliares
+      			Aquí se escriben las funciones auxiliares
+      	***************************************************************************************************************
+      */
+
+      findResult = function(results, name) {
+        var result;
+        result = results.filter(function(obj) {
+          return obj.types[0] === name && obj.types[1] === "political";
+        });
+        if (result[0] != null) {
+          return result[0].long_name;
+        } else {
+          return null;
+        }
+      };
+      return setUserLocationString = function(location) {
+        var city, country, results;
+        results = location.address_components;
+        city = findResult(results, "locality");
+        country = findResult(results, "country");
+        if (city && country) {
+          $scope.user.location = city + ', ' + country;
+        } else {
+          $scope.user.location = location.formatted_address;
+        }
+        return $scope.saveUserLocationString();
       };
     }
   ]);

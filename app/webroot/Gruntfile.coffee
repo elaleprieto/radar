@@ -17,6 +17,7 @@ module.exports = (grunt) ->
 					, 'js/filters.js'
 					, 'js/styles.js'
 					, 'js/vendors/jquery.cookie.js'
+					, 'js/vendors/keypress.js'
 				]
 				dest: 'js/radar.min.js'
 			}

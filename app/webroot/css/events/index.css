@@ -62,12 +62,16 @@ nav { position: absolute; top: 0; z-index: 1; }
 
 /* line 64, ../../sass/events/index.sass */
 #east { left: 0; top: 10%; }
-
 /* line 68, ../../sass/events/index.sass */
+#east div[class="input-group"] { max-width: 350px; }
+/* line 71, ../../sass/events/index.sass */
+#east input { text-transform: capitalize; }
+
+/* line 74, ../../sass/events/index.sass */
 #map { height: 100%; left: 0; top: 0; position: absolute; width: 100%; z-index: 0; }
 
-/* line 76, ../../sass/events/index.sass */
+/* line 82, ../../sass/events/index.sass */
 #south { left: 0; bottom: 0; width: 100%; }
 
-/* line 81, ../../sass/events/index.sass */
+/* line 87, ../../sass/events/index.sass */
 #west { right: 0; top: 10%; }

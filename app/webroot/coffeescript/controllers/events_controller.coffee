@@ -34,7 +34,7 @@ angular.module('RadarApp').controller 'EventsController'
 	$scope.SATELLITE = google.maps.MapTypeId.SATELLITE
 	
 	# Map defaults
-	$scope.opciones = center: $scope.locationDefault
+	$scope.opciones = center: $scope.locationAux
 		, mapTypeId: $scope.ROADMAP
 		, panControl: false
 		, zoomControl: false
@@ -50,11 +50,17 @@ angular.module('RadarApp').controller 'EventsController'
 		userMapCenter = $.cookie('userMapCenter')
 		userMapTypeId = $.cookie('userMapTypeId')
 		userMapZoom = $.cookie('userMapZoom')
+		userLastLocationString = $.cookie('userLastLocationString')
 		
 		# Se sobreescriben las opciones del mapa si el usuario las tiene seteadas
 		$scope.opciones.center = new google.maps.LatLng(userMapCenter.lat, userMapCenter.lng) if userMapCenter?
 		$scope.opciones.mapTypeId = userMapTypeId if userMapTypeId?
 		$scope.opciones.zoom = userMapZoom if userMapZoom?
+		$scope.user.location = userLastLocationString if userLastLocationString?
+		
+		$timeout ->
+			$scope.setUserLocationByLatLng($scope.opciones.center)
+		, 50
 	
 	$scope.map = new google.maps.Map(document.getElementById("map"), $scope.opciones)
 	$scope.markers = []
@@ -185,7 +191,8 @@ angular.module('RadarApp').controller 'EventsController'
 			# Center Map
 			$scope.map.setCenter(response[0].geometry.location)
 			$scope.map.setZoom($scope.zoomCity)
-
+			$scope.saveUserMapCenter()
+			setUserLocationString(response[0])
 
 	# A function to create the marker and set up the event window function
 	$scope.createMarker = (eventId, eventTitle, eventCategory, latlng) ->
@@ -282,6 +289,12 @@ angular.module('RadarApp').controller 'EventsController'
 				$scope.setLocationDefault()
 
 	# Save as cookie, the user map desired center
+	$scope.saveUserLocationString = ->
+		$.cookie.json = true
+		# expires in 30 days
+		$.cookie("userLastLocationString", $scope.user.location, {expires: 30})
+
+	# Save as cookie, the user map desired center
 	$scope.saveUserMapCenter = ->
 		$.cookie.json = true
 		# expires in 30 days
@@ -298,6 +311,11 @@ angular.module('RadarApp').controller 'EventsController'
 		$.cookie.json = true
 		# expires in 30 days
 		$.cookie("userMapZoom", $scope.map.getZoom(), {expires: 30})
+
+	# Search Location
+	# @param location: string
+	$scope.searchLocation = (location) ->
+		$scope.setLocationByUserLocation(location)
 
 	# Sets the map on all markers in the array.
 	$scope.setAllMap = (map) ->
@@ -345,7 +363,14 @@ angular.module('RadarApp').controller 'EventsController'
 	$scope.setLocationDefault = ->
 		$scope.map.setZoom($scope.zoomDefault)
 		$scope.map.setCenter($scope.locationDefault)
-	
+
+	$scope.setUserLocationByLatLng = (location) ->
+		request = {} # se crea un objeto request
+		request.location = location
+		# geocode hace la conversión a un punto, y su segundo parámetro es una función de callback
+		$scope.geocoder.geocode request, (response, status) ->
+			setUserLocationString(response[0])
+
 	# Setea el Tipo de Mapa: RoadMap o StreetMap
 	$scope.setMapType = (mapTypeId) ->
 		$scope.map.setMapTypeId(mapTypeId)
@@ -392,5 +417,36 @@ angular.module('RadarApp').controller 'EventsController'
 	
 	# Se inicializa el mapa
 	# $scope.inicializar() # Se lo quito por ahora pero debería centrar el mapa en el lugar del visitante..
-	# $scope.setLocationDefault() # Se agrega esta línea para inicializar el mapa pero la idea es que inicialice con inicializar()	
+	# $scope.setLocationDefault() # Se agrega esta línea para inicializar el mapa pero la idea es que inicialice con inicializar()
+	
+	
+	### *************************************************************************************************************** 
+			Funciones Auxiliares
+			Aquí se escriben las funciones auxiliares
+	*************************************************************************************************************** ###
+	
+	# findResult es usada para filtrar la ciudad, estado y pais de una respuesta de la API
+	# findResult = (results, name) ->
+		# result =  _.find results, (obj) ->
+			# obj.types[0] is name and obj.types[1] is "political"
+		# result ? result.short_name : null
+	findResult = (results, name) ->
+		result = results.filter (obj) ->
+			obj.types[0] is name and obj.types[1] is "political"
+		if result[0]? then result[0].long_name else null
+	
+	setUserLocationString = (location) ->
+		# $scope.user.location = response[0].formatted_address
+		results = location.address_components
+		city = findResult(results, "locality")
+		# state = findResult(results, "administrative_area_level_1")
+		country = findResult(results, "country")
+		
+		# $scope.user.location = city + ', ' + state + ', ' + country
+		if city and country
+			$scope.user.location = city + ', ' + country
+		else
+			$scope.user.location = location.formatted_address
+			
+		$scope.saveUserLocationString()
 	]
