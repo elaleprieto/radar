@@ -195,7 +195,7 @@ if (AuthComponent::user('location')) {
 								ng-model="categoria" ng-repeat="categoria in categorias | orderBy:'Category.name'" ng-click="show(categoria)">
 								<div class="col-sm-3">
 									<img class="icono-categoria" 
-										ng-src="<?php echo IMAGES_URL ?>categorias/{{categoria.Category.icon}}" />
+										ng-src="/img/categorias/{{categoria.Category.icon}}" />
 								</div>
 								<div class="col-sm-9 item-categoria" ng-bind="categoria.Category.name"></div>
 							</div>
