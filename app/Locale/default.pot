@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2013-09-29 21:05-0300\n"
+"POT-Creation-Date: 2013-10-08 17:00-0300\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -54,23 +54,23 @@ msgstr ""
 msgid "Categories event was not deleted"
 msgstr ""
 
-#: Controller/EventsController.php:60;115;144
+#: Controller/EventsController.php:61;117;146
 msgid "Invalid event"
 msgstr ""
 
-#: Controller/EventsController.php:119
+#: Controller/EventsController.php:121
 msgid "The event has been saved"
 msgstr ""
 
-#: Controller/EventsController.php:122
+#: Controller/EventsController.php:124
 msgid "The event could not be saved. Please, try again."
 msgstr ""
 
-#: Controller/EventsController.php:148
+#: Controller/EventsController.php:150
 msgid "Event deleted"
 msgstr ""
 
-#: Controller/EventsController.php:151
+#: Controller/EventsController.php:153
 msgid "Event was not deleted"
 msgstr ""
 
@@ -78,15 +78,15 @@ msgstr ""
 msgid "Invalid username or password, try again"
 msgstr ""
 
-#: Controller/UsersController.php:146;170
+#: Controller/UsersController.php:151;177
 msgid "The user could not be saved. Please, try again."
 msgstr ""
 
-#: Controller/UsersController.php:163
+#: Controller/UsersController.php:167
 msgid "Invalid user"
 msgstr ""
 
-#: Controller/UsersController.php:167
+#: Controller/UsersController.php:171
 msgid "The user has been saved"
 msgstr ""
 
@@ -102,7 +102,7 @@ msgstr ""
 #: View/Places/add.ctp:12
 #: View/Places/edit.ctp:13
 #: View/Users/add.ctp:48
-#: View/Users/edit.ctp:12
+#: View/Users/edit.ctp:48;87
 #: View/Helper/FormHelper.php:1824
 #: View/Scaffolds/form.ctp:23
 msgid "Submit"
@@ -122,7 +122,7 @@ msgstr ""
 #: View/Places/edit.ctp:16
 #: View/Places/index.ctp:12;46
 #: View/Places/view.ctp:42;68
-#: View/Users/edit.ctp:15
+#: View/Users/edit.ctp:90
 #: View/Users/index.ctp:11;44
 #: View/Users/view.ctp:37;58
 #: View/Scaffolds/form.ctp:27
@@ -190,7 +190,7 @@ msgstr ""
 #: View/Places/edit.ctp:19
 #: View/Places/index.ctp:26
 #: View/Places/view.ctp:88
-#: View/Users/edit.ctp:18
+#: View/Users/edit.ctp:93
 #: View/Users/index.ctp:24
 #: View/Users/view.ctp:73
 #: View/Scaffolds/form.ctp:31
@@ -210,7 +210,7 @@ msgstr ""
 #: View/Places/edit.ctp:19
 #: View/Places/index.ctp:26
 #: View/Places/view.ctp:45;88
-#: View/Users/edit.ctp:18
+#: View/Users/edit.ctp:93
 #: View/Users/index.ctp:24
 #: View/Users/view.ctp:40;73
 #: View/Scaffolds/form.ctp:34
@@ -218,6 +218,7 @@ msgid "Are you sure you want to delete # %s?"
 msgstr ""
 
 #: View/Categories/index.ctp:2
+#: View/Events/index.ctp:188
 msgid "Categories"
 msgstr ""
 
@@ -297,6 +298,7 @@ msgstr ""
 #: View/Categories/view.ctp:9
 #: View/Places/view.ctp:9
 #: View/Users/add.ctp:22
+#: View/Users/edit.ctp:22
 #: View/Users/view.ctp:19
 msgid "Name"
 msgstr ""
@@ -415,27 +417,28 @@ msgstr ""
 msgid "Delete Categories Event"
 msgstr ""
 
-#: View/Events/add.ctp:42
+#: View/Events/add.ctp:52
+#: View/Events/index.ctp:267
 msgid "Add Event"
 msgstr ""
 
-#: View/Events/add.ctp:266
+#: View/Events/add.ctp:290
 msgid "Cost"
 msgstr ""
 
-#: View/Events/add.ctp:268
+#: View/Events/add.ctp:292
 msgid "invalid"
 msgstr ""
 
-#: View/Events/add.ctp:280
+#: View/Events/add.ctp:304
 msgid "video"
 msgstr ""
 
-#: View/Events/add.ctp:285
+#: View/Events/add.ctp:309
 msgid "fuente de noticias"
 msgstr ""
 
-#: View/Events/add.ctp:291
+#: View/Events/add.ctp:315
 msgid "foto"
 msgstr ""
 
@@ -457,6 +460,54 @@ msgstr ""
 #: View/Places/index.ctp:48
 #: View/Places/view.ctp:47
 msgid "New Place"
+msgstr ""
+
+#: View/Events/index.ctp:142
+msgid "Region"
+msgstr ""
+
+#: View/Events/index.ctp:147
+msgid "My Location"
+msgstr ""
+
+#: View/Events/index.ctp:158
+msgid "Is not your current location?"
+msgstr ""
+
+#: View/Events/index.ctp:160
+msgid "Change"
+msgstr ""
+
+#: View/Events/index.ctp:166
+msgid "City: Rome, Italy"
+msgstr ""
+
+#: View/Events/index.ctp:169
+msgid "Search"
+msgstr ""
+
+#: View/Events/index.ctp:173
+msgid "Hide"
+msgstr ""
+
+#: View/Events/index.ctp:257
+msgid "Today"
+msgstr ""
+
+#: View/Events/index.ctp:260
+msgid "Tomorrow"
+msgstr ""
+
+#: View/Events/index.ctp:263
+msgid "This Week"
+msgstr ""
+
+#: View/Events/index.ctp:287
+msgid "Map"
+msgstr ""
+
+#: View/Events/index.ctp:288
+msgid "Satellite"
 msgstr ""
 
 #: View/Events/view.ctp:54
@@ -491,49 +542,58 @@ msgid "Username"
 msgstr ""
 
 #: View/Users/add.ctp:18
-#: View/Users/login.ctp:21;23
+#: View/Users/edit.ctp:18
+#: View/Users/login.ctp:35;40
 #: View/Users/view.ctp:14
 msgid "Password"
 msgstr ""
 
 #: View/Users/add.ctp:23
+#: View/Users/edit.ctp:23
 msgid "Your Name"
 msgstr ""
 
 #: View/Users/add.ctp:27
+#: View/Users/edit.ctp:27
 msgid "Email"
 msgstr ""
 
 #: View/Users/add.ctp:28
+#: View/Users/edit.ctp:28
 msgid "example@example.com"
 msgstr ""
 
 #: View/Users/add.ctp:32
+#: View/Users/edit.ctp:32
 msgid "Your Location"
 msgstr ""
 
 #: View/Users/add.ctp:33
-msgid "Example: Roma, Italia or Barcelona, Spain."
+#: View/Users/edit.ctp:33
+msgid "Example: Rome, Italy or Barcelona, Spain."
 msgstr ""
 
 #: View/Users/add.ctp:40
+#: View/Users/edit.ctp:40
 msgid "Female"
 msgstr ""
 
 #: View/Users/add.ctp:40
+#: View/Users/edit.ctp:40
 msgid "Male"
 msgstr ""
 
 #: View/Users/add.ctp:40
+#: View/Users/edit.ctp:40
 msgid "Other"
 msgstr ""
 
-#: View/Users/edit.ctp:4
+#: View/Users/edit.ctp:11;79
 #: View/Users/view.ctp:39
 msgid "Edit User"
 msgstr ""
 
-#: View/Users/edit.ctp:19
+#: View/Users/edit.ctp:94
 #: View/Users/view.ctp:41
 msgid "List Users"
 msgstr ""
@@ -557,20 +617,20 @@ msgstr ""
 msgid "New Noticia"
 msgstr ""
 
-#: View/Users/login.ctp:17;19
+#: View/Users/login.ctp:20;24
 #: View/Users/view.ctp:2
 msgid "User"
 msgstr ""
 
-#: View/Users/login.ctp:28
+#: View/Users/login.ctp:51
 msgid "Login"
 msgstr ""
 
-#: View/Users/login.ctp:30
+#: View/Users/login.ctp:56
 msgid "Register!"
 msgstr ""
 
-#: View/Users/login.ctp:38
+#: View/Users/login.ctp:77
 msgid "Login with Twitter"
 msgstr ""
 

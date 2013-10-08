@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Radar 0.2\n"
-"POT-Creation-Date: 2013-09-29 21:05-0300\n"
+"POT-Creation-Date: 2013-10-08 17:00-0300\n"
 "PO-Revision-Date: \n"
-"Last-Translator: Ale Prieto <aleprieto@gmail.com>\n"
+"Last-Translator: ale prieto <aleprieto@gmail.com>\n"
 "Language-Team: Radar Cultural <contacto@colectivolibre.com.ar>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -55,23 +55,23 @@ msgstr "Categoría borrada"
 msgid "Categories event was not deleted"
 msgstr "La categoría no ha sido borrada"
 
-#: Controller/EventsController.php:60;115;144
+#: Controller/EventsController.php:61;117;146
 msgid "Invalid event"
 msgstr "Evento inválido"
 
-#: Controller/EventsController.php:119
+#: Controller/EventsController.php:121
 msgid "The event has been saved"
 msgstr "El evento ha sido guardado"
 
-#: Controller/EventsController.php:122
+#: Controller/EventsController.php:124
 msgid "The event could not be saved. Please, try again."
 msgstr "El evento no ha sido guardado. Por favor, intente nuevamente."
 
-#: Controller/EventsController.php:148
+#: Controller/EventsController.php:150
 msgid "Event deleted"
 msgstr "Evento borrado"
 
-#: Controller/EventsController.php:151
+#: Controller/EventsController.php:153
 msgid "Event was not deleted"
 msgstr "El evento no ha sido borrado"
 
@@ -79,15 +79,15 @@ msgstr "El evento no ha sido borrado"
 msgid "Invalid username or password, try again"
 msgstr "Usuario o contraseña inválida, intente nuevamente"
 
-#: Controller/UsersController.php:146;170
+#: Controller/UsersController.php:151;177
 msgid "The user could not be saved. Please, try again."
 msgstr "El usuario no ha sido guardado. Por favor, intente nuevamente."
 
-#: Controller/UsersController.php:163
+#: Controller/UsersController.php:167
 msgid "Invalid user"
 msgstr "Evento inválido"
 
-#: Controller/UsersController.php:167
+#: Controller/UsersController.php:171
 msgid "The user has been saved"
 msgstr "El usuario ha sido guardado"
 
@@ -103,7 +103,7 @@ msgstr "Agregar Categoría"
 #: View/Places/add.ctp:12
 #: View/Places/edit.ctp:13
 #: View/Users/add.ctp:48
-#: View/Users/edit.ctp:12
+#: View/Users/edit.ctp:48;87
 #: View/Helper/FormHelper.php:1824
 #: View/Scaffolds/form.ctp:23
 msgid "Submit"
@@ -123,7 +123,7 @@ msgstr "Enviar"
 #: View/Places/edit.ctp:16
 #: View/Places/index.ctp:12;46
 #: View/Places/view.ctp:42;68
-#: View/Users/edit.ctp:15
+#: View/Users/edit.ctp:90
 #: View/Users/index.ctp:11;44
 #: View/Users/view.ctp:37;58
 #: View/Scaffolds/form.ctp:27
@@ -191,7 +191,7 @@ msgstr "Editar Categoría"
 #: View/Places/edit.ctp:19
 #: View/Places/index.ctp:26
 #: View/Places/view.ctp:88
-#: View/Users/edit.ctp:18
+#: View/Users/edit.ctp:93
 #: View/Users/index.ctp:24
 #: View/Users/view.ctp:73
 #: View/Scaffolds/form.ctp:31
@@ -211,7 +211,7 @@ msgstr "Eliminar"
 #: View/Places/edit.ctp:19
 #: View/Places/index.ctp:26
 #: View/Places/view.ctp:45;88
-#: View/Users/edit.ctp:18
+#: View/Users/edit.ctp:93
 #: View/Users/index.ctp:24
 #: View/Users/view.ctp:40;73
 #: View/Scaffolds/form.ctp:34
@@ -219,6 +219,7 @@ msgid "Are you sure you want to delete # %s?"
 msgstr "¿Está seguro que desea eliminar # %s?"
 
 #: View/Categories/index.ctp:2
+#: View/Events/index.ctp:188
 msgid "Categories"
 msgstr "Categorías"
 
@@ -298,6 +299,7 @@ msgstr ""
 #: View/Categories/view.ctp:9
 #: View/Places/view.ctp:9
 #: View/Users/add.ctp:22
+#: View/Users/edit.ctp:22
 #: View/Users/view.ctp:19
 msgid "Name"
 msgstr "Nombre"
@@ -416,29 +418,30 @@ msgstr "Evento"
 msgid "Delete Categories Event"
 msgstr "Borrar Categoría"
 
-#: View/Events/add.ctp:42
+#: View/Events/add.ctp:52
+#: View/Events/index.ctp:267
 msgid "Add Event"
 msgstr "Agregar Evento"
 
-#: View/Events/add.ctp:266
+#: View/Events/add.ctp:290
 msgid "Cost"
 msgstr "Costo"
 
-#: View/Events/add.ctp:268
+#: View/Events/add.ctp:292
 #, fuzzy
 msgid "invalid"
 msgstr "Evento inválido"
 
-#: View/Events/add.ctp:280
+#: View/Events/add.ctp:304
 msgid "video"
 msgstr ""
 
-#: View/Events/add.ctp:285
+#: View/Events/add.ctp:309
 #, fuzzy
 msgid "fuente de noticias"
 msgstr "Noticias relacionadas"
 
-#: View/Events/add.ctp:291
+#: View/Events/add.ctp:315
 msgid "foto"
 msgstr ""
 
@@ -461,6 +464,54 @@ msgstr "Listar Lugares"
 #: View/Places/view.ctp:47
 msgid "New Place"
 msgstr "Nuevo Lugar"
+
+#: View/Events/index.ctp:142
+msgid "Region"
+msgstr "Región"
+
+#: View/Events/index.ctp:147
+msgid "My Location"
+msgstr "Mi Ubicación"
+
+#: View/Events/index.ctp:158
+msgid "Is not your current location?"
+msgstr "¿No es tu ubicación actual?"
+
+#: View/Events/index.ctp:160
+msgid "Change"
+msgstr "Cambiar"
+
+#: View/Events/index.ctp:166
+msgid "City: Rome, Italy"
+msgstr "Ciudad: Roma, Italia"
+
+#: View/Events/index.ctp:169
+msgid "Search"
+msgstr "Buscar"
+
+#: View/Events/index.ctp:173
+msgid "Hide"
+msgstr "Ocultar"
+
+#: View/Events/index.ctp:257
+msgid "Today"
+msgstr "Hoy"
+
+#: View/Events/index.ctp:260
+msgid "Tomorrow"
+msgstr "Mañana"
+
+#: View/Events/index.ctp:263
+msgid "This Week"
+msgstr "Esta semana"
+
+#: View/Events/index.ctp:287
+msgid "Map"
+msgstr "Mapa"
+
+#: View/Events/index.ctp:288
+msgid "Satellite"
+msgstr "Satélite"
 
 #: View/Events/view.ctp:54
 #: View/Places/view.ctp:2
@@ -494,50 +545,59 @@ msgid "Username"
 msgstr "Nombre de usuario"
 
 #: View/Users/add.ctp:18
-#: View/Users/login.ctp:21;23
+#: View/Users/edit.ctp:18
+#: View/Users/login.ctp:35;40
 #: View/Users/view.ctp:14
 msgid "Password"
 msgstr "Contraseña"
 
 #: View/Users/add.ctp:23
+#: View/Users/edit.ctp:23
 #, fuzzy
 msgid "Your Name"
 msgstr "Nombre"
 
 #: View/Users/add.ctp:27
+#: View/Users/edit.ctp:27
 msgid "Email"
 msgstr "Correo Electrónico"
 
 #: View/Users/add.ctp:28
+#: View/Users/edit.ctp:28
 msgid "example@example.com"
-msgstr ""
+msgstr "ejemplo@ejemplo.com"
 
 #: View/Users/add.ctp:32
+#: View/Users/edit.ctp:32
 msgid "Your Location"
-msgstr ""
+msgstr "Tu Ubicación"
 
 #: View/Users/add.ctp:33
-msgid "Example: Roma, Italia or Barcelona, Spain."
-msgstr ""
+#: View/Users/edit.ctp:33
+msgid "Example: Rome, Italy or Barcelona, Spain."
+msgstr "Ejemplo: Roma, Italia o Barcelona, España"
 
 #: View/Users/add.ctp:40
+#: View/Users/edit.ctp:40
 msgid "Female"
 msgstr "Femenino"
 
 #: View/Users/add.ctp:40
+#: View/Users/edit.ctp:40
 msgid "Male"
 msgstr "Masculino"
 
 #: View/Users/add.ctp:40
+#: View/Users/edit.ctp:40
 msgid "Other"
 msgstr "Otro"
 
-#: View/Users/edit.ctp:4
+#: View/Users/edit.ctp:11;79
 #: View/Users/view.ctp:39
 msgid "Edit User"
 msgstr "Editar Usuario"
 
-#: View/Users/edit.ctp:19
+#: View/Users/edit.ctp:94
 #: View/Users/view.ctp:41
 msgid "List Users"
 msgstr "Listar Usuarios"
@@ -561,20 +621,20 @@ msgstr "Listar Noticias"
 msgid "New Noticia"
 msgstr "Nueva Noticia"
 
-#: View/Users/login.ctp:17;19
+#: View/Users/login.ctp:20;24
 #: View/Users/view.ctp:2
 msgid "User"
 msgstr "Usuario"
 
-#: View/Users/login.ctp:28
+#: View/Users/login.ctp:51
 msgid "Login"
 msgstr "Ingresar"
 
-#: View/Users/login.ctp:30
+#: View/Users/login.ctp:56
 msgid "Register!"
 msgstr "¡Registrate!"
 
-#: View/Users/login.ctp:38
+#: View/Users/login.ctp:77
 msgid "Login with Twitter"
 msgstr "Ingresar con Twitter"
 
@@ -614,7 +674,7 @@ msgstr "Usuario Id"
 #: View/Errors/private_action.ctp:21
 #: View/Errors/scaffold_error.ctp:21
 msgid "Error"
-msgstr ""
+msgstr "Error"
 
 #: View/Errors/error400.ctp:23
 msgid "The requested address %s was not found on this server."
@@ -649,27 +709,27 @@ msgstr "El usuario ha sido guardado"
 
 #: Controller/Scaffold.php:256
 msgid "Please correct errors below."
-msgstr ""
+msgstr "Por favor, corrige los siguientes errores:"
 
 #: Controller/Scaffold.php:308
 msgid "The %1$s with id: %2$s has been deleted."
-msgstr ""
+msgstr "El %1$s con id: %2$s ha sido borrado."
 
 #: Controller/Scaffold.php:311
 msgid "There was an error deleting the %1$s with id: %2$s"
-msgstr ""
+msgstr "Ocurrió un error al borrar el %1$s con id: %2$s"
 
 #: Controller/Component/AuthComponent.php:376
 msgid "You are not authorized to access that location."
-msgstr ""
+msgstr "No está autorizado a acceder ahí."
 
 #: Error/ExceptionRenderer.php:209
 msgid "Not Found"
-msgstr ""
+msgstr "No encontrado"
 
 #: Model/Validator/CakeValidationSet.php:287
 msgid "This field cannot be left blank"
-msgstr ""
+msgstr "Este campo no puede quedar vacío"
 
 #: Network/CakeResponse.php:1232
 #, fuzzy
@@ -700,55 +760,55 @@ msgstr[1] ""
 
 #: Utility/CakeTime.php:389
 msgid "Today, %s"
-msgstr ""
+msgstr "Hoy, %s"
 
 #: Utility/CakeTime.php:392
 msgid "Yesterday, %s"
-msgstr ""
+msgstr "Ayer, %s"
 
 #: Utility/CakeTime.php:395
 msgid "Tomorrow, %s"
-msgstr ""
+msgstr "Mañana, %s"
 
 #: Utility/CakeTime.php:400
 msgid "Sunday"
-msgstr ""
+msgstr "Domingo"
 
 #: Utility/CakeTime.php:401
 msgid "Monday"
-msgstr ""
+msgstr "Lunes"
 
 #: Utility/CakeTime.php:402
 msgid "Tuesday"
-msgstr ""
+msgstr "Martes"
 
 #: Utility/CakeTime.php:403
 msgid "Wednesday"
-msgstr ""
+msgstr "Miércoles"
 
 #: Utility/CakeTime.php:404
 msgid "Thursday"
-msgstr ""
+msgstr "Jueves"
 
 #: Utility/CakeTime.php:405
 msgid "Friday"
-msgstr ""
+msgstr "Viernes"
 
 #: Utility/CakeTime.php:406
 msgid "Saturday"
-msgstr ""
+msgstr "Sábado"
 
 #: Utility/CakeTime.php:412
 msgid "On %s %s"
-msgstr ""
+msgstr "El %s %s"
 
 #: Utility/CakeTime.php:805
 msgid "just now"
-msgstr ""
+msgstr "recién"
 
 #: Utility/CakeTime.php:809
 msgid "on %s"
-msgstr ""
+msgstr "el %s"
 
 #: Utility/CakeTime.php:853
 msgid "%s ago"
