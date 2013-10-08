@@ -134,49 +134,45 @@ if (AuthComponent::user('location')) {
 
 	<!-- EAST -->
 	<div id="east" ng-cloak>
-		<div>
-			
-			<!-- Location Shortcuts -->
-			<div>
-				<div id="locationShortcuts" class="btn-group" data-toggle="buttons-radio">
-					<button class="btn btn-verde" data-toggle="button" ng-click="centerMap()">
-						<?php echo __('Region'); ?>
-					</button>
-					<button class="btn btn-verde" data-toggle="button" ng-click="centerMap('cordoba')">Córdoba</button>
-					<button class="btn btn-verde" data-toggle="button" ng-click="centerMap('santafe')">Santa Fe</button>
-					<button class="btn btn-warning" data-toggle="button" ng-click="setLocation()">
-						<?php echo __('My Location'); ?>
-					</button>
-				</div>
+		
+		<!-- Location Shortcuts -->
+		<!-- <div>
+			<div id="locationShortcuts" class="btn-group" data-toggle="buttons-radio">
+				<button class="btn btn-verde" data-toggle="button" ng-click="centerMap()">
+					<?php echo __('Region'); ?>
+				</button>
+				<button class="btn btn-verde" data-toggle="button" ng-click="centerMap('cordoba')">Córdoba</button>
+				<button class="btn btn-verde" data-toggle="button" ng-click="centerMap('santafe')">Santa Fe</button>
+				<button class="btn btn-warning" data-toggle="button" ng-click="setLocation()">
+					<?php echo __('My Location'); ?>
+				</button>
 			</div>
-		</div>
+		</div> -->
 			
-		<div>
-			<!-- Location Advertise -->
-			<div ng-hide="hideLocationAdvertise" ng-show="user.location">
-				<div class="background-white alert alert-dismissable" ng-hide="showSearchLocationBar">
-					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-					<strong ng-bind='user.location'></strong>
-					<br />
-					<?php echo __('Is not your current location?'); ?>
-					<a href="#" ng-click="showSearchLocationBar = !showSearchLocationBar">
-						<?php echo __('Change'); ?>
-					</a> 
-				</div>
-				<div ng-show="showSearchLocationBar">
-					<div class="input-group">
-						<input class="form-control" ng-model="locationSearched" 
-							placeholder="<?php echo __('City: Rome, Italy'); ?>" type="text" 
-							ui-keypress="{13:'searchLocation(locationSearched)'}" />
-						<span class="input-group-addon" ng-click="searchLocation(locationSearched)"
-							title="<?php echo __('Search'); ?>">
-							<i class="glyphicon glyphicon-search"></i>
-						</span>
-						<span class="input-group-addon" ng-click="showSearchLocationBar = !showSearchLocationBar" 
-								title="<?php echo __('Hide'); ?>">
-							<i class="glyphicon glyphicon-eye-close"></i>
-						</span>
-					</div>
+		<!-- Location Advertise -->
+		<div ng-hide="hideLocationAdvertise" ng-show="user.location">
+			<div class="background-white alert alert-dismissable" ng-hide="showSearchLocationBar">
+				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+				<strong ng-bind='user.location'></strong>
+				<br />
+				<?php echo __('Is not your current location?'); ?>
+				<a href="#" ng-click="showSearchLocationBar = !showSearchLocationBar">
+					<?php echo __('Change'); ?>
+				</a> 
+			</div>
+			<div ng-show="showSearchLocationBar">
+				<div class="input-group">
+					<input class="form-control" ng-model="locationSearched" 
+						placeholder="<?php echo __('City: Rome, Italy'); ?>" type="text" 
+						ui-keypress="{13:'searchLocation(locationSearched)'}" />
+					<span class="input-group-addon" ng-click="searchLocation(locationSearched)"
+						title="<?php echo __('Search'); ?>">
+						<i class="glyphicon glyphicon-search"></i>
+					</span>
+					<span class="input-group-addon" ng-click="showSearchLocationBar = !showSearchLocationBar" 
+							title="<?php echo __('Hide'); ?>">
+						<i class="glyphicon glyphicon-eye-close"></i>
+					</span>
 				</div>
 			</div>
 		</div>
@@ -257,12 +253,18 @@ if (AuthComponent::user('location')) {
 					<input value="1" name="interval" type="hidden">
 					<div id="eventInterval" class="control-group btn-group" data-toggle="buttons">
 						<button type="radio" data-toggle="button" class="btn disabled">qué hacer...</button>
-						<button type="radio" data-toggle="button" class="btn btn-verde " ng-click="setEventInterval(1)">Hoy</button>
-						<button type="radio" data-toggle="button" class="btn btn-verde"  ng-click="setEventInterval(2)">Mañana</button>
-						<button type="radio" data-toggle="button" class="btn btn-verde" ng-click="setEventInterval(7)">Próximos 7 días</button>
+						<button type="radio" data-toggle="button" class="btn btn-verde " ng-click="setEventInterval(1)">
+							<?php echo __('Today'); ?>
+						</button>
+						<button type="radio" data-toggle="button" class="btn btn-verde"  ng-click="setEventInterval(2)">
+							<?php echo __('Tomorrow'); ?>
+						</button>
+						<button type="radio" data-toggle="button" class="btn btn-verde" ng-click="setEventInterval(7)">
+							<?php echo __('This Week'); ?>
+						</button>
 					</div>
 					<div id="eventInterval" class="control-group btn-group pull-right">
-						<?php echo $this->Html->link('Agregar evento'
+						<?php echo $this->Html->link(__('Add Event')
 							, array('controller'=>'events', 'action'=>'add')
 							, array('class'=>'btn btn-warning pull-right'))
 						?>
