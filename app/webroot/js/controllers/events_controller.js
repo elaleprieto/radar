@@ -107,7 +107,7 @@
           return $scope.checkTimeTo();
         }
       });
-      $scope.$watch('user.location', function(location) {
+      $scope.$watch('user.locationAux	', function(location) {
         if ((userMapCenter == null) && (location != null) && location.length > 0) {
           return $scope.setLocationByUserLocation(location);
         }
@@ -410,15 +410,17 @@
       };
       return setUserLocationString = function(location) {
         var city, country, results;
-        results = location.address_components;
-        city = findResult(results, "locality");
-        country = findResult(results, "country");
-        if (city && country) {
-          $scope.user.location = city + ', ' + country;
-        } else {
-          $scope.user.location = location.formatted_address;
+        if ((location != null) && (location.address_components != null)) {
+          results = location.address_components;
+          city = findResult(results, "locality");
+          country = findResult(results, "country");
+          if (city && country) {
+            $scope.user.location = city + ', ' + country;
+          } else {
+            $scope.user.location = location.formatted_address;
+          }
+          return $scope.saveUserLocationString();
         }
-        return $scope.saveUserLocationString();
       };
     }
   ]);

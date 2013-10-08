@@ -114,7 +114,7 @@ angular.module('RadarApp').controller 'EventsController'
 		if newValue? then $scope.checkTimeTo()
 	
 	# Se observa el user.location
-	$scope.$watch 'user.location', (location) ->
+	$scope.$watch 'user.locationAux	', (location) ->
 		if not userMapCenter? and location? and location.length > 0
 			$scope.setLocationByUserLocation(location)
 
@@ -436,17 +436,16 @@ angular.module('RadarApp').controller 'EventsController'
 		if result[0]? then result[0].long_name else null
 	
 	setUserLocationString = (location) ->
-		# $scope.user.location = response[0].formatted_address
-		results = location.address_components
-		city = findResult(results, "locality")
-		# state = findResult(results, "administrative_area_level_1")
-		country = findResult(results, "country")
-		
-		# $scope.user.location = city + ', ' + state + ', ' + country
-		if city and country
-			$scope.user.location = city + ', ' + country
-		else
-			$scope.user.location = location.formatted_address
+		if location? and location.address_components?
+			results = location.address_components
+			city = findResult(results, "locality")
+			country = findResult(results, "country")
 			
-		$scope.saveUserLocationString()
+			if city and country
+				$scope.user.location = city + ', ' + country
+			else
+				$scope.user.location = location.formatted_address
+				
+			$scope.saveUserLocationString()
+			
 	]
