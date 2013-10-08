@@ -29,66 +29,65 @@
 ### *******************************************************************************************************************
 								EVENTOS
 ******************************************************************************************************************* ###
-RadarApp.controller 'EventController', ($scope, $http) ->
-	date = new Date()
-	$scope.minutoEnMilisegundos = 60 * 1000
-	$scope.diaEnMilisegundos = 24 * 60 * $scope.minutoEnMilisegundos
-	$scope.event = {}
-	
-	# Map constants
-	$scope.SANTAFE = new google.maps.LatLng(-31.625906,-60.696774)
-	$scope.ARGENTINA = new google.maps.LatLng(-31.659226,-60.485229)
-	$scope.ZOOMCITY = 5
-	$scope.ROADMAP = google.maps.MapTypeId.ROADMAP
-	$scope.SATELLITE = google.maps.MapTypeId.SATELLITE
-	
-	# Map defaults
-	$scope.opciones = center: $scope.ARGENTINA
-		, mapTypeId: $scope.ROADMAP
-		, panControl: false
-		, zoomControl: false
-		, mapTypeControl: false
-		, scaleControl: false
-		, streetViewControl: false
-		, overviewMapControl: false
-		, zoom: $scope.ZOOMCITY
-		
-	$scope.map = new google.maps.Map(document.getElementById("map"), $scope.opciones)
-	# $scope.event.date_from = "0000-00-01T00:00:00.000Z"
-	# $scope.event.date_to = "0000-00-01T00:00:00.000Z"
-	# $scope.event.time_from = date.getHours()-1 + ":00"
-	# $scope.event.time_to = (+date.getHours() + 1) + ":00"
-	$scope.event.categories = []
-	$scope.geocoder = new google.maps.Geocoder()
-	
-	# $scope.eventCategoriesAdd = (category) ->
-		# if($scope.event.categories.length < 3)
-			# $scope.event.categories.push(category.Category.id)
-			# category.highlight = true
+# RadarApp.controller 'EventController', ($scope, $http) ->
+	# date = new Date()
+	# $scope.minutoEnMilisegundos = 60 * 1000
+	# $scope.diaEnMilisegundos = 24 * 60 * $scope.minutoEnMilisegundos
+	# $scope.event = {}
+# 	
+	# # Map constants
+	# $scope.SANTAFE = new google.maps.LatLng(-31.625906,-60.696774)
+	# $scope.ARGENTINA = new google.maps.LatLng(-31.659226,-60.485229)
+	# $scope.ZOOMCITY = 5
+	# $scope.ROADMAP = google.maps.MapTypeId.ROADMAP
+	# $scope.SATELLITE = google.maps.MapTypeId.SATELLITE
+# 	
+	# # Map defaults
+	# $scope.opciones = center: $scope.ARGENTINA
+		# , mapTypeId: $scope.ROADMAP
+		# , panControl: false
+		# , zoomControl: false
+		# , mapTypeControl: false
+		# , scaleControl: false
+		# , streetViewControl: false
+		# , overviewMapControl: false
+		# , zoom: $scope.ZOOMCITY
+# 		
+	# $scope.map = new google.maps.Map(document.getElementById("map"), $scope.opciones)
+	# # $scope.event.date_from = "0000-00-01T00:00:00.000Z"
+	# # $scope.event.date_to = "0000-00-01T00:00:00.000Z"
+	# # $scope.event.time_from = date.getHours()-1 + ":00"
+	# # $scope.event.time_to = (+date.getHours() + 1) + ":00"
+	# $scope.event.categories = []
+	# $scope.geocoder = new google.maps.Geocoder()
+# 	
+	# # $scope.eventCategoriesAdd = (category) ->
+		# # if($scope.event.categories.length < 3)
+			# # $scope.event.categories.push(category.Category.id)
+			# # category.highlight = true
+# # 
+	# # $scope.eventCategoriesDelete = (category) ->
+		# # index = $scope.event.categories.indexOf(category.Category.id)
+		# # if index >= 0 
+			# # $scope.event.categories.splice(index, 1)
+			# # category.highlight = false
 # 
-	# $scope.eventCategoriesDelete = (category) ->
-		# index = $scope.event.categories.indexOf(category.Category.id)
-		# if index >= 0 
-			# $scope.event.categories.splice(index, 1)
-			# category.highlight = false
-
-	$scope.inicializar = ->
-		if navigator.geolocation
-			window.browserSupportFlag = on
-			navigator.geolocation.getCurrentPosition (position) ->
-				initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude)
-				$scope.map.setCenter(initialLocation)
-			, ->
-				$scope.noGeolocalizacion()
-
-	$scope.noGeolocalizacion = ->
-		initialLocation = $scope.SANTAFE
-		$scope.map.setCenter(initialLocation)
-		if window.browserSupportFlag is on
-			console.log "El servicio de geolocalización falló. Iniciamos desde Santa Fe."
-		else
-			console.log "Tu navegador no soporta geolocalización. Iniciamos desde Santa Fe."	
-		
+	# $scope.inicializar = ->
+		# if navigator.geolocation
+			# window.browserSupportFlag = on
+			# navigator.geolocation.getCurrentPosition (position) ->
+				# initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude)
+				# $scope.map.setCenter(initialLocation)
+			# , ->
+				# $scope.noGeolocalizacion()
+# 
+	# $scope.noGeolocalizacion = ->
+		# initialLocation = $scope.SANTAFE
+		# $scope.map.setCenter(initialLocation)
+		# if window.browserSupportFlag is on
+			# console.log "El servicio de geolocalización falló. Iniciamos desde Santa Fe."
+		# else
+			# console.log "Tu navegador no soporta geolocalización. Iniciamos desde Santa Fe."			
 	# $scope.submit = ->
 		# # Se actualiza el mensaje
 		# $scope.cargando = 'Cargando.'

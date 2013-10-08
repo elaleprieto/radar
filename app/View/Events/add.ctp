@@ -6,18 +6,6 @@ echo $this->Html->css(array(
 	'events/add'
 ), '', array('inline' => false));
 
-// echo $this->Html->script(array(
-	// 'http://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true',
-	// 'vendors/angular-strap.min',
-	// 'app',
-	// 'controllers/categories_controller',
-	// 'controllers/events_controller',
-	// 'vendors/bootstrap-datepicker',
-	// 'vendors/bootstrap-timepicker',
-	// 'filters',
-	// 'vendors/jquery.cookie',
-// ), array('inline' => false));
-
 # User Location
 if (AuthComponent::user('location')) {
 	$userLocation = AuthComponent::user('location');
@@ -117,7 +105,7 @@ if (AuthComponent::user('location')) {
                                                     	class="row categoriaLink"
                                                     	ng-class="{highlight:categoria.highlight}"
                                                     	ng-model="categoria"
-                                                    	ng-repeat="categoria in categorias"
+                                                    	ng-repeat="categoria in categorias | orderBy:'Category.name'"
                                                     	ng-click="addCategoryToEvent(categoria)">
                                                         <div class="col-sm-1">
                                                             <img class="icono-categoria" 
@@ -133,7 +121,7 @@ if (AuthComponent::user('location')) {
         				</div>
         			</div>
     			
-        			<!-- MAPA -->
+        			<!-- FECHAS Y MAPA -->
         			<div class="col-sm-4">
                         <div class="row">
                 	       <div class="col-sm-12">
@@ -142,7 +130,7 @@ if (AuthComponent::user('location')) {
                                 </div>
         		                <div class="row form-group">
 
-                                	<!-- Fecha inicio -->
+                                	<!-- FECHA DE INICIO -->
                                     <div class="col-sm-12">
                                     	<label>Fecha y hora de inicio:</label>
                                     </div>
@@ -160,15 +148,15 @@ if (AuthComponent::user('location')) {
                                               	today-btn="true" 
                                                 type="text" 
                                             />
-                                           <span class="input-group-btn ">
-                                            	<button type="button" class="btn btn-default" data-toggle="datepicker">
+                                           <span class="input-group-btn" data-toggle="datepicker">
+                                            	<button type="button" class="btn btn-default">
                                                 	<span class="glyphicon glyphicon-calendar"></span>
                                             	</button>	
                                             </span>
                                         </div>
                                     </div>
                                     
-                                    <!-- Hora inicio -->
+                                    <!-- HORA DE INICIO -->
                                     <div class="col-sm-5">
                                         <div class="control-group input-group input-group-sm">
                                             <input 
@@ -181,8 +169,8 @@ if (AuthComponent::user('location')) {
                                                 required="required" 
                                                 type="text" 
                                             />
-                                            <span class="input-group-btn">
-                                            	<button type="button" class="btn btn-default" data-toggle="timepicker">
+                                            <span class="input-group-btn" data-toggle="timepicker">
+                                            	<button type="button" class="btn btn-default">
                                                 	<span class="glyphicon glyphicon-time"></span> 
                                             	</button>
                                             </span>
@@ -190,7 +178,8 @@ if (AuthComponent::user('location')) {
                                     </div>
                                 </div>
                                 <div class="row form-group">
-                                    <!-- Fecha fin -->
+                                    
+                                    <!-- FECHA DE FINALIZACIÓN -->
                                     <div class="col-sm-12">
                                     	<label>Fecha y hora de fin:</label>
                                     </div>
@@ -209,15 +198,15 @@ if (AuthComponent::user('location')) {
                                                	today-btn="true" 
                                                	type="text" 
                                             />
-                                            <span class="input-group-btn">
-                                            	<button type="button" class="btn btn-default" data-toggle="datepicker">
+                                            <span class="input-group-btn" data-toggle="datepicker">
+                                            	<button type="button" class="btn btn-default">
                                                 	<span class="glyphicon glyphicon-calendar"></span> 
                                             	</button>
                                             </span>
                                         </div>
                                     </div>
 
-                                    <!-- Hora fin -->
+                                    <!-- HORA DE FINALIZACIÓN -->
                                     <div class="col-sm-5">
                                         <div class="control-group input-group input-group-sm">
                                             <input 
@@ -229,8 +218,8 @@ if (AuthComponent::user('location')) {
                                                 required="required" 
                                                 type="text" 
                                             />
-                                            <span class="input-group-btn ">
-                                            	<button type="button" class="btn btn-default" data-toggle="timepicker">
+                                            <span class="input-group-btn" data-toggle="timepicker">
+                                            	<button type="button" class="btn btn-default">
                                                 	<span class="glyphicon glyphicon-time"></span> 
                                             	</button>
                                             </span>

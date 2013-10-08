@@ -44,6 +44,18 @@ angular.module('RadarApp').controller 'EventsController'
 		, overviewMapControl: false
 		, zoom: $scope.zoomDefault
 	
+	# User defaults
+	if $.cookie?
+		$.cookie.json = true
+		userMapCenter = $.cookie('userMapCenter')
+		userMapTypeId = $.cookie('userMapTypeId')
+		userMapZoom = $.cookie('userMapZoom')
+		
+		# Se sobreescriben las opciones del mapa si el usuario las tiene seteadas
+		$scope.opciones.center = new google.maps.LatLng(userMapCenter.lat, userMapCenter.lng) if userMapCenter?
+		$scope.opciones.mapTypeId = userMapTypeId if userMapTypeId?
+		$scope.opciones.zoom = userMapZoom if userMapZoom?
+	
 	$scope.map = new google.maps.Map(document.getElementById("map"), $scope.opciones)
 	$scope.markers = []
 	$scope.geocoder = new google.maps.Geocoder()
@@ -56,30 +68,7 @@ angular.module('RadarApp').controller 'EventsController'
 	
 	# Se observan las categorías seleccionadas
 	$scope.$watch 'eventCategory.length', () ->
-		$scope.eventsUpdate()
-		# $cookieStore.put('eventCategory', $scope.eventCategory)
-		# Cookies.setItem('eventoCategory', $scope.eventCategory, { expires:7, domain:'.radar.workspace.com', secure:true})
-		# $.cookie("eventCategory"
-			# , $scope.eventCategory
-			# , {
-				# # expires in 10 days
-				# expires: 360,
-# 
-				# # The value of the path attribute of the cookie 
-				# # (default: path of page that created the cookie).
-				# path: '/',
-# 
-				# # domain: 'jquery.com',
-				# # The value of the domain attribute of the cookie
-				# # (default: domain of page that created the cookie).
-# 	
-				# # If set to true the secure attribute of the cookie
-				# # will be set and the cookie transmission will
-				# # require a secure protocol (defaults to false).
-				# secure  : true
-			# }
-		# );
-		
+		$scope.eventsUpdate()		
 
 	# Se observa el intervalo seleccionado: Hoy, Mañana ó Próximos 7 días
 	$scope.$watch 'eventInterval', () ->
@@ -120,22 +109,24 @@ angular.module('RadarApp').controller 'EventsController'
 	
 	# Se observa el user.location
 	$scope.$watch 'user.location', (location) ->
-		if location? and location.length > 0
+		if not userMapCenter? and location? and location.length > 0
 			$scope.setLocationByUserLocation(location)
 
 	# # google.maps.event.addListener window.map, 'bounds_changed', () ->
 	google.maps.event.addListener $scope.map, 'dragend', () ->
 		$scope.eventsUpdate()
+		$scope.saveUserMapCenter()
 
 	google.maps.event.addListener $scope.map, 'tilesloaded', () ->
 		$scope.eventsUpdate()
 
 	google.maps.event.addListener $scope.map, 'zoom_changed', () ->
 		$scope.eventsUpdate()
+		$scope.saveUserMapZoom()
 
 	google.maps.event.addListener $scope.map, 'position_changed', () ->
 		$scope.eventsUpdate()
-	
+
 	
 	### *************************************************************************************************************** 
 			Funciones
@@ -183,6 +174,10 @@ angular.module('RadarApp').controller 'EventsController'
 			else location = $scope.locationDefault
 		$scope.map.setCenter(location)
 		$scope.eventsUpdate()
+		# Se guardan las preferencias
+		$scope.saveUserMapCenter()
+		$scope.saveUserMapZoom()
+		
 	
 	# centerMap: centers map with parameter location, called by setLocationByUserLocation
 	$scope.centerMapByUserLocation = (response, status) ->
@@ -286,6 +281,23 @@ angular.module('RadarApp').controller 'EventsController'
 			, ->
 				$scope.setLocationDefault()
 
+	# Save as cookie, the user map desired center
+	$scope.saveUserMapCenter = ->
+		$.cookie.json = true
+		# expires in 30 days
+		$.cookie("userMapCenter", {lat:$scope.map.getCenter().lat(), lng:$scope.map.getCenter().lng()}, {expires: 30})
+		
+	# Save as cookie, the user map desired zoom
+	$scope.saveUserMapTypeId = ->
+		$.cookie.json = true
+		# expires in 30 days
+		$.cookie("userMapTypeId", $scope.map.getMapTypeId(), {expires: 30})
+		
+	# Save as cookie, the user map desired zoom
+	$scope.saveUserMapZoom = ->
+		$.cookie.json = true
+		# expires in 30 days
+		$.cookie("userMapZoom", $scope.map.getZoom(), {expires: 30})
 
 	# Sets the map on all markers in the array.
 	$scope.setAllMap = (map) ->
@@ -333,14 +345,17 @@ angular.module('RadarApp').controller 'EventsController'
 	$scope.setLocationDefault = ->
 		$scope.map.setZoom($scope.zoomDefault)
 		$scope.map.setCenter($scope.locationDefault)
-		
+	
+	# Setea el Tipo de Mapa: RoadMap o StreetMap
 	$scope.setMapType = (mapTypeId) ->
 		$scope.map.setMapTypeId(mapTypeId)
+		$scope.saveUserMapTypeId()
 	
 	# Shows any overlays currently in the array.
 	$scope.showOverlays = ->
 		$scope.setAllMap($scope.map)
 	
+	# Crea y guarda el evento
 	$scope.submit = ->
 		# Se actualiza el mensaje
 		$scope.cargando = 'Cargando.'
@@ -377,6 +392,5 @@ angular.module('RadarApp').controller 'EventsController'
 	
 	# Se inicializa el mapa
 	# $scope.inicializar() # Se lo quito por ahora pero debería centrar el mapa en el lugar del visitante..
-	$scope.setLocationDefault() # Se agrega esta línea para inicializar el mapa pero la idea es que inicialice con inicializar()
-	
+	# $scope.setLocationDefault() # Se agrega esta línea para inicializar el mapa pero la idea es que inicialice con inicializar()	
 	]

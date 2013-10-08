@@ -3,15 +3,6 @@ echo $this->Html->css(array(
 	'inicio',
 	'events/index'
 ), '', array('inline' => false));
-// echo $this->Html->script(array(
-	// 'http://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true',
-	// 'vendors/angular-strap.min',
-	// 'app',
-	// 'controllers/events_controller',
-	// 'controllers/categories_controller',
-	// 'directives',
-	// 'filters',
-// ), array('inline' => false));
 ?>
 
 <?php //debug($this->request->clientIp()) ?>
@@ -176,7 +167,7 @@ if (AuthComponent::user('location')) {
 						<p class="text-center"><?php echo __('Categories'); ?></p>
 						<div id="categoryScroll">
 							<div class="row categoriaLink" ng-class="{highlight:categoria.highlight}" 
-								ng-model="categoria" ng-repeat="categoria in categorias" ng-click="show(categoria)">
+								ng-model="categoria" ng-repeat="categoria in categorias | orderBy:'Category.name'" ng-click="show(categoria)">
 								<div class="col-sm-3">
 									<img class="icono-categoria" 
 										ng-src="<?php echo IMAGES_URL ?>categorias/{{categoria.Category.icon}}" />

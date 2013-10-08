@@ -12,7 +12,7 @@
       	***************************************************************************************************************
       */
 
-      var date;
+      var date, userMapCenter, userMapTypeId, userMapZoom;
       $scope.eventInterval = 1;
       $scope.user = {};
       $scope.eventCategory = [];
@@ -43,6 +43,21 @@
         overviewMapControl: false,
         zoom: $scope.zoomDefault
       };
+      if ($.cookie != null) {
+        $.cookie.json = true;
+        userMapCenter = $.cookie('userMapCenter');
+        userMapTypeId = $.cookie('userMapTypeId');
+        userMapZoom = $.cookie('userMapZoom');
+        if (userMapCenter != null) {
+          $scope.opciones.center = new google.maps.LatLng(userMapCenter.lat, userMapCenter.lng);
+        }
+        if (userMapTypeId != null) {
+          $scope.opciones.mapTypeId = userMapTypeId;
+        }
+        if (userMapZoom != null) {
+          $scope.opciones.zoom = userMapZoom;
+        }
+      }
       $scope.map = new google.maps.Map(document.getElementById("map"), $scope.opciones);
       $scope.markers = [];
       $scope.geocoder = new google.maps.Geocoder();
@@ -86,18 +101,20 @@
         }
       });
       $scope.$watch('user.location', function(location) {
-        if ((location != null) && location.length > 0) {
+        if ((userMapCenter == null) && (location != null) && location.length > 0) {
           return $scope.setLocationByUserLocation(location);
         }
       });
       google.maps.event.addListener($scope.map, 'dragend', function() {
-        return $scope.eventsUpdate();
+        $scope.eventsUpdate();
+        return $scope.saveUserMapCenter();
       });
       google.maps.event.addListener($scope.map, 'tilesloaded', function() {
         return $scope.eventsUpdate();
       });
       google.maps.event.addListener($scope.map, 'zoom_changed', function() {
-        return $scope.eventsUpdate();
+        $scope.eventsUpdate();
+        return $scope.saveUserMapZoom();
       });
       google.maps.event.addListener($scope.map, 'position_changed', function() {
         return $scope.eventsUpdate();
@@ -144,7 +161,9 @@
             location = $scope.locationDefault;
         }
         $scope.map.setCenter(location);
-        return $scope.eventsUpdate();
+        $scope.eventsUpdate();
+        $scope.saveUserMapCenter();
+        return $scope.saveUserMapZoom();
       };
       $scope.centerMapByUserLocation = function(response, status) {
         if ((response[0] != null) && (response[0].geometry != null) && (response[0].geometry.location != null)) {
@@ -244,6 +263,27 @@
           });
         }
       };
+      $scope.saveUserMapCenter = function() {
+        $.cookie.json = true;
+        return $.cookie("userMapCenter", {
+          lat: $scope.map.getCenter().lat(),
+          lng: $scope.map.getCenter().lng()
+        }, {
+          expires: 30
+        });
+      };
+      $scope.saveUserMapTypeId = function() {
+        $.cookie.json = true;
+        return $.cookie("userMapTypeId", $scope.map.getMapTypeId(), {
+          expires: 30
+        });
+      };
+      $scope.saveUserMapZoom = function() {
+        $.cookie.json = true;
+        return $.cookie("userMapZoom", $scope.map.getZoom(), {
+          expires: 30
+        });
+      };
       $scope.setAllMap = function(map) {
         var marker, _i, _len, _ref, _results;
         _ref = $scope.markers;
@@ -295,12 +335,13 @@
         return $scope.map.setCenter($scope.locationDefault);
       };
       $scope.setMapType = function(mapTypeId) {
-        return $scope.map.setMapTypeId(mapTypeId);
+        $scope.map.setMapTypeId(mapTypeId);
+        return $scope.saveUserMapTypeId();
       };
       $scope.showOverlays = function() {
         return $scope.setAllMap($scope.map);
       };
-      $scope.submit = function() {
+      return $scope.submit = function() {
         $scope.cargando = 'Cargando.';
         if (!$scope.eventForm.$valid) {
           $scope.cargando = null;
@@ -324,7 +365,6 @@
           return console.log('Ocurrió un error guardando el evento');
         });
       };
-      return $scope.setLocationDefault();
     }
   ]);
 
