@@ -43,35 +43,38 @@ nav { position: absolute; top: 0; z-index: 1; }
 .menu { padding-top: 2px; }
 
 /* line 35, ../../sass/events/index.sass */
-#categoryScroll { overflow-y: auto; overflow-x: hidden; }
+#categoriesContainer { padding-top: 5px; padding-right: 5px; }
+
 /* line 39, ../../sass/events/index.sass */
+#categoryScroll { overflow-y: auto; overflow-x: hidden; }
+/* line 43, ../../sass/events/index.sass */
 #categoryScroll > div { margin: 0; width: 100%; }
 
-/* line 44, ../../sass/events/index.sass */
+/* line 48, ../../sass/events/index.sass */
 #nav-large .icon-minus { color: #428bca; cursor: pointer; }
 
-/* line 49, ../../sass/events/index.sass */
-#nav-small { min-height: 20px; filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=80); opacity: 0.8; }
 /* line 53, ../../sass/events/index.sass */
-#nav-small .icon-plus { font-size: 12px; cursor: pointer; }
+#nav-small { min-height: 20px; filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=80); opacity: 0.8; }
 /* line 57, ../../sass/events/index.sass */
+#nav-small .icon-plus { font-size: 12px; cursor: pointer; }
+/* line 61, ../../sass/events/index.sass */
 #nav-small a { padding: 10px; }
 
-/* line 60, ../../sass/events/index.sass */
+/* line 64, ../../sass/events/index.sass */
 #east, #west, #south { position: absolute; z-index: 1; }
 
-/* line 64, ../../sass/events/index.sass */
-#east { left: 0; top: 10%; }
 /* line 68, ../../sass/events/index.sass */
+#east { left: 0; top: 10%; }
+/* line 72, ../../sass/events/index.sass */
 #east div[class="input-group"] { max-width: 350px; }
-/* line 71, ../../sass/events/index.sass */
+/* line 75, ../../sass/events/index.sass */
 #east input { text-transform: capitalize; }
 
-/* line 74, ../../sass/events/index.sass */
+/* line 78, ../../sass/events/index.sass */
 #map { height: 100%; left: 0; top: 0; position: absolute; width: 100%; z-index: 0; }
 
-/* line 82, ../../sass/events/index.sass */
+/* line 86, ../../sass/events/index.sass */
 #south { left: 0; bottom: 0; width: 100%; }
 
-/* line 87, ../../sass/events/index.sass */
+/* line 91, ../../sass/events/index.sass */
 #west { right: 0; top: 10%; }

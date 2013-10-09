@@ -25,6 +25,8 @@ if (AuthComponent::user('location')) {
 	}
 }
 ?>
+<!-- <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet"> -->
+<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
 
 <div ng-controller="EventsController" ng-init="user.locationAux='<?php echo $userLocation; ?>'">
 	<div class="row">
@@ -184,7 +186,11 @@ if (AuthComponent::user('location')) {
 			<div class="row">
 				<div class="col-sm-12">
 
-					<div class="background-white display-inline" ng-hide="hideCategories">
+					<div id="categoriesContainer" class="background-white display-inline" ng-hide="hideCategories">
+						<button type="button" class="close" ng-click="hideCategories = !hideCategories" 
+							ng-hide="hideCategories">
+								<i class="icon-collapse-alt"></i>
+							</button>
 						<p class="text-center"><?php echo __('Categories'); ?></p>
 						<div id="categoryScroll">
 							<div class="row categoriaLink" ng-class="{highlight:categoria.highlight}" 
@@ -200,11 +206,8 @@ if (AuthComponent::user('location')) {
 					
 					<!-- Button to Display or Hide Categories -->
 					<div class="display-inline" ng-click="hideCategories = !hideCategories">
-						<span class="btn btn-primary" ng-hide="hideCategories">
-							<i class="glyphicon glyphicon-chevron-left"></i>
-						</span>
-						<span class="btn btn-primary" ng-show="hideCategories">
-							<i class="glyphicon glyphicon-chevron-right"></i>
+						<span class="btn btn-primary btn-xs" ng-show="hideCategories">
+							<i class="icon-caret-right"></i>
 						</span>
 					</div>
 				</div>
