@@ -107,7 +107,7 @@
           return $scope.checkTimeTo();
         }
       });
-      $scope.$watch('user.locationAux	', function(location) {
+      $scope.$watch('user.locationAux', function(location) {
         if ((userMapCenter == null) && (location != null) && location.length > 0) {
           return $scope.setLocationByUserLocation(location);
         }
@@ -384,11 +384,9 @@
           Category: $scope.event.categories
         }).success(function(data) {
           $scope.cargando = '¡Evento guardado!';
-          console.log('Evento guardado');
           return window.location.pathname = 'events';
         }).error(function() {
-          $scope.cargando = 'Ocurrió un error guardando el evento';
-          return console.log('Ocurrió un error guardando el evento');
+          return $scope.cargando = 'Ocurrió un error guardando el evento';
         });
       };
       /* *************************************************************************************************************** 
@@ -420,6 +418,8 @@
             $scope.user.location = location.formatted_address;
           }
           return $scope.saveUserLocationString();
+        } else {
+          return $scope.user.location = $scope.user.locationAux;
         }
       };
     }

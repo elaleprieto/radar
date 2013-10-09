@@ -44,6 +44,7 @@ angular.module('RadarApp').controller 'EventsController'
 		, overviewMapControl: false
 		, zoom: $scope.zoomDefault
 	
+	
 	# User defaults
 	if $.cookie?
 		$.cookie.json = true
@@ -114,7 +115,7 @@ angular.module('RadarApp').controller 'EventsController'
 		if newValue? then $scope.checkTimeTo()
 	
 	# Se observa el user.location
-	$scope.$watch 'user.locationAux	', (location) ->
+	$scope.$watch 'user.locationAux', (location) ->
 		if not userMapCenter? and location? and location.length > 0
 			$scope.setLocationByUserLocation(location)
 
@@ -408,12 +409,10 @@ angular.module('RadarApp').controller 'EventsController'
 			.success (data) ->
 				# Se actualiza el mensaje
 				$scope.cargando = '¡Evento guardado!'
-				console.log 'Evento guardado'
 				window.location.pathname = 'events'
 			.error ->
 				# Se actualiza el mensaje
 				$scope.cargando = 'Ocurrió un error guardando el evento'
-				console.log 'Ocurrió un error guardando el evento'
 	
 	# Se inicializa el mapa
 	# $scope.inicializar() # Se lo quito por ahora pero debería centrar el mapa en el lugar del visitante..
@@ -447,5 +446,7 @@ angular.module('RadarApp').controller 'EventsController'
 				$scope.user.location = location.formatted_address
 				
 			$scope.saveUserLocationString()
+		else
+			$scope.user.location = $scope.user.locationAux
 			
 	]

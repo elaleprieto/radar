@@ -150,7 +150,7 @@ if (AuthComponent::user('location')) {
 		</div> -->
 			
 		<!-- Location Advertise -->
-		<div ng-hide="hideLocationAdvertise" ng-show="user.location">
+		<div ng-hide="hideLocationAdvertise" ng-show="!!user.location" ng-cloak>
 			<div class="background-white alert alert-dismissable" ng-hide="showSearchLocationBar">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 				<strong ng-bind='user.location'></strong>
