@@ -187,11 +187,15 @@ if (AuthComponent::user('location')) {
 				<div class="col-sm-12">
 
 					<div id="categoriesContainer" class="background-white display-inline" ng-hide="hideCategories">
+						
+						<!-- Titulo -->
 						<button type="button" class="close" ng-click="hideCategories = !hideCategories" 
 							ng-hide="hideCategories">
 								<i class="icon-collapse-alt"></i>
 							</button>
 						<p class="text-center"><?php echo __('Categories'); ?></p>
+						
+						<!-- Scroll -->
 						<div id="categoryScroll">
 							<div class="row categoriaLink" ng-class="{highlight:categoria.highlight}" 
 								ng-model="categoria" ng-repeat="categoria in categorias | orderBy:'Category.name'" ng-click="show(categoria)">
@@ -224,16 +228,24 @@ if (AuthComponent::user('location')) {
 				
 				<!-- Button to Display or Hide Sponsors -->
 				<div class="display-inline" ng-click="hideSponsors = !hideSponsors">
-					<span class="btn btn-primary" ng-show="hideSponsors">
-						<i class="glyphicon glyphicon-chevron-left"></i>
+					<span class="btn btn-primary btn-xs" ng-show="hideSponsors">
+						<i class="icon-caret-left"></i>
 					</span>
-					<span class="btn btn-primary" ng-hide="hideSponsors">
+					<!-- <span class="btn btn-primary" ng-hide="hideSponsors">
 						<i class="glyphicon glyphicon-chevron-right"></i>
-					</span>
+					</span> -->
 				</div>
 				
 				<!-- Sponsors	 -->
-				<div class="background-white display-inline" ng-hide="hideSponsors">
+				<div id="sponsorContainer" class="background-white display-inline" ng-hide="hideSponsors">
+					
+					<!-- Titulo -->
+					<button type="button" class="close sponsor" ng-click="hideSponsors = !hideSponsors" 
+						ng-hide="hideSponsors">
+						<i class="icon-collapse-alt"></i>
+					</button>
+					<p class="text-center"><?php echo __('Sponsors'); ?></p>
+					
 					<div class="col-sm-12">
 						<a href="#"><?=$this->Html->image('sponsor/santafedisenia.jpg'); ?></a>
 					</div>
