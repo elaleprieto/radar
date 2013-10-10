@@ -86,7 +86,8 @@ angular.module('RadarApp').controller 'EventsController'
 			$scope.deleteOverlays()
 			angular.forEach $scope.eventos, (event, key) ->
 				latlng = new google.maps.LatLng(event.Event.lat, event.Event.long)
-				$scope.createMarker(event.Event.id, event.Event.title, event.Category.icon, latlng)
+				# $scope.createMarker(event.Event.id, event.Event.title, event.Category.icon, latlng)
+				$scope.createMarker(event, latlng)
 			$scope.showOverlays()
 		, true
 	
@@ -200,28 +201,28 @@ angular.module('RadarApp').controller 'EventsController'
 			setUserLocationString(response[0])
 
 	# A function to create the marker and set up the event window function
-	$scope.createMarker = (eventId, eventTitle, eventCategory, latlng) ->
+	# $scope.createMarker = (eventId, eventTitle, eventCategory, latlng) ->
+	$scope.createMarker = (event, latlng) ->
 		# icon = new google.maps.MarkerImage("http://gmaps-samples.googlecode.com/svn/trunk/markers/blue/blank.png"
-		icon = new google.maps.MarkerImage('/img/categorias/' + eventCategory
+		icon = new google.maps.MarkerImage('/img/categorias/' + getEventCategoryIcon(event)
 			, new google.maps.Size(25, 26)
 			, new google.maps.Point(0, 0)
 			, new google.maps.Point(10, 34)
 		)
 		
-		marker = new google.maps.Marker eventId: eventId
+		marker = new google.maps.Marker eventId: getEventId(event)
 			, map: $scope.map
 			, icon: icon
 			, position: latlng
-			, title: eventTitle
+			, title: getEventTitle(event)
 			, zIndex: Math.round(latlng.lat()*-100000)<<5
 			
 		infowindow = new google.maps.InfoWindow {
-			content: '<h1>' + eventTitle + '</h1>'
+			content: '<h1>' + getEventTitle(event) + '</h1><br /><p>' + getEventDescription(event) + '</p>'
 		}
 		
 		# Se agrega el listener del marker sobre el evento click 
 		google.maps.event.addListener marker, 'click', ->
-			console.log 'click'
 			infowindow.open($scope.map, marker)
 
 		$scope.markers.push(marker)
@@ -447,6 +448,18 @@ angular.module('RadarApp').controller 'EventsController'
 		result = results.filter (obj) ->
 			obj.types[0] is name and obj.types[1] is "political"
 		if result[0]? then result[0].long_name else null
+	
+	getEventCategoryIcon = (event) ->
+		event.Category.icon
+	
+	getEventId = (event) ->
+		event.Event.id
+	
+	getEventTitle = (event) ->
+		event.Event.title
+	
+	getEventDescription = (event) ->
+		event.Event.description
 	
 	setUserLocationString = (location) ->
 		if location? and location.address_components?

@@ -12,7 +12,7 @@
       	***************************************************************************************************************
       */
 
-      var date, findResult, setUserLocationString, userLastLocationString, userMapCenter, userMapTypeId, userMapZoom;
+      var date, findResult, getEventCategoryIcon, getEventDescription, getEventId, getEventTitle, setUserLocationString, userLastLocationString, userMapCenter, userMapTypeId, userMapZoom;
       $scope.eventInterval = 1;
       $scope.user = {};
       $scope.eventCategory = [];
@@ -85,7 +85,7 @@
         angular.forEach($scope.eventos, function(event, key) {
           var latlng;
           latlng = new google.maps.LatLng(event.Event.lat, event.Event.long);
-          return $scope.createMarker(event.Event.id, event.Event.title, event.Category.icon, latlng);
+          return $scope.createMarker(event, latlng);
         });
         return $scope.showOverlays();
       }, true);
@@ -180,22 +180,21 @@
           return setUserLocationString(response[0]);
         }
       };
-      $scope.createMarker = function(eventId, eventTitle, eventCategory, latlng) {
+      $scope.createMarker = function(event, latlng) {
         var icon, infowindow, marker;
-        icon = new google.maps.MarkerImage('/img/categorias/' + eventCategory, new google.maps.Size(25, 26), new google.maps.Point(0, 0), new google.maps.Point(10, 34));
+        icon = new google.maps.MarkerImage('/img/categorias/' + getEventCategoryIcon(event), new google.maps.Size(25, 26), new google.maps.Point(0, 0), new google.maps.Point(10, 34));
         marker = new google.maps.Marker({
-          eventId: eventId,
+          eventId: getEventId(event),
           map: $scope.map,
           icon: icon,
           position: latlng,
-          title: eventTitle,
+          title: getEventTitle(event),
           zIndex: Math.round(latlng.lat() * -100000) << 5
         });
         infowindow = new google.maps.InfoWindow({
-          content: '<h1>' + eventTitle + '</h1>'
+          content: '<h1>' + getEventTitle(event) + '</h1><br /><p>' + getEventDescription(event) + '</p>'
         });
         google.maps.event.addListener(marker, 'click', function() {
-          console.log('click');
           return infowindow.open($scope.map, marker);
         });
         return $scope.markers.push(marker);
@@ -412,6 +411,18 @@
         } else {
           return null;
         }
+      };
+      getEventCategoryIcon = function(event) {
+        return event.Category.icon;
+      };
+      getEventId = function(event) {
+        return event.Event.id;
+      };
+      getEventTitle = function(event) {
+        return event.Event.title;
+      };
+      getEventDescription = function(event) {
+        return event.Event.description;
       };
       return setUserLocationString = function(location) {
         var city, country, results;
