@@ -167,6 +167,10 @@ angular.module('RadarApp').controller 'EventsController'
 		
 		$scope.marker.setMap($scope.map) # inserto el marcador en el mapa
 	
+	# # add(): despliega la ventana para agregar un evento
+	# $scope.add = ->
+		# console.log 'add'
+	
 	# centerMap: centers map with parameter city
 	$scope.centerMap = (city) ->
 		$scope.map.setZoom($scope.zoomDefault)

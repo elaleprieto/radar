@@ -1,6 +1,6 @@
 'use strict'
 
-RadarApp = angular.module('RadarApp', ['fechaFilters', 'ui.keypress', '$strap.directives'])
+RadarApp = angular.module('RadarApp', ['fechaFilters', 'ui.keypress', 'rutes', '$strap.directives'])
 
 RadarApp.value('$strapConfig', {
 	datepicker: {

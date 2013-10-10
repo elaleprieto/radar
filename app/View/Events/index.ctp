@@ -267,7 +267,9 @@ if (AuthComponent::user('location')) {
 				<div class="col-sm-6">
 					<input value="1" name="interval" type="hidden">
 					<div id="eventInterval" class="control-group btn-group" data-toggle="buttons">
-						<button type="radio" data-toggle="button" class="btn disabled">qué hacer...</button>
+						<button type="radio" data-toggle="button" class="btn disabled">
+							<?php echo __('What to do?'); ?>
+						</button>
 						<button type="radio" data-toggle="button" class="btn btn-verde " ng-click="setEventInterval(1)">
 							<?php echo __('Today'); ?>
 						</button>
@@ -279,10 +281,12 @@ if (AuthComponent::user('location')) {
 						</button>
 					</div>
 					<div id="eventInterval" class="control-group btn-group pull-right">
-						<?php echo $this->Html->link(__('Add Event')
-							, array('controller'=>'events', 'action'=>'add')
-							, array('class'=>'btn btn-warning pull-right'))
+						<?php 
+						// echo $this->Html->link(__('Add Event')
+							// , array('controller'=>'events', 'action'=>'add')
+							// , array('class'=>'btn btn-warning pull-right'))
 						?>
+						<a href="#/events/add" class="btn btn-warning pull-right" ng-click="add()">Agregar Evento</a>
 					</div>
 				</div>
 	
@@ -330,6 +334,8 @@ if (AuthComponent::user('location')) {
 		    </div>
 		</div>
     </div>
-    
+    <div>
+    	<ng-view></ng-view>
+    </div>
    	<div id="map"></div>
 </div>

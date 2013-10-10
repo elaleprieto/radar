@@ -9,13 +9,15 @@ module.exports = (grunt) ->
 			},
 			build: {
 				src: ['js/app.js'
-					, 'js/vendors/bootstrap-datepicker.js'
-					, 'js/vendors/bootstrap-timepicker.js'
 					, 'js/controllers/events_controller.js'
 					, 'js/controllers/categories_controller.js'
 					, 'js/directives.js'
 					, 'js/filters.js'
+					, 'js/rutes.js'
 					, 'js/styles.js'
+					, 'js/vendors/angular-resource.min1.1.5.js'
+					, 'js/vendors/bootstrap-datepicker.js'
+					, 'js/vendors/bootstrap-timepicker.js'
 					, 'js/vendors/jquery.cookie.js'
 					, 'js/vendors/keypress.js'
 				]
