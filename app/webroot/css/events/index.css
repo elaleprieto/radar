@@ -83,4 +83,7 @@ nav { position: absolute; top: 0; z-index: 1; }
 #sponsorContainer { padding-top: 5px; padding-left: 5px; }
 
 /* line 97, ../../sass/events/index.sass */
+#view { left: 25%; position: absolute; top: 30 px; width: 50%; z-index: 1; }
+
+/* line 105, ../../sass/events/index.sass */
 #west { right: 0; top: 10%; }

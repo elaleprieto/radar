@@ -334,7 +334,7 @@ if (AuthComponent::user('location')) {
 		    </div>
 		</div>
     </div>
-    <div>
+    <div id="view">
     	<ng-view></ng-view>
     </div>
    	<div id="map"></div>
