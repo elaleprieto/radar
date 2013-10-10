@@ -181,7 +181,7 @@
         }
       };
       $scope.createMarker = function(eventId, eventTitle, eventCategory, latlng) {
-        var icon, marker;
+        var icon, infowindow, marker;
         icon = new google.maps.MarkerImage('/img/categorias/' + eventCategory, new google.maps.Size(25, 26), new google.maps.Point(0, 0), new google.maps.Point(10, 34));
         marker = new google.maps.Marker({
           eventId: eventId,
@@ -190,6 +190,13 @@
           position: latlng,
           title: eventTitle,
           zIndex: Math.round(latlng.lat() * -100000) << 5
+        });
+        infowindow = new google.maps.InfoWindow({
+          content: '<h1>' + eventTitle + '</h1>'
+        });
+        google.maps.event.addListener(marker, 'click', function() {
+          console.log('click');
+          return infowindow.open($scope.map, marker);
         });
         return $scope.markers.push(marker);
       };

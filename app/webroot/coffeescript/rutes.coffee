@@ -7,7 +7,7 @@ rutes.config ['$routeProvider', ($routeProvider) ->
 	$routeProvider
 		.when('/events/add', {
 			templateUrl: '/events/add'
-			, controller: this.EventsController
+			# , controller: this.EventsController
 		})
 		# .when('/admin/articulos/resumen', {
 			# templateUrl: '/admin/articulos/resumen'

@@ -214,6 +214,16 @@ angular.module('RadarApp').controller 'EventsController'
 			, position: latlng
 			, title: eventTitle
 			, zIndex: Math.round(latlng.lat()*-100000)<<5
+			
+		infowindow = new google.maps.InfoWindow {
+			content: '<h1>' + eventTitle + '</h1>'
+		}
+		
+		# Se agrega el listener del marker sobre el evento click 
+		google.maps.event.addListener marker, 'click', ->
+			console.log 'click'
+			infowindow.open($scope.map, marker)
+
 		$scope.markers.push(marker)
 
 	$scope.checkTimeTo = ->

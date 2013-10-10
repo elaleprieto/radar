@@ -12,8 +12,7 @@
   rutes.config([
     '$routeProvider', function($routeProvider) {
       return $routeProvider.when('/events/add', {
-        templateUrl: '/events/add',
-        controller: this.EventsController
+        templateUrl: '/events/add'
       });
     }
   ]);
