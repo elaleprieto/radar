@@ -3,8 +3,8 @@
 ******************************************************************************************************************* ###
 
 angular.module('RadarApp').controller 'EventsController'
-	, ['$http', '$scope', '$timeout'
-		, ($http, $scope, $timeout) ->
+	, ['$http', '$location', '$scope', '$timeout', '$compile', 'Event'
+		, ($http, $location, $scope, $timeout, $compile, Event) ->
 
 	### ***************************************************************************************************************
 			Inicialización de Objetos
@@ -204,7 +204,7 @@ angular.module('RadarApp').controller 'EventsController'
 	# $scope.createMarker = (eventId, eventTitle, eventCategory, latlng) ->
 	$scope.createMarker = (event, latlng) ->
 		# icon = new google.maps.MarkerImage("http://gmaps-samples.googlecode.com/svn/trunk/markers/blue/blank.png"
-		icon = new google.maps.MarkerImage('/img/categorias/' + getEventCategoryIcon(event)
+		icon = new google.maps.MarkerImage('/img/map-marker/' + getEventCategoryIcon(event)
 			, new google.maps.Size(25, 26)
 			, new google.maps.Point(0, 0)
 			, new google.maps.Point(10, 34)
@@ -216,9 +216,28 @@ angular.module('RadarApp').controller 'EventsController'
 			, position: latlng
 			, title: getEventTitle(event)
 			, zIndex: Math.round(latlng.lat()*-100000)<<5
-			
+		
+		# $scope.eventMarkerAux = event
+# 			
+		# contenido = $compile('<marker event="eventMarkerAux"></marker>')($scope)
+		# console.log contenido
+		# console.log contenido[0]
+		# console.log contenido[0].textContent
+		# console.log contenido[0].innerHTML
+		
+		contenido = '<h3>' + getEventTitle(event) + '</h3>'
+		contenido += '<a href="#/events/view/' + getEventId(event) + '">'
+		contenido += '<p class="text-right"><i class="icon-expand-alt"></i> info</p>'
+		contenido += '</a>'
+		# if getEventDescription(event) then contenido += '<p>' + getEventDescription(event) + '</p>'
+		# if getEventDescription(event) 
+			# contenido += '<p>' + getEventDescription(event) + '</p>'
+		# else 
+			# contenido += '<p>No description</p>'
+		
 		infowindow = new google.maps.InfoWindow {
-			content: '<h1>' + getEventTitle(event) + '</h1><br /><p>' + getEventDescription(event) + '</p>'
+			content: contenido  
+			# content: contenido[0]
 		}
 		
 		# Se agrega el listener del marker sobre el evento click 
@@ -278,7 +297,7 @@ angular.module('RadarApp').controller 'EventsController'
 
 	# Se consulta al servidor por los eventos dentro de los límites del mapa y que cumplen las condiciones
 	# de categoría e intervalo seleccionadas.
-	$scope.eventsUpdate = () ->
+	$scope.eventsUpdate = ->
 		if $scope.map.getBounds()?
 			bounds = $scope.map.getBounds()
 			ne = bounds.getNorthEast()
@@ -290,10 +309,11 @@ angular.module('RadarApp').controller 'EventsController'
 				, "swLat": sw.lat()
 				, "swLong": sw.lng()
 			
-			$http.get('/events/get', {cache: true, params: options})
-				.success (data) ->
-					$scope.eventos = data
-
+			console.log options
+			
+			Event.get {params:options}, (response) ->
+				$scope.eventos = response.events
+			
 	# Inicializa el mapa
 	$scope.inicializar = ->
 		if navigator.geolocation
@@ -303,6 +323,12 @@ angular.module('RadarApp').controller 'EventsController'
 				$scope.map.setCenter(initialLocation)
 			, ->
 				$scope.setLocationDefault()
+
+		
+	$scope.resetView = (event) ->
+		console.log $('ng-view').innerHtml
+		
+		$location.path('/')
 
 	# Save as cookie, the user map desired center
 	$scope.saveUserLocationString = ->
@@ -428,6 +454,9 @@ angular.module('RadarApp').controller 'EventsController'
 			.error ->
 				# Se actualiza el mensaje
 				$scope.cargando = 'Ocurrió un error guardando el evento'
+	
+	$scope.viewDisplayed = ->
+		$location.path() == '/'
 	
 	# Se inicializa el mapa
 	# $scope.inicializar() # Se lo quito por ahora pero debería centrar el mapa en el lugar del visitante..

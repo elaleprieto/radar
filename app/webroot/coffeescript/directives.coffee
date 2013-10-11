@@ -27,3 +27,18 @@ angular.module('RadarApp').directive('loaded', ['$rootScope', ($rootScope) ->
       );
   };
 ]);
+
+angular.module('components', []).directive 'marker', () ->
+	return {
+		restrict: "E"
+		# scope: {
+			# event:'='
+		# }
+		# template: "<div><h2>{{event.Event.title}}</h2><p>{{event.Event.description}}</p></div>"
+		templateURL: "inicio.html"
+		# link: (scope, elm, attrs, ctrl) ->
+			# # get the attribute value
+			# if not scope.event.Event.title
+				# scope.event.Event.title = 'Sin Título'
+
+	} 

@@ -6,6 +6,8 @@ App::uses('AppController', 'Controller');
  * @property Category $Category
  */
 class CategoriesController extends AppController {
+	
+	public $components = array('RequestHandler');
 
 	/**************************************************************************************************************
 	 *  Authentication
@@ -42,13 +44,15 @@ class CategoriesController extends AppController {
  * @return void
  */
 	public function index() {
-	    $this->autoRender = false;
-	    if ($this->request->is('ajax')) {
+		// debug($this->request->isAjax());
+	    if ($this->request->isAjax()) {
 	        $this->Category->recursive = -1;
-            return json_encode($this->Category->find('all'));
+			$categories = $this->Category->find('all');
+			$this->set(array('categories' => $categories, '_serialize' => array('categories')));
+			return;
+            // return json_encode($this->Category->find('all'));
         }
-        throw new NotFoundException("Categoría Inválida", 404);
-        
+        throw new NotFoundException("Categoría Inválida", 404);       
 		// $this->Category->recursive = 0;
 		// $this->set('categories', $this->paginate());
 	}

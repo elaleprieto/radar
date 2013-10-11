@@ -3,7 +3,13 @@
   var RadarApp,
     __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
 
-  RadarApp = angular.module('RadarApp', ['fechaFilters', 'ui.keypress', 'rutes', '$strap.directives']);
+  RadarApp = angular.module('RadarApp', ['fechaFilters', 'ui.keypress', 'rutes', '$strap.directives', 'components', 'models']);
+
+  RadarApp.config([
+    '$httpProvider', function($httpProvider) {
+      return $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
+    }
+  ]);
 
   RadarApp.value('$strapConfig', {
     datepicker: {

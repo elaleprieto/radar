@@ -334,7 +334,8 @@ if (AuthComponent::user('location')) {
 		    </div>
 		</div>
     </div>
-    <div id="view">
+    <div id="view" ng-hide="viewDisplayed()">
+    	<button type="button" class="close" ng-click="resetView($event)">&times;</button>
     	<ng-view></ng-view>
     </div>
    	<div id="map"></div>

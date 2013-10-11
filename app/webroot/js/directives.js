@@ -30,4 +30,11 @@
     }
   ]);
 
+  angular.module('components', []).directive('marker', function() {
+    return {
+      restrict: "E",
+      templateURL: "inicio.html"
+    };
+  });
+
 }).call(this);

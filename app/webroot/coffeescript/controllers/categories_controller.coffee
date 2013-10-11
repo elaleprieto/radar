@@ -2,14 +2,13 @@
 								CATEGORIAS
 ******************************************************************************************************************* ###
 angular.module('RadarApp').controller 'CategoriesController'
-	, ['$http', '$location', '$scope', '$timeout'
-		, ($http, $location, $scope, $timeout) ->
+	, ['$http', '$location', '$scope', '$timeout', 'Category'
+		, ($http, $location, $scope, $timeout, Category) ->
 	
 	location = $location.absUrl()
 	
-	$http.get('/categories ', {cache: true})
-			.success (data) ->
-				$scope.categorias = data
+	Category.get {}, (response) ->
+		$scope.categorias = response.categories
 	
 	# addCategoryToEvent(category): agrega la categoria al evento padre.
 	$scope.addCategoryToEvent = (category) ->

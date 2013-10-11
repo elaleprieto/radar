@@ -1,6 +1,10 @@
 'use strict'
 
-RadarApp = angular.module('RadarApp', ['fechaFilters', 'ui.keypress', 'rutes', '$strap.directives'])
+RadarApp = angular.module('RadarApp', ['fechaFilters', 'ui.keypress', 'rutes', '$strap.directives', 'components', 'models'])
+
+RadarApp.config ['$httpProvider', ($httpProvider) -> 
+	$httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest'
+]
 
 RadarApp.value('$strapConfig', {
 	datepicker: {

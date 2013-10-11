@@ -6,7 +6,7 @@
 
 (function() {
   angular.module('RadarApp').controller('EventsController', [
-    '$http', '$scope', '$timeout', function($http, $scope, $timeout) {
+    '$http', '$location', '$scope', '$timeout', '$compile', 'Event', function($http, $location, $scope, $timeout, $compile, Event) {
       /* ***************************************************************************************************************
       			Inicialización de Objetos
       	***************************************************************************************************************
@@ -181,8 +181,8 @@
         }
       };
       $scope.createMarker = function(event, latlng) {
-        var icon, infowindow, marker;
-        icon = new google.maps.MarkerImage('/img/categorias/' + getEventCategoryIcon(event), new google.maps.Size(25, 26), new google.maps.Point(0, 0), new google.maps.Point(10, 34));
+        var contenido, icon, infowindow, marker;
+        icon = new google.maps.MarkerImage('/img/map-marker/' + getEventCategoryIcon(event), new google.maps.Size(25, 26), new google.maps.Point(0, 0), new google.maps.Point(10, 34));
         marker = new google.maps.Marker({
           eventId: getEventId(event),
           map: $scope.map,
@@ -191,8 +191,12 @@
           title: getEventTitle(event),
           zIndex: Math.round(latlng.lat() * -100000) << 5
         });
+        contenido = '<h3>' + getEventTitle(event) + '</h3>';
+        contenido += '<a href="#/events/view/' + getEventId(event) + '">';
+        contenido += '<p class="text-right"><i class="icon-expand-alt"></i> info</p>';
+        contenido += '</a>';
         infowindow = new google.maps.InfoWindow({
-          content: '<h1>' + getEventTitle(event) + '</h1><br /><p>' + getEventDescription(event) + '</p>'
+          content: contenido
         });
         google.maps.event.addListener(marker, 'click', function() {
           return infowindow.open($scope.map, marker);
@@ -258,11 +262,11 @@
             "swLat": sw.lat(),
             "swLong": sw.lng()
           };
-          return $http.get('/events/get', {
-            cache: true,
+          console.log(options);
+          return Event.get({
             params: options
-          }).success(function(data) {
-            return $scope.eventos = data;
+          }, function(response) {
+            return $scope.eventos = response.events;
           });
         }
       };
@@ -277,6 +281,10 @@
             return $scope.setLocationDefault();
           });
         }
+      };
+      $scope.resetView = function(event) {
+        console.log($('ng-view').innerHtml);
+        return $location.path('/');
       };
       $scope.saveUserLocationString = function() {
         $.cookie.json = true;
@@ -394,6 +402,9 @@
         }).error(function() {
           return $scope.cargando = 'Ocurrió un error guardando el evento';
         });
+      };
+      $scope.viewDisplayed = function() {
+        return $location.path() === '/';
       };
       /* *************************************************************************************************************** 
       			Funciones Auxiliares

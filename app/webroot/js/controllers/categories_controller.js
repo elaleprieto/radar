@@ -6,13 +6,11 @@
 
 (function() {
   angular.module('RadarApp').controller('CategoriesController', [
-    '$http', '$location', '$scope', '$timeout', function($http, $location, $scope, $timeout) {
+    '$http', '$location', '$scope', '$timeout', 'Category', function($http, $location, $scope, $timeout, Category) {
       var location;
       location = $location.absUrl();
-      $http.get('/categories ', {
-        cache: true
-      }).success(function(data) {
-        return $scope.categorias = data;
+      Category.get({}, function(response) {
+        return $scope.categorias = response.categories;
       });
       $scope.addCategoryToEvent = function(category) {
         if (!category.highlight) {
