@@ -1,4 +1,37 @@
-<div class="events view">
+<div class="row">
+	<div class="col-sm-3">
+		<?php echo $this->Html->image('logos/logoBetaVertical.png', array('class' => 'img-responsive')); ?>
+	</div>
+	<div class="col-sm-9">
+		<div class="row">
+			<div class="col-sm-12">
+				<h1><?php echo h($event['Event']['title']); ?></h1>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-12">
+				<p><?php echo h($event['Event']['description']); ?></p>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-12">
+				<p><?php echo __('Start'); ?></p>
+				<p><?php echo h($event['Event']['date_start']); ?></p>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-12">
+				<p><?php echo __('End'); ?></p>
+				<p><?php echo h($event['Event']['date_end']); ?></p>
+			</div>
+		</div>
+	</div>
+</div>
+
+<?php //debug($event['Event']) ?>
+	
+
+<!-- <div class="events view">
 <h2><?php  echo __('Event'); ?></h2>
 	<dl>
 		<dt><?php echo __('Id'); ?></dt>
@@ -70,4 +103,4 @@
 		<li><?php echo $this->Html->link(__('List Places'), array('controller' => 'places', 'action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link(__('New Place'), array('controller' => 'places', 'action' => 'add')); ?> </li>
 	</ul>
-</div>
+</div> -->

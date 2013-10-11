@@ -1,11 +1,17 @@
 (function() {
   jQuery(function() {
-    var bodyHeight;
+    var bodyHeight, bodyWidth;
     bodyHeight = $('body').height();
-    $('#categoryScroll').css('height', bodyHeight / 2);
+    bodyWidth = $('body').width();
+    $('#categoryScroll').css('height', bodyHeight * 0.5);
+    $('.modal-body').css('height', bodyHeight * 0.6);
+    $('.modal-content').css('width', bodyWidth * 0.5);
     return $(window).resize(function() {
       bodyHeight = $('body').height();
-      return $('#categoryScroll').css('height', bodyHeight / 2);
+      bodyWidth = $('body').width();
+      $('#categoryScroll').css('height', bodyHeight * 0.5);
+      $('.modal-body').css('height', bodyHeight * 0.6);
+      return $('.modal-content').css('width', bodyWidth * 0.5);
     });
   });
 

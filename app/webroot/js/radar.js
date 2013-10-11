@@ -1,13 +1,13 @@
-/*! radar 2013-10-10 */
+/*! radar 2013-10-11 */
 (function() {
     "use strict";
     var a, b = [].indexOf || function(a) {
         for (var b = 0, c = this.length; c > b; b++) if (b in this && this[b] === a) return b;
         return -1;
     };
-    a = angular.module("RadarApp", [ "fechaFilters", "ui.keypress", "rutes", "$strap.directives", "components", "models" ]), 
-    a.config([ "$httpProvider", function(a) {
-        return a.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
+    a = angular.module("RadarApp", [ "fechaFilters", "ui.keypress", "rutes", "$strap.directives", "components", "models", "services" ]), 
+    a.config([ "$httpProvider", "$locationProvider", function(a, b) {
+        return a.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest", b.html5Mode(!0).hashPrefix("!");
     } ]), a.value("$strapConfig", {
         datepicker: {
             language: "es"
@@ -16,9 +16,9 @@
         return -1 !== this.indexOf(a, b);
     });
 }).call(this), function() {
-    angular.module("RadarApp").controller("EventsController", [ "$http", "$location", "$scope", "$timeout", "$compile", "Event", function(a, b, c, d, e, f) {
-        var g, h, i, j, k, l, m, n, o, p, q;
-        return c.eventInterval = 1, c.user = {}, c.eventCategory = [], g = new Date(), c.minutoEnMilisegundos = 6e4, 
+    angular.module("RadarApp").controller("EventsController", [ "$http", "$location", "$scope", "$timeout", "$compile", "Event", "EventView", function(a, b, c, d, e, f, g) {
+        var h, i, j, k, l, m, n, o, p, q, r;
+        return c.eventInterval = 1, c.user = {}, c.eventCategory = [], h = new Date(), c.minutoEnMilisegundos = 6e4, 
         c.diaEnMilisegundos = 1440 * c.minutoEnMilisegundos, c.event = {}, c.event.categories = [], 
         c.capital = new google.maps.LatLng(-34.603, -58.382), c.cordoba = new google.maps.LatLng(-31.388813, -64.179726), 
         c.santafe = new google.maps.LatLng(-31.625906, -60.696774), c.cordobaSantafe = new google.maps.LatLng(-31.52081, -62.411469), 
@@ -34,9 +34,9 @@
             streetViewControl: !1,
             overviewMapControl: !1,
             zoom: c.zoomDefault
-        }, null != $.cookie && ($.cookie.json = !0, o = $.cookie("userMapCenter"), p = $.cookie("userMapTypeId"), 
-        q = $.cookie("userMapZoom"), n = $.cookie("userLastLocationString"), null != o && (c.opciones.center = new google.maps.LatLng(o.lat, o.lng)), 
-        null != p && (c.opciones.mapTypeId = p), null != q && (c.opciones.zoom = q), null != n && (c.user.location = n), 
+        }, null != $.cookie && ($.cookie.json = !0, p = $.cookie("userMapCenter"), q = $.cookie("userMapTypeId"), 
+        r = $.cookie("userMapZoom"), o = $.cookie("userLastLocationString"), null != p && (c.opciones.center = new google.maps.LatLng(p.lat, p.lng)), 
+        null != q && (c.opciones.mapTypeId = q), null != r && (c.opciones.zoom = r), null != o && (c.user.location = o), 
         d(function() {
             return c.setUserLocationByLatLng(c.opciones.center);
         }, 50)), c.map = new google.maps.Map(document.getElementById("map"), c.opciones), 
@@ -58,7 +58,7 @@
         }), c.$watch("event.time_to", function(a) {
             return null != a ? c.checkTimeTo() : void 0;
         }), c.$watch("user.locationAux", function(a) {
-            return null == o && null != a && a.length > 0 ? c.setLocationByUserLocation(a) : void 0;
+            return null == p && null != a && a.length > 0 ? c.setLocationByUserLocation(a) : void 0;
         }), google.maps.event.addListener(c.map, "dragend", function() {
             return c.eventsUpdate(), c.saveUserMapCenter();
         }), google.maps.event.addListener(c.map, "tilesloaded", function() {
@@ -93,23 +93,24 @@
             return c.map.setCenter(b), c.eventsUpdate(), c.saveUserMapCenter(), c.saveUserMapZoom();
         }, c.centerMapByUserLocation = function(a) {
             return null != a[0] && null != a[0].geometry && null != a[0].geometry.location ? (c.map.setCenter(a[0].geometry.location), 
-            c.map.setZoom(c.zoomCity), c.saveUserMapCenter(), m(a[0])) : void 0;
+            c.map.setZoom(c.zoomCity), c.saveUserMapCenter(), n(a[0])) : void 0;
         }, c.createMarker = function(a, b) {
-            var d, e, f, g;
-            return e = new google.maps.MarkerImage("/img/map-marker/" + i(a), new google.maps.Size(25, 26), new google.maps.Point(0, 0), new google.maps.Point(10, 34)), 
-            g = new google.maps.Marker({
-                eventId: k(a),
+            var d, f, g, h;
+            return f = new google.maps.MarkerImage("/img/map-marker/" + j(a), new google.maps.Size(25, 26), new google.maps.Point(0, 0), new google.maps.Point(10, 34)), 
+            h = new google.maps.Marker({
+                eventId: l(a),
                 map: c.map,
-                icon: e,
+                icon: f,
                 position: b,
-                title: l(a),
+                title: m(a),
                 zIndex: Math.round(-1e5 * b.lat()) << 5
-            }), d = "<h3>" + l(a) + "</h3>", d += '<a href="#/events/view/' + k(a) + '">', d += '<p class="text-right"><i class="icon-expand-alt"></i> info</p>', 
-            d += "</a>", f = new google.maps.InfoWindow({
-                content: d
-            }), google.maps.event.addListener(g, "click", function() {
-                return f.open(c.map, g);
-            }), c.markers.push(g);
+            }), d = "<div>", d += "<p>" + m(a) + "</p>", d += "<a ng-click=\"openModal('events/view/" + l(a) + "')\">", 
+            d += '<p class="text-right"><i class="icon-expand-alt"></i> info</p>', d += "</a>", 
+            d += "</div>", d = e(d)(c), g = new google.maps.InfoWindow({
+                content: d[0]
+            }), google.maps.event.addListener(h, "click", function() {
+                return g.open(c.map, h);
+            }), c.markers.push(h);
         }, c.checkTimeTo = function() {
             var a, b, d, e, f, g, h;
             if (null != c.event.time_from && c.event.date_from === c.event.date_to) {
@@ -205,7 +206,7 @@
         }, c.setUserLocationByLatLng = function(a) {
             var b;
             return b = {}, b.location = a, c.geocoder.geocode(b, function(a) {
-                return m(a[0]);
+                return n(a[0]);
             });
         }, c.setMapType = function(a) {
             return c.map.setMapTypeId(a), c.saveUserMapTypeId();
@@ -225,23 +226,25 @@
             }))) : (c.cargando = null, this);
         }, c.viewDisplayed = function() {
             return "/" === b.path();
-        }, h = function(a, b) {
+        }, c.openModal = function(a) {
+            return g(c, a);
+        }, i = function(a, b) {
             var c;
             return c = a.filter(function(a) {
                 return a.types[0] === b && "political" === a.types[1];
             }), null != c[0] ? c[0].long_name : null;
-        }, i = function(a) {
-            return a.Category.icon;
-        }, k = function(a) {
-            return a.Event.id;
-        }, l = function(a) {
-            return a.Event.title;
         }, j = function(a) {
-            return a.Event.description;
+            return a.Category.icon;
+        }, l = function(a) {
+            return a.Event.id;
         }, m = function(a) {
+            return a.Event.title;
+        }, k = function(a) {
+            return a.Event.description;
+        }, n = function(a) {
             var b, d, e;
-            return null != a && null != a.address_components ? (e = a.address_components, b = h(e, "locality"), 
-            d = h(e, "country"), c.user.location = b && d ? b + ", " + d : a.formatted_address, 
+            return null != a && null != a.address_components ? (e = a.address_components, b = i(e, "locality"), 
+            d = i(e, "country"), c.user.location = b && d ? b + ", " + d : a.formatted_address, 
             c.saveUserLocationString()) : c.user.location = c.user.locationAux;
         };
     } ]);
@@ -334,10 +337,20 @@
         });
     } ]);
 }.call(this), function() {
-    jQuery(function() {
+    angular.module("services", []).factory("EventView", function() {
         var a;
-        return a = $("body").height(), $("#categoryScroll").css("height", a / 2), $(window).resize(function() {
-            return a = $("body").height(), $("#categoryScroll").css("height", a / 2);
+        return a = angular.element("#eventViewModal"), function(b, c) {
+            return b.modalURL = c, a.modal("show");
+        };
+    });
+}.call(this), function() {
+    jQuery(function() {
+        var a, b;
+        return a = $("body").height(), b = $("body").width(), $("#categoryScroll").css("height", .5 * a), 
+        $(".modal-body").css("height", .6 * a), $(".modal-content").css("width", .5 * b), 
+        $(window).resize(function() {
+            return a = $("body").height(), b = $("body").width(), $("#categoryScroll").css("height", .5 * a), 
+            $(".modal-body").css("height", .6 * a), $(".modal-content").css("width", .5 * b);
         });
     });
 }.call(this), function(a, b, c) {

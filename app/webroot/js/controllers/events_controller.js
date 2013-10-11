@@ -6,7 +6,7 @@
 
 (function() {
   angular.module('RadarApp').controller('EventsController', [
-    '$http', '$location', '$scope', '$timeout', '$compile', 'Event', function($http, $location, $scope, $timeout, $compile, Event) {
+    '$http', '$location', '$scope', '$timeout', '$compile', 'Event', 'EventView', function($http, $location, $scope, $timeout, $compile, Event, EventView) {
       /* ***************************************************************************************************************
       			Inicialización de Objetos
       	***************************************************************************************************************
@@ -191,12 +191,15 @@
           title: getEventTitle(event),
           zIndex: Math.round(latlng.lat() * -100000) << 5
         });
-        contenido = '<h3>' + getEventTitle(event) + '</h3>';
-        contenido += '<a href="#/events/view/' + getEventId(event) + '">';
+        contenido = '<div>';
+        contenido += '<p>' + getEventTitle(event) + '</p>';
+        contenido += '<a ng-click="openModal(\'events/view/' + getEventId(event) + '\')">';
         contenido += '<p class="text-right"><i class="icon-expand-alt"></i> info</p>';
         contenido += '</a>';
+        contenido += '</div>';
+        contenido = $compile(contenido)($scope);
         infowindow = new google.maps.InfoWindow({
-          content: contenido
+          content: contenido[0]
         });
         google.maps.event.addListener(marker, 'click', function() {
           return infowindow.open($scope.map, marker);
@@ -405,6 +408,9 @@
       };
       $scope.viewDisplayed = function() {
         return $location.path() === '/';
+      };
+      $scope.openModal = function(URL) {
+        return EventView($scope, URL);
       };
       /* *************************************************************************************************************** 
       			Funciones Auxiliares

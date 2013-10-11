@@ -3,11 +3,12 @@
   var RadarApp,
     __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
 
-  RadarApp = angular.module('RadarApp', ['fechaFilters', 'ui.keypress', 'rutes', '$strap.directives', 'components', 'models']);
+  RadarApp = angular.module('RadarApp', ['fechaFilters', 'ui.keypress', 'rutes', '$strap.directives', 'components', 'models', 'services']);
 
   RadarApp.config([
-    '$httpProvider', function($httpProvider) {
-      return $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
+    '$httpProvider', '$locationProvider', function($httpProvider, $locationProvider) {
+      $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
+      return $locationProvider.html5Mode(true).hashPrefix('!');
     }
   ]);
 

@@ -1,9 +1,10 @@
 'use strict'
 
-RadarApp = angular.module('RadarApp', ['fechaFilters', 'ui.keypress', 'rutes', '$strap.directives', 'components', 'models'])
+RadarApp = angular.module('RadarApp', ['fechaFilters', 'ui.keypress', 'rutes', '$strap.directives', 'components', 'models', 'services'])
 
-RadarApp.config ['$httpProvider', ($httpProvider) -> 
+RadarApp.config ['$httpProvider', '$locationProvider', ($httpProvider, $locationProvider) -> 
 	$httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest'
+	$locationProvider.html5Mode(true).hashPrefix('!');
 ]
 
 RadarApp.value('$strapConfig', {

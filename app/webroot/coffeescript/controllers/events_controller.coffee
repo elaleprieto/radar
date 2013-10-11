@@ -3,8 +3,8 @@
 ******************************************************************************************************************* ###
 
 angular.module('RadarApp').controller 'EventsController'
-	, ['$http', '$location', '$scope', '$timeout', '$compile', 'Event'
-		, ($http, $location, $scope, $timeout, $compile, Event) ->
+	, ['$http', '$location', '$scope', '$timeout', '$compile', 'Event', 'EventView'
+		, ($http, $location, $scope, $timeout, $compile, Event, EventView) ->
 
 	### ***************************************************************************************************************
 			Inicialización de Objetos
@@ -225,10 +225,14 @@ angular.module('RadarApp').controller 'EventsController'
 		# console.log contenido[0].textContent
 		# console.log contenido[0].innerHTML
 		
-		contenido = '<h3>' + getEventTitle(event) + '</h3>'
-		contenido += '<a href="#/events/view/' + getEventId(event) + '">'
+		contenido = '<div>'
+		contenido += '<p>' + getEventTitle(event) + '</p>'
+		# contenido += '<a href="/events/view/' + getEventId(event) + '">'
+		contenido += '<a ng-click="openModal(\'events/view/' + getEventId(event) + '\')">'
 		contenido += '<p class="text-right"><i class="icon-expand-alt"></i> info</p>'
 		contenido += '</a>'
+		contenido += '</div>'
+		contenido = $compile(contenido)($scope)
 		# if getEventDescription(event) then contenido += '<p>' + getEventDescription(event) + '</p>'
 		# if getEventDescription(event) 
 			# contenido += '<p>' + getEventDescription(event) + '</p>'
@@ -236,14 +240,14 @@ angular.module('RadarApp').controller 'EventsController'
 			# contenido += '<p>No description</p>'
 		
 		infowindow = new google.maps.InfoWindow {
-			content: contenido  
-			# content: contenido[0]
+			# content: contenido  
+			content: contenido[0]
 		}
 		
 		# Se agrega el listener del marker sobre el evento click 
 		google.maps.event.addListener marker, 'click', ->
 			infowindow.open($scope.map, marker)
-
+		
 		$scope.markers.push(marker)
 
 	$scope.checkTimeTo = ->
@@ -457,6 +461,12 @@ angular.module('RadarApp').controller 'EventsController'
 	
 	$scope.viewDisplayed = ->
 		$location.path() == '/'
+	
+	$scope.openModal = (URL) ->
+		# console.log 'modal'
+		# $scope.locatAux = "events/view/52568fd2-3de8-4911-9c4d-0cf54a46329a"
+		EventView($scope, URL)
+		
 	
 	# Se inicializa el mapa
 	# $scope.inicializar() # Se lo quito por ahora pero debería centrar el mapa en el lugar del visitante..
