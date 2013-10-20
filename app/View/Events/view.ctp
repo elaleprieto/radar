@@ -1,3 +1,7 @@
+<?php
+App::uses('CakeTime', 'Utility');
+?>
+
 <div class="row">
 	<div class="col-sm-3">
 		<?php echo $this->Html->image('logos/logoBetaVertical.png', array('class' => 'img-responsive')); ?>
@@ -15,14 +19,14 @@
 		</div>
 		<div class="row">
 			<div class="col-sm-12">
-				<p><?php echo __('Start'); ?></p>
-				<p><?php echo h($event['Event']['date_start']); ?></p>
+				<h3><?php echo __('Date Start'); ?></h3>
+				<p><?php echo CakeTime::format($event['Event']['date_start'], '%d/%m/%Y %H:%M'); ?></p>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-sm-12">
-				<p><?php echo __('End'); ?></p>
-				<p><?php echo h($event['Event']['date_end']); ?></p>
+				<h3><?php echo __('Date End'); ?></h3>
+				<p><?php echo CakeTime::format($event['Event']['date_end'], '%d/%m/%Y %H:%M'); ?></p>
 			</div>
 		</div>
 	</div>

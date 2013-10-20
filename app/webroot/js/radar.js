@@ -1,4 +1,4 @@
-/*! radar 2013-10-11 */
+/*! radar 2013-10-20 */
 (function() {
     "use strict";
     var a, b = [].indexOf || function(a) {
@@ -347,7 +347,7 @@
     jQuery(function() {
         var a, b;
         return a = $("body").height(), b = $("body").width(), $("#categoryScroll").css("height", .5 * a), 
-        $(".modal-body").css("height", .6 * a), $(".modal-content").css("width", .5 * b), 
+        $(".modal-body").css("height", .6 * a), $(".modal-dialog, .modal-content").css("width", .5 * b), 
         $(window).resize(function() {
             return a = $("body").height(), b = $("body").width(), $("#categoryScroll").css("height", .5 * a), 
             $(".modal-body").css("height", .6 * a), $(".modal-content").css("width", .5 * b);

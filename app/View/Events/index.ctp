@@ -334,13 +334,13 @@ if (AuthComponent::user('location')) {
 		    </div>
 		</div>
 	</div>
-	<div id="view" ng-hide="viewDisplayed()">
+	<!-- <div id="view" ng-hide="viewDisplayed()">
 		<div id="viewTitle">
 			<button type="button" class="close" ng-click="resetView($event)">&times;</button>
 			<p><strong>Información del Evento</strong></p>
 		</div>
 		<ng-view></ng-view>
-	</div>
+	</div> -->
 	
 	<div>
 		<div class="modal fade" id="eventViewModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Radar 0.2\n"
-"POT-Creation-Date: 2013-10-08 17:00-0300\n"
+"POT-Creation-Date: 2013-10-20 19:41-0300\n"
 "PO-Revision-Date: \n"
-"Last-Translator: ale prieto <aleprieto@gmail.com>\n"
+"Last-Translator: Ale Prieto <aleprieto@gmail.com>\n"
 "Language-Team: Radar Cultural <contacto@colectivolibre.com.ar>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -15,23 +15,23 @@ msgstr ""
 
 # LANGUAGE translation of CakePHP Application
 # Copyright YEAR NAME <EMAIL@ADDRESS>
-#: Controller/CategoriesController.php:65;97;123
+#: Controller/CategoriesController.php:69;101;127
 msgid "Invalid category"
 msgstr "Categoría inválida"
 
-#: Controller/CategoriesController.php:80;101
+#: Controller/CategoriesController.php:84;105
 msgid "The category has been saved"
 msgstr "La categoría ha sido guardada"
 
-#: Controller/CategoriesController.php:83;104
+#: Controller/CategoriesController.php:87;108
 msgid "The category could not be saved. Please, try again."
 msgstr "La categoría no ha sido guardada. Intente nuevamente."
 
-#: Controller/CategoriesController.php:127
+#: Controller/CategoriesController.php:131
 msgid "Category deleted"
 msgstr "Categoría eliminada"
 
-#: Controller/CategoriesController.php:130
+#: Controller/CategoriesController.php:134
 msgid "Category was not deleted"
 msgstr "La categoría no ha sido eliminada"
 
@@ -55,23 +55,23 @@ msgstr "Categoría borrada"
 msgid "Categories event was not deleted"
 msgstr "La categoría no ha sido borrada"
 
-#: Controller/EventsController.php:61;117;146
+#: Controller/EventsController.php:63;119;148
 msgid "Invalid event"
 msgstr "Evento inválido"
 
-#: Controller/EventsController.php:121
+#: Controller/EventsController.php:123
 msgid "The event has been saved"
 msgstr "El evento ha sido guardado"
 
-#: Controller/EventsController.php:124
+#: Controller/EventsController.php:126
 msgid "The event could not be saved. Please, try again."
 msgstr "El evento no ha sido guardado. Por favor, intente nuevamente."
 
-#: Controller/EventsController.php:150
+#: Controller/EventsController.php:152
 msgid "Event deleted"
 msgstr "Evento borrado"
 
-#: Controller/EventsController.php:153
+#: Controller/EventsController.php:155
 msgid "Event was not deleted"
 msgstr "El evento no ha sido borrado"
 
@@ -118,7 +118,7 @@ msgstr "Enviar"
 #: View/CategoriesEvents/index.ctp:10;46
 #: View/CategoriesEvents/view.ctp:32
 #: View/Events/edit.ctp:20
-#: View/Events/view.ctp:62
+#: View/Events/view.ctp:95
 #: View/Places/add.ctp:15
 #: View/Places/edit.ctp:16
 #: View/Places/index.ctp:12;46
@@ -140,7 +140,7 @@ msgstr "Acciones"
 #: View/CategoriesEvents/index.ctp:49
 #: View/CategoriesEvents/view.ctp:38
 #: View/Events/edit.ctp:25
-#: View/Events/view.ctp:68
+#: View/Events/view.ctp:101
 msgid "List Categories"
 msgstr "Listar Categorías"
 
@@ -153,7 +153,7 @@ msgstr "Listar Categorías"
 #: View/CategoriesEvents/index.ctp:51
 #: View/CategoriesEvents/view.ctp:40
 #: View/Events/edit.ctp:24
-#: View/Events/view.ctp:66
+#: View/Events/view.ctp:99
 #: View/Places/add.ctp:19
 #: View/Places/edit.ctp:21
 #: View/Places/index.ctp:49
@@ -169,7 +169,7 @@ msgstr "Listar Eventos"
 #: View/CategoriesEvents/edit.ctp:22
 #: View/CategoriesEvents/index.ctp:52
 #: View/CategoriesEvents/view.ctp:41
-#: View/Events/view.ctp:67
+#: View/Events/view.ctp:100
 #: View/Places/add.ctp:20
 #: View/Places/edit.ctp:22
 #: View/Places/index.ctp:50
@@ -207,7 +207,7 @@ msgstr "Eliminar"
 #: View/CategoriesEvents/index.ctp:26
 #: View/CategoriesEvents/view.ctp:35
 #: View/Events/edit.ctp:23
-#: View/Events/view.ctp:65
+#: View/Events/view.ctp:98
 #: View/Places/edit.ctp:19
 #: View/Places/index.ctp:26
 #: View/Places/view.ctp:45;88
@@ -219,7 +219,7 @@ msgid "Are you sure you want to delete # %s?"
 msgstr "¿Está seguro que desea eliminar # %s?"
 
 #: View/Categories/index.ctp:2
-#: View/Events/index.ctp:188
+#: View/Events/index.ctp:196
 msgid "Categories"
 msgstr "Categorías"
 
@@ -278,19 +278,19 @@ msgstr "siguiente"
 #: View/CategoriesEvents/index.ctp:50
 #: View/CategoriesEvents/view.ctp:39
 #: View/Events/edit.ctp:26
-#: View/Events/view.ctp:69
+#: View/Events/view.ctp:102
 msgid "New Category"
 msgstr "Nueva Categoría"
 
 #: View/Categories/view.ctp:2
 #: View/CategoriesEvents/view.ctp:9
-#: View/Events/view.ctp:49
+#: View/Events/view.ctp:82
 msgid "Category"
 msgstr "Categoría"
 
 #: View/Categories/view.ctp:4;47
 #: View/CategoriesEvents/view.ctp:4
-#: View/Events/view.ctp:4
+#: View/Events/view.ctp:37
 #: View/Places/view.ctp:4;57
 #: View/Users/view.ctp:4;52
 msgid "Id"
@@ -311,7 +311,7 @@ msgstr "Ordenar"
 
 #: View/Categories/view.ctp:19;54
 #: View/CategoriesEvents/view.ctp:19
-#: View/Events/view.ctp:39
+#: View/Events/view.ctp:72
 #: View/Places/view.ctp:29;64
 #: View/Users/view.ctp:24;55
 msgid "Created"
@@ -319,7 +319,7 @@ msgstr "Creado"
 
 #: View/Categories/view.ctp:24;55
 #: View/CategoriesEvents/view.ctp:24
-#: View/Events/view.ctp:44
+#: View/Events/view.ctp:77
 #: View/Places/view.ctp:34;65
 #: View/Users/view.ctp:29;56
 msgid "Modified"
@@ -335,38 +335,38 @@ msgid "Related Events"
 msgstr "Eventos relacionados"
 
 #: View/Categories/view.ctp:48
-#: View/Events/view.ctp:9
+#: View/Events/view.ctp:42
 #: View/Places/view.ctp:58
 #: View/Users/view.ctp:53
 msgid "Title"
 msgstr "Título"
 
 #: View/Categories/view.ctp:49
-#: View/Events/view.ctp:14
+#: View/Events/view.ctp:47
 #: View/Places/view.ctp:19;59
 msgid "Lat"
 msgstr "Latitud"
 
 #: View/Categories/view.ctp:50
-#: View/Events/view.ctp:19
+#: View/Events/view.ctp:52
 #: View/Places/view.ctp:24;60
 msgid "Long"
 msgstr "Longitud"
 
 #: View/Categories/view.ctp:51
-#: View/Events/view.ctp:24
+#: View/Events/view.ctp:57
 #: View/Places/view.ctp:61
 msgid "Status"
 msgstr "Estado"
 
 #: View/Categories/view.ctp:52
-#: View/Events/view.ctp:29
+#: View/Events/view.ctp:62
 #: View/Places/view.ctp:62
 msgid "Date Start"
 msgstr "Fecha de Inicio"
 
 #: View/Categories/view.ctp:53
-#: View/Events/view.ctp:34
+#: View/Events/view.ctp:67
 #: View/Places/view.ctp:63
 msgid "Date End"
 msgstr "Fecha de Finalización"
@@ -410,7 +410,7 @@ msgid "Categories Event"
 msgstr "Categoría"
 
 #: View/CategoriesEvents/view.ctp:14
-#: View/Events/view.ctp:2
+#: View/Events/view.ctp:35
 msgid "Event"
 msgstr "Evento"
 
@@ -419,7 +419,6 @@ msgid "Delete Categories Event"
 msgstr "Borrar Categoría"
 
 #: View/Events/add.ctp:52
-#: View/Events/index.ctp:267
 msgid "Add Event"
 msgstr "Agregar Evento"
 
@@ -446,12 +445,12 @@ msgid "foto"
 msgstr ""
 
 #: View/Events/edit.ctp:4
-#: View/Events/view.ctp:64
+#: View/Events/view.ctp:97
 msgid "Edit Event"
 msgstr "Editar Evento"
 
 #: View/Events/edit.ctp:27
-#: View/Events/view.ctp:70
+#: View/Events/view.ctp:103
 #: View/Places/add.ctp:18
 #: View/Places/edit.ctp:20
 #: View/Places/view.ctp:46
@@ -459,66 +458,83 @@ msgid "List Places"
 msgstr "Listar Lugares"
 
 #: View/Events/edit.ctp:28
-#: View/Events/view.ctp:71
+#: View/Events/view.ctp:104
 #: View/Places/index.ctp:48
 #: View/Places/view.ctp:47
 msgid "New Place"
 msgstr "Nuevo Lugar"
 
-#: View/Events/index.ctp:142
+#: View/Events/index.ctp:144
 msgid "Region"
 msgstr "Región"
 
-#: View/Events/index.ctp:147
+#: View/Events/index.ctp:149
 msgid "My Location"
 msgstr "Mi Ubicación"
 
-#: View/Events/index.ctp:158
+#: View/Events/index.ctp:160
 msgid "Is not your current location?"
 msgstr "¿No es tu ubicación actual?"
 
-#: View/Events/index.ctp:160
+#: View/Events/index.ctp:162
 msgid "Change"
 msgstr "Cambiar"
 
-#: View/Events/index.ctp:166
+#: View/Events/index.ctp:168
 msgid "City: Rome, Italy"
 msgstr "Ciudad: Roma, Italia"
 
-#: View/Events/index.ctp:169
+#: View/Events/index.ctp:171
 msgid "Search"
 msgstr "Buscar"
 
-#: View/Events/index.ctp:173
+#: View/Events/index.ctp:175
 msgid "Hide"
 msgstr "Ocultar"
 
-#: View/Events/index.ctp:257
+#: View/Events/index.ctp:247
+msgid "Sponsors"
+msgstr "Publicidades"
+
+#: View/Events/index.ctp:271
+msgid "What to do?"
+msgstr "¿Qué hacer?"
+
+#: View/Events/index.ctp:274
 msgid "Today"
 msgstr "Hoy"
 
-#: View/Events/index.ctp:260
+#: View/Events/index.ctp:277
 msgid "Tomorrow"
 msgstr "Mañana"
 
-#: View/Events/index.ctp:263
+#: View/Events/index.ctp:280
 msgid "This Week"
 msgstr "Esta semana"
 
-#: View/Events/index.ctp:287
+#: View/Events/index.ctp:306
 msgid "Map"
 msgstr "Mapa"
 
-#: View/Events/index.ctp:288
+#: View/Events/index.ctp:307
 msgid "Satellite"
 msgstr "Satélite"
 
-#: View/Events/view.ctp:54
+#: View/Events/view.ctp:18
+#, fuzzy
+msgid "Start"
+msgstr "Fecha de Inicio"
+
+#: View/Events/view.ctp:24
+msgid "End"
+msgstr "Fin"
+
+#: View/Events/view.ctp:87
 #: View/Places/view.ctp:2
 msgid "Place"
 msgstr "Lugar"
 
-#: View/Events/view.ctp:65
+#: View/Events/view.ctp:98
 msgid "Delete Event"
 msgstr "Borrar Evento"
 
