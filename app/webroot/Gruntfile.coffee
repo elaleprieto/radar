@@ -9,8 +9,7 @@ module.exports = (grunt) ->
 			},
 			build: {
 				src: ['js/app.js'
-					, 'js/controllers/events_controller.js'
-					, 'js/controllers/categories_controller.js'
+					, 'js/controllers/*.js'
 					, 'js/directives.js'
 					, 'js/filters.js'
 					# , 'js/rutes.js'
@@ -32,8 +31,7 @@ module.exports = (grunt) ->
 					}
 				}
 				src: ['js/app.js'
-					, 'js/controllers/events_controller.js'
-					, 'js/controllers/categories_controller.js'
+					, 'js/controllers/*.js'
 					, 'js/directives.js'
 					, 'js/filters.js'
 					# , 'js/rutes.js'

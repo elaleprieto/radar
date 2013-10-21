@@ -74,6 +74,21 @@ class Category extends AppModel {
 			'deleteQuery' => '',
 			'insertQuery' => ''
 		),
+		'Place' => array(
+			'className' => 'Place',
+			'joinTable' => 'categories_places',
+			'foreignKey' => 'category_id',
+			'associationForeignKey' => 'place_id',
+			'unique' => true,
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'finderQuery' => '',
+			'deleteQuery' => '',
+			'insertQuery' => ''
+		),
 	);
 
 }

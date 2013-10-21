@@ -80,7 +80,7 @@ class UsersController extends AppController {
 		}
 	}
 
-	public function isAuthorized($user) {
+	public function isAuthorized($user = null) {
 		// All registered users can add posts
 		// if ($this -> action === 'add') {
 		// return true;

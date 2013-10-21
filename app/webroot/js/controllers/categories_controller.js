@@ -12,11 +12,11 @@
       Category.get({}, function(response) {
         return $scope.categorias = response.categories;
       });
-      $scope.addCategoryToEvent = function(category) {
+      $scope.categoryToogle = function(category) {
         if (!category.highlight) {
-          return $scope.$parent.eventCategoriesAdd(category);
+          return $scope.$parent.categoriesAdd(category);
         } else {
-          return $scope.$parent.eventCategoriesDelete(category);
+          return $scope.$parent.categoriesDelete(category);
         }
       };
       $scope.searchById = function(id) {

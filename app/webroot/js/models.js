@@ -29,6 +29,21 @@
         }
       });
     }
+  ]).factory('Place', [
+    '$resource', function($resource) {
+      return $resource('/places.json', {
+        callback: 'JSON_CALLBACK'
+      }, {
+        buscar: {
+          method: 'GET'
+        },
+        get: {
+          cache: true,
+          method: 'GET',
+          url: '/places/get.json'
+        }
+      });
+    }
   ]);
 
 }).call(this);

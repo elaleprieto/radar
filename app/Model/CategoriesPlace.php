@@ -1,11 +1,12 @@
 <?php
 App::uses('AppModel', 'Model');
 /**
- * Place Model
+ * CategoriesPlace Model
  *
- * @property Event $Event
+ * @property Category $Category
+ * @property Place $Place
  */
-class Place extends AppModel {
+class CategoriesPlace extends AppModel {
 
 /**
  * Validation rules
@@ -13,9 +14,9 @@ class Place extends AppModel {
  * @var array
  */
 	public $validate = array(
-		'name' => array(
-			'notempty' => array(
-				'rule' => array('notempty'),
+		'category_id' => array(
+			'numeric' => array(
+				'rule' => array('numeric'),
 				//'message' => 'Your custom message here',
 				//'allowEmpty' => false,
 				//'required' => false,
@@ -23,9 +24,9 @@ class Place extends AppModel {
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
-		'sort' => array(
-			'numeric' => array(
-				'rule' => array('numeric'),
+		'place_id' => array(
+			'uuid' => array(
+				'rule' => array('uuid'),
 				//'message' => 'Your custom message here',
 				//'allowEmpty' => false,
 				//'required' => false,
@@ -38,43 +39,24 @@ class Place extends AppModel {
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
 
 /**
- * hasMany associations
+ * belongsTo associations
  *
  * @var array
  */
-	public $hasMany = array(
-		'Event' => array(
-			'className' => 'Event',
-			'foreignKey' => 'place_id',
-			'dependent' => false,
-			'conditions' => '',
-			'fields' => '',
-			'order' => '',
-			'limit' => '',
-			'offset' => '',
-			'exclusive' => '',
-			'finderQuery' => '',
-			'counterQuery' => ''
-		)
-	);
-	
-		
-	public $hasAndBelongsToMany = array(
+	public $belongsTo = array(
 		'Category' => array(
 			'className' => 'Category',
-			'joinTable' => 'categories_places',
-			'foreignKey' => 'place_id',
-			'associationForeignKey' => 'category_id',
-			'unique' => true,
+			'foreignKey' => 'category_id',
 			'conditions' => '',
 			'fields' => '',
-			'order' => '',
-			'limit' => '',
-			'offset' => '',
-			'finderQuery' => '',
-			'deleteQuery' => '',
-			'insertQuery' => ''
+			'order' => ''
 		),
+		'Place' => array(
+			'className' => 'Place',
+			'foreignKey' => 'place_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
+		)
 	);
-
 }

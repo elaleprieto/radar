@@ -70,11 +70,11 @@
             $this -> layout = 'default';
         }
 
-        public function isAuthorized($user) {
+        public function isAuthorized($user = null) {
             // Admin can access every action
-            if (isset($user['role']) && $user['role'] === 'admin') {
-                return true;
-            }
+            // if (isset($user['role']) && $user['role'] === 'admin') {
+                // return true;
+            // }
 
             // Default deny
             return false;

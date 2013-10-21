@@ -17,7 +17,7 @@
             $this -> Auth -> allow('get', 'index', 'view');
         }
 		
-		public function isAuthorized($user) {
+		public function isAuthorized($user = null) {
 		    # All registered users can add events
 		    if ($this->action === 'add') {
 		        return true;
@@ -37,35 +37,7 @@
 		 *  /authentication
 		**************************************************************************************************************/
 		
-
-        /**
-         * index method
-         *
-         * @return void
-         */
-        public function index() {
-        	$this->layout = 'index';
-            $this->Event->Category->recursive = -1;
-            $categories = $this->Event->Category->find('list', array('fields' => 'name'));
-            $categorias = $this -> Event -> Category -> find('all', array('order'=>'Category.name ASC'));
-            $this -> set(compact('categories', 'categorias'));
-        }
-
-        /**
-         * view method
-         *
-         * @throws NotFoundException
-         * @param string $id
-         * @return void
-         */
-        public function view($id = null) {
-            if (!$this -> Event -> exists($id)) {
-                throw new NotFoundException(__('Invalid event'));
-            }
-            $options = array('conditions' => array('Event.' . $this -> Event -> primaryKey => $id));
-            $this -> set('event', $this -> Event -> find('first', $options));
-        }
-
+		
         /**
          * add method
          *
@@ -106,6 +78,35 @@
 				$this->render();
             }
         }
+
+        /**
+         * index method
+         *
+         * @return void
+         */
+        public function index() {
+        	$this->layout = 'index';
+            $this->Event->Category->recursive = -1;
+            $categories = $this->Event->Category->find('list', array('fields' => 'name'));
+            $categorias = $this -> Event -> Category -> find('all', array('order'=>'Category.name ASC'));
+            $this -> set(compact('categories', 'categorias'));
+        }
+
+        /**
+         * view method
+         *
+         * @throws NotFoundException
+         * @param string $id
+         * @return void
+         */
+        public function view($id = null) {
+            if (!$this -> Event -> exists($id)) {
+                throw new NotFoundException(__('Invalid event'));
+            }
+            $options = array('conditions' => array('Event.' . $this -> Event -> primaryKey => $id));
+            $this -> set('event', $this -> Event -> find('first', $options));
+        }
+
 
         /**
          * edit method

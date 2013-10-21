@@ -17,7 +17,7 @@ class CategoriesController extends AppController {
         $this -> Auth -> allow('index');
     }
 	
-	public function isAuthorized($user) {
+	public function isAuthorized($user = null) {
 	    # All registered users can add events
 	    if ($this->action === 'index') {
 	        return true;

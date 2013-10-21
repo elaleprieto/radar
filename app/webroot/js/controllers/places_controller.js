@@ -5,22 +5,27 @@
 
 
 (function() {
-  angular.module('RadarApp').controller('EventsController', [
-    '$http', '$location', '$scope', '$timeout', '$compile', 'Event', 'EventView', function($http, $location, $scope, $timeout, $compile, Event, EventView) {
+  angular.module('RadarApp').controller('PlacesController', [
+    '$http', '$location', '$scope', '$timeout', '$compile', 'Place', function($http, $location, $scope, $timeout, $compile, Place) {
       /* ***************************************************************************************************************
       			Inicialización de Objetos
       	***************************************************************************************************************
       */
 
-      var date, findResult, getEventCategoryIcon, getEventDescription, getEventId, getEventTitle, setUserLocationString, userLastLocationString, userMapCenter, userMapTypeId, userMapZoom;
-      $scope.eventInterval = 1;
+      var date, findResult, getPlaceCategoryIcon, getPlaceDescription, getPlaceId, getPlaceTitle, setUserLocationString, userLastLocationString, userMapCenter, userMapTypeId, userMapZoom;
+      $scope.placeInterval = 1;
       $scope.user = {};
-      $scope.eventCategory = [];
+      $scope.placeCategory = [];
       date = new Date();
       $scope.minutoEnMilisegundos = 60 * 1000;
       $scope.diaEnMilisegundos = 24 * 60 * $scope.minutoEnMilisegundos;
-      $scope.event = {};
-      $scope.event.categories = [];
+      $scope.place = {};
+      $scope.place.accessibility_parking = 0;
+      $scope.place.accessibility_ramp = 0;
+      $scope.place.accessibility_equipment = 0;
+      $scope.place.accessibility_signage = 0;
+      $scope.place.accessibility_braille = 0;
+      $scope.place.categories = [];
       $scope.capital = new google.maps.LatLng(-34.603, -58.382);
       $scope.cordoba = new google.maps.LatLng(-31.388813, -64.179726);
       $scope.santafe = new google.maps.LatLng(-31.625906, -60.696774);
@@ -69,62 +74,45 @@
       $scope.markers = [];
       $scope.geocoder = new google.maps.Geocoder();
       /* ***************************************************************************************************************
-      			Eventos
+      			Places
       			Aquí se registran los eventos para los objetos de la vista
       	***************************************************************************************************************
       */
 
-      $scope.$watch('eventCategory.length', function() {
-        return $scope.eventsUpdate();
+      $scope.$watch('placeCategory.length', function() {
+        return $scope.placesUpdate();
       });
-      $scope.$watch('eventInterval', function() {
-        return $scope.eventsUpdate();
+      $scope.$watch('placeInterval', function() {
+        return $scope.placesUpdate();
       });
-      $scope.$watch('eventos', function() {
+      $scope.$watch('places', function() {
         $scope.deleteOverlays();
-        angular.forEach($scope.eventos, function(event, key) {
+        angular.forEach($scope.places, function(place, key) {
           var latlng;
-          latlng = new google.maps.LatLng(event.Event.lat, event.Event.long);
-          return $scope.createMarker(event, latlng);
+          latlng = new google.maps.LatLng(place.Place.lat, place.Place.long);
+          return $scope.createMarker(place, latlng);
         });
         return $scope.showOverlays();
       }, true);
-      $scope.$watch('event.date_from', function(newValue) {
-        if (newValue != null) {
-          $('#date_to').datepicker('setDate', newValue);
-          $('#date_to').datepicker('setStartDate', newValue);
-          $('#date_to').datepicker('setEndDate', new Date(newValue.getTime() + (3 * $scope.diaEnMilisegundos)));
-          return $scope.event.date_to = newValue;
-        }
-      });
-      $scope.$watch('event.time_from', function(newValue) {
-        if (newValue != null) {
-          return $scope.checkTimeTo();
-        }
-      });
-      $scope.$watch('event.time_to', function(newValue) {
-        if (newValue != null) {
-          return $scope.checkTimeTo();
-        }
-      });
       $scope.$watch('user.locationAux', function(location) {
         if ((userMapCenter == null) && (location != null) && location.length > 0) {
           return $scope.setLocationByUserLocation(location);
         }
       });
       google.maps.event.addListener($scope.map, 'dragend', function() {
-        $scope.eventsUpdate();
+        console.log($scope.map);
+        $scope.placesUpdate();
         return $scope.saveUserMapCenter();
       });
       google.maps.event.addListener($scope.map, 'tilesloaded', function() {
-        return $scope.eventsUpdate();
+        return $scope.placesUpdate();
       });
       google.maps.event.addListener($scope.map, 'zoom_changed', function() {
-        $scope.eventsUpdate();
+        $scope.placesUpdate();
         return $scope.saveUserMapZoom();
       });
       google.maps.event.addListener($scope.map, 'position_changed', function() {
-        return $scope.eventsUpdate();
+        return $scope.placesUpdate();
       });
       /* *************************************************************************************************************** 
       			Funciones
@@ -132,13 +120,28 @@
       	***************************************************************************************************************
       */
 
+      $scope.accessibilityParkingToogle = function() {
+        return $scope.place.accessibility_parking = ++$scope.place.accessibility_parking % 3;
+      };
+      $scope.accessibilityRampToogle = function() {
+        return $scope.place.accessibility_ramp = ++$scope.place.accessibility_ramp % 3;
+      };
+      $scope.accessibilityEquipmentToogle = function() {
+        return $scope.place.accessibility_equipment = ++$scope.place.accessibility_equipment % 3;
+      };
+      $scope.accessibilitySignageToogle = function() {
+        return $scope.place.accessibility_signage = ++$scope.place.accessibility_signage % 3;
+      };
+      $scope.accessibilityBrailleToogle = function() {
+        return $scope.place.accessibility_braille = ++$scope.place.accessibility_braille % 3;
+      };
       $scope.addAddressToMap = function(response, status) {
         var icon;
         if (!response || response.length === 0) {
           return this;
         }
-        $scope.event.lat = response[0].geometry.location.lat();
-        $scope.event.long = response[0].geometry.location.lng();
+        $scope.place.lat = response[0].geometry.location.lat();
+        $scope.place.long = response[0].geometry.location.lng();
         $scope.map.setCenter(response[0].geometry.location);
         $scope.map.setZoom(13);
         icon = new google.maps.MarkerImage("http://gmaps-samples.googlecode.com/svn/trunk/markers/blue/blank.png", new google.maps.Size(20, 34), new google.maps.Point(0, 0), new google.maps.Point(10, 34));
@@ -168,7 +171,7 @@
             location = $scope.locationDefault;
         }
         $scope.map.setCenter(location);
-        $scope.eventsUpdate();
+        $scope.placesUpdate();
         $scope.saveUserMapCenter();
         return $scope.saveUserMapZoom();
       };
@@ -180,20 +183,20 @@
           return setUserLocationString(response[0]);
         }
       };
-      $scope.createMarker = function(event, latlng) {
+      $scope.createMarker = function(place, latlng) {
         var contenido, icon, infowindow, marker;
-        icon = new google.maps.MarkerImage('/img/map-marker/' + getEventCategoryIcon(event), new google.maps.Size(25, 26), new google.maps.Point(0, 0), new google.maps.Point(10, 34));
+        icon = new google.maps.MarkerImage('/img/map-marker/' + getPlaceCategoryIcon(place), new google.maps.Size(25, 26), new google.maps.Point(0, 0), new google.maps.Point(10, 34));
         marker = new google.maps.Marker({
-          eventId: getEventId(event),
+          placeId: getPlaceId(place),
           map: $scope.map,
           icon: icon,
           position: latlng,
-          title: getEventTitle(event),
+          title: getPlaceTitle(place),
           zIndex: Math.round(latlng.lat() * -100000) << 5
         });
         contenido = '<div>';
-        contenido += '<p>' + getEventTitle(event) + '</p>';
-        contenido += '<a ng-click="openModal(\'events/view/' + getEventId(event) + '\')">';
+        contenido += '<p>' + getPlaceTitle(place) + '</p>';
+        contenido += '<a ng-click="openModal(\'places/view/' + getPlaceId(place) + '\')">';
         contenido += '<p class="text-right"><i class="icon-expand-alt"></i> info</p>';
         contenido += '</a>';
         contenido += '</div>';
@@ -201,34 +204,10 @@
         infowindow = new google.maps.InfoWindow({
           content: contenido[0]
         });
-        google.maps.event.addListener(marker, 'click', function() {
+        google.maps.place.addListener(marker, 'click', function() {
           return infowindow.open($scope.map, marker);
         });
         return $scope.markers.push(marker);
-      };
-      $scope.checkTimeTo = function() {
-        var dateEnd, dateEndAux, dateFrom, dateStart, dateTo, timeFrom, timeTo;
-        if ($scope.event.time_from != null) {
-          if ($scope.event.date_from === $scope.event.date_to) {
-            dateFrom = $scope.event.date_from;
-            dateTo = $scope.event.date_to;
-            timeFrom = $scope.event.time_from.split(':');
-            dateStart = new Date(dateFrom.getFullYear(), dateFrom.getMonth(), dateFrom.getDate(), timeFrom[0], timeFrom[1]);
-            dateEnd = new Date(dateStart.getTime() + (15 * $scope.minutoEnMilisegundos));
-            if ($scope.event.time_to == null) {
-              return $scope.event.time_to = dateEnd.getHours() + ':' + dateEnd.getMinutes();
-            } else {
-              timeTo = $scope.event.time_to.split(':');
-              dateEndAux = new Date(dateTo.getFullYear(), dateTo.getMonth(), dateTo.getDate(), timeTo[0], timeTo[1]);
-              if (dateEnd.getTime() > dateEndAux.getTime()) {
-                $scope.event.time_to = dateEnd.getHours() + ':' + dateEnd.getMinutes();
-                if (dateEnd.getMinutes() === 0) {
-                  return $scope.event.time_to += '0';
-                }
-              }
-            }
-          }
-        }
       };
       $scope.clearOverlays = function() {
         return $scope.setAllMap(null);
@@ -238,38 +217,38 @@
         return $scope.markers = [];
       };
       $scope.categoriesAdd = function(category) {
-        if ($scope.event.categories.length < 3) {
-          $scope.event.categories.push(category.Category.id);
+        if ($scope.place.categories.length < 3) {
+          $scope.place.categories.push(category.Category.id);
           return category.highlight = true;
         }
       };
       $scope.categoriesDelete = function(category) {
         var index;
-        index = $scope.event.categories.indexOf(category.Category.id);
+        index = $scope.place.categories.indexOf(category.Category.id);
         if (index >= 0) {
-          $scope.event.categories.splice(index, 1);
+          $scope.place.categories.splice(index, 1);
           return category.highlight = false;
         }
       };
-      $scope.eventsUpdate = function() {
+      $scope.placesUpdate = function() {
         var bounds, ne, options, sw;
         if ($scope.map.getBounds() != null) {
           bounds = $scope.map.getBounds();
           ne = bounds.getNorthEast();
           sw = bounds.getSouthWest();
           options = {
-            "eventCategory": $scope.eventCategory,
-            "eventInterval": $scope.eventInterval,
+            "placeCategory": $scope.placeCategory,
+            "placeInterval": $scope.placeInterval,
             "neLat": ne.lat(),
             "neLong": ne.lng(),
             "swLat": sw.lat(),
             "swLong": sw.lng()
           };
           console.log(options);
-          return Event.get({
+          return Place.get({
             params: options
           }, function(response) {
-            return $scope.eventos = response.events;
+            return $scope.places = response.places;
           });
         }
       };
@@ -285,7 +264,7 @@
           });
         }
       };
-      $scope.resetView = function(event) {
+      $scope.resetView = function(place) {
         console.log($('ng-view').innerHtml);
         return $location.path('/');
       };
@@ -332,12 +311,12 @@
       $scope.setAddress = function() {
         var request;
         request = new Object();
-        request.address = $scope.event.address;
+        request.address = $scope.place.address;
         request.region = 'AR';
         return $scope.geocoder.geocode(request, $scope.addAddressToMap);
       };
-      $scope.setEventInterval = function(interval) {
-        return $scope.eventInterval = interval;
+      $scope.setPlaceInterval = function(interval) {
+        return $scope.placeInterval = interval;
       };
       $scope.setLocation = function() {
         $scope.map.setZoom($scope.zoomCity);
@@ -347,7 +326,7 @@
             var location;
             location = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
             $scope.map.setCenter(location);
-            return $scope.eventsUpdate();
+            return $scope.placesUpdate();
           }, function() {
             $scope.errorLocation = 'Debes autorizar la captura de tu ubicación';
             $scope.setLocationDefault();
@@ -386,31 +365,31 @@
       };
       $scope.submit = function() {
         $scope.cargando = 'Cargando.';
-        if (!$scope.eventForm.$valid) {
+        if (!$scope.placeForm.$valid) {
           $scope.cargando = null;
           return this;
         }
         $scope.cargando = 'Cargando..';
-        if ($scope.event.categories.length <= 0) {
+        if ($scope.place.categories.length <= 0) {
           $scope.cargando = 'Error: Debe seleccionar al menos una categoría';
           return console.error('Error: Debe seleccionar al menos una categoría');
         }
         $scope.cargando = 'Cargando...';
-        return $http.post('/events/add', {
-          Event: $scope.event,
-          Category: $scope.event.categories
+        return $http.post('/places/add', {
+          Place: $scope.place,
+          Category: $scope.place.categories
         }).success(function(data) {
-          $scope.cargando = '¡Evento guardado!';
-          return window.location.pathname = 'events';
+          $scope.cargando = '¡Placeo guardado!';
+          return window.location.pathname = 'places';
         }).error(function() {
-          return $scope.cargando = 'Ocurrió un error guardando el evento';
+          return $scope.cargando = 'Ocurrió un error guardando el place';
         });
       };
       $scope.viewDisplayed = function() {
         return $location.path() === '/';
       };
       $scope.openModal = function(URL) {
-        return EventView($scope, URL);
+        return PlaceView($scope, URL);
       };
       /* *************************************************************************************************************** 
       			Funciones Auxiliares
@@ -429,17 +408,17 @@
           return null;
         }
       };
-      getEventCategoryIcon = function(event) {
-        return event.Category.icon;
+      getPlaceCategoryIcon = function(place) {
+        return place.Category.icon;
       };
-      getEventId = function(event) {
-        return event.Event.id;
+      getPlaceId = function(place) {
+        return place.Place.id;
       };
-      getEventTitle = function(event) {
-        return event.Event.title;
+      getPlaceTitle = function(place) {
+        return place.Place.title;
       };
-      getEventDescription = function(event) {
-        return event.Event.description;
+      getPlaceDescription = function(place) {
+        return place.Place.description;
       };
       return setUserLocationString = function(location) {
         var city, country, results;

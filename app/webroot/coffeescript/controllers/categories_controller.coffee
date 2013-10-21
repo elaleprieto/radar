@@ -10,12 +10,12 @@ angular.module('RadarApp').controller 'CategoriesController'
 	Category.get {}, (response) ->
 		$scope.categorias = response.categories
 	
-	# addCategoryToEvent(category): agrega la categoria al evento padre.
-	$scope.addCategoryToEvent = (category) ->
+	# categoryToogle(category): agrega o elimina la categoria al padre.
+	$scope.categoryToogle = (category) ->
 		if not category.highlight
-			$scope.$parent.eventCategoriesAdd(category)
+			$scope.$parent.categoriesAdd(category)
 		else
-			$scope.$parent.eventCategoriesDelete(category)
+			$scope.$parent.categoriesDelete(category)
 	
 	$scope.searchById = (id) ->
 		if $scope.categorias?

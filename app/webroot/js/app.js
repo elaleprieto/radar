@@ -7,8 +7,7 @@
 
   RadarApp.config([
     '$httpProvider', '$locationProvider', function($httpProvider, $locationProvider) {
-      $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
-      return $locationProvider.html5Mode(true).hashPrefix('!');
+      return $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
     }
   ]);
 
