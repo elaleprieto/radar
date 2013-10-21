@@ -6,13 +6,13 @@
 
 (function() {
   angular.module('RadarApp').controller('PlacesController', [
-    '$http', '$location', '$scope', '$timeout', '$compile', 'Place', function($http, $location, $scope, $timeout, $compile, Place) {
+    '$http', '$location', '$scope', '$timeout', '$compile', 'Place', 'PlaceView', function($http, $location, $scope, $timeout, $compile, Place, PlaceView) {
       /* ***************************************************************************************************************
       			Inicialización de Objetos
       	***************************************************************************************************************
       */
 
-      var date, findResult, getPlaceCategoryIcon, getPlaceDescription, getPlaceId, getPlaceTitle, setUserLocationString, userLastLocationString, userMapCenter, userMapTypeId, userMapZoom;
+      var date, findResult, getPlaceCategoryIcon, getPlaceDescription, getPlaceId, getPlaceName, setUserLocationString, userLastLocationString, userMapCenter, userMapTypeId, userMapZoom;
       $scope.placeInterval = 1;
       $scope.user = {};
       $scope.placeCategory = [];
@@ -191,11 +191,11 @@
           map: $scope.map,
           icon: icon,
           position: latlng,
-          title: getPlaceTitle(place),
+          title: getPlaceName(place),
           zIndex: Math.round(latlng.lat() * -100000) << 5
         });
         contenido = '<div>';
-        contenido += '<p>' + getPlaceTitle(place) + '</p>';
+        contenido += '<p>' + getPlaceName(place) + '</p>';
         contenido += '<a ng-click="openModal(\'places/view/' + getPlaceId(place) + '\')">';
         contenido += '<p class="text-right"><i class="icon-expand-alt"></i> info</p>';
         contenido += '</a>';
@@ -204,7 +204,7 @@
         infowindow = new google.maps.InfoWindow({
           content: contenido[0]
         });
-        google.maps.place.addListener(marker, 'click', function() {
+        google.maps.event.addListener(marker, 'click', function() {
           return infowindow.open($scope.map, marker);
         });
         return $scope.markers.push(marker);
@@ -414,8 +414,8 @@
       getPlaceId = function(place) {
         return place.Place.id;
       };
-      getPlaceTitle = function(place) {
-        return place.Place.title;
+      getPlaceName = function(place) {
+        return place.Place.name;
       };
       getPlaceDescription = function(place) {
         return place.Place.description;

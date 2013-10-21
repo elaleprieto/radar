@@ -3,8 +3,8 @@
 ******************************************************************************************************************* ###
 
 angular.module('RadarApp').controller 'PlacesController'
-	, ['$http', '$location', '$scope', '$timeout', '$compile', 'Place'
-		, ($http, $location, $scope, $timeout, $compile, Place) ->
+	, ['$http', '$location', '$scope', '$timeout', '$compile', 'Place', 'PlaceView'
+		, ($http, $location, $scope, $timeout, $compile, Place, PlaceView) ->
 
 	### ***************************************************************************************************************
 			Inicialización de Objetos
@@ -106,7 +106,7 @@ angular.module('RadarApp').controller 'PlacesController'
 		if not userMapCenter? and location? and location.length > 0
 			$scope.setLocationByUserLocation(location)
 
-	# google.maps.place.addListener window.map, 'bounds_changed', () ->
+	# google.maps.event.addListener window.map, 'bounds_changed', () ->
 	google.maps.event.addListener $scope.map, 'dragend', () ->
 		console.log $scope.map
 		$scope.placesUpdate()
@@ -216,7 +216,7 @@ angular.module('RadarApp').controller 'PlacesController'
 			, map: $scope.map
 			, icon: icon
 			, position: latlng
-			, title: getPlaceTitle(place)
+			, title: getPlaceName(place)
 			, zIndex: Math.round(latlng.lat()*-100000)<<5
 		
 		# $scope.placeMarkerAux = place
@@ -228,7 +228,7 @@ angular.module('RadarApp').controller 'PlacesController'
 		# console.log contenido[0].innerHTML
 		
 		contenido = '<div>'
-		contenido += '<p>' + getPlaceTitle(place) + '</p>'
+		contenido += '<p>' + getPlaceName(place) + '</p>'
 		# contenido += '<a href="/places/view/' + getPlaceId(place) + '">'
 		contenido += '<a ng-click="openModal(\'places/view/' + getPlaceId(place) + '\')">'
 		contenido += '<p class="text-right"><i class="icon-expand-alt"></i> info</p>'
@@ -247,7 +247,7 @@ angular.module('RadarApp').controller 'PlacesController'
 		}
 		
 		# Se agrega el listener del marker sobre el place click 
-		google.maps.place.addListener marker, 'click', ->
+		google.maps.event.addListener marker, 'click', ->
 			infowindow.open($scope.map, marker)
 		
 		$scope.markers.push(marker)
@@ -467,8 +467,8 @@ angular.module('RadarApp').controller 'PlacesController'
 	getPlaceId = (place) ->
 		place.Place.id
 	
-	getPlaceTitle = (place) ->
-		place.Place.title
+	getPlaceName = (place) ->
+		place.Place.name
 	
 	getPlaceDescription = (place) ->
 		place.Place.description
