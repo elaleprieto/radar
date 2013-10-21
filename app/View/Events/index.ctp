@@ -186,7 +186,7 @@ if (AuthComponent::user('location')) {
 			<div class="row">
 				<div class="col-sm-12">
 
-					<div id="categoriesContainer" class="background-white display-inline" ng-hide="hideCategories">
+					<div id="categoriesContainer" class="background-white" ng-hide="hideCategories">
 						
 						<!-- Titulo -->
 						<button type="button" class="close" ng-click="hideCategories = !hideCategories" 
@@ -199,7 +199,7 @@ if (AuthComponent::user('location')) {
 						<div id="categoryScroll">
 							<div class="row categoriaLink" ng-class="{highlight:categoria.highlight}" 
 								ng-model="categoria" ng-repeat="categoria in categorias | orderBy:'Category.name'" ng-click="show(categoria)">
-								<div class="col-sm-3">
+								<div class="col-sm-3 category-icon">
 									<img class="icono-categoria" 
 										ng-src="/img/categorias/{{categoria.Category.icon}}" />
 								</div>
