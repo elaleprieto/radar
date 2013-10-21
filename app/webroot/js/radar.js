@@ -28,15 +28,15 @@
                 return +b.Category.id === +a;
             }), b[0]) : void 0;
         }, c.show = function(a) {
-            return a.highlight = !a.highlight, a.highlight ? c.eventCategory.push(a.Category.id) : c.eventCategory.splice(c.eventCategory.indexOf(a.Category.id), 1), 
-            $.cookie.json = !0, $.cookie("eventCategory", c.eventCategory, {
+            return a.highlight = !a.highlight, a.highlight ? c.categoriesSelected.push(a.Category.id) : c.categoriesSelected.splice(c.categoriesSelected.indexOf(a.Category.id), 1), 
+            $.cookie.json = !0, $.cookie("categoriesSelected", c.categoriesSelected, {
                 expires: 360,
                 path: "/"
             });
         }, c.$watch("categorias.length", function() {
             var a;
             return !f.contains("events/add") && null != c.categorias && null != $.cookie && c.categorias.length > 0 && ($.cookie.json = !0, 
-            a = $.cookie("eventCategory"), null != a && a.length > 0) ? angular.forEach(a, function(a) {
+            a = $.cookie("categoriesSelected"), null != a && a.length > 0) ? angular.forEach(a, function(a) {
                 return c.show(c.searchById(a));
             }) : void 0;
         });
@@ -44,13 +44,13 @@
 }.call(this), function() {
     angular.module("RadarApp").controller("EventsController", [ "$http", "$location", "$scope", "$timeout", "$compile", "Event", "EventView", function(a, b, c, d, e, f, g) {
         var h, i, j, k, l, m, n, o, p, q, r;
-        return c.eventInterval = 1, c.user = {}, c.eventCategory = [], h = new Date(), c.minutoEnMilisegundos = 6e4, 
-        c.diaEnMilisegundos = 1440 * c.minutoEnMilisegundos, c.event = {}, c.event.categories = [], 
-        c.capital = new google.maps.LatLng(-34.603, -58.382), c.cordoba = new google.maps.LatLng(-31.388813, -64.179726), 
-        c.santafe = new google.maps.LatLng(-31.625906, -60.696774), c.cordobaSantafe = new google.maps.LatLng(-31.52081, -62.411469), 
-        c.locationDefault = c.cordobaSantafe, c.zoomDefault = 8, c.zoomSantafe = 12, c.zoomCordoba = 11, 
-        c.zoomCity = 15, c.ROADMAP = google.maps.MapTypeId.ROADMAP, c.SATELLITE = google.maps.MapTypeId.SATELLITE, 
-        c.opciones = {
+        return c.eventInterval = 1, c.user = {}, c.categoriesSelected = [], h = new Date(), 
+        c.minutoEnMilisegundos = 6e4, c.diaEnMilisegundos = 1440 * c.minutoEnMilisegundos, 
+        c.event = {}, c.event.categories = [], c.capital = new google.maps.LatLng(-34.603, -58.382), 
+        c.cordoba = new google.maps.LatLng(-31.388813, -64.179726), c.santafe = new google.maps.LatLng(-31.625906, -60.696774), 
+        c.cordobaSantafe = new google.maps.LatLng(-31.52081, -62.411469), c.locationDefault = c.cordobaSantafe, 
+        c.zoomDefault = 8, c.zoomSantafe = 12, c.zoomCordoba = 11, c.zoomCity = 15, c.ROADMAP = google.maps.MapTypeId.ROADMAP, 
+        c.SATELLITE = google.maps.MapTypeId.SATELLITE, c.opciones = {
             center: c.locationAux,
             mapTypeId: c.ROADMAP,
             panControl: !1,
@@ -66,7 +66,7 @@
         d(function() {
             return c.setUserLocationByLatLng(c.opciones.center);
         }, 50)), c.map = new google.maps.Map(document.getElementById("map"), c.opciones), 
-        c.markers = [], c.geocoder = new google.maps.Geocoder(), c.$watch("eventCategory.length", function() {
+        c.markers = [], c.geocoder = new google.maps.Geocoder(), c.$watch("categoriesSelected.length", function() {
             return c.eventsUpdate();
         }), c.$watch("eventInterval", function() {
             return c.eventsUpdate();
@@ -162,7 +162,7 @@
             var a, b, d, e;
             return null != c.map.getBounds() ? (a = c.map.getBounds(), b = a.getNorthEast(), 
             e = a.getSouthWest(), d = {
-                eventCategory: c.eventCategory,
+                categoriesSelected: c.categoriesSelected,
                 eventInterval: c.eventInterval,
                 neLat: b.lat(),
                 neLong: b.lng(),
@@ -277,14 +277,15 @@
 }.call(this), function() {
     angular.module("RadarApp").controller("PlacesController", [ "$http", "$location", "$scope", "$timeout", "$compile", "Place", "PlaceView", function(a, b, c, d, e, f, g) {
         var h, i, j, k, l, m, n, o, p, q, r;
-        return c.placeInterval = 1, c.user = {}, c.placeCategory = [], h = new Date(), c.minutoEnMilisegundos = 6e4, 
-        c.diaEnMilisegundos = 1440 * c.minutoEnMilisegundos, c.place = {}, c.place.accessibility_parking = 0, 
-        c.place.accessibility_ramp = 0, c.place.accessibility_equipment = 0, c.place.accessibility_signage = 0, 
-        c.place.accessibility_braille = 0, c.place.categories = [], c.capital = new google.maps.LatLng(-34.603, -58.382), 
-        c.cordoba = new google.maps.LatLng(-31.388813, -64.179726), c.santafe = new google.maps.LatLng(-31.625906, -60.696774), 
-        c.cordobaSantafe = new google.maps.LatLng(-31.52081, -62.411469), c.locationDefault = c.cordobaSantafe, 
-        c.zoomDefault = 8, c.zoomSantafe = 12, c.zoomCordoba = 11, c.zoomCity = 15, c.ROADMAP = google.maps.MapTypeId.ROADMAP, 
-        c.SATELLITE = google.maps.MapTypeId.SATELLITE, c.opciones = {
+        return c.placeInterval = 1, c.user = {}, c.categoriesSelected = [], h = new Date(), 
+        c.minutoEnMilisegundos = 6e4, c.diaEnMilisegundos = 1440 * c.minutoEnMilisegundos, 
+        c.place = {}, c.place.accessibility_parking = 0, c.place.accessibility_ramp = 0, 
+        c.place.accessibility_equipment = 0, c.place.accessibility_signage = 0, c.place.accessibility_braille = 0, 
+        c.place.categories = [], c.capital = new google.maps.LatLng(-34.603, -58.382), c.cordoba = new google.maps.LatLng(-31.388813, -64.179726), 
+        c.santafe = new google.maps.LatLng(-31.625906, -60.696774), c.cordobaSantafe = new google.maps.LatLng(-31.52081, -62.411469), 
+        c.locationDefault = c.cordobaSantafe, c.zoomDefault = 8, c.zoomSantafe = 12, c.zoomCordoba = 11, 
+        c.zoomCity = 15, c.ROADMAP = google.maps.MapTypeId.ROADMAP, c.SATELLITE = google.maps.MapTypeId.SATELLITE, 
+        c.opciones = {
             center: c.locationAux,
             mapTypeId: c.ROADMAP,
             panControl: !1,
@@ -300,7 +301,7 @@
         d(function() {
             return c.setUserLocationByLatLng(c.opciones.center);
         }, 50)), c.map = new google.maps.Map(document.getElementById("map"), c.opciones), 
-        c.markers = [], c.geocoder = new google.maps.Geocoder(), c.$watch("placeCategory.length", function() {
+        c.markers = [], c.geocoder = new google.maps.Geocoder(), c.$watch("categoriesSelected.length", function() {
             return c.placesUpdate();
         }), c.$watch("placeInterval", function() {
             return c.placesUpdate();
@@ -388,7 +389,7 @@
             var a, b, d, e;
             return null != c.map.getBounds() ? (a = c.map.getBounds(), b = a.getNorthEast(), 
             e = a.getSouthWest(), d = {
-                placeCategory: c.placeCategory,
+                categoriesSelected: c.categoriesSelected,
                 placeInterval: c.placeInterval,
                 neLat: b.lat(),
                 neLong: b.lng(),

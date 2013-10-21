@@ -15,7 +15,7 @@
       var date, findResult, getPlaceCategoryIcon, getPlaceDescription, getPlaceId, getPlaceName, setUserLocationString, userLastLocationString, userMapCenter, userMapTypeId, userMapZoom;
       $scope.placeInterval = 1;
       $scope.user = {};
-      $scope.placeCategory = [];
+      $scope.categoriesSelected = [];
       date = new Date();
       $scope.minutoEnMilisegundos = 60 * 1000;
       $scope.diaEnMilisegundos = 24 * 60 * $scope.minutoEnMilisegundos;
@@ -79,7 +79,7 @@
       	***************************************************************************************************************
       */
 
-      $scope.$watch('placeCategory.length', function() {
+      $scope.$watch('categoriesSelected.length', function() {
         return $scope.placesUpdate();
       });
       $scope.$watch('placeInterval', function() {
@@ -237,7 +237,7 @@
           ne = bounds.getNorthEast();
           sw = bounds.getSouthWest();
           options = {
-            "placeCategory": $scope.placeCategory,
+            "categoriesSelected": $scope.categoriesSelected,
             "placeInterval": $scope.placeInterval,
             "neLat": ne.lat(),
             "neLong": ne.lng(),

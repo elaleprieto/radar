@@ -162,7 +162,7 @@
 			
             if($this->request->isAjax() && isset($this->request->query['params'])) {
             	$params = json_decode($this->request->query['params']);
-                $eventCategory = isset($params->eventCategory) ? $params->eventCategory : null;
+                $eventCategory = isset($params->categoriesSelected) ? $params->categoriesSelected : null;
                 $eventInterval = isset($params->eventInterval) ? $params->eventInterval : null;
                 $neLat = isset($params->neLat) ? $params->neLat : null;
                 $neLong = isset($params->neLong) ? $params->neLong : null;

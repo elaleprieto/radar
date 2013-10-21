@@ -70,7 +70,7 @@ class PlacesController extends AppController {
 	public function get() {
 		if ($this->request->isAjax() && isset($this->request->query['params'])) {
 			$params = json_decode($this->request->query['params']);
-			$placeCategory = isset($params->placeCategory) ? $params->placeCategory : null;
+			$placeCategory = isset($params->categoriesSelected) ? $params->categoriesSelected : null;
 
 			$neLat = isset($params->neLat) ? $params->neLat : null;
 			$neLong = isset($params->neLong) ? $params->neLong : null;

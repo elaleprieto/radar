@@ -11,7 +11,7 @@ angular.module('RadarApp').controller 'EventsController'
 	*************************************************************************************************************** ###
 	$scope.eventInterval = 1
 	$scope.user = {}
-	$scope.eventCategory = []
+	$scope.categoriesSelected = []
 	date = new Date()
 	$scope.minutoEnMilisegundos = 60 * 1000
 	$scope.diaEnMilisegundos = 24 * 60 * $scope.minutoEnMilisegundos
@@ -74,7 +74,7 @@ angular.module('RadarApp').controller 'EventsController'
 	*************************************************************************************************************** ###
 	
 	# Se observan las categorías seleccionadas
-	$scope.$watch 'eventCategory.length', () ->
+	$scope.$watch 'categoriesSelected.length', () ->
 		$scope.eventsUpdate()		
 
 	# Se observa el intervalo seleccionado: Hoy, Mañana ó Próximos 7 días
@@ -201,7 +201,7 @@ angular.module('RadarApp').controller 'EventsController'
 			setUserLocationString(response[0])
 
 	# A function to create the marker and set up the event window function
-	# $scope.createMarker = (eventId, eventTitle, eventCategory, latlng) ->
+	# $scope.createMarker = (eventId, eventTitle, categoriesSelected, latlng) ->
 	$scope.createMarker = (event, latlng) ->
 		# icon = new google.maps.MarkerImage("http://gmaps-samples.googlecode.com/svn/trunk/markers/blue/blank.png"
 		icon = new google.maps.MarkerImage('/img/map-marker/' + getEventCategoryIcon(event)
@@ -306,7 +306,7 @@ angular.module('RadarApp').controller 'EventsController'
 			bounds = $scope.map.getBounds()
 			ne = bounds.getNorthEast()
 			sw = bounds.getSouthWest()
-			options = "eventCategory": $scope.eventCategory
+			options = "categoriesSelected": $scope.categoriesSelected
 				, "eventInterval": $scope.eventInterval
 				, "neLat": ne.lat()
 				, "neLong": ne.lng()

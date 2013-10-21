@@ -31,12 +31,12 @@
       $scope.show = function(categoria) {
         categoria.highlight = !categoria.highlight;
         if (categoria.highlight) {
-          $scope.eventCategory.push(categoria.Category.id);
+          $scope.categoriesSelected.push(categoria.Category.id);
         } else {
-          $scope.eventCategory.splice($scope.eventCategory.indexOf(categoria.Category.id), 1);
+          $scope.categoriesSelected.splice($scope.categoriesSelected.indexOf(categoria.Category.id), 1);
         }
         $.cookie.json = true;
-        return $.cookie("eventCategory", $scope.eventCategory, {
+        return $.cookie("categoriesSelected", $scope.categoriesSelected, {
           expires: 360,
           path: '/'
         });
@@ -46,7 +46,7 @@
         if (!location.contains('events/add')) {
           if (($scope.categorias != null) && ($.cookie != null) && $scope.categorias.length > 0) {
             $.cookie.json = true;
-            lastValEventCategory = $.cookie('eventCategory');
+            lastValEventCategory = $.cookie('categoriesSelected');
             if ((lastValEventCategory != null) && lastValEventCategory.length > 0) {
               return angular.forEach(lastValEventCategory, function(categoryId, index) {
                 return $scope.show($scope.searchById(categoryId));

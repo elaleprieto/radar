@@ -11,7 +11,7 @@ angular.module('RadarApp').controller 'PlacesController'
 	*************************************************************************************************************** ###
 	$scope.placeInterval = 1
 	$scope.user = {}
-	$scope.placeCategory = []
+	$scope.categoriesSelected = []
 	date = new Date()
 	$scope.minutoEnMilisegundos = 60 * 1000
 	$scope.diaEnMilisegundos = 24 * 60 * $scope.minutoEnMilisegundos
@@ -79,7 +79,7 @@ angular.module('RadarApp').controller 'PlacesController'
 	*************************************************************************************************************** ###
 	
 	# Se observan las categorías seleccionadas
-	$scope.$watch 'placeCategory.length', () ->
+	$scope.$watch 'categoriesSelected.length', () ->
 		$scope.placesUpdate()		
 
 	# Se observa el intervalo seleccionado: Hoy, Mañana ó Próximos 7 días
@@ -203,7 +203,7 @@ angular.module('RadarApp').controller 'PlacesController'
 			setUserLocationString(response[0])
 
 	# A function to create the marker and set up the place window function
-	# $scope.createMarker = (placeId, placeTitle, placeCategory, latlng) ->
+	# $scope.createMarker = (placeId, placeTitle, categoriesSelected, latlng) ->
 	$scope.createMarker = (place, latlng) ->
 		# icon = new google.maps.MarkerImage("http://gmaps-samples.googlecode.com/svn/trunk/markers/blue/blank.png"
 		icon = new google.maps.MarkerImage('/img/map-marker/' + getPlaceCategoryIcon(place)
@@ -279,7 +279,7 @@ angular.module('RadarApp').controller 'PlacesController'
 			bounds = $scope.map.getBounds()
 			ne = bounds.getNorthEast()
 			sw = bounds.getSouthWest()
-			options = "placeCategory": $scope.placeCategory
+			options = "categoriesSelected": $scope.categoriesSelected
 				, "placeInterval": $scope.placeInterval
 				, "neLat": ne.lat()
 				, "neLong": ne.lng()

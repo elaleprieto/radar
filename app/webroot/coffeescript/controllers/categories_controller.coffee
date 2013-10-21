@@ -26,13 +26,17 @@ angular.module('RadarApp').controller 'CategoriesController'
 	$scope.show = (categoria) ->
 		categoria.highlight = !categoria.highlight
 		if categoria.highlight
-			$scope.eventCategory.push(categoria.Category.id)
+			# $scope.eventCategory.push(categoria.Category.id)
+			# $scope.categoriesSelectedAdd(categoria.Category.id)
+			$scope.categoriesSelected.push(categoria.Category.id)
 		else
-			$scope.eventCategory.splice($scope.eventCategory.indexOf(categoria.Category.id), 1)
+			# $scope.eventCategory.splice($scope.eventCategory.indexOf(categoria.Category.id), 1)
+			# $scope.categoriesSelectedDeleted(categoria.Category.id)
+			$scope.categoriesSelected.splice($scope.categoriesSelected.indexOf(categoria.Category.id), 1)
 		
 		$.cookie.json = true
-		$.cookie("eventCategory"
-			, $scope.eventCategory
+		$.cookie("categoriesSelected"
+			, $scope.categoriesSelected
 			, {
 				# expires in 10 days
 				expires: 360,
@@ -56,7 +60,7 @@ angular.module('RadarApp').controller 'CategoriesController'
 		if not location.contains('events/add')
 			if $scope.categorias? and $.cookie? and $scope.categorias.length > 0
 				$.cookie.json = true
-				lastValEventCategory = $.cookie('eventCategory')
+				lastValEventCategory = $.cookie('categoriesSelected')
 				if lastValEventCategory? and lastValEventCategory.length > 0
 					angular.forEach lastValEventCategory, (categoryId, index) ->
 						$scope.show($scope.searchById(categoryId))

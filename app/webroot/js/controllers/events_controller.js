@@ -15,7 +15,7 @@
       var date, findResult, getEventCategoryIcon, getEventDescription, getEventId, getEventTitle, setUserLocationString, userLastLocationString, userMapCenter, userMapTypeId, userMapZoom;
       $scope.eventInterval = 1;
       $scope.user = {};
-      $scope.eventCategory = [];
+      $scope.categoriesSelected = [];
       date = new Date();
       $scope.minutoEnMilisegundos = 60 * 1000;
       $scope.diaEnMilisegundos = 24 * 60 * $scope.minutoEnMilisegundos;
@@ -74,7 +74,7 @@
       	***************************************************************************************************************
       */
 
-      $scope.$watch('eventCategory.length', function() {
+      $scope.$watch('categoriesSelected.length', function() {
         return $scope.eventsUpdate();
       });
       $scope.$watch('eventInterval', function() {
@@ -258,7 +258,7 @@
           ne = bounds.getNorthEast();
           sw = bounds.getSouthWest();
           options = {
-            "eventCategory": $scope.eventCategory,
+            "categoriesSelected": $scope.categoriesSelected,
             "eventInterval": $scope.eventInterval,
             "neLat": ne.lat(),
             "neLong": ne.lng(),
