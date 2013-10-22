@@ -349,7 +349,7 @@ if (AuthComponent::user('location')) {
 						// , array('controller'=>'events', 'action'=>'add')
 						// , array('class'=>'btn btn-warning pull-right'))
 						?>
-						<a href="#/events/add" class="btn btn-warning pull-right" ng-click="add()">Agregar Evento</a>
+						<a href="/events/add" class="btn btn-warning pull-right" ng-click="add()">Agregar Evento</a>
 					</div>
 				</div>
 	
