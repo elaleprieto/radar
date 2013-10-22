@@ -4,105 +4,146 @@
 
 @font-face { font-family: "liberation"; src: url('/fonts/LiberationSans-Regular.ttf') format('truetype'); }
 
-/* line 1, /datos/Documentos/Colectivo Libre/radar cultural/workspace/radar/app/webroot/sass/_scroll.sass */
+/* line 1, ../../sass/_scroll.sass */
 ::-webkit-scrollbar { width: 10px; }
 
 /* Track */
-/* line 5, /datos/Documentos/Colectivo Libre/radar cultural/workspace/radar/app/webroot/sass/_scroll.sass */
+/* line 5, ../../sass/_scroll.sass */
 ::-webkit-scrollbar-track { -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3); -webkit-border-radius: 10px; border-radius: 10px; }
 
 /* Handle */
-/* line 11, /datos/Documentos/Colectivo Libre/radar cultural/workspace/radar/app/webroot/sass/_scroll.sass */
+/* line 11, ../../sass/_scroll.sass */
 ::-webkit-scrollbar-thumb { -webkit-border-radius: 10px; border-radius: 10px; background: #6aa3d5; -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5); }
 
-/* line 17, /datos/Documentos/Colectivo Libre/radar cultural/workspace/radar/app/webroot/sass/_scroll.sass */
+/* line 17, ../../sass/_scroll.sass */
 ::-webkit-scrollbar-thumb:window-inactive { background: #b9d4ec; }
 
 /* line 3, ../../sass/events/index.sass */
+* { -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; }
+
+/* line 12, ../../sass/events/index.sass */
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak { display: none !important; }
+
+/* line 15, ../../sass/events/index.sass */
 a { cursor: pointer; }
 
-/* line 6, ../../sass/events/index.sass */
+/* line 18, ../../sass/events/index.sass */
 button.close.sponsor { float: left; }
 
-/* line 9, ../../sass/events/index.sass */
+/* line 21, ../../sass/events/index.sass */
 html, body { height: 100%; overflow: hidden; }
 
-/* line 13, ../../sass/events/index.sass */
+/* line 25, ../../sass/events/index.sass */
 nav { position: absolute; top: 0; z-index: 1; }
 
-/* line 18, ../../sass/events/index.sass */
+/* line 30, ../../sass/events/index.sass */
 .background-white { background-color: white; }
 
-/* line 21, ../../sass/events/index.sass */
+/* line 33, ../../sass/events/index.sass */
+.beta { border: 0; color: #bcd35f; position: absolute; top: 46px; }
+
+/* line 39, ../../sass/events/index.sass */
 .categoriaLink { cursor: pointer; }
 
-/* line 24, ../../sass/events/index.sass */
+/* line 42, ../../sass/events/index.sass */
+.checkbox.inline { margin-left: 0 !important; margin-right: 10px; }
+
+/* line 46, ../../sass/events/index.sass */
 .display-inline { display: inline-block; vertical-align: top; }
 
-/* line 28, ../../sass/events/index.sass */
+/* line 50, ../../sass/events/index.sass */
 .highlight { background-color: #dfdfdf; }
 
-/* line 31, ../../sass/events/index.sass */
+/* line 53, ../../sass/events/index.sass */
 .category-icon { line-height: 30px; text-align: center; }
 
-/* line 35, ../../sass/events/index.sass */
+/* line 57, ../../sass/events/index.sass */
 .item-categoria { height: 30px; line-height: 30px; display: inline-block; vertical-align: middle; padding-left: 3px; }
 
-/* line 42, ../../sass/events/index.sass */
-.menu { padding-top: 2px; }
+/* line 64, ../../sass/events/index.sass */
+.menu { font-family: "isocpe"; font-weight: bold; font-size: 18px; padding-left: 4px; padding-right: 4px; padding-top: 2px; }
 
-/* line 45, ../../sass/events/index.sass */
+/* line 74, ../../sass/events/index.sass */
+.menu_icono { padding-top: 10px; background-color: rgba(0, 0, 0, 0.6); }
+
+/* line 78, ../../sass/events/index.sass */
 .modal-body { overflow-y: auto; padding-top: 0; }
 
-/* line 49, ../../sass/events/index.sass */
+/* line 82, ../../sass/events/index.sass */
 .modal-header { border-bottom: none; }
 
-/* line 52, ../../sass/events/index.sass */
+/* line 85, ../../sass/events/index.sass */
+.nav > li > a:hover, .nav > li > a:focus { background-color: rgba(0, 0, 0, 0.8); }
+
+/* line 89, ../../sass/events/index.sass */
+.username { font-family: "isocpe"; font-size: 18px; font-weight: bold; margin-right: 20px; padding-top: 10px; }
+
+/* line 99, ../../sass/events/index.sass */
 #categoriesContainer { padding-top: 5px; padding-right: 5px; }
 
-/* line 56, ../../sass/events/index.sass */
+/* line 103, ../../sass/events/index.sass */
 #categoryScroll { overflow-y: auto; overflow-x: hidden; }
-/* line 60, ../../sass/events/index.sass */
+/* line 107, ../../sass/events/index.sass */
 #categoryScroll > div { margin: 0; width: 100%; }
 
-/* line 64, ../../sass/events/index.sass */
-#eventViewModal { overflow: hidden; }
-
-/* line 68, ../../sass/events/index.sass */
-#nav-large .icon-minus { color: #428bca; cursor: pointer; }
-
-/* line 72, ../../sass/events/index.sass */
-#nav-small { min-height: 20px; filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=80); opacity: 0.8; }
-/* line 76, ../../sass/events/index.sass */
-#nav-small .icon-plus { font-size: 12px; cursor: pointer; }
-/* line 80, ../../sass/events/index.sass */
-#nav-small a { padding: 10px; }
-
-/* line 83, ../../sass/events/index.sass */
-#east, #west, #south { position: absolute; z-index: 1; }
-
-/* line 87, ../../sass/events/index.sass */
-#east { left: 0; top: 10%; }
-/* line 91, ../../sass/events/index.sass */
-#east div[class="input-group"] { max-width: 350px; }
-/* line 94, ../../sass/events/index.sass */
-#east input { text-transform: capitalize; }
-
-/* line 97, ../../sass/events/index.sass */
-#map { height: 100%; left: 0; top: 0; position: absolute; width: 100%; z-index: 0; }
-
-/* line 105, ../../sass/events/index.sass */
-#south { left: 0; bottom: 0; width: 100%; }
-
-/* line 110, ../../sass/events/index.sass */
-#sponsorContainer { padding-top: 5px; padding-left: 5px; }
+/* line 111, ../../sass/events/index.sass */
+#contactAndAbout, #social { margin-left: 40px; }
 
 /* line 114, ../../sass/events/index.sass */
-#view { background: white; height: 50%; left: 25%; position: absolute; top: 20%; width: 50%; z-index: 1; }
-/* line 123, ../../sass/events/index.sass */
-#view ng-view { display: block; height: 90%; overflow-y: auto; }
+#eventViewModal { overflow: hidden; }
+
+/* line 117, ../../sass/events/index.sass */
+#east, #logo, #north, #south, #west { position: absolute; z-index: 1; }
+
+/* line 121, ../../sass/events/index.sass */
+#east { left: 0; min-width: 255px; top: 90px; width: 20%; }
 /* line 128, ../../sass/events/index.sass */
+#east div[class="input-group"] { max-width: 350px; }
+/* line 131, ../../sass/events/index.sass */
+#east input { text-transform: capitalize; }
+
+/* line 134, ../../sass/events/index.sass */
+#logo { background-color: rgba(0, 0, 0, 0.6); padding: 15px; }
+
+/* line 138, ../../sass/events/index.sass */
+#map { height: 100%; left: 0; top: 0; position: absolute; width: 100%; z-index: 0; }
+
+/* line 146, ../../sass/events/index.sass */
+#menu_superior { margin-left: 20px; background-color: rgba(255, 255, 255, 0.9); height: 50px; }
+
+/* line 151, ../../sass/events/index.sass */
+#menu_superior_derecha { background-color: rgba(255, 255, 255, 0.9); height: 50px; }
+
+/* line 155, ../../sass/events/index.sass */
+#menu_superior_derecha_verde { color: #7a9900; font-size: 14px; }
+
+/* line 161, ../../sass/events/index.sass */
+#nav-large .icon-minus { color: #428bca; cursor: pointer; }
+
+/* line 165, ../../sass/events/index.sass */
+#nav-small { min-height: 20px; filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=80); opacity: 0.8; }
+/* line 169, ../../sass/events/index.sass */
+#nav-small .icon-plus { font-size: 12px; cursor: pointer; }
+/* line 173, ../../sass/events/index.sass */
+#nav-small a { padding: 10px; }
+
+/* line 176, ../../sass/events/index.sass */
+#north { background-color: rgba(0, 0, 0, 0.6); color: white; padding: 12px; right: 0; }
+/* line 182, ../../sass/events/index.sass */
+#north a { color: white; text-decoration: none; }
+
+/* line 186, ../../sass/events/index.sass */
+#south { bottom: 0; left: 20%; width: 60%; padding: 0 10px; }
+
+/* line 193, ../../sass/events/index.sass */
+#sponsorContainer { margin-left: 5%; padding-top: 5px; padding-left: 5px; width: 90%; }
+
+/* line 199, ../../sass/events/index.sass */
+#view { background: white; height: 50%; left: 25%; position: absolute; top: 20%; width: 50%; z-index: 1; }
+/* line 208, ../../sass/events/index.sass */
+#view ng-view { display: block; height: 90%; overflow-y: auto; }
+/* line 213, ../../sass/events/index.sass */
 #view #viewTitle { height: 10%; }
 
-/* line 132, ../../sass/events/index.sass */
-#west { right: 0; top: 10%; }
+/* line 217, ../../sass/events/index.sass */
+#west { background-color: rgba(0, 0, 0, 0.6); padding: 5px 0; min-width: 255px; right: 0; top: 60px; width: 20%; }

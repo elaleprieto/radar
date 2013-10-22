@@ -29,53 +29,89 @@ if (AuthComponent::user('location')) {
 <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
 
 <div ng-controller="EventsController" ng-init="user.locationAux='<?php echo $userLocation; ?>'">
-	<div class="row">
-		<div class="col-sm-8">
-			<div class="row">
-				<!-- Error Message -->
-				<div class="col-sm-4" ng-show="errorLocation" ng-cloak>
-					<span class="alert" ng-bind="errorLocation"></span>
-				</div>
-			</div><br>
-		</div>
+
+	<!-- LOGO -->
+	<div id="logo">
+		<?php
+		echo $this->Html->link($this->Html->image("logoBeta.png", array('alt' => 'logo')), '/', array('escape' => false));
+ 		?>
 	</div>
-
+	
 	<!-- NORTH -->
-	<div id="north" class="row" ng-cloak>
+	<div id="north">
 		
-		<!-- NAV SMALL -->
-		<nav class="navbar navbar-default navbar-fixed-top" id="nav-small" ng-show="hideNavLarge" role="navigation">
-			<div class="container">
-				<div class="navbar-header">
-					<button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-					</button>
-					<a href="#" class="navbar-brand">RADAR</a>
-				</div>
-				<div class="collapse navbar-collapse">
-					<ul class="nav navbar-nav">
-						<li class="menu"><?php echo $this->Html->link('Espacios', '/espacios') ?></li>
-						<li class="menu"><?php echo $this->Html->link('Eventos', '/') ?></li>
-						<li class="menu"><?php echo $this->Html->link('Sobre radar', '/about') ?></li>
-						<li class="menu"><?php echo $this->Html->link('Contacto', '/contacto') ?></li>
-					</ul>
-					<ul class="nav navbar-nav navbar-right">
-						<li class="menu">
-							<span ng-click="hideNavLarge = !hideNavLarge" >
-								<i class="glyphicon glyphicon-plus-sign icon-plus" title="Mostrar Más"></i>
-							</span>
-						</li>
-					</ul>
-				</div><!--/.nav-collapse -->
-			</div>
-		</nav>
-
+		<!-- Logged In User -->
+		<?php if ($this->Session->read('Auth.User.name') != ''): ?>
+			<span>
+				<a href="/users/edit/<?php echo AuthComponent::user('id'); ?>"> 
+					<span><?php echo AuthComponent::user('name') ?></span>
+				</a>
+			</span>
+			 | 
+			<span>
+				<!--<?php 
+					// echo $this->Html->link('Salir', array('controller'=>'users'
+					//	, 'action'=>'logout'), array('class'=>'menu menu_derecha'))
+				?>-->
+				<!-- Logout de facebook -->
+				<?php echo $this->Facebook->logout(array(
+						'label' => 'Salir',
+						'redirect' => array(
+							'controller' => 'users',
+							'action' => 'logout'
+						),
+					));
+ 				?>
+			</span>
+		<?php else: ?>
+			<span>
+				<?php
+				echo $this->Html->link('Ingresar', array(
+					'controller' => 'users',
+					'action' => 'login'
+				), array('id' => 'menu_superior_derecha_verde'));
+				?>
+			</span>
+			<span>
+				<?php echo $this->Html->link('¡Registrate!', '/registrate', array('class' => 'menu_superior_derecha')); ?>
+			</span>
+		<?php endif; ?>
+		
+		<!-- <span class="menu">
+			<?php echo $this->Html->link('Espacios', '/espacios'); ?>
+		</span>
+		<span class="menu">
+			<?php echo $this->Html->link('Eventos', '/'); ?>
+		</span> -->
+		
+		<span id="social">
+			<span class="menu">
+				<a href="https://twitter.com/radardecultura"><i class="icon-twitter-sign icon-large"></i></a>
+			</span>
+			<span class="menu">
+				<a href="#"><i class="icon-facebook-sign icon-large"></i></a>
+			</span>
+		</span>
+		
+		<span id="contactAndAbout">
+			<span class="menu">
+				<a href="/about"><i class="icon-info-sign icon-large"></i></a>
+			</span>
+			<span class="menu">
+				<a href="/contacto"><i class="icon-envelope-alt icon-large"></i></a>
+			</span>
+		</span>
+		
+		
+		
+	</div>
+	
+	<!-- <div id="north" class="row" ng-cloak> -->
+		
 		<!-- NAV LARGE -->
-		<nav class="navbar navbar-fixed-top" id="nav-large" ng-hide="hideNavLarge" role="navigation">
-			<div class="container">
-				<ul class="nav navbar-nav">
+		<!-- <nav class="navbar navbar-fixed-top" id="nav-large" ng-hide="hideNavLarge" role="navigation">
+			<div class="container"> -->
+				<!-- <ul class="nav navbar-nav">
 					<li>
 						<?php echo $this->Html->link($this->Html->image("logoBeta.png", array('alt' => 'logo')), '/', array(
 							'class' => 'menu_icono',
@@ -84,8 +120,8 @@ if (AuthComponent::user('location')) {
 						));
  ?>
 					</li>
-				</ul>
-				<ul class="nav navbar-nav" id="menu_superior">
+				</ul> -->
+				<!-- <ul class="nav navbar-nav" id="menu_superior">
 					<li class="menu"><?php echo $this->Html->link('Espacios', '/espacios') ?></li>
 					<li class="menu"><?php echo $this->Html->link('Eventos', '/') ?></li>
 					<li class="menu"><?php echo $this->Html->link('Sobre radar', '/about') ?></li>
@@ -103,21 +139,22 @@ if (AuthComponent::user('location')) {
 								<span><?php echo AuthComponent::user('name') ?></span>
 							</a>
 						</li>
-						<li>
+						<li> -->
 							<!--<?php 
 								// echo $this->Html->link('Salir', array('controller'=>'users'
 								//	, 'action'=>'logout'), array('class'=>'menu menu_derecha'))
 							?>-->
 							<!-- Logout de facebook -->
-							<?php echo $this->Facebook->logout(array(
-									'label' => 'Salir',
-									'redirect' => array(
-										'controller' => 'users',
-										'action' => 'logout'
-									),
-								));
+							<?php
+							// echo $this->Facebook->logout(array(
+							// 'label' => 'Salir',
+							// 'redirect' => array(
+							// 'controller' => 'users',
+							// 'action' => 'logout'
+							// ),
+							// ));
  ?>
-						</li>
+						<!-- </li>
 					<?php else: ?>
 						<li>
 							<?php
@@ -131,8 +168,8 @@ if (AuthComponent::user('location')) {
 					<?php endif ?>
 				</ul>
 			</div>
-		</nav>
-	</div>
+		</nav> -->
+	<!-- </div> -->
 
 	<!-- EAST -->
 	<div id="east" ng-cloak>
@@ -223,36 +260,33 @@ if (AuthComponent::user('location')) {
 	<div id="west" ng-cloak>
 		
 		<!-- SPONSOR -->
-		<div class="row">
+
+		<!-- Button to Display or Hide Sponsors -->
+		<!-- <div class="display-inline" ng-click="hideSponsors = !hideSponsors">
+			<span class="btn btn-primary btn-xs" ng-show="hideSponsors">
+				<i class="icon-caret-left"></i>
+			</span> -->
+			<!-- <span class="btn btn-primary" ng-hide="hideSponsors">
+				<i class="glyphicon glyphicon-chevron-right"></i>
+			</span> -->
+		<!-- </div> -->
+		
+		<!-- Sponsors	 -->
+		<div id="sponsorContainer" ng-hide="hideSponsors">
+			
+			<!-- Titulo -->
+			<!-- <button type="button" class="close sponsor" ng-click="hideSponsors = !hideSponsors" 
+				ng-hide="hideSponsors">
+				<i class="icon-collapse-alt"></i>
+			</button>
+			<p class="text-center"><?php echo __('Sponsors'); ?></p> -->
+			
 			<div class="col-sm-12">
-				
-				<!-- Button to Display or Hide Sponsors -->
-				<div class="display-inline" ng-click="hideSponsors = !hideSponsors">
-					<span class="btn btn-primary btn-xs" ng-show="hideSponsors">
-						<i class="icon-caret-left"></i>
-					</span>
-					<!-- <span class="btn btn-primary" ng-hide="hideSponsors">
-						<i class="glyphicon glyphicon-chevron-right"></i>
-					</span> -->
-				</div>
-				
-				<!-- Sponsors	 -->
-				<div id="sponsorContainer" class="background-white display-inline" ng-hide="hideSponsors">
-					
-					<!-- Titulo -->
-					<button type="button" class="close sponsor" ng-click="hideSponsors = !hideSponsors" 
-						ng-hide="hideSponsors">
-						<i class="icon-collapse-alt"></i>
-					</button>
-					<p class="text-center"><?php echo __('Sponsors'); ?></p>
-					
-					<div class="col-sm-12">
-						<a href="#"><?=$this->Html->image('sponsor/santafedisenia.jpg'); ?></a>
-					</div>
-					<div class="col-sm-12">
-						<a href="#"><?=$this->Html->image('sponsor/tallercandombe.jpg'); ?></a>
-					</div>
-				</div>
+				<a href="#"><?=$this->Html->image('sponsor/santafedisenia.jpg'); ?></a>
+			</div>
+			<br />
+			<div class="col-sm-12">
+				<a href="#"><?=$this->Html->image('sponsor/tallercandombe.jpg'); ?></a>
 			</div>
 		</div>
 	</div>
@@ -264,7 +298,7 @@ if (AuthComponent::user('location')) {
 			<div class="row">
 	
 				<!-- Event Interval -->
-				<div class="col-sm-6">
+				<div class="col-sm-8">
 					<input value="1" name="interval" type="hidden">
 					<div id="eventInterval" class="control-group btn-group" data-toggle="buttons">
 						<button type="radio" data-toggle="button" class="btn disabled">
@@ -281,17 +315,17 @@ if (AuthComponent::user('location')) {
 						</button>
 					</div>
 					<div id="eventInterval" class="control-group btn-group pull-right">
-						<?php 
+						<?php
 						// echo $this->Html->link(__('Add Event')
-							// , array('controller'=>'events', 'action'=>'add')
-							// , array('class'=>'btn btn-warning pull-right'))
+						// , array('controller'=>'events', 'action'=>'add')
+						// , array('class'=>'btn btn-warning pull-right'))
 						?>
 						<a href="#/events/add" class="btn btn-warning pull-right" ng-click="add()">Agregar Evento</a>
 					</div>
 				</div>
 	
 				<!-- Map Types -->
-				<div class="col-sm-6 text-right">
+				<div class="col-sm-4 text-right">
 					
 					<!-- Button to Display or Hide South Menu -->
 					<span ng-click="hideSouthMenu = !hideSouthMenu">
