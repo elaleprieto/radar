@@ -1,4 +1,4 @@
-/*! radar 2013-10-21 */
+/*! radar 2013-10-22 */
 (function() {
     "use strict";
     var a, b = [].indexOf || function(a) {
@@ -590,12 +590,14 @@
     });
 }.call(this), function() {
     jQuery(function() {
-        var a, b;
-        return a = $("body").height(), b = $("body").width(), $("#categoryScroll").css("height", .5 * a), 
+        var a, b, c, d, e;
+        return e = $(window).height(), a = $("body").height(), b = $("body").width(), d = $("#east").position(), 
+        c = $("#categoryScroll").position(), $("#categoryScroll").css("height", e - c.top - d.top), 
+        console.log(c.top), console.log(e), console.log(d.top), console.log(e - c.top - d.top), 
         $(".modal-body").css("height", .6 * a), $(".modal-dialog, .modal-content").css("width", .5 * b), 
         $(window).resize(function() {
-            return a = $("body").height(), b = $("body").width(), $("#categoryScroll").css("height", .5 * a), 
-            $(".modal-body").css("height", .6 * a), $(".modal-content").css("width", .5 * b);
+            return a = $("body").height(), b = $("body").width(), $(".modal-body").css("height", .6 * a), 
+            $(".modal-content").css("width", .5 * b);
         });
     });
 }.call(this), function(a, b, c) {

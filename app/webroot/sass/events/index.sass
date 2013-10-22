@@ -27,8 +27,34 @@ nav
 	top: 0
 	z-index: 1
 
+.arrow, .arrow:hover
+	// background-color: $background-black
+	border: none
+	color: $verde_beta
+	
+// .arrow:hover
+	// background-color: $background-black-hover
+
+.arrow-sponsor
+	float: left
+
+.arrow-south
+	display: inline-block
+
+.arrow-category
+	background-color: $background-black
+	display: inline-block
+	// float: right
+	vertical-align: top
+
 .background-white
 	background-color: $blanco
+
+.background-black
+	background-color: $background-black
+
+.color-white
+	color: $blanco
 
 .beta
 	border: 0
@@ -49,6 +75,7 @@ nav
 
 .highlight
 	background-color: darken($gris, 10%)
+	color: $black
 
 .category-icon
 	line-height: 30px
@@ -60,6 +87,11 @@ nav
 	display: inline-block
 	vertical-align: middle
 	padding-left: 3px
+
+.locationBar
+	min-width: 285px
+	padding: 5px
+	width: 285px
 
 .menu
 	font:
@@ -73,7 +105,7 @@ nav
 
 .menu_icono
 	padding-top: 10px
-	background-color: $background_black
+	background-color: $background-black
 
 .modal-body
 	overflow-y: auto
@@ -84,7 +116,7 @@ nav
 
 .nav > li > a:hover, .nav > li > a:focus
 	// background-color: $blanco
-	background-color: $background_black_hover
+	background-color: $background-black-hover
 
 .username
 	font:
@@ -97,10 +129,15 @@ nav
 		top: 10px
 
 #categoriesContainer
+	display: inline-block
+	min-width: 255px
 	padding-top: 5px
 	padding-right: 5px
+	// width: 90%
 
 #categoryScroll
+	// height: 490px
+	// min-height: 350px
 	overflow-y: auto
 	overflow-x: hidden
 	
@@ -120,10 +157,10 @@ nav
 
 #east
 	left: 0
-	min-width: 255px
+	// min-width: 255px
 	// top: 10%
 	top: 90px
-	width: 20%
+	// width: 20%
 	
 	div[class="input-group"]
 		max-width: 350px
@@ -132,7 +169,7 @@ nav
 		text-transform: capitalize
 
 #logo
-	background-color: $background_black
+	background-color: $background-black
 	padding: 15px
 
 #map
@@ -174,7 +211,7 @@ nav
 		padding: 10px
 
 #north
-	background-color: $background_black
+	background-color: $background-black
 	color: $blanco
 	padding: 12px
 	right: 0
@@ -192,6 +229,7 @@ nav
 
 #sponsorContainer
 	margin-left: 5%
+	min-width: 245px
 	padding-top: 5px
 	padding-left: 5px
 	width: 90%
@@ -215,10 +253,10 @@ nav
 		
 	
 #west
-	background-color: $background_black
+	background-color: $background-black
 	padding: 5px 0
-	min-width: 255px
 	right: 0
-	// top: 10%
 	top: 60px
-	width: 20%
+	// min-width: 255px
+	// top: 10%
+	// width: 20%

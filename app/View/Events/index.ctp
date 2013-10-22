@@ -38,71 +38,82 @@ if (AuthComponent::user('location')) {
 	</div>
 	
 	<!-- NORTH -->
-	<div id="north">
+	<div id="north" ng-cloak>
 		
-		<!-- Logged In User -->
-		<?php if ($this->Session->read('Auth.User.name') != ''): ?>
-			<span>
-				<a href="/users/edit/<?php echo AuthComponent::user('id'); ?>"> 
-					<span><?php echo AuthComponent::user('name') ?></span>
-				</a>
+		<!-- Button to Display or Hide North Menu -->
+		 <div class="arrow-sponsor" ng-click="hideNorth = !hideNorth">
+			<span class="arrow btn btn-xs" ng-show="hideNorth">
+				<i class="glyphicon glyphicon-chevron-left"></i>
 			</span>
-			 | 
-			<span>
-				<!--<?php 
-					// echo $this->Html->link('Salir', array('controller'=>'users'
-					//	, 'action'=>'logout'), array('class'=>'menu menu_derecha'))
-				?>-->
-				<!-- Logout de facebook -->
-				<?php echo $this->Facebook->logout(array(
-						'label' => 'Salir',
-						'redirect' => array(
-							'controller' => 'users',
-							'action' => 'logout'
-						),
-					));
- 				?>
+			<span class="arrow btn btn-xs" ng-hide="hideNorth">
+				<i class="glyphicon glyphicon-chevron-right"></i>
 			</span>
-		<?php else: ?>
-			<span>
-				<?php
-				echo $this->Html->link('Ingresar', array(
-					'controller' => 'users',
-					'action' => 'login'
-				), array('id' => 'menu_superior_derecha_verde'));
-				?>
-			</span>
-			<span>
-				<?php echo $this->Html->link('¡Registrate!', '/registrate', array('class' => 'menu_superior_derecha')); ?>
-			</span>
-		<?php endif; ?>
+		</div>
 		
-		<!-- <span class="menu">
-			<?php echo $this->Html->link('Espacios', '/espacios'); ?>
-		</span>
-		<span class="menu">
-			<?php echo $this->Html->link('Eventos', '/'); ?>
-		</span> -->
-		
-		<span id="social">
-			<span class="menu">
-				<a href="https://twitter.com/radardecultura"><i class="icon-twitter-sign icon-large"></i></a>
-			</span>
-			<span class="menu">
-				<a href="#"><i class="icon-facebook-sign icon-large"></i></a>
-			</span>
-		</span>
-		
-		<span id="contactAndAbout">
-			<span class="menu">
-				<a href="/about"><i class="icon-info-sign icon-large"></i></a>
+		<div class="display-inline" ng-hide="hideNorth">
+			<!-- Logged In User -->
+			<?php if ($this->Session->read('Auth.User.name') != ''): ?>
+				<span>
+					<a href="/users/edit/<?php echo AuthComponent::user('id'); ?>"> 
+						<span><?php echo AuthComponent::user('name') ?></span>
+					</a>
+				</span>
+				 | 
+				<span>
+					<!--<?php 
+						// echo $this->Html->link('Salir', array('controller'=>'users'
+						//	, 'action'=>'logout'), array('class'=>'menu menu_derecha'))
+					?>-->
+					<!-- Logout de facebook -->
+					<?php echo $this->Facebook->logout(array(
+							'label' => 'Salir',
+							'redirect' => array(
+								'controller' => 'users',
+								'action' => 'logout'
+							),
+						));
+	 				?>
+				</span>
+			<?php else: ?>
+				<span>
+					<?php
+					echo $this->Html->link('Ingresar', array(
+						'controller' => 'users',
+						'action' => 'login'
+					), array('id' => 'menu_superior_derecha_verde'));
+					?>
+				</span>
+				<span>
+					<?php echo $this->Html->link('¡Registrate!', '/registrate', array('class' => 'menu_superior_derecha')); ?>
+				</span>
+			<?php endif; ?>
+			
+			<!-- <span class="menu">
+				<?php echo $this->Html->link('Espacios', '/espacios'); ?>
 			</span>
 			<span class="menu">
-				<a href="/contacto"><i class="icon-envelope-alt icon-large"></i></a>
+				<?php echo $this->Html->link('Eventos', '/'); ?>
+			</span> -->
+			
+			<span id="social">
+				<span class="menu">
+					<a href="https://twitter.com/radardecultura"><i class="icon-twitter-sign icon-large"></i></a>
+				</span>
+				<span class="menu">
+					<a href="#"><i class="icon-facebook-sign icon-large"></i></a>
+				</span>
 			</span>
-		</span>
+			
+			<span id="contactAndAbout">
+				<span class="menu">
+					<a href="/about"><i class="icon-info-sign icon-large"></i></a>
+				</span>
+				<span class="menu">
+					<a href="/contacto"><i class="icon-envelope-alt icon-large"></i></a>
+				</span>
+			</span>
 		
-		
+		</div>
 		
 	</div>
 	
@@ -190,7 +201,7 @@ if (AuthComponent::user('location')) {
 			
 		<!-- Location Advertise -->
 		<div ng-hide="hideLocationAdvertise" ng-show="!!user.location" ng-cloak>
-			<div class="background-white alert alert-dismissable" ng-hide="showSearchLocationBar">
+			<!-- <div class="background-white alert alert-dismissable" ng-hide="showSearchLocationBar">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 				<strong ng-bind='user.location'></strong>
 				<br />
@@ -208,11 +219,21 @@ if (AuthComponent::user('location')) {
 						title="<?php echo __('Search'); ?>">
 						<i class="glyphicon glyphicon-search"></i>
 					</span>
+					
 					<span class="input-group-addon" ng-click="showSearchLocationBar = !showSearchLocationBar" 
 							title="<?php echo __('Hide'); ?>">
 						<i class="glyphicon glyphicon-eye-close"></i>
 					</span>
 				</div>
+			</div> -->
+			<div class="background-black locationBar input-group">
+				<input class="form-control" ng-model="locationSearched" ng-init="locationSearched=user.location"
+					placeholder="<?php echo __('City: Rome, Italy'); ?>" type="text" 
+					ui-keypress="{13:'searchLocation(locationSearched)'}" />
+				<span class="input-group-addon" ng-click="searchLocation(locationSearched)"
+					title="<?php echo __('Search'); ?>">
+					<i class="glyphicon glyphicon-search"></i>
+				</span>
 			</div>
 		</div>
 
@@ -220,38 +241,37 @@ if (AuthComponent::user('location')) {
 
 		<!-- CATEGORIES -->
 		<div ng-controller="CategoriesController">
-			<div class="row">
-				<div class="col-sm-12">
-
-					<div id="categoriesContainer" class="background-white" ng-hide="hideCategories">
-						
-						<!-- Titulo -->
-						<button type="button" class="close" ng-click="hideCategories = !hideCategories" 
-							ng-hide="hideCategories">
-								<i class="icon-collapse-alt"></i>
-							</button>
-						<p class="text-center"><?php echo __('Categories'); ?></p>
-						
-						<!-- Scroll -->
-						<div id="categoryScroll">
-							<div class="row categoriaLink" ng-class="{highlight:categoria.highlight}" 
-								ng-model="categoria" ng-repeat="categoria in categorias | orderBy:'Category.name'" ng-click="show(categoria)">
-								<div class="col-sm-3 category-icon">
-									<img class="icono-categoria" 
-										ng-src="/img/categorias/{{categoria.Category.icon}}" />
-								</div>
-								<div class="col-sm-9 item-categoria" ng-bind="categoria.Category.name"></div>
-							</div>
+			<div id="categoriesContainer" class="background-black color-white" ng-hide="hideCategories">
+				
+				<!-- Titulo -->
+				<!-- <button type="button" class="close" ng-click="hideCategories = !hideCategories" 
+					ng-hide="hideCategories">
+						<i class="icon-collapse-alt"></i>
+					</button> -->
+				<p class="text-center"><?php echo __('Categories'); ?></p>
+				
+				<!-- Scroll -->
+				<div id="categoryScroll">
+					<div class="row categoriaLink" ng-class="{highlight:categoria.highlight}" 
+						ng-model="categoria" ng-repeat="categoria in categorias | orderBy:'Category.name'" ng-click="show(categoria)">
+						<div class="col-sm-3 category-icon">
+							<img class="icono-categoria" 
+								ng-src="/img/categorias/{{categoria.Category.icon}}" />
 						</div>
-					</div>
-					
-					<!-- Button to Display or Hide Categories -->
-					<div class="display-inline" ng-click="hideCategories = !hideCategories">
-						<span class="btn btn-primary btn-xs" ng-show="hideCategories">
-							<i class="icon-caret-right"></i>
-						</span>
+						<div class="col-sm-9 item-categoria" ng-bind="categoria.Category.name"></div>
 					</div>
 				</div>
+			</div>
+				
+			
+			<!-- Button to Display or Hide Categories -->
+			<div class="arrow-category" ng-click="hideCategories = !hideCategories">
+				<span class="arrow btn btn-xs" ng-hide="hideCategories">
+					<i class="glyphicon glyphicon-chevron-left"></i>
+				</span>
+				<span class="arrow btn btn-xs" ng-show="hideCategories">
+					<i class="glyphicon glyphicon-chevron-right"></i>
+				</span>
 			</div>
 		</div>
 	</div>
@@ -262,14 +282,14 @@ if (AuthComponent::user('location')) {
 		<!-- SPONSOR -->
 
 		<!-- Button to Display or Hide Sponsors -->
-		<!-- <div class="display-inline" ng-click="hideSponsors = !hideSponsors">
-			<span class="btn btn-primary btn-xs" ng-show="hideSponsors">
-				<i class="icon-caret-left"></i>
-			</span> -->
-			<!-- <span class="btn btn-primary" ng-hide="hideSponsors">
+		 <div class="arrow-sponsor" ng-click="hideSponsors = !hideSponsors">
+			<span class="arrow btn btn-xs" ng-show="hideSponsors">
+				<i class="glyphicon glyphicon-chevron-left"></i>
+			</span>
+			<span class="arrow btn btn-xs" ng-hide="hideSponsors">
 				<i class="glyphicon glyphicon-chevron-right"></i>
-			</span> -->
-		<!-- </div> -->
+			</span>
+		</div>
 		
 		<!-- Sponsors	 -->
 		<div id="sponsorContainer" ng-hide="hideSponsors">
@@ -293,8 +313,17 @@ if (AuthComponent::user('location')) {
 
 	<!-- SOUTH -->
 	<div id="south" ng-cloak>
+		<!-- Button to Display or Hide South Menu -->
+		<div class="arrow-south background-black" ng-click="hideSouthMenu = !hideSouthMenu">
+			<span class="arrow btn btn-xs" ng-hide="hideSouthMenu">
+				<i class="glyphicon glyphicon-chevron-down"></i>
+			</span>
+			<span class="arrow btn btn-xs" ng-show="hideSouthMenu">
+				<i class="glyphicon glyphicon-chevron-up"></i>
+			</span>
+		</div>
 		
-		<div class="background-white">
+		<div class="background-black color-white">
 			<div class="row">
 	
 				<!-- Event Interval -->
@@ -326,17 +355,6 @@ if (AuthComponent::user('location')) {
 	
 				<!-- Map Types -->
 				<div class="col-sm-4 text-right">
-					
-					<!-- Button to Display or Hide South Menu -->
-					<span ng-click="hideSouthMenu = !hideSouthMenu">
-						<span class="btn btn-primary" ng-hide="hideSouthMenu">
-							<i class="glyphicon glyphicon-chevron-down"></i>
-						</span>
-						<span class="btn btn-primary" ng-show="hideSouthMenu">
-							<i class="glyphicon glyphicon-chevron-up"></i>
-						</span>
-					</span>
-					
 					<span class="btn btn-primary" ng-click="setMapType(ROADMAP)"><?php echo __('Map'); ?></span>
 					<span class="btn btn-primary" ng-click="setMapType(SATELLITE)"><?php echo __('Satellite'); ?></span>
 				</div>
