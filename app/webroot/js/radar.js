@@ -589,17 +589,17 @@
         };
     });
 }.call(this), function() {
+    var a;
     jQuery(function() {
+        return a(), $(window).resize(function() {
+            return a();
+        });
+    }), a = function() {
         var a, b, c, d, e;
         return e = $(window).height(), a = $("body").height(), b = $("body").width(), d = $("#east").position(), 
         c = $("#categoryScroll").position(), $("#categoryScroll").css("height", e - c.top - d.top), 
-        console.log(c.top), console.log(e), console.log(d.top), console.log(e - c.top - d.top), 
-        $(".modal-body").css("height", .6 * a), $(".modal-dialog, .modal-content").css("width", .5 * b), 
-        $(window).resize(function() {
-            return a = $("body").height(), b = $("body").width(), $(".modal-body").css("height", .6 * a), 
-            $(".modal-content").css("width", .5 * b);
-        });
-    });
+        $(".modal-body").css("height", .6 * a), $(".modal-dialog, .modal-content").css("width", .5 * b);
+    };
 }.call(this), function(a, b, c) {
     "use strict";
     b.module("ngResource", [ "ng" ]).factory("$resource", [ "$http", "$parse", function(a, d) {
