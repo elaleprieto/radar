@@ -14,6 +14,7 @@ module.exports = (grunt) ->
 					, 'js/filters.js'
 					# , 'js/rutes.js'
 					, 'js/models.js'
+					, 'js/services.js'
 					, 'js/styles.js'
 					, 'js/vendors/angular-resource.min1.1.5.js'
 					, 'js/vendors/bootstrap-datepicker.js'
