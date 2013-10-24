@@ -77,7 +77,7 @@ if (AuthComponent::user('location')) {
 			<div class="container">
 				<ul class="nav navbar-nav">
 					<li>
-						<?php echo $this->Html->link($this->Html->image("logoBeta.png", array('alt' => 'logo')), '/', array(
+						<?php echo $this->Html->link($this->Html->image("logo_radar_blanco.png", array('alt' => 'logo')), '/', array(
 							'class' => 'menu_icono',
 							'style' => 'padding-top: 8px',
 							'escape' => false
