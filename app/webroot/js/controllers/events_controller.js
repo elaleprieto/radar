@@ -6,7 +6,7 @@
 
 (function() {
   angular.module('RadarApp').controller('EventsController', [
-    '$http', '$scope', '$timeout', function($http, $scope, $timeout) {
+    '$http', '$location', '$scope', '$timeout', '$compile', 'Event', 'EventView', function($http, $location, $scope, $timeout, $compile, Event, EventView) {
       /* ***************************************************************************************************************
       			Inicialización de Objetos
       	***************************************************************************************************************
@@ -15,7 +15,7 @@
       var date, findResult, getEventCategoryIcon, getEventDescription, getEventId, getEventTitle, setUserLocationString, userLastLocationString, userMapCenter, userMapTypeId, userMapZoom;
       $scope.eventInterval = 1;
       $scope.user = {};
-      $scope.eventCategory = [];
+      $scope.categoriesSelected = [];
       date = new Date();
       $scope.minutoEnMilisegundos = 60 * 1000;
       $scope.diaEnMilisegundos = 24 * 60 * $scope.minutoEnMilisegundos;
@@ -74,7 +74,7 @@
       	***************************************************************************************************************
       */
 
-      $scope.$watch('eventCategory.length', function() {
+      $scope.$watch('categoriesSelected.length', function() {
         return $scope.eventsUpdate();
       });
       $scope.$watch('eventInterval', function() {
@@ -181,8 +181,8 @@
         }
       };
       $scope.createMarker = function(event, latlng) {
-        var icon, infowindow, marker;
-        icon = new google.maps.MarkerImage('/img/map-marker/' + getEventCategoryIcon(event), new google.maps.Size(30, 40), new google.maps.Point(0, 0), new google.maps.Point(10, 34));
+        var contenido, icon, infowindow, marker;
+        icon = new google.maps.MarkerImage('/img/map-marker/' + getEventCategoryIcon(event), new google.maps.Size(25, 26), new google.maps.Point(0, 0), new google.maps.Point(10, 34));
         marker = new google.maps.Marker({
           eventId: getEventId(event),
           map: $scope.map,
@@ -191,8 +191,15 @@
           title: getEventTitle(event),
           zIndex: Math.round(latlng.lat() * -100000) << 5
         });
+        contenido = '<div>';
+        contenido += '<p>' + getEventTitle(event) + '</p>';
+        contenido += '<a ng-click="openModal(\'events/view/' + getEventId(event) + '\')">';
+        contenido += '<p class="text-right"><i class="icon-expand-alt"></i> info</p>';
+        contenido += '</a>';
+        contenido += '</div>';
+        contenido = $compile(contenido)($scope);
         infowindow = new google.maps.InfoWindow({
-          content: '<h1>' + getEventTitle(event) + '</h1><br /><p>' + getEventDescription(event) + '</p>'
+          content: contenido[0]
         });
         google.maps.event.addListener(marker, 'click', function() {
           return infowindow.open($scope.map, marker);
@@ -230,13 +237,13 @@
         $scope.clearOverlays();
         return $scope.markers = [];
       };
-      $scope.eventCategoriesAdd = function(category) {
+      $scope.categoriesAdd = function(category) {
         if ($scope.event.categories.length < 3) {
           $scope.event.categories.push(category.Category.id);
           return category.highlight = true;
         }
       };
-      $scope.eventCategoriesDelete = function(category) {
+      $scope.categoriesDelete = function(category) {
         var index;
         index = $scope.event.categories.indexOf(category.Category.id);
         if (index >= 0) {
@@ -251,18 +258,18 @@
           ne = bounds.getNorthEast();
           sw = bounds.getSouthWest();
           options = {
-            "eventCategory": $scope.eventCategory,
+            "categoriesSelected": $scope.categoriesSelected,
             "eventInterval": $scope.eventInterval,
             "neLat": ne.lat(),
             "neLong": ne.lng(),
             "swLat": sw.lat(),
             "swLong": sw.lng()
           };
-          return $http.get('/events/get', {
-            cache: true,
+          console.log(options);
+          return Event.get({
             params: options
-          }).success(function(data) {
-            return $scope.eventos = data;
+          }, function(response) {
+            return $scope.eventos = response.events;
           });
         }
       };
@@ -277,6 +284,10 @@
             return $scope.setLocationDefault();
           });
         }
+      };
+      $scope.resetView = function(event) {
+        console.log($('ng-view').innerHtml);
+        return $location.path('/');
       };
       $scope.saveUserLocationString = function() {
         $.cookie.json = true;
@@ -394,6 +405,12 @@
         }).error(function() {
           return $scope.cargando = 'Ocurrió un error guardando el evento';
         });
+      };
+      $scope.viewDisplayed = function() {
+        return $location.path() === '/';
+      };
+      $scope.openModal = function(URL) {
+        return EventView($scope, URL);
       };
       /* *************************************************************************************************************** 
       			Funciones Auxiliares

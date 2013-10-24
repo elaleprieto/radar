@@ -1,37 +1,25 @@
-@import fonts
+@import colors, fonts
 
-$blanco: #FFFFFF
-$verde_beta:#BCD35F
-$verde_oscuro: #7A9900
+*
+	// Disable selection
+	-webkit-touch-callout: none
+	-webkit-user-select: none
+	-khtml-user-select: none
+	-moz-user-select: none
+	-ms-user-select: none
+	user-select: none
+
+body
+	padding-top: 80px
 
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak
 	display: none !important
 
-#menu_superior
-	margin-left: 20px
-	background-color: rgba(0, 0, 0, 0.6)
-	height: 50px
-	
-#menu_superior_derecha
-	background-color: rgba(255, 255, 255, 0.9)
-	height: 50px
-
-#menu_superior_derecha_verde
-	color: $verde_oscuro
-	font:
-		size: 14px
-
-.nav > li > a:hover, .nav > li > a:focus
-	background-color: rgba(0, 0, 0, 0.8)
- 
 .beta
 	border: 0
 	color: $verde_beta
 	position: absolute
 	top: 46px
-
-body
-	padding-top: 80px
 
 .checkbox.inline
 	margin-left: 0 !important
@@ -48,8 +36,12 @@ body
 
 .menu_icono
 	padding-top: 10px
-	background-color: rgba(0, 0, 0, 0.6)
+	background-color: $background_black
 
+.nav > li > a:hover, .nav > li > a:focus
+	// background-color: $blanco
+	background-color: $background_black_hover
+ 
 .username
 	font:
 		family: 'isocpe'
@@ -59,6 +51,21 @@ body
 		right: 20px
 	padding:
 		top: 10px
+
+#menu_superior
+	margin-left: 20px
+	background-color: rgba(255, 255, 255, 0.9)
+	height: 50px
+	
+#menu_superior_derecha
+	background-color: rgba(255, 255, 255, 0.9)
+	height: 50px
+
+#menu_superior_derecha_verde
+	color: $verde_oscuro_beta
+	font:
+		size: 14px
+
 
 // #map
 	// height: 400px

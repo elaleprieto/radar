@@ -1,0 +1,43 @@
+@import compass/css3, compass/utilities
+$gris: #F8F8F8
+
+select
+	max-width: 100%
+
+	&[name*="month"]
+		min-width: 100px
+	
+	&[name*="year"]
+		min-width: 65px
+
+.accessibility-checkbox
+	border: 1px solid darken($gris, 20)
+	+border-radius(4px)
+	cursor: pointer
+	display: inline-block
+	height: 20px
+	text-align: center
+	width: 20px
+
+.categoriaLink
+	cursor: pointer
+	
+.dateField
+	width: 20%
+	
+.highlight
+	background-color: darken($gris, 10%)
+	
+.textbox
+	width: 100%
+	width: -moz-available
+
+#alertMessage
+	display: none
+	float: right
+
+#label_simple
+	font-weight: normal
+
+#map img
+	max-width: none

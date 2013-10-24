@@ -6,19 +6,17 @@
 
 (function() {
   angular.module('RadarApp').controller('CategoriesController', [
-    '$http', '$location', '$scope', '$timeout', function($http, $location, $scope, $timeout) {
+    '$http', '$location', '$scope', '$timeout', 'Category', function($http, $location, $scope, $timeout, Category) {
       var location;
       location = $location.absUrl();
-      $http.get('/categories ', {
-        cache: true
-      }).success(function(data) {
-        return $scope.categorias = data;
+      Category.get({}, function(response) {
+        return $scope.categorias = response.categories;
       });
-      $scope.addCategoryToEvent = function(category) {
+      $scope.categoryToogle = function(category) {
         if (!category.highlight) {
-          return $scope.$parent.eventCategoriesAdd(category);
+          return $scope.$parent.categoriesAdd(category);
         } else {
-          return $scope.$parent.eventCategoriesDelete(category);
+          return $scope.$parent.categoriesDelete(category);
         }
       };
       $scope.searchById = function(id) {
@@ -33,12 +31,12 @@
       $scope.show = function(categoria) {
         categoria.highlight = !categoria.highlight;
         if (categoria.highlight) {
-          $scope.eventCategory.push(categoria.Category.id);
+          $scope.categoriesSelected.push(categoria.Category.id);
         } else {
-          $scope.eventCategory.splice($scope.eventCategory.indexOf(categoria.Category.id), 1);
+          $scope.categoriesSelected.splice($scope.categoriesSelected.indexOf(categoria.Category.id), 1);
         }
         $.cookie.json = true;
-        return $.cookie("eventCategory", $scope.eventCategory, {
+        return $.cookie("categoriesSelected", $scope.categoriesSelected, {
           expires: 360,
           path: '/'
         });
@@ -48,7 +46,7 @@
         if (!location.contains('events/add')) {
           if (($scope.categorias != null) && ($.cookie != null) && $scope.categorias.length > 0) {
             $.cookie.json = true;
-            lastValEventCategory = $.cookie('eventCategory');
+            lastValEventCategory = $.cookie('categoriesSelected');
             if ((lastValEventCategory != null) && lastValEventCategory.length > 0) {
               return angular.forEach(lastValEventCategory, function(categoryId, index) {
                 return $scope.show($scope.searchById(categoryId));

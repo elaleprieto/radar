@@ -6,16 +6,18 @@
      * @property Event $Event
      */
     class EventsController extends AppController {
+    	
+		public $components = array('RequestHandler');
 		
 		/**************************************************************************************************************
 		 *  Authentication
 		**************************************************************************************************************/
         public function beforeFilter() {
             parent::beforeFilter();
-            $this -> Auth -> allow('get', 'index');
+            $this -> Auth -> allow('get', 'index', 'view');
         }
 		
-		public function isAuthorized($user) {
+		public function isAuthorized($user = null) {
 		    # All registered users can add events
 		    if ($this->action === 'add') {
 		        return true;
@@ -35,35 +37,7 @@
 		 *  /authentication
 		**************************************************************************************************************/
 		
-
-        /**
-         * index method
-         *
-         * @return void
-         */
-        public function index() {
-        	$this->layout = 'index';
-            $this->Event->Category->recursive = -1;
-            $categories = $this->Event->Category->find('list', array('fields' => 'name'));
-            $categorias = $this -> Event -> Category -> find('all', array('order'=>'Category.name ASC'));
-            $this -> set(compact('categories', 'categorias'));
-        }
-
-        /**
-         * view method
-         *
-         * @throws NotFoundException
-         * @param string $id
-         * @return void
-         */
-        public function view($id = null) {
-            if (!$this -> Event -> exists($id)) {
-                throw new NotFoundException(__('Invalid event'));
-            }
-            $options = array('conditions' => array('Event.' . $this -> Event -> primaryKey => $id));
-            $this -> set('event', $this -> Event -> find('first', $options));
-        }
-
+		
         /**
          * add method
          *
@@ -104,6 +78,35 @@
 				$this->render();
             }
         }
+
+        /**
+         * index method
+         *
+         * @return void
+         */
+        public function index() {
+        	$this->layout = 'index';
+            $this->Event->Category->recursive = -1;
+            $categories = $this->Event->Category->find('list', array('fields' => 'name'));
+            $categorias = $this -> Event -> Category -> find('all', array('order'=>'Category.name ASC'));
+            $this -> set(compact('categories', 'categorias'));
+        }
+
+        /**
+         * view method
+         *
+         * @throws NotFoundException
+         * @param string $id
+         * @return void
+         */
+        public function view($id = null) {
+            if (!$this -> Event -> exists($id)) {
+                throw new NotFoundException(__('Invalid event'));
+            }
+            $options = array('conditions' => array('Event.' . $this -> Event -> primaryKey => $id));
+            $this -> set('event', $this -> Event -> find('first', $options));
+        }
+
 
         /**
          * edit method
@@ -155,16 +158,18 @@
         }
 
         public function get() {
-            $this -> autoRender = FALSE;
-
-            if ($this -> request -> is('get')) {
-                $eventCategory = isset($this -> request -> query['eventCategory']) ? $this -> request -> query['eventCategory'] : array();
-                $eventInterval = $this -> request -> query['eventInterval'];
-                $neLat = $this -> request -> query['neLat'];
-                $neLong = $this -> request -> query['neLong'];
-                $swLat = $this -> request -> query['swLat'];
-                $swLong = $this -> request -> query['swLong'];
-                if (isset($neLat) && isset($neLong) && isset($swLat) && isset($swLong)) {
+            // $this -> autoRender = FALSE;
+			
+            if($this->request->isAjax() && isset($this->request->query['params'])) {
+            	$params = json_decode($this->request->query['params']);
+                $eventCategory = isset($params->categoriesSelected) ? $params->categoriesSelected : null;
+                $eventInterval = isset($params->eventInterval) ? $params->eventInterval : null;
+                $neLat = isset($params->neLat) ? $params->neLat : null;
+                $neLong = isset($params->neLong) ? $params->neLong : null;
+                $swLat = isset($params->swLat) ? $params->swLat : null;
+                $swLong = isset($params->swLong) ? $params->swLong : null;
+                if ($neLat && $neLong && $swLat && $swLong) {
+                	// debug(json_decode($params));
                     switch ($eventInterval) {
                         case '2' :
                             $tomorrow = strtotime("+1 days");
@@ -203,7 +208,7 @@
                         $intervalConditions
                     );
                     $categories = array();
-                    $eventCategory = json_decode($eventCategory); # Angular lo manda en formato JSON
+                    // $eventCategory = json_decode($eventCategory); # Angular lo manda en formato JSON
                     if (sizeof($eventCategory) > 0) {
                         $categoryConditions = array();
                         foreach ($eventCategory as $key => $category) {
@@ -244,7 +249,10 @@
 
                     // $this -> Event -> bindModel(array('hasOne' => array('CategoriesEvents')));
                     $events = $this -> Event -> find('all', $options);
-                    return json_encode($events);
+                    // return json_encode($events);
+                    // return $this->set(array('events' => $events, '_serialize' => array('events')));
+                    $this->set(array('events' => $events, '_serialize' => array('events')));
+					return;
                 }
             }
         }

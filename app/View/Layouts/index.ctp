@@ -7,12 +7,8 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<?php
 		echo $this->Html->meta('icon');
-		echo $this->Html->css(array(
-			'bootstrap.min',
-			'layouts/default',
-			'inicio', /*'bootstrap-responsive.min'*/
-		));
 		echo $this->fetch('meta');
+		echo $this->Html->css('bootstrap.min');
 		echo $this->fetch('css');
 		?>
 		<!--[if lt IE 9]>
@@ -20,11 +16,8 @@
 		<![endif]-->
 	</head>
 	<body ng-app="RadarApp">
-		
-			<div id="header"></div>
-				<?php echo $this->Session->flash(); ?>
-				<?php echo $this->fetch('content'); ?>
-			<div id="footer"></div>
+
+		<?php echo $this->fetch('content'); ?>
 		
 		<!-- Scripts -->
 		<?php

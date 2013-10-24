@@ -63,18 +63,18 @@ if (AuthComponent::user('location')) {
                                     <h4>Información básica</h4>
                                 </div>
         							
-        						<!-- Título -->
+        						<!-- Title -->
         						<div class="row form-group">
-                                	<label for="EventTitle">Título</label>
+                                	<label for="EventTitle"><?php echo __('Title');?></label>
                                     <input autofocus="true" class="textbox form-control" id="EventTitle" maxlength="255" 
                                         ng-model="event.title" required="required" type="text">
         						</div>
         							
-        						<!-- Dirección -->
+        						<!-- Address -->
         						<div class="row">
         							<div class="form-group">
 										<!-- <input class="span2" id="appendedInputButton" type="text"> -->
-	                                    <label for="EventAddress">Dirección</label>
+	                                    <label for="EventAddress"><?php echo __('Address');?></label>
 	                            		<div class="input-group input-group-sm">
 	                            			<input class="textbox col-sm-11 form-control" id="EventAddress" maxlength="255" 
 	                                            ng-model="event.address" required="required" type="text">
@@ -87,10 +87,10 @@ if (AuthComponent::user('location')) {
 									</div>
         						</div>
         							
-        						<!-- Descripción -->
+        						<!-- Description -->
         						<div class="row form-group">
-                                	<label for="EventDescripción">Descripción</label>
-                                    <textarea class="textarea col-sm-12 form-control" cols="30" id="EventDescripción" 
+                                	<label for="EventDescription"><?php echo __('Description');?></label>
+                                    <textarea class="textarea col-sm-12 form-control" cols="30" id="EventDescription" 
                                         ng-model="event.description" required="required" rows="4">
                                     </textarea>
         						</div>
@@ -106,7 +106,7 @@ if (AuthComponent::user('location')) {
                                                     	ng-class="{highlight:categoria.highlight}"
                                                     	ng-model="categoria"
                                                     	ng-repeat="categoria in categorias | orderBy:'Category.name'"
-                                                    	ng-click="addCategoryToEvent(categoria)">
+                                                    	ng-click="categoryToogle(categoria)">
                                                         <div class="col-sm-1">
                                                             <img class="icono-categoria" 
                                                             	ng-src="/img/categorias/{{categoria.Category.icon}}" />

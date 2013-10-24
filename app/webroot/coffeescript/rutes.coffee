@@ -9,6 +9,13 @@ rutes.config ['$routeProvider', ($routeProvider) ->
 			templateUrl: '/events/add'
 			# , controller: this.EventsController
 		})
+		.when('/events/view/:id', {
+			# templateUrl: '/events/view/' + $routeParams.id
+			templateUrl: (params) ->
+				'/events/view/' + params.id
+			# , controller: this.EventsController
+		})
+		
 		# .when('/admin/articulos/resumen', {
 			# templateUrl: '/admin/articulos/resumen'
 			# , controller: this.ArticuloIndiceController
