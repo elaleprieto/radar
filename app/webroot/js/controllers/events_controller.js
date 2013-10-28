@@ -14,6 +14,8 @@
 
       var date, findResult, getEventCategoryIcon, getEventDescription, getEventId, getEventTitle, setUserLocationString, userLastLocationString, userMapCenter, userMapTypeId, userMapZoom;
       $scope.eventInterval = 1;
+      $scope.isReadonly = false;
+      $scope.max = 5;
       $scope.user = {};
       $scope.categoriesSelected = [];
       date = new Date();
@@ -272,6 +274,10 @@
             return $scope.eventos = response.events;
           });
         }
+      };
+      $scope.hoveringOver = function(value, evento) {
+        evento.overStar = value;
+        return $scope.percent = 100 * (value / $scope.max);
       };
       $scope.inicializar = function() {
         if (navigator.geolocation) {

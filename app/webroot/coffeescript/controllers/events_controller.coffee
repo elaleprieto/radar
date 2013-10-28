@@ -1,7 +1,6 @@
 ### *******************************************************************************************************************
 								EVENTOS
 ******************************************************************************************************************* ###
-
 angular.module('RadarApp').controller 'EventsController'
 	, ['$http', '$location', '$scope', '$timeout', '$compile', 'Event', 'EventView'
 		, ($http, $location, $scope, $timeout, $compile, Event, EventView) ->
@@ -10,6 +9,8 @@ angular.module('RadarApp').controller 'EventsController'
 			Inicialización de Objetos
 	*************************************************************************************************************** ###
 	$scope.eventInterval = 1
+	$scope.isReadonly = false
+	$scope.max = 5
 	$scope.user = {}
 	$scope.categoriesSelected = []
 	date = new Date()
@@ -317,7 +318,12 @@ angular.module('RadarApp').controller 'EventsController'
 			
 			Event.get {params:options}, (response) ->
 				$scope.eventos = response.events
-			
+
+	$scope.hoveringOver = (value, evento) ->
+		# $scope.overStar = true
+		evento.overStar = value
+		$scope.percent = 100 * (value / $scope.max)
+
 	# Inicializa el mapa
 	$scope.inicializar = ->
 		if navigator.geolocation

@@ -158,8 +158,6 @@
         }
 
         public function get() {
-            // $this -> autoRender = FALSE;
-			
             if($this->request->isAjax() && isset($this->request->query['params'])) {
             	$params = json_decode($this->request->query['params']);
                 $eventCategory = isset($params->categoriesSelected) ? $params->categoriesSelected : null;
@@ -169,7 +167,6 @@
                 $swLat = isset($params->swLat) ? $params->swLat : null;
                 $swLong = isset($params->swLong) ? $params->swLong : null;
                 if ($neLat && $neLong && $swLat && $swLong) {
-                	// debug(json_decode($params));
                     switch ($eventInterval) {
                         case '2' :
                             $tomorrow = strtotime("+1 days");
@@ -224,6 +221,7 @@
                         , 'Event.date_end'
                         , 'Event.lat'
                         , 'Event.long'
+                        , 'Event.rate'
                         , 'CategoriesEvent.category_id'
                         , 'Category.icon'
                     );
@@ -247,10 +245,7 @@
 					    )
 					);
 
-                    // $this -> Event -> bindModel(array('hasOne' => array('CategoriesEvents')));
                     $events = $this -> Event -> find('all', $options);
-                    // return json_encode($events);
-                    // return $this->set(array('events' => $events, '_serialize' => array('events')));
                     $this->set(array('events' => $events, '_serialize' => array('events')));
 					return;
                 }

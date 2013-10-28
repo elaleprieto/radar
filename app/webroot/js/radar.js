@@ -1,11 +1,11 @@
-/*! radar 2013-10-22 */
+/*! radar 2013-10-28 */
 (function() {
     "use strict";
     var a, b = [].indexOf || function(a) {
         for (var b = 0, c = this.length; c > b; b++) if (b in this && this[b] === a) return b;
         return -1;
     };
-    a = angular.module("RadarApp", [ "fechaFilters", "ui.keypress", "rutes", "$strap.directives", "components", "models", "services" ]), 
+    a = angular.module("RadarApp", [ "fechaFilters", "ui.keypress", "ui.bootstrap", "rutes", "$strap.directives", "components", "models", "services" ]), 
     a.config([ "$httpProvider", "$locationProvider", function(a) {
         return a.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
     } ]), a.value("$strapConfig", {
@@ -44,8 +44,8 @@
 }.call(this), function() {
     angular.module("RadarApp").controller("EventsController", [ "$http", "$location", "$scope", "$timeout", "$compile", "Event", "EventView", function(a, b, c, d, e, f, g) {
         var h, i, j, k, l, m, n, o, p, q, r;
-        return c.eventInterval = 1, c.user = {}, c.categoriesSelected = [], h = new Date(), 
-        c.minutoEnMilisegundos = 6e4, c.diaEnMilisegundos = 1440 * c.minutoEnMilisegundos, 
+        return c.eventInterval = 1, c.isReadonly = !1, c.max = 5, c.user = {}, c.categoriesSelected = [], 
+        h = new Date(), c.minutoEnMilisegundos = 6e4, c.diaEnMilisegundos = 1440 * c.minutoEnMilisegundos, 
         c.event = {}, c.event.categories = [], c.capital = new google.maps.LatLng(-34.603, -58.382), 
         c.cordoba = new google.maps.LatLng(-31.388813, -64.179726), c.santafe = new google.maps.LatLng(-31.625906, -60.696774), 
         c.cordobaSantafe = new google.maps.LatLng(-31.52081, -62.411469), c.locationDefault = c.cordobaSantafe, 
@@ -173,6 +173,8 @@
             }, function(a) {
                 return c.eventos = a.events;
             })) : void 0;
+        }, c.hoveringOver = function(a, b) {
+            return b.overStar = a, c.percent = 100 * (a / c.max);
         }, c.inicializar = function() {
             return navigator.geolocation ? (window.browserSupportFlag = !0, navigator.geolocation.getCurrentPosition(function(a) {
                 var b;

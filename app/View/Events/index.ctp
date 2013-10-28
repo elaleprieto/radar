@@ -2,8 +2,13 @@
 # Styles
 echo $this->Html->css(array(
 	'inicio',
-	'events/index'
+	'events/index',
+	'//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css',
+	// '//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css'
 ), '', array('inline' => false));
+
+# Javascript
+echo $this->Html->script('http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.6.0.js', array('inline' => false));
 
 # User Location
 if (AuthComponent::user('location')) {
@@ -25,8 +30,6 @@ if (AuthComponent::user('location')) {
 	}
 }
 ?>
-<!-- <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet"> -->
-<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
 
 <div ng-controller="EventsController" ng-init="user.locationAux='<?php echo $userLocation; ?>'">
 
@@ -367,10 +370,11 @@ if (AuthComponent::user('location')) {
 		    		<table id="eventsList" class="table table-striped">
 		    			<thead>
 		    				<tr>
-		    					<th>Fecha Inicio</th>
-		    					<th>Fecha Fin</th>
-		    					<th>Evento</th>
-		    					<th>Dirección</th>
+		    					<th><?php echo __('Date Start'); ?></th>
+		    					<th><?php echo __('Date End'); ?></th>
+		    					<th><?php echo __('Event'); ?></th>
+		    					<th><?php echo __('Address'); ?></th>
+		    					<th><?php echo __('Rate'); ?></th>
 		    				</tr>
 		    			</thead>
 		    			<tbody>
@@ -379,6 +383,15 @@ if (AuthComponent::user('location')) {
 		    			        <td ng-bind="evento.Event.date_end | isodate | date:'dd/MM/yyyy HH:mm'"></td>
 		    			        <td ng-bind="evento.Event.title"></td>
 		    			        <td ng-bind="evento.Event.address"></td>
+		    			        <!-- <td ng-bind="evento.Event.rate"> -->
+	    			        	<td>
+		    			        	<rating value="evento.Event.rate" max="max" readonly="isReadonly" 
+		    			        		on-hover="hoveringOver(value, evento)" on-leave="evento.overStar = null">
+		    			        	</rating>
+    								<span class="badge" ng-class="{'badge-warning': percent<30, 'badge-info': percent>=30 && percent<70, 'badge-success': percent>=70}" ng-show="evento.overStar && !isReadonly">
+    										{{percent}}%
+    								</span>
+		    			        </td>
 		    			    </tr>
 		    			</tbody>
 		    		</table>
