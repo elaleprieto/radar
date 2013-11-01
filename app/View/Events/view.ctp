@@ -1,15 +1,23 @@
 <?php
 App::uses('CakeTime', 'Utility');
+
+# Styles
+echo $this -> Html -> css(array('events/view'));
 ?>
 
 <div class="row">
 	<div class="col-sm-3">
-		<?php echo $this->Html->image('logos/logoBetaVertical.png', array('class' => 'img-responsive')); ?>
+		<!-- Categoría del lugar-->
+		<div class="row">
+		</div>
+		<div class="row">
+			<?php echo $this->Html->image('logos/logoBetaVertical.png', array('class' => 'img-responsive')); ?>
+		</div>
 	</div>
 	<div class="col-sm-9">
 		<div class="row">
 			<div class="col-sm-12">
-				<h1><?php echo h($event['Event']['title']); ?></h1>
+				<h2><?php echo h($event['Event']['title']); ?></h2>
 			</div>
 		</div>
 		<div class="row">
@@ -17,6 +25,52 @@ App::uses('CakeTime', 'Utility');
 				<p><?php echo h($event['Event']['description']); ?></p>
 			</div>
 		</div>
+		<hr>
+		<div class="row">
+			<div class="col-sm-12">
+				<p><span class="glyphicon glyphicon-map-marker" style="color:#ABD402"></span>&nbsp;&nbsp;<?php echo h($event['Event']['address']); ?></p>
+			</div>
+		</div>
+		<hr>
+		<div class="row">
+			<div class="col-sm-2 col-offset-2">
+				<p>De</p>
+			</div>
+			<div class="col-sm-4">
+				<p><span class="glyphicon glyphicon-calendar" style="color:#ABD402"></span>&nbsp;&nbsp;<?php echo CakeTime::format($event['Event']['date_start'], '%d/%m/%Y'); ?></p>
+			</div>
+			<div class="col-sm-4">
+				<p><span class="glyphicon glyphicon-time" style="color:#ABD402"></span>&nbsp;&nbsp;<?php echo CakeTime::format($event['Event']['date_start'], '%H:%M'); ?></p>
+			</div>
+		</div>	<hr>
+		<div class="row">
+			<div class="col-sm-2 col-offset-2">
+				<p>Hasta</p>
+			</div>
+			<div class="col-sm-4">
+				<p><span class="glyphicon glyphicon-calendar" style="color:#ABD402"></span>&nbsp;&nbsp;<?php echo CakeTime::format($event['Event']['date_end'], '%d/%m/%Y'); ?></p>
+			</div>
+			<div class="col-sm-4">
+				<p><span class="glyphicon glyphicon-time" style="color:#ABD402"></span>&nbsp;&nbsp;<?php echo CakeTime::format($event['Event']['date_end'], '%H:%M'); ?></p>
+			</div>
+		</div>
+		<hr>
+		<div class="row">
+			<div class="col-sm-12">
+				<p><?php echo __('Accecibilidad'); ?></p>
+				<p></p>
+			</div>
+		</div>
+		<hr>
+		<div class="row">
+			<div class="col-sm-12">
+				<p><?php echo __('More'); ?></p>
+				<p><?php echo __('ticket :').$event['Event']['cost']; ?></p>
+				<p><?php echo $event['Event']['website']; ?></p>
+			</div>
+		</div>
+	
+		<!--		
 		<div class="row">
 			<div class="col-sm-12">
 				<h3><?php echo __('Date Start'); ?></h3>
@@ -29,6 +83,7 @@ App::uses('CakeTime', 'Utility');
 				<p><?php echo CakeTime::format($event['Event']['date_end'], '%d/%m/%Y %H:%M'); ?></p>
 			</div>
 		</div>
+		-->
 	</div>
 </div>
 
