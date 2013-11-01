@@ -4,44 +4,64 @@
 
 @font-face { font-family: "liberation"; src: url('/fonts/LiberationSans-Regular.ttf') format('truetype'); }
 
-/* line 6, ../sass/inicio.sass */
-#map img { max-width: none; }
+@font-face { font-family: "greyscale"; src: url('/fonts/Greyscale_Basic_Regular.ttf') format('truetype'); }
 
-/* line 9, ../sass/inicio.sass */
-#map { height: 470px; }
+/* line 6, ../sass/inicio.sass */
+#btn-radea { padding-bottom: 8px; padding-top: 8px; left: 20px; }
 
 /* line 12, ../sass/inicio.sass */
+#map img { max-width: none; }
+
+/* line 15, ../sass/inicio.sass */
+#map { height: 470px; }
+
+/* line 18, ../sass/inicio.sass */
 body { font-family: "liberation"; font-size: 14px; }
 
-/* line 17, ../sass/inicio.sass */
+/* line 23, ../sass/inicio.sass */
 .btn { font-family: "isocpe"; font-size: 16px; font-weight: bold; }
 
-/* line 23, ../sass/inicio.sass */
+/* line 29, ../sass/inicio.sass */
+.btn-warning:hover, .btn-warning:focus, .btn-warning:active, .btn-warning.active { background-color: #ffcc00; }
+
+/* line 35, ../sass/inicio.sass */
 .btn-verde { color: white; background-color: #bdda4d; border-color: #aacf19; }
 
-/* line 28, ../sass/inicio.sass */
+/* line 40, ../sass/inicio.sass */
+.btn-verde-simple { background: none; color: white; padding-right: 8px; padding-left: 8px; }
+
+/* line 47, ../sass/inicio.sass */
 .btn-verde:hover, .btn-verde:focus, .btn-verde:active, .btn-verde.active, .open .dropdown-toggle.btn-verde { color: white; background-color: #aacf19; border-color: #aacf19; }
 
-/* line 37, ../sass/inicio.sass */
+/* line 56, ../sass/inicio.sass */
+.btn-verde-simple:hover, .btn-verde-simple:focus, .btn-verde-simple:active, .btn-verde-simple.active, .open .dropdown-toggle.btn-verde-simple { color: #abd402; text-decoration: underline; }
+
+/* line 64, ../sass/inicio.sass */
 .btn-verde:active, .btn-verde.active, .open .dropdown-toggle.btn-verde { background-image: none; }
 
-/* line 42, ../sass/inicio.sass */
+/* line 69, ../sass/inicio.sass */
+.btn-verde-simple:active, .btn-verde-simple.active, .open .dropdown-toggle.btn-verde-simple { color: #abd402; text-decoration: underline; }
+
+/* line 75, ../sass/inicio.sass */
 .btn-verde.disabled, .btn-verde[disabled], fieldset[disabled] .btn-verde, .btn-verde.disabled:hover, .btn-verde[disabled]:hover, fieldset[disabled] .btn-verde:hover, .btn-verde.disabled:focus, .btn-verde[disabled]:focus, fieldset[disabled] .btn-verde:focus, .btn-verde.disabled:active, .btn-verde[disabled]:active, fieldset[disabled] .btn-verde:active, .btn-verde.disabled.active, .btn-verde[disabled].active, fieldset[disabled] .btn-verde.active { background-color: #bdda4d; border-color: #bdda4d; }
 
-/* line 60, ../sass/inicio.sass */
+/* line 93, ../sass/inicio.sass */
+.btn-verde-simple.disabled, .btn-verde-simple[disabled], fieldset[disabled] .btn-verde-simple, .btn-verde-simple.disabled:hover, .btn-verde-simple[disabled]:hover, fieldset[disabled] .btn-verde-simple:hover, .btn-verde-simple.disabled:focus, .btn-verde-simple[disabled]:focus, fieldset[disabled] .btn-verde-simple:focus, .btn-verde-simple.disabled:active, .btn-verde-simple[disabled]:active, fieldset[disabled] .btn-verde-simple:active, .btn-verde-simple.disabled.active, .btn-verde-simple[disabled].active, fieldset[disabled] .btn-verde-simple.active { color: #abd402; text-decoration: underline; }
+
+/* line 111, ../sass/inicio.sass */
 .icono-categoria { padding: 2px; }
 
-/* line 63, ../sass/inicio.sass */
+/* line 114, ../sass/inicio.sass */
 .label_categoria { background-color: #e7d785; background-image: linear-gradient(to bottom, #fffeb8, #c49c38); background-repeat: repeat-x; border-bottom-color: rgba(0, 0, 0, 0.25); border-left-color-ltr-source: physical; border-left-color-rtl-source: physical; border-left-color-value: rgba(0, 0, 0, 0.1); border-right-color-ltr-source: physical; border-right-color-rtl-source: physical; border-right-color-value: rgba(0, 0, 0, 0.1); border-top-color: rgba(0, 0, 0, 0.1); color: white; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25); }
 
-/* line 78, ../sass/inicio.sass */
+/* line 129, ../sass/inicio.sass */
 .navbar .nav > li > a.menu { height: 33px; padding-bottom: 5px; padding-top: 42px; }
 
-/* line 84, ../sass/inicio.sass */
+/* line 135, ../sass/inicio.sass */
 .navbar .nav > li > a.menu-brand { font-size: 20px; height: 35px; padding-bottom: 5px; padding-top: 5px; }
 
-/* line 92, ../sass/inicio.sass */
+/* line 143, ../sass/inicio.sass */
 .titulo { color: #a1ca00; font-family: "codebold"; padding-top: 15px; }
 
-/* line 99, ../sass/inicio.sass */
+/* line 150, ../sass/inicio.sass */
 .whipala { text-align: center; padding: 15px; }
