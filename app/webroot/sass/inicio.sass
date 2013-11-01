@@ -3,6 +3,12 @@
 $gris: #D4D4D4
 $verde: #A1CA00
 
+#btn-radea
+	padding:
+		bottom: 8px
+		top: 8px
+	left: 20px
+
 #map img
 	max-width: none
 	
@@ -20,10 +26,23 @@ body
 		size: 16px
 		weight: bold
 
+.btn-warning:hover,
+.btn-warning:focus,
+.btn-warning:active,
+.btn-warning.active,
+	background-color: $orange
+
 .btn-verde
 	color: #ffffff
 	background-color: $verde_claro
 	border-color: $verde_oscuro
+
+.btn-verde-simple
+	background: none
+	color: #ffffff
+	padding:
+		right: 8px
+		left: 8px
 
 .btn-verde:hover,
 .btn-verde:focus,
@@ -34,10 +53,24 @@ body
 	background-color: $verde_oscuro
 	border-color: $verde_oscuro
 
+.btn-verde-simple:hover,
+.btn-verde-simple:focus,
+.btn-verde-simple:active,
+.btn-verde-simple.active,
+.open .dropdown-toggle.btn-verde-simple
+	color: $verde-fluo
+	text-decoration: underline
+
 .btn-verde:active,
 .btn-verde.active,
 .open .dropdown-toggle.btn-verde
 	background-image: none
+
+.btn-verde-simple:active,
+.btn-verde-simple.active,
+.open .dropdown-toggle.btn-verde-simple
+	color: $verde-fluo
+	text-decoration: underline
 
 .btn-verde.disabled,
 .btn-verde[disabled],
@@ -56,6 +89,24 @@ fieldset[disabled] .btn-verde:active,
 fieldset[disabled] .btn-verde.active
 	background-color: $verde_claro
 	border-color: $verde_claro
+
+.btn-verde-simple.disabled,
+.btn-verde-simple[disabled],
+fieldset[disabled] .btn-verde-simple,
+.btn-verde-simple.disabled:hover,
+.btn-verde-simple[disabled]:hover,
+fieldset[disabled] .btn-verde-simple:hover,
+.btn-verde-simple.disabled:focus,
+.btn-verde-simple[disabled]:focus,
+fieldset[disabled] .btn-verde-simple:focus,
+.btn-verde-simple.disabled:active,
+.btn-verde-simple[disabled]:active,
+fieldset[disabled] .btn-verde-simple:active,
+.btn-verde-simple.disabled.active,
+.btn-verde-simple[disabled].active,
+fieldset[disabled] .btn-verde-simple.active
+	color: $verde-fluo
+	text-decoration: underline
 
 .icono-categoria
 	padding: 2px
