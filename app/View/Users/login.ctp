@@ -2,7 +2,7 @@
 # CSS
 echo $this -> Html -> css(array('users/login'), null, array('inline' => FALSE));
 # JavaScript
-echo $this -> Html -> script(array('login'), array('inline' => FALSE));
+//echo $this -> Html -> script(array('login'), array('inline' => FALSE));
 ?>
 <div class="row">
 	<div class="col-sm-10">
