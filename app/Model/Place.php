@@ -33,6 +33,13 @@ class Place extends AppModel {
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
+		'email' => array(
+			'email' => array(
+				'rule' => array('email', true),
+				'allowEmpty' => false,
+				'required' => false,
+				)
+		)
 	);
 
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
