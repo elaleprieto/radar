@@ -27,6 +27,9 @@ nav
 	top: 0
 	z-index: 1
 
+ul.rating
+	display: inline-block
+
 .arrow, .arrow:hover
 	// background-color: $background-black
 	border: none
@@ -117,6 +120,27 @@ nav
 .nav > li > a:hover, .nav > li > a:focus
 	// background-color: $blanco
 	background-color: $background-black-hover
+
+.rating
+	color: #a9a9a9
+	margin: 0
+	padding: 0
+
+.rating li
+	list-style-type: none
+	display: inline-block
+	padding: 1px
+	text-align: center
+	font-weight: bold
+
+.rating .filled
+	color: #21568b
+
+.star
+	cursor: pointer
+	
+	&.not-allowed
+		cursor: not-allowed !important
 
 .username
 	font:

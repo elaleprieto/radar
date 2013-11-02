@@ -44,6 +44,20 @@
         }
       });
     }
+  ]).factory('Rate', [
+    '$resource', function($resource) {
+      return $resource('/rates.json', {
+        callback: 'JSON_CALLBACK'
+      }, {
+        buscar: {
+          method: 'GET'
+        },
+        create: {
+          method: 'POST',
+          url: '/rates.json'
+        }
+      });
+    }
   ]);
 
 }).call(this);

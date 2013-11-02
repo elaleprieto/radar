@@ -6,7 +6,7 @@
 
 (function() {
   angular.module('RadarApp').controller('EventsController', [
-    '$http', '$location', '$scope', '$timeout', '$compile', 'Event', 'EventView', function($http, $location, $scope, $timeout, $compile, Event, EventView) {
+    '$http', '$location', '$scope', '$timeout', '$compile', 'Event', 'EventView', 'Rate', function($http, $location, $scope, $timeout, $compile, Event, EventView, Rate) {
       /* ***************************************************************************************************************
       			Inicialización de Objetos
       	***************************************************************************************************************
@@ -275,10 +275,6 @@
           });
         }
       };
-      $scope.hoveringOver = function(value, evento) {
-        evento.overStar = value;
-        return $scope.percent = 100 * (value / $scope.max);
-      };
       $scope.inicializar = function() {
         if (navigator.geolocation) {
           window.browserSupportFlag = true;
@@ -291,9 +287,16 @@
           });
         }
       };
+      $scope.rateEvent = function(evento) {
+        return console.log(evento.Event.rate);
+      };
       $scope.resetView = function(event) {
         console.log($('ng-view').innerHtml);
         return $location.path('/');
+      };
+      $scope.saveRatingToServer = function(evento, newRating) {
+        evento.Event.rate = newRating;
+        return Rate.create(evento);
       };
       $scope.saveUserLocationString = function() {
         $.cookie.json = true;

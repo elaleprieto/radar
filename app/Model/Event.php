@@ -7,7 +7,7 @@ App::uses('AppModel', 'Model');
  * @property Place $Place
  */
 class Event extends AppModel {
-
+	
 /**
  * Validation rules
  *
@@ -61,6 +61,22 @@ class Event extends AppModel {
 			'insertQuery' => ''
 		),
 	);
+	
+	public $hasMany = array(
+		'Rate' => array(
+			'className' => 'Rate',
+			'foreignKey' => 'event_id',
+			'dependent' => false,
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'exclusive' => '',
+			'finderQuery' => '',
+			'counterQuery' => ''
+		)
+	);
 
 	public function beforeSave($options = array()){
 		foreach (array_keys($this->hasAndBelongsToMany) as $model) {
@@ -70,5 +86,20 @@ class Event extends AppModel {
 			}
 		}
 		return true;
+	}
+	
+	public function rate($id = null, $rate = null) {
+		if($id && $rate && $rate > 0) {
+			// $rateOld = $this->field('rate', array('id' => $id));
+			$rateOld = $this->query("SELECT SUM(rate) as rateOld FROM rates WHERE event_id = $id GROUP BY event_id");
+			$rateOld = (Integer) $rateOld[0][0]['rateOld'];
+			
+			$count = $this->Rate->find('count', array('conditions' => array('Rate.event_id' => $id)));
+			
+			$rateNew = ceil(($rateOld + $rate) / ($count));
+			
+			$this->id = $id;
+			$this->saveField('rate', $rateNew);
+		}
 	}
 }

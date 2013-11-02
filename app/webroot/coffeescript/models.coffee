@@ -23,3 +23,11 @@ angular.module('models', ['ngResource'])
 			, buscar: {method:'GET'}
 				, get: {cache: true, method: 'GET', url: '/places/get.json'}
 	])
+
+	# Rate
+	.factory('Rate', ['$resource', ($resource) ->
+		$resource '/rates.json'
+			, { callback:'JSON_CALLBACK' }
+			, buscar: {method:'GET'}
+				, create: {method: 'POST', url: '/rates.json'}
+	])

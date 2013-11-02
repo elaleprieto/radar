@@ -7,9 +7,6 @@ echo $this->Html->css(array(
 	// '//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css'
 ), '', array('inline' => false));
 
-# Javascript
-echo $this->Html->script('http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.6.0.js', array('inline' => false));
-
 # User Location
 if (AuthComponent::user('location')) {
 	$userLocation = AuthComponent::user('location');
@@ -31,7 +28,7 @@ if (AuthComponent::user('location')) {
 }
 ?>
 
-<div ng-controller="EventsController" ng-init="user.locationAux='<?php echo $userLocation; ?>'">
+<div ng-controller="EventsController" ng-init="user.locationAux='<?php echo $userLocation; ?>'; user.id='<?php echo AuthComponent::user('id');?>'">
 
 	<!-- LOGO -->
 	<div id="logo">
@@ -378,20 +375,15 @@ if (AuthComponent::user('location')) {
 		    				</tr>
 		    			</thead>
 		    			<tbody>
-		    			    <tr ng-repeat="evento in eventos | orderBy:'Event.date_start'">
-		    			        <td ng-bind="evento.Event.date_start | isodate | date:'dd/MM/yyyy HH:mm'"></td>
-		    			        <td ng-bind="evento.Event.date_end | isodate | date:'dd/MM/yyyy HH:mm'"></td>
-		    			        <td ng-bind="evento.Event.title"></td>
-		    			        <td ng-bind="evento.Event.address"></td>
-		    			        <!-- <td ng-bind="evento.Event.rate"> -->
-	    			        	<td>
-		    			        	<rating value="evento.Event.rate" max="max" readonly="isReadonly" 
-		    			        		on-hover="hoveringOver(value, evento)" on-leave="evento.overStar = null">
-		    			        	</rating>
-    								<span class="badge" ng-class="{'badge-warning': percent<30, 'badge-info': percent>=30 && percent<70, 'badge-success': percent>=70}" ng-show="evento.overStar && !isReadonly">
-    										{{percent}}%
-    								</span>
-		    			        </td>
+							<tr ng-repeat="evento in eventos | orderBy:'Event.date_start'">
+								<td ng-bind="evento.Event.date_start | isodate | date:'dd/MM/yyyy HH:mm'"></td>
+								<td ng-bind="evento.Event.date_end | isodate | date:'dd/MM/yyyy HH:mm'"></td>
+								<td ng-bind="evento.Event.title"></td>
+								<td ng-bind="evento.Event.address"></td>
+								<td>
+									<div x-fundoo-rating x-max="max" on-rating-selected="saveRatingToServer(evento, newRating)"
+										x-rating-value="evento.Event.rate" x-readonly="false" x-user-id="user.id" x-user-voted="evento.Rate.user_id"></div>
+								</td>
 		    			    </tr>
 		    			</tbody>
 		    		</table>

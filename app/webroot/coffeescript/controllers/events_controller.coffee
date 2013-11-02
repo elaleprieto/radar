@@ -2,8 +2,8 @@
 								EVENTOS
 ******************************************************************************************************************* ###
 angular.module('RadarApp').controller 'EventsController'
-	, ['$http', '$location', '$scope', '$timeout', '$compile', 'Event', 'EventView'
-		, ($http, $location, $scope, $timeout, $compile, Event, EventView) ->
+	, ['$http', '$location', '$scope', '$timeout', '$compile', 'Event', 'EventView', 'Rate'
+		, ($http, $location, $scope, $timeout, $compile, Event, EventView, Rate) ->
 
 	### ***************************************************************************************************************
 			Inicialización de Objetos
@@ -319,11 +319,6 @@ angular.module('RadarApp').controller 'EventsController'
 			Event.get {params:options}, (response) ->
 				$scope.eventos = response.events
 
-	$scope.hoveringOver = (value, evento) ->
-		# $scope.overStar = true
-		evento.overStar = value
-		$scope.percent = 100 * (value / $scope.max)
-
 	# Inicializa el mapa
 	$scope.inicializar = ->
 		if navigator.geolocation
@@ -334,11 +329,17 @@ angular.module('RadarApp').controller 'EventsController'
 			, ->
 				$scope.setLocationDefault()
 
+	$scope.rateEvent = (evento) ->
+		console.log evento.Event.rate
 		
 	$scope.resetView = (event) ->
 		console.log $('ng-view').innerHtml
 		
 		$location.path('/')
+
+	$scope.saveRatingToServer = (evento, newRating) ->
+		evento.Event.rate = newRating
+		Rate.create evento
 
 	# Save as cookie, the user map desired center
 	$scope.saveUserLocationString = ->

@@ -6,6 +6,35 @@ App::uses('AppController', 'Controller');
  * @property Rate $Rate
  */
 class RatesController extends AppController {
+	
+	/**************************************************************************************************************
+	 *  Authentication
+	**************************************************************************************************************/
+    public function beforeFilter() {
+        parent::beforeFilter();
+        $this -> Auth -> allow('add');
+    }
+	
+	// public function isAuthorized($user = null) {
+	    // # All registered users can add events
+	    // if ($this->action === 'add') {
+	        // return true;
+	    // }
+// 	
+	    // # The owner of an event can edit and delete it
+	    // if (in_array($this->action, array('edit', 'delete'))) {
+	        // $eventId = $this->request->params['pass'][0];
+	        // if ($this->Event->isOwnedBy($eventId, $user['id'])) {
+	            // return true;
+	        // }
+	    // }
+// 	
+	    // return parent::isAuthorized($user);
+	// }
+	/**************************************************************************************************************
+	 *  /authentication
+	**************************************************************************************************************/
+	
 
 /**
  * index method
@@ -99,5 +128,31 @@ class RatesController extends AppController {
 		}
 		$this->Session->setFlash(__('Rate was not deleted'));
 		$this->redirect(array('action' => 'index'));
+	}
+	
+	
+/**
+ * add method
+ *
+ * @return void
+ */
+	public function add() {
+		$this->autoRender = false;
+		
+		
+		if ($this->request->is('post')) {
+			$evento = $this->request->input('json_decode');
+			$this->Rate->add($evento);
+			
+			// if ($this->Rate->save($rate)) {
+				// // $this->Session->setFlash(__('The rate has been saved'));
+				// // $this->redirect(array('action' => 'index'));
+			// } else {
+				// $this->Session->setFlash(__('The rate could not be saved. Please, try again.'));
+			// }
+		}
+		// $events = $this->Rate->Event->find('list');
+		// $users = $this->Rate->User->find('list');
+		// $this->set(compact('events', 'users'));
 	}
 }

@@ -3,7 +3,7 @@
   var RadarApp,
     __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
 
-  RadarApp = angular.module('RadarApp', ['fechaFilters', 'ui.keypress', 'ui.bootstrap', 'rutes', '$strap.directives', 'components', 'models', 'services']);
+  RadarApp = angular.module('RadarApp', ['fechaFilters', 'ui.keypress', 'rutes', '$strap.directives', 'components', 'models', 'services']);
 
   RadarApp.config([
     '$httpProvider', '$locationProvider', function($httpProvider, $locationProvider) {
