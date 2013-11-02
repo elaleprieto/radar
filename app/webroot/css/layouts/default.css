@@ -4,6 +4,8 @@
 
 @font-face { font-family: "liberation"; src: url('/fonts/LiberationSans-Regular.ttf') format('truetype'); }
 
+@font-face { font-family: "greyscale"; src: url('/fonts/Greyscale_Basic_Regular.ttf') format('truetype'); }
+
 /* line 3, ../../sass/layouts/default.sass */
 * { -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; }
 
@@ -26,7 +28,7 @@ body { padding-top: 80px; }
 .menu_icono { padding-top: 10px; background-color: rgba(0, 0, 0, 0.6); }
 
 /* line 41, ../../sass/layouts/default.sass */
-.nav > li > a:hover, .nav > li > a:focus { background-color: rgba(0, 0, 0, 0.8); }
+.nav > li > a:hover, .nav > li > a:focus { background-color: rgba(0, 0, 0, 0.5); }
 
 /* line 45, ../../sass/layouts/default.sass */
 .username { font-family: "isocpe"; font-size: 18px; font-weight: bold; margin-right: 20px; padding-top: 10px; }

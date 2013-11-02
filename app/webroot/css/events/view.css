@@ -1,0 +1,36 @@
+@font-face { font-family: "isocpe"; src: url('/fonts/Isocpeur-Regular.ttf') format('truetype'); }
+
+@font-face { font-family: "codeBold"; src: url('/fonts/CODE_Bold.otf') format('opentype'); }
+
+@font-face { font-family: "liberation"; src: url('/fonts/LiberationSans-Regular.ttf') format('truetype'); }
+
+@font-face { font-family: "greyscale"; src: url('/fonts/Greyscale_Basic_Regular.ttf') format('truetype'); }
+
+/* line 1, ../../sass/_scroll.sass */
+::-webkit-scrollbar { width: 10px; }
+
+/* Track */
+/* line 5, ../../sass/_scroll.sass */
+::-webkit-scrollbar-track { -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3); -webkit-border-radius: 10px; border-radius: 10px; }
+
+/* Handle */
+/* line 11, ../../sass/_scroll.sass */
+::-webkit-scrollbar-thumb { -webkit-border-radius: 10px; border-radius: 10px; background: #6aa3d5; -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5); }
+
+/* line 17, ../../sass/_scroll.sass */
+::-webkit-scrollbar-thumb:window-inactive { background: #b9d4ec; }
+
+/* line 3, ../../sass/events/view.sass */
+h2 { background-color: #abd402; font-family: "greyscale"; padding-bottom: 5px; padding-top: 5px; padding-left: 5px; }
+
+/* line 11, ../../sass/events/view.sass */
+hr { margin-bottom: 10px; margin-top: 10px; }
+
+/* line 16, ../../sass/events/view.sass */
+.img-responsive { padding-top: 20px; }
+
+/* line 19, ../../sass/events/view.sass */
+p { font-family: "greyscale"; font-size: 16px; margin-bottom: 0px; }
+
+/* line 25, ../../sass/events/view.sass */
+.icon-verde { color: #abd402; }

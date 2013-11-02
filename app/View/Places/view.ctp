@@ -1,11 +1,21 @@
+<?php
+# Styles
+echo $this -> Html -> css(array('events/view'));
+?>
+
 <div class="row">
 	<div class="col-sm-3">
-		<?php echo $this->Html->image('logos/logoBetaVertical.png', array('class' => 'img-responsive')); ?>
+		<!-- Categoría del lugar-->
+		<div class="row">
+		</div>
+		<div class="row">
+			<?php echo $this->Html->image('logos/logoBetaVertical.png', array('class' => 'img-responsive')); ?>
+		</div>
 	</div>
 	<div class="col-sm-9">
 		<div class="row">
 			<div class="col-sm-12">
-				<h1><?php echo h($place['Place']['name']); ?></h1>
+				<h2><?php echo h($place['Place']['name']); ?></h2>
 			</div>
 		</div>
 		<div class="row">
@@ -13,33 +23,65 @@
 				<p><?php echo h($place['Place']['description']); ?></p>
 			</div>
 		</div>
+		<hr>
 		<div class="row">
 			<div class="col-sm-12">
-				<h1><?php echo __('Accessibility'); ?></h1>
+				<p><span class="glyphicon glyphicon-map-marker" style="color:#ABD402"></span>
+					&nbsp;&nbsp;<?php echo h($place['Place']['address']); ?>
+				</p>
+				<p>
+					<span class="glyphicon glyphicon-phone-alt" style="color:#ABD402"></span>
+					&nbsp;&nbsp;<?php echo h($place['Place']['phone']); ?>
+				</p>
+				<p>
+					<span class="glyphicon glyphicon-envelope" style="color:#ABD402"></span>
+					&nbsp;&nbsp;<?php echo h($place['Place']['email']); ?>
+				</p>
+			</div>
+		</div>
+		<hr>
+		<div class="row">
+			<div class="col-sm-12">
+				<h3><?php echo __('Accessibility'); ?></h3>
 				<?php
 				if($place['Place']['accessibility_parking'] == 1):
 				?>
-					<p>Plazas de aparcamiento reservadas para personas con discapacidad</p>
+					<p>
+						<span class="glyphicon glyphicon-warning-sign" style="color:#ABD402"></span>&nbsp;&nbsp;
+						Plazas de aparcamiento reservadas para personas con discapacidad
+					</p>
 				<?php
 				endif;
 				if($place['Place']['accessibility_ramp'] == 1):
 				?>
-					<p>Escaleras, rampas o ascensores accesibles para vehículos de personas con movilidad reducida</p>
+					<p>
+						<span class="glyphicon glyphicon-road" style="color:#ABD402"></span>&nbsp;&nbsp;
+						Escaleras, rampas o ascensores accesibles para vehículos de personas con movilidad reducida
+					</p>
 				<?php
 				endif;
 				if($place['Place']['accessibility_equipment'] == 1):
 				?>
-					<p>Equipos electrónicos, informáticos y audiovisuales adaptados</p>
+					<p>
+						<span class="glyphicon glyphicon-headphones" style="color:#ABD402"></span>&nbsp;&nbsp;
+						Equipos electrónicos, informáticos y audiovisuales adaptados
+					</p>
 				<?php
 				endif;
 				if($place['Place']['accessibility_signage'] == 1):
 				?>
-					<p>Señales y paneles informativos claramente perceptibles y comprensibles</p>
+					<p>
+						<span class="glyphicon glyphicon-eye-open" style="color:#ABD402"></span>&nbsp;&nbsp;
+						Señales y paneles informativos claramente perceptibles y comprensibles
+					</p>
 				<?php
 				endif;
 				if($place['Place']['accessibility_braille'] == 1):
 				?>
-					<p>Información táctil: Braille</p>
+					<p>
+						<span class="glyphicon glyphicon-hand-up" style="color:#ABD402"></span>&nbsp;&nbsp;
+						Información táctil: Braille
+					</p>
 				<?php
 				endif;
 				?>
@@ -48,7 +90,7 @@
 	</div>
 </div>
 
-				<!-- <div class="places view">
+<!-- <div class="places view">
 				<h2><?php  echo __('Place');
  ?></h2>
 	<dl>

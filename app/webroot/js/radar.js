@@ -122,7 +122,7 @@
             c.map.setZoom(c.zoomCity), c.saveUserMapCenter(), o(a[0])) : void 0;
         }, c.createMarker = function(a, b) {
             var d, f, g, h;
-            return f = new google.maps.MarkerImage("/img/map-marker/" + k(a), new google.maps.Size(25, 26), new google.maps.Point(0, 0), new google.maps.Point(10, 34)), 
+            return f = new google.maps.MarkerImage("/img/map-marker/" + k(a), new google.maps.Size(30, 40), new google.maps.Point(0, 0), new google.maps.Point(10, 34)), 
             h = new google.maps.Marker({
                 eventId: m(a),
                 map: c.map,
@@ -363,7 +363,7 @@
             c.map.setZoom(c.zoomCity), c.saveUserMapCenter(), n(a[0])) : void 0;
         }, c.createMarker = function(a, b) {
             var d, f, g, h;
-            return f = new google.maps.MarkerImage("/img/map-marker/" + j(a), new google.maps.Size(25, 26), new google.maps.Point(0, 0), new google.maps.Point(10, 34)), 
+            return f = new google.maps.MarkerImage("/img/map-marker/" + j(a), new google.maps.Size(30, 40), new google.maps.Point(0, 0), new google.maps.Point(10, 34)), 
             h = new google.maps.Marker({
                 placeId: l(a),
                 map: c.map,

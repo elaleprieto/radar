@@ -207,7 +207,8 @@ angular.module('RadarApp').controller 'PlacesController'
 	$scope.createMarker = (place, latlng) ->
 		# icon = new google.maps.MarkerImage("http://gmaps-samples.googlecode.com/svn/trunk/markers/blue/blank.png"
 		icon = new google.maps.MarkerImage('/img/map-marker/' + getPlaceCategoryIcon(place)
-			, new google.maps.Size(25, 26)
+			#, new google.maps.Size(25, 26)
+			, new google.maps.Size(30, 40)
 			, new google.maps.Point(0, 0)
 			, new google.maps.Point(10, 34)
 		)

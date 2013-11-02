@@ -185,7 +185,7 @@
       };
       $scope.createMarker = function(place, latlng) {
         var contenido, icon, infowindow, marker;
-        icon = new google.maps.MarkerImage('/img/map-marker/' + getPlaceCategoryIcon(place), new google.maps.Size(25, 26), new google.maps.Point(0, 0), new google.maps.Point(10, 34));
+        icon = new google.maps.MarkerImage('/img/map-marker/' + getPlaceCategoryIcon(place), new google.maps.Size(30, 40), new google.maps.Point(0, 0), new google.maps.Point(10, 34));
         marker = new google.maps.Marker({
           placeId: getPlaceId(place),
           map: $scope.map,
