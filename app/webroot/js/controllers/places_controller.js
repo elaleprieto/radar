@@ -15,7 +15,7 @@
       var date, findResult, getPlaceColor, getPlaceDescription, getPlaceId, getPlaceName, setUserLocationString, userLastLocationString, userMapCenter, userMapTypeId, userMapZoom;
       $scope.placeInterval = 1;
       $scope.user = {};
-      $scope.categoriesSelected = [];
+      $scope.classificationsSelected = [];
       date = new Date();
       $scope.minutoEnMilisegundos = 60 * 1000;
       $scope.diaEnMilisegundos = 24 * 60 * $scope.minutoEnMilisegundos;
@@ -25,7 +25,7 @@
       $scope.place.accessibility_equipment = 0;
       $scope.place.accessibility_signage = 0;
       $scope.place.accessibility_braille = 0;
-      $scope.place.categories = [];
+      $scope.place.classifications = [];
       $scope.capital = new google.maps.LatLng(-34.603, -58.382);
       $scope.cordoba = new google.maps.LatLng(-31.388813, -64.179726);
       $scope.santafe = new google.maps.LatLng(-31.625906, -60.696774);
@@ -79,7 +79,7 @@
       	***************************************************************************************************************
       */
 
-      $scope.$watch('categoriesSelected.length', function() {
+      $scope.$watch('classificationsSelected.length', function() {
         return $scope.placesUpdate();
       });
       $scope.$watch('placeInterval', function() {
@@ -100,7 +100,6 @@
         }
       });
       google.maps.event.addListener($scope.map, 'dragend', function() {
-        console.log($scope.map);
         $scope.placesUpdate();
         return $scope.saveUserMapCenter();
       });
@@ -190,7 +189,7 @@
           fillColor: getPlaceColor(place),
           fillOpacity: 0.8,
           scale: 1,
-          strokeColor: 'gold',
+          strokeColor: getPlaceColor(place),
           strokeWeight: 14
         };
         marker = new google.maps.Marker({
@@ -223,18 +222,18 @@
         $scope.clearOverlays();
         return $scope.markers = [];
       };
-      $scope.categoriesAdd = function(category) {
-        if ($scope.place.categories.length < 3) {
-          $scope.place.categories.push(category.Category.id);
-          return category.highlight = true;
+      $scope.classificationsAdd = function(classification) {
+        if ($scope.place.classifications.length < 3) {
+          $scope.place.classifications.push(classification.Classification.id);
+          return classification.highlight = true;
         }
       };
-      $scope.categoriesDelete = function(category) {
+      $scope.classificationsDelete = function(classification) {
         var index;
-        index = $scope.place.categories.indexOf(category.Category.id);
+        index = $scope.place.classifications.indexOf(classification.Classification.id);
         if (index >= 0) {
-          $scope.place.categories.splice(index, 1);
-          return category.highlight = false;
+          $scope.place.classifications.splice(index, 1);
+          return classification.highlight = false;
         }
       };
       $scope.placesUpdate = function() {
@@ -244,14 +243,13 @@
           ne = bounds.getNorthEast();
           sw = bounds.getSouthWest();
           options = {
-            "categoriesSelected": $scope.categoriesSelected,
+            "classificationsSelected": $scope.classificationsSelected,
             "placeInterval": $scope.placeInterval,
             "neLat": ne.lat(),
             "neLong": ne.lng(),
             "swLat": sw.lat(),
             "swLong": sw.lng()
           };
-          console.log(options);
           return Place.get({
             params: options
           }, function(response) {
@@ -377,16 +375,16 @@
           return this;
         }
         $scope.cargando = 'Cargando..';
-        if ($scope.place.categories.length <= 0) {
+        if ($scope.place.classifications.length <= 0) {
           $scope.cargando = 'Error: Debe seleccionar al menos una categoría';
           return console.error('Error: Debe seleccionar al menos una categoría');
         }
         $scope.cargando = 'Cargando...';
-        return $http.post('/places/add', {
+        return $http.post('/admin/places/add', {
           Place: $scope.place,
-          Category: $scope.place.categories
+          Classification: $scope.place.classifications
         }).success(function(data) {
-          $scope.cargando = '¡Placeo guardado!';
+          $scope.cargando = '¡Lugar guardado!';
           return window.location.pathname = 'places';
         }).error(function() {
           return $scope.cargando = 'Ocurrió un error guardando el place';

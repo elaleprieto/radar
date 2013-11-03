@@ -11,7 +11,7 @@ angular.module('RadarApp').controller 'PlacesController'
 	*************************************************************************************************************** ###
 	$scope.placeInterval = 1
 	$scope.user = {}
-	$scope.categoriesSelected = []
+	$scope.classificationsSelected = []
 	date = new Date()
 	$scope.minutoEnMilisegundos = 60 * 1000
 	$scope.diaEnMilisegundos = 24 * 60 * $scope.minutoEnMilisegundos
@@ -21,7 +21,7 @@ angular.module('RadarApp').controller 'PlacesController'
 	$scope.place.accessibility_equipment = 0
 	$scope.place.accessibility_signage = 0
 	$scope.place.accessibility_braille = 0
-	$scope.place.categories = []
+	$scope.place.classifications = []
 
 	# Cities
 	$scope.capital = new google.maps.LatLng(-34.603, -58.382)
@@ -78,8 +78,8 @@ angular.module('RadarApp').controller 'PlacesController'
 			Aquí se registran los eventos para los objetos de la vista
 	*************************************************************************************************************** ###
 	
-	# Se observan las categorías seleccionadas
-	$scope.$watch 'categoriesSelected.length', () ->
+	# Se observan las classifications seleccionadas
+	$scope.$watch 'classificationsSelected.length', () ->
 		$scope.placesUpdate()		
 
 	# Se observa el intervalo seleccionado: Hoy, Mañana ó Próximos 7 días
@@ -91,7 +91,7 @@ angular.module('RadarApp').controller 'PlacesController'
 			$scope.deleteOverlays()
 			angular.forEach $scope.places, (place, key) ->
 				latlng = new google.maps.LatLng(place.Place.lat, place.Place.long)
-				# $scope.createMarker(place.Place.id, place.Place.title, place.Category.icon, latlng)
+				# $scope.createMarker(place.Place.id, place.Place.title, place.Classification.icon, latlng)
 				$scope.createMarker(place, latlng)
 			$scope.showOverlays()
 		, true
@@ -108,7 +108,6 @@ angular.module('RadarApp').controller 'PlacesController'
 
 	# google.maps.event.addListener window.map, 'bounds_changed', () ->
 	google.maps.event.addListener $scope.map, 'dragend', () ->
-		console.log $scope.map
 		$scope.placesUpdate()
 		$scope.saveUserMapCenter()
 
@@ -203,7 +202,7 @@ angular.module('RadarApp').controller 'PlacesController'
 			setUserLocationString(response[0])
 
 	# A function to create the marker and set up the place window function
-	# $scope.createMarker = (placeId, placeTitle, categoriesSelected, latlng) ->
+	# $scope.createMarker = (placeId, latlng) ->
 	$scope.createMarker = (place, latlng) ->
 		# icon = new google.maps.MarkerImage('/img/map-marker/' + getPlaceColor(place)
 			# #, new google.maps.Size(25, 26)
@@ -217,7 +216,7 @@ angular.module('RadarApp').controller 'PlacesController'
 			fillColor: getPlaceColor(place),
 			fillOpacity: 0.8,
 			scale: 1,
-			strokeColor: 'gold',
+			strokeColor: getPlaceColor(place),
 			strokeWeight: 14
 		}
 
@@ -271,16 +270,16 @@ angular.module('RadarApp').controller 'PlacesController'
 		$scope.clearOverlays()
 		$scope.markers = []
 
-	$scope.categoriesAdd = (category) ->
-		if($scope.place.categories.length < 3)
-			$scope.place.categories.push(category.Category.id)
-			category.highlight = true
+	$scope.classificationsAdd = (classification) ->
+		if($scope.place.classifications.length < 3)
+			$scope.place.classifications.push(classification.Classification.id)
+			classification.highlight = true
 
-	$scope.categoriesDelete = (category) ->
-		index = $scope.place.categories.indexOf(category.Category.id)
+	$scope.classificationsDelete = (classification) ->
+		index = $scope.place.classifications.indexOf(classification.Classification.id)
 		if index >= 0 
-			$scope.place.categories.splice(index, 1)
-			category.highlight = false
+			$scope.place.classifications.splice(index, 1)
+			classification.highlight = false
 
 	# Se consulta al servidor por los places dentro de los límites del mapa y que cumplen las condiciones
 	# de categoría e intervalo seleccionadas.
@@ -289,14 +288,12 @@ angular.module('RadarApp').controller 'PlacesController'
 			bounds = $scope.map.getBounds()
 			ne = bounds.getNorthEast()
 			sw = bounds.getSouthWest()
-			options = "categoriesSelected": $scope.categoriesSelected
+			options = "classificationsSelected": $scope.classificationsSelected
 				, "placeInterval": $scope.placeInterval
 				, "neLat": ne.lat()
 				, "neLong": ne.lng()
 				, "swLat": sw.lat()
 				, "swLong": sw.lng()
-			
-			console.log options
 			
 			Place.get {params:options}, (response) ->
 				$scope.places = response.places
@@ -424,7 +421,7 @@ angular.module('RadarApp').controller 'PlacesController'
 		$scope.cargando = 'Cargando..'
 		
 		# Se verifica que se haya seleccionado al menos una categoría
-		if $scope.place.categories.length <= 0
+		if $scope.place.classifications.length <= 0
 			# Se actualiza el mensaje
 			$scope.cargando = 'Error: Debe seleccionar al menos una categoría'
 			return console.error 'Error: Debe seleccionar al menos una categoría'
@@ -433,10 +430,10 @@ angular.module('RadarApp').controller 'PlacesController'
 		$scope.cargando = 'Cargando...'
 
 		# Se guarda el place
-		$http.post('/places/add', {Place: $scope.place, Category: $scope.place.categories})
+		$http.post('/admin/places/add', {Place: $scope.place, Classification: $scope.place.classifications})
 			.success (data) ->
 				# Se actualiza el mensaje
-				$scope.cargando = '¡Placeo guardado!'
+				$scope.cargando = '¡Lugar guardado!'
 				window.location.pathname = 'places'
 			.error ->
 				# Se actualiza el mensaje

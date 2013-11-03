@@ -1,31 +1,31 @@
 <?php
-# Styles
-echo $this->Html->css(array(
-	'inicio',
-	'events/index'
-), '', array('inline' => false));
+	# Styles
+	echo $this -> Html -> css(array(
+		'//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css',
+		'inicio',
+		'places/index'
+	), '', array('inline' => false));
 
-# User Location
-if (AuthComponent::user('location')) {
-	$userLocation = AuthComponent::user('location');
-} else {
-	$ip = $this->request->clientIp();
-	if ($ip == '127.0.0.1')
-		$ip = '190.183.62.72';
-	$ipData = @json_decode(file_get_contents("http://www.geoplugin.net/json.gp?ip=" . $ip));
-	if ($ipData && $ipData->geoplugin_countryName != null) {
-		$userLocation = $ipData->geoplugin_city . ', ' . $ipData->geoplugin_countryName;
-
-		# Se guarda el userLocation
-		if ($userId = AuthComponent::user('id')) {
-			$this->requestAction("/users/setLocation/$userId/$userLocation");
-		}
+	# User Location
+	if (AuthComponent::user('location')) {
+		$userLocation = AuthComponent::user('location');
 	} else {
-		$userLocation = null;
+		$ip = $this -> request -> clientIp();
+		if ($ip == '127.0.0.1')
+			$ip = '190.183.62.72';
+		$ipData = @json_decode(file_get_contents("http://www.geoplugin.net/json.gp?ip=" . $ip));
+		if ($ipData && $ipData -> geoplugin_countryName != null) {
+			$userLocation = $ipData -> geoplugin_city . ', ' . $ipData -> geoplugin_countryName;
+
+			# Se guarda el userLocation
+			if ($userId = AuthComponent::user('id')) {
+				$this -> requestAction("/users/setLocation/$userId/$userLocation");
+			}
+		} else {
+			$userLocation = null;
+		}
 	}
-}
 ?>
-<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
 
 <div ng-controller="PlacesController" ng-init="user.locationAux='<?php echo $userLocation; ?>'">
 	<!--
@@ -43,7 +43,7 @@ if (AuthComponent::user('location')) {
 	-->
 	<!-- LOGO -->
 	<div id="logo">
-		<?php echo $this->Html->link($this->Html->image("logo_blanco.png", array('alt' => 'logo')), '/', array('escape' => false)); ?>
+		<?php echo $this -> Html -> link($this -> Html -> image("logo_blanco.png", array('alt' => 'logo')), '/', array('escape' => false)); ?>
 	</div>
 
 	<!-- NORTH -->
@@ -169,26 +169,26 @@ if (AuthComponent::user('location')) {
 							</a>
 						</li>
 						<li>
-							<?php echo $this->Facebook->logout(array(
+							<?php echo $this -> Facebook -> logout(array(
 								'label' => 'Salir',
 								'redirect' => array(
 									'controller' => 'users',
 									'action' => 'logout'
-									),
-								));
+								),
+							));
 	 						?>
 	 					</li>
 						<?php else: ?>
 						<li>
 							<?php
-								echo $this->Html->link('Ingresar', array(
+								echo $this -> Html -> link('Ingresar', array(
 									'controller' => 'users',
 									'action' => 'login'
-									), array('id' => 'menu_superior_derecha_verde'));
+								), array('id' => 'menu_superior_derecha_verde'));
 							?>
 						</li>
 						<li>
-							<?php echo $this->Html->link('¡Registrate!', '/registrate', array('class' => 'menu_superior_derecha')); ?>
+							<?php echo $this -> Html -> link('¡Registrate!', '/registrate', array('class' => 'menu_superior_derecha')); ?>
 						</li>
 						<?php endif; ?>
 		      		</ul>
@@ -232,26 +232,26 @@ if (AuthComponent::user('location')) {
 					-->
 					<!-- Logout de facebook -->
 					<li>
-						<?php echo $this->Facebook->logout(array(
+						<?php echo $this -> Facebook -> logout(array(
 							'label' => 'Salir',
 							'redirect' => array(
 								'controller' => 'users',
 								'action' => 'logout'
-								),
-							));
+							),
+						));
 	 					?>
 	 				</li>
 					<?php else: ?>
 					<li>
 						<?php
-							echo $this->Html->link('Ingresar', array(
+							echo $this -> Html -> link('Ingresar', array(
 								'controller' => 'users',
 								'action' => 'login'
 							), array('id' => 'menu_superior_derecha_verde'));
 						?>
 					</li>
 					<li>
-						<?php echo $this->Html->link('¡Registrate!', '/registrate', array('class' => 'menu_superior_derecha')); ?>
+						<?php echo $this -> Html -> link('¡Registrate!', '/registrate', array('class' => 'menu_superior_derecha')); ?>
 					</li>
 					<?php endif; ?>
 				</ul>
@@ -323,17 +323,19 @@ if (AuthComponent::user('location')) {
 
 		<br />
 		<!-- CATEGORIES -->
-		<div ng-controller="CategoriesController">
+		<div ng-controller="ClassificationsController">
 			<div id="categoriesContainer" class="background-black color-white" ng-hide="hideCategories">
 				<p class="text-center"><?php echo __('Categories'); ?></p>
 				<div id="categoryScroll">
-					<div class="row categoriaLink" ng-class="{highlight:categoria.highlight}" 
-						ng-model="categoria" ng-repeat="categoria in categorias | orderBy:'Category.name'" ng-click="show(categoria)">
-						<div class="col-sm-3 category-icon">
-							<img class="icono-categoria" 
-								ng-src="/img/categorias/{{categoria.Category.icon}}" />
-						</div>
-						<div class="col-sm-9 item-categoria" ng-bind="categoria.Category.name"></div>
+					<div class="row categoriaLink" x-ng-class="{highlight:classification.highlight}" 
+						x-ng-click="show(classification)" x-ng-model="classification" 
+						x-ng-repeat="classification in classifications | orderBy:'Classification.name'">
+							<div class="col-sm-3 category-icon">
+								<div class="classification" 
+									x-ng-style="{'background-color':classification.Classification.color}">
+								</div>
+							</div>
+							<div class="col-sm-9 item-categoria" ng-bind="classification.Classification.name"></div>
 					</div>
 				</div>
 			</div>
@@ -431,10 +433,10 @@ if (AuthComponent::user('location')) {
 					<p class="text-center"><?php echo __('Sponsors'); ?></p>
 					-->					
 					<div class="col-sm-12">
-						<a href="#"><?=$this->Html->image('sponsor/santafedisenia.jpg'); ?></a>
+						<a href="#"><?=$this -> Html -> image('sponsor/santafedisenia.jpg'); ?></a>
 					</div>
 					<div class="col-sm-12">
-						<a href="#"><?=$this->Html->image('sponsor/tallercandombe.jpg'); ?></a>
+						<a href="#"><?=$this -> Html -> image('sponsor/tallercandombe.jpg'); ?></a>
 					</div>
 				</div>
 			</div>
@@ -517,9 +519,9 @@ if (AuthComponent::user('location')) {
 					</div>
 					<div id="eventInterval" class="control-group btn-group pull-right">
 						<?php
-						// echo $this->Html->link(__('Add Event')
-						// , array('controller'=>'events', 'action'=>'add')
-						// , array('class'=>'btn btn-warning pull-right'))
+							// echo $this->Html->link(__('Add Event')
+							// , array('controller'=>'events', 'action'=>'add')
+							// , array('class'=>'btn btn-warning pull-right'))
 						?>
 						<!--					
 						<a href="#/events/add" class="btn btn-warning pull-right" ng-click="add()">Agregar Evento</a>
@@ -529,7 +531,7 @@ if (AuthComponent::user('location')) {
 				<div class="col-sm-1 hidden-xs" id="rampa-south"> </div>
 			</div>
 	
-		    <!-- Events List -->
+		    <!-- Places List -->
 		    <div class="row background-black" ng-hide="hideSouthMenu">
 		    	<div class="col-sm-12">
 		    		<table id="eventsList" class="table table-striped">
@@ -544,13 +546,13 @@ if (AuthComponent::user('location')) {
 		    				</tr>
 		    			</thead>
 		    			<tbody>
-		    			    <tr ng-repeat="evento in eventos | orderBy:'Event.date_start'">
+		    			    <tr ng-repeat="place in places | orderBy:'Place.name'">
 		    			    	<!--
 		    			    	<td ng-bind="evento.Event.date_start | isodate | date:'dd/MM/yyyy HH:mm'"></td>
 		    			        <td ng-bind="evento.Event.date_end | isodate | date:'dd/MM/yyyy HH:mm'"></td>
 		    			        -->
-		    			        <td ng-bind="evento.Event.title"></td>
-		    			        <td ng-bind="evento.Event.address"></td>
+		    			        <td ng-bind="place.Place.name"></td>
+		    			        <td ng-bind="place.Place.address"></td>
 		    			    </tr>
 		    			</tbody>
 		    		</table>

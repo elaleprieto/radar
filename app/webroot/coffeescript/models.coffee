@@ -8,6 +8,14 @@ angular.module('models', ['ngResource'])
 				, get: {cache: true, method: 'GET', url: '/categories.json'}
 	])
 	
+	# Classification
+	.factory('Classification', ['$resource', ($resource) ->
+		$resource '/classifications.json'
+			, { callback:'JSON_CALLBACK' }
+			, buscar: {method:'GET'}
+				, get: {cache: true, method: 'GET', url: '/classifications.json'}
+	])
+	
 	# Compliant
 	.factory('Compliant', ['$resource', ($resource) ->
 		$resource '/compliants.json'

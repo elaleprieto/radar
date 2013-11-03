@@ -42,6 +42,32 @@
         });
     } ]);
 }.call(this), function() {
+    angular.module("RadarApp").controller("ClassificationsController", [ "$http", "$location", "$scope", "$timeout", "Classification", function(a, b, c, d, e) {
+        var f;
+        return f = b.absUrl(), e.get({}, function(a) {
+            return c.classifications = a.classifications;
+        }), c.classificationToogle = function(a) {
+            return a.highlight ? c.$parent.classificationsDelete(a) : c.$parent.classificationsAdd(a);
+        }, c.searchById = function(a) {
+            var b;
+            return null != c.classifications ? (b = c.classifications.filter(function(b) {
+                return +b.Classification.id === +a;
+            }), b[0]) : void 0;
+        }, c.show = function(a) {
+            return a.highlight = !a.highlight, a.highlight ? c.classificationsSelected.push(a.Classification.id) : c.classificationsSelected.splice(c.classificationsSelected.indexOf(a.Classification.id), 1), 
+            $.cookie.json = !0, $.cookie("classificationsSelected", c.classificationsSelected, {
+                expires: 360,
+                path: "/"
+            });
+        }, c.$watch("classifications.length", function() {
+            var a;
+            return !f.contains("events/add") && null != c.classifications && null != $.cookie && c.classifications.length > 0 && ($.cookie.json = !0, 
+            a = $.cookie("classificationsSelected"), null != a && a.length > 0) ? angular.forEach(a, function(a) {
+                return c.show(c.searchById(a));
+            }) : void 0;
+        });
+    } ]);
+}.call(this), function() {
     angular.module("RadarApp").controller("EventsController", [ "$http", "$location", "$scope", "$timeout", "$compile", "Compliant", "CompliantView", "Event", "EventView", "Rate", function(a, b, c, d, e, f, g, h, i, j) {
         var k, l, m, n, o, p, q, r, s, t, u;
         return c.eventInterval = 1, c.isReadonly = !1, c.max = 5, c.user = {}, c.categoriesSelected = [], 
@@ -284,15 +310,15 @@
 }.call(this), function() {
     angular.module("RadarApp").controller("PlacesController", [ "$http", "$location", "$scope", "$timeout", "$compile", "Place", "PlaceView", function(a, b, c, d, e, f, g) {
         var h, i, j, k, l, m, n, o, p, q, r;
-        return c.placeInterval = 1, c.user = {}, c.categoriesSelected = [], h = new Date(), 
+        return c.placeInterval = 1, c.user = {}, c.classificationsSelected = [], h = new Date(), 
         c.minutoEnMilisegundos = 6e4, c.diaEnMilisegundos = 1440 * c.minutoEnMilisegundos, 
         c.place = {}, c.place.accessibility_parking = 0, c.place.accessibility_ramp = 0, 
         c.place.accessibility_equipment = 0, c.place.accessibility_signage = 0, c.place.accessibility_braille = 0, 
-        c.place.categories = [], c.capital = new google.maps.LatLng(-34.603, -58.382), c.cordoba = new google.maps.LatLng(-31.388813, -64.179726), 
-        c.santafe = new google.maps.LatLng(-31.625906, -60.696774), c.cordobaSantafe = new google.maps.LatLng(-31.52081, -62.411469), 
-        c.locationDefault = c.cordobaSantafe, c.zoomDefault = 8, c.zoomSantafe = 12, c.zoomCordoba = 11, 
-        c.zoomCity = 15, c.ROADMAP = google.maps.MapTypeId.ROADMAP, c.SATELLITE = google.maps.MapTypeId.SATELLITE, 
-        c.opciones = {
+        c.place.classifications = [], c.capital = new google.maps.LatLng(-34.603, -58.382), 
+        c.cordoba = new google.maps.LatLng(-31.388813, -64.179726), c.santafe = new google.maps.LatLng(-31.625906, -60.696774), 
+        c.cordobaSantafe = new google.maps.LatLng(-31.52081, -62.411469), c.locationDefault = c.cordobaSantafe, 
+        c.zoomDefault = 8, c.zoomSantafe = 12, c.zoomCordoba = 11, c.zoomCity = 15, c.ROADMAP = google.maps.MapTypeId.ROADMAP, 
+        c.SATELLITE = google.maps.MapTypeId.SATELLITE, c.opciones = {
             center: c.locationAux,
             mapTypeId: c.ROADMAP,
             panControl: !1,
@@ -308,7 +334,7 @@
         d(function() {
             return c.setUserLocationByLatLng(c.opciones.center);
         }, 50)), c.map = new google.maps.Map(document.getElementById("map"), c.opciones), 
-        c.markers = [], c.geocoder = new google.maps.Geocoder(), c.$watch("categoriesSelected.length", function() {
+        c.markers = [], c.geocoder = new google.maps.Geocoder(), c.$watch("classificationsSelected.length", function() {
             return c.placesUpdate();
         }), c.$watch("placeInterval", function() {
             return c.placesUpdate();
@@ -320,7 +346,7 @@
         }, !0), c.$watch("user.locationAux", function(a) {
             return null == p && null != a && a.length > 0 ? c.setLocationByUserLocation(a) : void 0;
         }), google.maps.event.addListener(c.map, "dragend", function() {
-            return console.log(c.map), c.placesUpdate(), c.saveUserMapCenter();
+            return c.placesUpdate(), c.saveUserMapCenter();
         }), google.maps.event.addListener(c.map, "tilesloaded", function() {
             return c.placesUpdate();
         }), google.maps.event.addListener(c.map, "zoom_changed", function() {
@@ -371,7 +397,7 @@
                 fillColor: j(a),
                 fillOpacity: .8,
                 scale: 1,
-                strokeColor: "gold",
+                strokeColor: j(a),
                 strokeWeight: 14
             }, h = new google.maps.Marker({
                 placeId: l(a),
@@ -391,24 +417,24 @@
             return c.setAllMap(null);
         }, c.deleteOverlays = function() {
             return c.clearOverlays(), c.markers = [];
-        }, c.categoriesAdd = function(a) {
-            return c.place.categories.length < 3 ? (c.place.categories.push(a.Category.id), 
+        }, c.classificationsAdd = function(a) {
+            return c.place.classifications.length < 3 ? (c.place.classifications.push(a.Classification.id), 
             a.highlight = !0) : void 0;
-        }, c.categoriesDelete = function(a) {
+        }, c.classificationsDelete = function(a) {
             var b;
-            return b = c.place.categories.indexOf(a.Category.id), b >= 0 ? (c.place.categories.splice(b, 1), 
+            return b = c.place.classifications.indexOf(a.Classification.id), b >= 0 ? (c.place.classifications.splice(b, 1), 
             a.highlight = !1) : void 0;
         }, c.placesUpdate = function() {
             var a, b, d, e;
             return null != c.map.getBounds() ? (a = c.map.getBounds(), b = a.getNorthEast(), 
             e = a.getSouthWest(), d = {
-                categoriesSelected: c.categoriesSelected,
+                classificationsSelected: c.classificationsSelected,
                 placeInterval: c.placeInterval,
                 neLat: b.lat(),
                 neLong: b.lng(),
                 swLat: e.lat(),
                 swLong: e.lng()
-            }, console.log(d), f.get({
+            }, f.get({
                 params: d
             }, function(a) {
                 return c.places = a.places;
@@ -480,13 +506,13 @@
             return c.setAllMap(c.map);
         }, c.submit = function() {
             return c.cargando = "Cargando.", c.placeForm.$valid ? (c.cargando = "Cargando..", 
-            c.place.categories.length <= 0 ? (c.cargando = "Error: Debe seleccionar al menos una categoría", 
+            c.place.classifications.length <= 0 ? (c.cargando = "Error: Debe seleccionar al menos una categoría", 
             console.error("Error: Debe seleccionar al menos una categoría")) : (c.cargando = "Cargando...", 
-            a.post("/places/add", {
+            a.post("/admin/places/add", {
                 Place: c.place,
-                Category: c.place.categories
+                Classification: c.place.classifications
             }).success(function() {
-                return c.cargando = "¡Placeo guardado!", window.location.pathname = "places";
+                return c.cargando = "¡Lugar guardado!", window.location.pathname = "places";
             }).error(function() {
                 return c.cargando = "Ocurrió un error guardando el place";
             }))) : (c.cargando = null, this);
@@ -590,6 +616,19 @@
                 cache: !0,
                 method: "GET",
                 url: "/categories.json"
+            }
+        });
+    } ]).factory("Classification", [ "$resource", function(a) {
+        return a("/classifications.json", {
+            callback: "JSON_CALLBACK"
+        }, {
+            buscar: {
+                method: "GET"
+            },
+            get: {
+                cache: !0,
+                method: "GET",
+                url: "/classifications.json"
             }
         });
     } ]).factory("Compliant", [ "$resource", function(a) {

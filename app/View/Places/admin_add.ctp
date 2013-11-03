@@ -1,29 +1,30 @@
 <?php
-echo $this->Html->css(array('places/add'), '', array('inline' => false));
+	echo $this -> Html -> css(array(
+		'//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css',
+		'places/add'
+	), '', array('inline' => false));
 
-# User Location
-if (AuthComponent::user('location')) {
-	$userLocation = AuthComponent::user('location');
-} else {
-	$ip = $this->request->clientIp();
-	if ($ip == '127.0.0.1')
-		$ip = '190.183.62.72';
-
-	$ipData = @json_decode(file_get_contents("http://www.geoplugin.net/json.gp?ip=" . $ip));
-	if ($ipData && $ipData->geoplugin_countryName != null) {
-		$userLocation = $ipData->geoplugin_city . ', ' . $ipData->geoplugin_countryName;
-
-		# Se guarda el userLocation
-		if ($userId = AuthComponent::user('id')) {
-			$this->requestAction("/users/setLocation/$userId/$userLocation");
-		}
+	# User Location
+	if (AuthComponent::user('location')) {
+		$userLocation = AuthComponent::user('location');
 	} else {
-		$userLocation = null;
-	}
-}
-?>
+		$ip = $this -> request -> clientIp();
+		if ($ip == '127.0.0.1')
+			$ip = '190.183.62.72';
 
-<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+		$ipData = @json_decode(file_get_contents("http://www.geoplugin.net/json.gp?ip=" . $ip));
+		if ($ipData && $ipData -> geoplugin_countryName != null) {
+			$userLocation = $ipData -> geoplugin_city . ', ' . $ipData -> geoplugin_countryName;
+
+			# Se guarda el userLocation
+			if ($userId = AuthComponent::user('id')) {
+				$this -> requestAction("/users/setLocation/$userId/$userLocation");
+			}
+		} else {
+			$userLocation = null;
+		}
+	}
+?>
 
 <div ng-controller="PlacesController" ng-init="user.location='<?php echo $userLocation; ?>'">
 
@@ -199,20 +200,18 @@ if (AuthComponent::user('location')) {
         				<!-- Categorías -->
         						<div class="row">
         							<p>¿De qué se trata?</p>
-                                    <div ng-controller="CategoriesController">
+                                    <div ng-controller="ClassificationsController">
                                         <div class="row form-group">
                                             <div class="col-sm-12">
-                                                <div 
-                                                    	class="row categoriaLink"
-                                                    	ng-class="{highlight:categoria.highlight}"
-                                                    	ng-model="categoria"
-                                                    	ng-repeat="categoria in categorias | orderBy:'Category.name'"
-                                                    	ng-click="categoryToogle(categoria)">
+                                                <div class="row categoriaLink"
+                                                	ng-class="{highlight:classification.highlight}"
+                                                	ng-model="classification"
+                                                	ng-repeat="classification in classifications | orderBy:'Classification.name'"
+                                                	ng-click="classificationToogle(classification)">
                                                         <div class="col-sm-1">
-                                                            <img class="icono-categoria" 
-                                                            	ng-src="/img/categorias/{{categoria.Category.icon}}" />
+                                                        	<div class="classification" x-ng-style="{'background-color':classification.Classification.color}"></div>
                                                         </div>
-                                                        <div class="col-sm-10" ng-bind="categoria.Category.name"></div>
+                                                        <div class="col-sm-10" x-ng-bind="classification.Classification.name"></div>
                                                 </div>
                                             </div>
                                         </div>

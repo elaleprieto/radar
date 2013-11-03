@@ -12,19 +12,22 @@ select[name*="year"] { min-width: 65px; }
 .categoriaLink { cursor: pointer; }
 
 /* line 25, ../../sass/places/add.sass */
+.classification { height: 20px; width: 20px; }
+
+/* line 29, ../../sass/places/add.sass */
 .dateField { width: 20%; }
 
-/* line 28, ../../sass/places/add.sass */
+/* line 32, ../../sass/places/add.sass */
 .highlight { background-color: #dfdfdf; }
 
-/* line 31, ../../sass/places/add.sass */
+/* line 35, ../../sass/places/add.sass */
 .textbox { width: 100%; width: -moz-available; }
 
-/* line 35, ../../sass/places/add.sass */
+/* line 39, ../../sass/places/add.sass */
 #alertMessage { display: none; float: right; }
 
-/* line 39, ../../sass/places/add.sass */
+/* line 43, ../../sass/places/add.sass */
 #label_simple { font-weight: normal; }
 
-/* line 42, ../../sass/places/add.sass */
+/* line 46, ../../sass/places/add.sass */
 #map img { max-width: none; }

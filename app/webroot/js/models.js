@@ -14,6 +14,21 @@
         }
       });
     }
+  ]).factory('Classification', [
+    '$resource', function($resource) {
+      return $resource('/classifications.json', {
+        callback: 'JSON_CALLBACK'
+      }, {
+        buscar: {
+          method: 'GET'
+        },
+        get: {
+          cache: true,
+          method: 'GET',
+          url: '/classifications.json'
+        }
+      });
+    }
   ]).factory('Compliant', [
     '$resource', function($resource) {
       return $resource('/compliants.json', {

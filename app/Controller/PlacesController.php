@@ -24,7 +24,7 @@ class PlacesController extends AppController {
 		// }
 
 		# Admin users can add places
-		if ($this->action === 'add') {
+		if ($this->action === 'admin_add') {
 			if (isset($user['role']) && $user['role'] === 'admin') {
 				return true;
 			}
@@ -54,7 +54,7 @@ class PlacesController extends AppController {
 	 *
 	 * @return void
 	 */
-	public function add() {
+	public function admin_add() {
 		if ($this->request->is('post') && AuthComponent::user('id')) {
 			$place = $this->request->data;
 			$place['Place']['user_id'] = AuthComponent::user('id');
@@ -70,7 +70,7 @@ class PlacesController extends AppController {
 	public function get() {
 		if ($this->request->isAjax() && isset($this->request->query['params'])) {
 			$params = json_decode($this->request->query['params']);
-			$placeCategory = isset($params->categoriesSelected) ? $params->categoriesSelected : null;
+			$placeClassification = isset($params->classificationsSelected) ? $params->classificationsSelected : null;
 
 			$neLat = isset($params->neLat) ? $params->neLat : null;
 			$neLong = isset($params->neLong) ? $params->neLong : null;
@@ -84,15 +84,15 @@ class PlacesController extends AppController {
 					'Place.long <' => $neLong,
 					'Place.long >' => $swLong,
 				);
-				$categories = array();
+				$classifications = array();
 				// $placeCategory = json_decode($placeCategory); # Angular lo manda en formato JSON
-				if (sizeof($placeCategory) > 0) {
-					$categoryConditions = array();
-					foreach ($placeCategory as $key => $category) {
-						array_push($categoryConditions, array('ClassificationsPlace.category_id =' => $category));
+				if (sizeof($placeClassification) > 0) {
+					$classificationConditions = array();
+					foreach ($placeClassification as $key => $classification) {
+						array_push($classificationConditions, array('ClassificationsPlace.classification_id =' => $classification));
 					}
 					// array_push($conditions, array("OR" => $categoryConditions));
-					array_push($options['conditions'], array("OR" => $categoryConditions));
+					array_push($options['conditions'], array("OR" => $classificationConditions));
 				}
 				$options['fields'] = array(
 					'Place.id',
@@ -223,21 +223,6 @@ class PlacesController extends AppController {
 		}
 		$options = array('conditions' => array('Place.' . $this->Place->primaryKey => $id));
 		$this->set('place', $this->Place->find('first', $options));
-	}
-
-	/**
-	 * admin_add method
-	 *
-	 * @return void
-	 */
-	public function admin_add() {
-		if ($this->request->is('post')) {
-			$this->Place->create();
-			if ($this->Place->save($this->request->data)) {
-				$this->flash(__('Place saved.'), array('action' => 'index'));
-			} else {
-			}
-		}
 	}
 
 	/**

@@ -6,7 +6,7 @@
 	'vendors/bootstrap.min',
 	'vendors/angular-strap.min',
 	'rutes',
-	'radar.min'
-	// 'radar'
+	// 'radar.min'
+	'radar'
 ));
 ?>

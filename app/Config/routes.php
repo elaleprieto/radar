@@ -22,6 +22,7 @@
  */
  
  	Router::mapResources('categories');
+ 	Router::mapResources('classifications');
  	Router::mapResources('compliants');
  	Router::mapResources('events');
  	Router::mapResources('rates');
