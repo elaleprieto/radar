@@ -205,13 +205,22 @@ angular.module('RadarApp').controller 'PlacesController'
 	# A function to create the marker and set up the place window function
 	# $scope.createMarker = (placeId, placeTitle, categoriesSelected, latlng) ->
 	$scope.createMarker = (place, latlng) ->
-		# icon = new google.maps.MarkerImage("http://gmaps-samples.googlecode.com/svn/trunk/markers/blue/blank.png"
-		icon = new google.maps.MarkerImage('/img/map-marker/' + getPlaceCategoryIcon(place)
-			#, new google.maps.Size(25, 26)
-			, new google.maps.Size(30, 40)
-			, new google.maps.Point(0, 0)
-			, new google.maps.Point(10, 34)
-		)
+		# icon = new google.maps.MarkerImage('/img/map-marker/' + getPlaceColor(place)
+			# #, new google.maps.Size(25, 26)
+			# , new google.maps.Size(30, 40)
+			# , new google.maps.Point(0, 0)
+			# , new google.maps.Point(10, 34)
+		# )
+		icon = {
+			# path: 'M 125,5 155,90 245,90 175,145 200,230 125,180 50,230 75,145 5,90 95,90 z',
+			path: google.maps.SymbolPath.CIRCLE,
+			fillColor: getPlaceColor(place),
+			fillOpacity: 0.8,
+			scale: 1,
+			strokeColor: 'gold',
+			strokeWeight: 14
+		}
+
 		
 		marker = new google.maps.Marker placeId: getPlaceId(place)
 			, map: $scope.map
@@ -462,8 +471,8 @@ angular.module('RadarApp').controller 'PlacesController'
 			obj.types[0] is name and obj.types[1] is "political"
 		if result[0]? then result[0].long_name else null
 	
-	getPlaceCategoryIcon = (place) ->
-		place.Category.icon
+	getPlaceColor = (place) ->
+		place.Classification.color
 	
 	getPlaceId = (place) ->
 		place.Place.id

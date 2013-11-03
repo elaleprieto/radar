@@ -18,7 +18,7 @@ class CompliantTest extends CakeTestCase {
 		'app.place',
 		'app.category',
 		'app.categories_event',
-		'app.categories_place',
+		'app.classifications_places',
 		'app.rate',
 		'app.user'
 	);

@@ -67,11 +67,11 @@ class Place extends AppModel {
 	
 		
 	public $hasAndBelongsToMany = array(
-		'Category' => array(
-			'className' => 'Category',
-			'joinTable' => 'categories_places',
+		'Classification' => array(
+			'className' => 'Classification',
+			'joinTable' => 'classifications_places',
 			'foreignKey' => 'place_id',
-			'associationForeignKey' => 'category_id',
+			'associationForeignKey' => 'classification_id',
 			'unique' => true,
 			'conditions' => '',
 			'fields' => '',

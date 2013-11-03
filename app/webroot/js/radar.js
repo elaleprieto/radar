@@ -366,8 +366,14 @@
             c.map.setZoom(c.zoomCity), c.saveUserMapCenter(), n(a[0])) : void 0;
         }, c.createMarker = function(a, b) {
             var d, f, g, h;
-            return f = new google.maps.MarkerImage("/img/map-marker/" + j(a), new google.maps.Size(30, 40), new google.maps.Point(0, 0), new google.maps.Point(10, 34)), 
-            h = new google.maps.Marker({
+            return f = {
+                path: google.maps.SymbolPath.CIRCLE,
+                fillColor: j(a),
+                fillOpacity: .8,
+                scale: 1,
+                strokeColor: "gold",
+                strokeWeight: 14
+            }, h = new google.maps.Marker({
                 placeId: l(a),
                 map: c.map,
                 icon: f,
@@ -494,7 +500,7 @@
                 return a.types[0] === b && "political" === a.types[1];
             }), null != c[0] ? c[0].long_name : null;
         }, j = function(a) {
-            return a.Category.icon;
+            return a.Classification.color;
         }, l = function(a) {
             return a.Place.id;
         }, m = function(a) {

@@ -18,7 +18,7 @@ class RatesControllerTest extends ControllerTestCase {
 		'app.place',
 		'app.category',
 		'app.categories_event',
-		'app.categories_place',
+		'app.classifications_places',
 		'app.user'
 	);
 

@@ -89,7 +89,7 @@ class PlacesController extends AppController {
 				if (sizeof($placeCategory) > 0) {
 					$categoryConditions = array();
 					foreach ($placeCategory as $key => $category) {
-						array_push($categoryConditions, array('CategoriesPlace.category_id =' => $category));
+						array_push($categoryConditions, array('ClassificationsPlace.category_id =' => $category));
 					}
 					// array_push($conditions, array("OR" => $categoryConditions));
 					array_push($options['conditions'], array("OR" => $categoryConditions));
@@ -100,24 +100,24 @@ class PlacesController extends AppController {
 					'Place.address',
 					'Place.lat',
 					'Place.long',
-					'CategoriesPlace.category_id',
-					'Category.icon'
+					'ClassificationsPlace.classification_id',
+					'Classification.color'
 				);
 				$options['group'] = array('Place.id');
 				$options['recursive'] = 0;
 
 				$options['joins'] = array(
 					array(
-						'table' => 'categories_places',
-						'alias' => 'CategoriesPlace',
+						'table' => 'classifications_places',
+						'alias' => 'ClassificationsPlace',
 						'type' => 'LEFT',
-						'conditions' => array('Place.id = CategoriesPlace.place_id', )
+						'conditions' => array('Place.id = ClassificationsPlace.place_id', )
 					),
 					array(
-						'table' => 'categories',
-						'alias' => 'Category',
+						'table' => 'classifications',
+						'alias' => 'Classification',
 						'type' => 'LEFT',
-						'conditions' => array('Category.id = CategoriesPlace.category_id', )
+						'conditions' => array('Classification.id = ClassificationsPlace.classification_id', )
 					)
 				);
 

@@ -1,11 +1,11 @@
 <?php
-App::uses('CompliantsController', 'Controller');
+App::uses('ClassificationsController', 'Controller');
 
 /**
- * CompliantsController Test Case
+ * ClassificationsController Test Case
  *
  */
-class CompliantsControllerTest extends ControllerTestCase {
+class ClassificationsControllerTest extends ControllerTestCase {
 
 /**
  * Fixtures
@@ -13,14 +13,14 @@ class CompliantsControllerTest extends ControllerTestCase {
  * @var array
  */
 	public $fixtures = array(
-		'app.compliant',
-		'app.event',
+		'app.classification',
 		'app.place',
+		'app.event',
+		'app.rate',
+		'app.user',
 		'app.category',
 		'app.categories_event',
-		'app.classifications_places',
-		'app.rate',
-		'app.user'
+		'app.classifications_place'
 	);
 
 /**

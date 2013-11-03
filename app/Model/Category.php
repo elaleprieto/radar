@@ -89,7 +89,7 @@ class Category extends AppModel {
 		),
 		'Place' => array(
 			'className' => 'Place',
-			'joinTable' => 'categories_places',
+			'joinTable' => 'classifications_places',
 			'foreignKey' => 'category_id',
 			'associationForeignKey' => 'place_id',
 			'unique' => true,

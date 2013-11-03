@@ -1,12 +1,11 @@
 <?php
 App::uses('AppModel', 'Model');
 /**
- * CategoriesPlace Model
+ * Classification Model
  *
- * @property Category $Category
  * @property Place $Place
  */
-class CategoriesPlace extends AppModel {
+class Classification extends AppModel {
 
 /**
  * Validation rules
@@ -14,9 +13,9 @@ class CategoriesPlace extends AppModel {
  * @var array
  */
 	public $validate = array(
-		'category_id' => array(
-			'numeric' => array(
-				'rule' => array('numeric'),
+		'name' => array(
+			'notempty' => array(
+				'rule' => array('notempty'),
 				//'message' => 'Your custom message here',
 				//'allowEmpty' => false,
 				//'required' => false,
@@ -24,9 +23,9 @@ class CategoriesPlace extends AppModel {
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
-		'place_id' => array(
-			'uuid' => array(
-				'rule' => array('uuid'),
+		'color' => array(
+			'notempty' => array(
+				'rule' => array('notempty'),
 				//'message' => 'Your custom message here',
 				//'allowEmpty' => false,
 				//'required' => false,
@@ -39,24 +38,26 @@ class CategoriesPlace extends AppModel {
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
 
 /**
- * belongsTo associations
+ * hasAndBelongsToMany associations
  *
  * @var array
  */
-	public $belongsTo = array(
-		'Category' => array(
-			'className' => 'Category',
-			'foreignKey' => 'category_id',
-			'conditions' => '',
-			'fields' => '',
-			'order' => ''
-		),
+	public $hasAndBelongsToMany = array(
 		'Place' => array(
 			'className' => 'Place',
-			'foreignKey' => 'place_id',
+			'joinTable' => 'classifications_places',
+			'foreignKey' => 'classification_id',
+			'associationForeignKey' => 'place_id',
+			'unique' => 'keepExisting',
 			'conditions' => '',
 			'fields' => '',
-			'order' => ''
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'finderQuery' => '',
+			'deleteQuery' => '',
+			'insertQuery' => ''
 		)
 	);
+
 }

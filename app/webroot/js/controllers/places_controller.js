@@ -12,7 +12,7 @@
       	***************************************************************************************************************
       */
 
-      var date, findResult, getPlaceCategoryIcon, getPlaceDescription, getPlaceId, getPlaceName, setUserLocationString, userLastLocationString, userMapCenter, userMapTypeId, userMapZoom;
+      var date, findResult, getPlaceColor, getPlaceDescription, getPlaceId, getPlaceName, setUserLocationString, userLastLocationString, userMapCenter, userMapTypeId, userMapZoom;
       $scope.placeInterval = 1;
       $scope.user = {};
       $scope.categoriesSelected = [];
@@ -185,7 +185,14 @@
       };
       $scope.createMarker = function(place, latlng) {
         var contenido, icon, infowindow, marker;
-        icon = new google.maps.MarkerImage('/img/map-marker/' + getPlaceCategoryIcon(place), new google.maps.Size(30, 40), new google.maps.Point(0, 0), new google.maps.Point(10, 34));
+        icon = {
+          path: google.maps.SymbolPath.CIRCLE,
+          fillColor: getPlaceColor(place),
+          fillOpacity: 0.8,
+          scale: 1,
+          strokeColor: 'gold',
+          strokeWeight: 14
+        };
         marker = new google.maps.Marker({
           placeId: getPlaceId(place),
           map: $scope.map,
@@ -408,8 +415,8 @@
           return null;
         }
       };
-      getPlaceCategoryIcon = function(place) {
-        return place.Category.icon;
+      getPlaceColor = function(place) {
+        return place.Classification.color;
       };
       getPlaceId = function(place) {
         return place.Place.id;
