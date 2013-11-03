@@ -14,6 +14,20 @@
         }
       });
     }
+  ]).factory('Compliant', [
+    '$resource', function($resource) {
+      return $resource('/compliants.json', {
+        callback: 'JSON_CALLBACK'
+      }, {
+        buscar: {
+          method: 'GET'
+        },
+        create: {
+          method: 'POST',
+          url: '/compliants.json'
+        }
+      });
+    }
   ]).factory('Event', [
     '$resource', function($resource) {
       return $resource('/events.json', {

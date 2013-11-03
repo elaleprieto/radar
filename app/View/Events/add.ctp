@@ -301,18 +301,18 @@ if (AuthComponent::user('location')) {
                                     </div>
                                 </div>
                                 <div class="row form-group">
-                                    <?php echo $this->Form->input('video', array('class'=>'textbox form-control', 'label'=>__('video'))) ?>
+                                    <?php echo $this->Form->input('video', array('class'=>'textbox form-control', 'label'=>__('Video'))) ?>
                                 </div>
                                 <div class="row form-group">
                                     <?php echo $this->Form->input('noticia'
                                     	, array('class'=>'textbox form-control'
-                                    		, 'label'=>__('fuente de noticias')
+                                    		, 'label'=>__('News source')
 											)
 										)
 									?>
                                 </div>
                                 <div class="row form-group">
-                                    <?php echo $this->Form->input('foto', array('class'=>'textbox form-control', 'label'=>__('foto'))) ?>
+                                    <?php echo $this->Form->input('foto', array('class'=>'textbox form-control', 'label'=>__('Photo'))) ?>
                                 </div>
                            </div>
                         </div>

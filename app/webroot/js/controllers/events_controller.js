@@ -6,7 +6,7 @@
 
 (function() {
   angular.module('RadarApp').controller('EventsController', [
-    '$http', '$location', '$scope', '$timeout', '$compile', 'Event', 'EventView', 'Rate', function($http, $location, $scope, $timeout, $compile, Event, EventView, Rate) {
+    '$http', '$location', '$scope', '$timeout', '$compile', 'Compliant', 'CompliantView', 'Event', 'EventView', 'Rate', function($http, $location, $scope, $timeout, $compile, Compliant, CompliantView, Event, EventView, Rate) {
       /* ***************************************************************************************************************
       			Inicialización de Objetos
       	***************************************************************************************************************
@@ -253,6 +253,12 @@
           return category.highlight = false;
         }
       };
+      $scope.denounce = function(evento) {
+        if (($scope.user.id != null) && (evento.Compliant != null) && (evento.Compliant.title != null)) {
+          Compliant.create(evento);
+          return CompliantView.close();
+        }
+      };
       $scope.eventsUpdate = function() {
         var bounds, ne, options, sw;
         if ($scope.map.getBounds() != null) {
@@ -287,11 +293,7 @@
           });
         }
       };
-      $scope.rateEvent = function(evento) {
-        return console.log(evento.Event.rate);
-      };
       $scope.resetView = function(event) {
-        console.log($('ng-view').innerHtml);
         return $location.path('/');
       };
       $scope.saveRatingToServer = function(evento, newRating) {
@@ -420,6 +422,9 @@
       };
       $scope.openModal = function(URL) {
         return EventView($scope, URL);
+      };
+      $scope.openCompliantModal = function(evento) {
+        return CompliantView.show($scope, evento);
       };
       /* *************************************************************************************************************** 
       			Funciones Auxiliares

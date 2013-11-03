@@ -2,8 +2,8 @@
 								EVENTOS
 ******************************************************************************************************************* ###
 angular.module('RadarApp').controller 'EventsController'
-	, ['$http', '$location', '$scope', '$timeout', '$compile', 'Event', 'EventView', 'Rate'
-		, ($http, $location, $scope, $timeout, $compile, Event, EventView, Rate) ->
+	, ['$http', '$location', '$scope', '$timeout', '$compile', 'Compliant', 'CompliantView', 'Event', 'EventView', 'Rate'
+		, ($http, $location, $scope, $timeout, $compile, Compliant, CompliantView, Event, EventView, Rate) ->
 
 	### ***************************************************************************************************************
 			Inicialización de Objetos
@@ -301,6 +301,12 @@ angular.module('RadarApp').controller 'EventsController'
 			$scope.event.categories.splice(index, 1)
 			category.highlight = false
 
+	$scope.denounce = (evento) ->
+		# Se verifica que el usuario esté registrado
+		if $scope.user.id? and evento.Compliant? and evento.Compliant.title?
+				Compliant.create evento
+				CompliantView.close()
+
 	# Se consulta al servidor por los eventos dentro de los límites del mapa y que cumplen las condiciones
 	# de categoría e intervalo seleccionadas.
 	$scope.eventsUpdate = ->
@@ -330,12 +336,7 @@ angular.module('RadarApp').controller 'EventsController'
 			, ->
 				$scope.setLocationDefault()
 
-	$scope.rateEvent = (evento) ->
-		console.log evento.Event.rate
-		
 	$scope.resetView = (event) ->
-		console.log $('ng-view').innerHtml
-		
 		$location.path('/')
 
 	$scope.saveRatingToServer = (evento, newRating) ->
@@ -471,9 +472,10 @@ angular.module('RadarApp').controller 'EventsController'
 		$location.path() == '/'
 	
 	$scope.openModal = (URL) ->
-		# console.log 'modal'
-		# $scope.locatAux = "events/view/52568fd2-3de8-4911-9c4d-0cf54a46329a"
 		EventView($scope, URL)
+	
+	$scope.openCompliantModal = (evento) ->
+		CompliantView.show($scope, evento)
 		
 	
 	# Se inicializa el mapa

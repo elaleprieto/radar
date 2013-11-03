@@ -124,7 +124,7 @@ if (AuthComponent::user('location')) {
 								<div class="row" ng-cloak>
 									<div class="col-sm-12">
 										<div class="row">
-											<h4><?php echo __('Accesibility'); ?></h4>
+											<h4><?php echo __('Accessibility'); ?></h4>
 										</div>
 										<div class="row form-group">
 											<p>¿El espacio donde se desarrolla la actividad está adaptado para personas con alguna discapacidad física o sensorial?</p>

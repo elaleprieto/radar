@@ -1,17 +1,17 @@
 <?php
 App::uses('AppController', 'Controller');
 /**
- * Rates Controller
+ * Compliants Controller
  *
- * @property Rate $Rate
+ * @property Compliant $Compliant
  */
-class RatesController extends AppController {
+class CompliantsController extends AppController {
 	
 	/**************************************************************************************************************
 	 *  Authentication
 	**************************************************************************************************************/
 	public function isAuthorized($user = null) {
-	    # All registered users can add rates
+	    # All registered users can add compliants
 	    if ($this->action === 'add') {
 	        return true;
 	    }
@@ -24,12 +24,11 @@ class RatesController extends AppController {
 	        // }
 	    // }
 // 	
-	    // return parent::isAuthorized($user);
+	    return parent::isAuthorized($user);
 	}
 	/**************************************************************************************************************
 	 *  /authentication
 	**************************************************************************************************************/
-	
 
 /**
  * index method
@@ -37,8 +36,8 @@ class RatesController extends AppController {
  * @return void
  */
 	public function admin_index() {
-		$this->Rate->recursive = 0;
-		$this->set('rates', $this->paginate());
+		$this->Compliant->recursive = 0;
+		$this->set('compliants', $this->paginate());
 	}
 
 /**
@@ -49,11 +48,11 @@ class RatesController extends AppController {
  * @return void
  */
 	public function admin_view($id = null) {
-		if (!$this->Rate->exists($id)) {
-			throw new NotFoundException(__('Invalid rate'));
+		if (!$this->Compliant->exists($id)) {
+			throw new NotFoundException(__('Invalid compliant'));
 		}
-		$options = array('conditions' => array('Rate.' . $this->Rate->primaryKey => $id));
-		$this->set('rate', $this->Rate->find('first', $options));
+		$options = array('conditions' => array('Compliant.' . $this->Compliant->primaryKey => $id));
+		$this->set('compliant', $this->Compliant->find('first', $options));
 	}
 
 /**
@@ -63,16 +62,16 @@ class RatesController extends AppController {
  */
 	public function admin_add() {
 		if ($this->request->is('post')) {
-			$this->Rate->create();
-			if ($this->Rate->save($this->request->data)) {
-				$this->Session->setFlash(__('The rate has been saved'));
+			$this->Compliant->create();
+			if ($this->Compliant->save($this->request->data)) {
+				$this->Session->setFlash(__('The compliant has been saved'));
 				$this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash(__('The rate could not be saved. Please, try again.'));
+				$this->Session->setFlash(__('The compliant could not be saved. Please, try again.'));
 			}
 		}
-		$events = $this->Rate->Event->find('list');
-		$users = $this->Rate->User->find('list');
+		$events = $this->Compliant->Event->find('list');
+		$users = $this->Compliant->User->find('list');
 		$this->set(compact('events', 'users'));
 	}
 
@@ -84,22 +83,22 @@ class RatesController extends AppController {
  * @return void
  */
 	public function admin_edit($id = null) {
-		if (!$this->Rate->exists($id)) {
-			throw new NotFoundException(__('Invalid rate'));
+		if (!$this->Compliant->exists($id)) {
+			throw new NotFoundException(__('Invalid compliant'));
 		}
 		if ($this->request->is('post') || $this->request->is('put')) {
-			if ($this->Rate->save($this->request->data)) {
-				$this->Session->setFlash(__('The rate has been saved'));
+			if ($this->Compliant->save($this->request->data)) {
+				$this->Session->setFlash(__('The compliant has been saved'));
 				$this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash(__('The rate could not be saved. Please, try again.'));
+				$this->Session->setFlash(__('The compliant could not be saved. Please, try again.'));
 			}
 		} else {
-			$options = array('conditions' => array('Rate.' . $this->Rate->primaryKey => $id));
-			$this->request->data = $this->Rate->find('first', $options);
+			$options = array('conditions' => array('Compliant.' . $this->Compliant->primaryKey => $id));
+			$this->request->data = $this->Compliant->find('first', $options);
 		}
-		$events = $this->Rate->Event->find('list');
-		$users = $this->Rate->User->find('list');
+		$events = $this->Compliant->Event->find('list');
+		$users = $this->Compliant->User->find('list');
 		$this->set(compact('events', 'users'));
 	}
 
@@ -112,19 +111,18 @@ class RatesController extends AppController {
  * @return void
  */
 	public function admin_delete($id = null) {
-		$this->Rate->id = $id;
-		if (!$this->Rate->exists()) {
-			throw new NotFoundException(__('Invalid rate'));
+		$this->Compliant->id = $id;
+		if (!$this->Compliant->exists()) {
+			throw new NotFoundException(__('Invalid compliant'));
 		}
 		$this->request->onlyAllow('post', 'delete');
-		if ($this->Rate->delete()) {
-			$this->Session->setFlash(__('Rate deleted'));
+		if ($this->Compliant->delete()) {
+			$this->Session->setFlash(__('Compliant deleted'));
 			$this->redirect(array('action' => 'index'));
 		}
-		$this->Session->setFlash(__('Rate was not deleted'));
+		$this->Session->setFlash(__('Compliant was not deleted'));
 		$this->redirect(array('action' => 'index'));
 	}
-	
 	
 /**
  * add method
@@ -134,20 +132,9 @@ class RatesController extends AppController {
 	public function add() {
 		$this->autoRender = false;
 		
-		
 		if ($this->request->is('post')) {
 			$evento = $this->request->input('json_decode');
-			$this->Rate->add($evento);
-			
-			// if ($this->Rate->save($rate)) {
-				// // $this->Session->setFlash(__('The rate has been saved'));
-				// // $this->redirect(array('action' => 'index'));
-			// } else {
-				// $this->Session->setFlash(__('The rate could not be saved. Please, try again.'));
-			// }
+			$this->Compliant->add($evento);
 		}
-		// $events = $this->Rate->Event->find('list');
-		// $users = $this->Rate->User->find('list');
-		// $this->set(compact('events', 'users'));
 	}
 }

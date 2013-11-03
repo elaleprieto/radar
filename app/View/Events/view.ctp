@@ -57,7 +57,7 @@ echo $this -> Html -> css(array('events/view'));
 		<hr>
 		<div class="row">
 			<div class="col-sm-12">
-				<p><?php echo __('Accecibilidad'); ?></p>
+				<p><?php echo __('Accessibility'); ?></p>
 				<p></p>
 			</div>
 		</div>
@@ -65,7 +65,7 @@ echo $this -> Html -> css(array('events/view'));
 		<div class="row">
 			<div class="col-sm-12">
 				<p><?php echo __('More'); ?></p>
-				<p><?php echo __('ticket :').$event['Event']['cost']; ?></p>
+				<p><?php echo __('Ticket').' :'.$event['Event']['cost']; ?></p>
 				<p><?php echo $event['Event']['website']; ?></p>
 			</div>
 		</div>

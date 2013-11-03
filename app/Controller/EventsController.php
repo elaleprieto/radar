@@ -224,6 +224,7 @@
                         , 'Event.rate'
                         , 'CategoriesEvent.category_id'
                         , 'Category.icon'
+                        , 'Compliant.user_id'
                         , 'Rate.user_id'
                     );
 					$options['group'] = array('Event.id');
@@ -244,12 +245,20 @@
 					            'Category.id = CategoriesEvent.category_id',
 					        )
 					    )
+					    , array('table' => 'compliants',
+					        'alias' => 'Compliant',
+					        'type' => 'LEFT',
+					        'conditions' => array(
+					            'Event.id = Compliant.event_id',
+					            'Compliant.user_id = \'' . (AuthComponent::user('id') ? AuthComponent::user('id') : 0) . '\''
+					        )
+					    )
 					    , array('table' => 'rates',
 					        'alias' => 'Rate',
 					        'type' => 'LEFT',
 					        'conditions' => array(
 					            'Event.id = Rate.event_id',
-					            'Rate.user_id =' . (AuthComponent::user('id') ? AuthComponent::user('id') : 0)
+					            'Rate.user_id = \'' . (AuthComponent::user('id') ? AuthComponent::user('id') : 0) . '\''
 					        )
 					    )
 					);

@@ -1,12 +1,12 @@
 <?php
 	App::uses('AppModel', 'Model');
 	/**
-	 * Rate Model
+	 * Compliant Model
 	 *
 	 * @property Event $Event
 	 * @property User $User
 	 */
-	class Rate extends AppModel {
+	class Compliant extends AppModel {
 
 		/**
 		 * Validation rules
@@ -14,7 +14,7 @@
 		 * @var array
 		 */
 		public $validate = array(
-			'rate' => array('numeric' => array('rule' => array('numeric'),
+			'title' => array('notempty' => array('rule' => array('notempty'),
 					//'message' => 'Your custom message here',
 					//'allowEmpty' => false,
 					//'required' => false,
@@ -22,18 +22,18 @@
 					//'on' => 'create', // Limit validation to 'create' or 'update' operations
 				), ),
 			'event_id' => array('uuid' => array('rule' => array('uuid'),
-					// //'message' => 'Your custom message here',
-					// //'allowEmpty' => false,
-					// //'required' => false,
-					// //'last' => false, // Stop validation after this rule
-					// //'on' => 'create', // Limit validation to 'create' or 'update' operations
+					//'message' => 'Your custom message here',
+					//'allowEmpty' => false,
+					//'required' => false,
+					//'last' => false, // Stop validation after this rule
+					//'on' => 'create', // Limit validation to 'create' or 'update' operations
 				), ),
 			'user_id' => array('uuid' => array('rule' => array('uuid'),
-					// //'message' => 'Your custom message here',
-					// //'allowEmpty' => false,
-					// //'required' => false,
-					// //'last' => false, // Stop validation after this rule
-					// //'on' => 'create', // Limit validation to 'create' or 'update' operations
+					//'message' => 'Your custom message here',
+					//'allowEmpty' => false,
+					//'required' => false,
+					//'last' => false, // Stop validation after this rule
+					//'on' => 'create', // Limit validation to 'create' or 'update' operations
 				), ),
 		);
 
@@ -63,39 +63,37 @@
 		);
 
 		/**
-		 * add: si el usuario está registrado, se agrega la votación por el evento
-		 * y se llama al método que recalcula el rate global del evento.
-		 * @param evento: el evento votado
+		 * add: si el usuario está registrado, se agrega la denuncia del evento.
+		 * @param evento: el evento denunciado
 		 * @param user->id: el id del usuario registrado.
 		 */
 		public function add($evento = null) {
-			if ($evento && AuthComponent::user('id') && !$this->userHasRated($evento)) {
-				$rate['Rate']['rate'] = $evento -> Event -> rate;
-				$rate['Rate']['event_id'] = $evento -> Event -> id;
-				$rate['Rate']['user_id'] = AuthComponent::user('id');
+			if ($evento && AuthComponent::user('id') && !$this->userHasCompliant($evento)) {
+				$compliant['Compliant']['title'] = $evento -> Compliant -> title;
+				$compliant['Compliant']['description'] = $evento -> Compliant -> description;
+				$compliant['Compliant']['event_id'] = $evento -> Event -> id;
+				$compliant['Compliant']['user_id'] = AuthComponent::user('id');
 
 				$this -> create();
-				if ($this -> save($rate)) {
-					$this -> Event -> rate($evento -> Event -> id, $evento -> Event -> rate);
-				}
+				$this -> save($compliant);
 			}
 		}
 
 		/**
-		 * userHasRated: retorna verdadero si el usuario que está registrado, ha
-		 * hecho una votación,
+		 * userHasCompliant: retorna verdadero si el usuario que está registrado, ha
+		 * hecho una denuncia,
 		 * retorna falso en otro caso.
-		 * @param evento: el evento a ser votado
+		 * @param evento: el evento a ser denunciado
 		 * @param user->id: el id del usuario registrado.
 		 */
-		public function userHasRated($evento = null) {
+		public function userHasCompliant($evento = null) {
 			if ($evento && AuthComponent::user('id')) {
 				$options['conditions'] = array(
 					'event_id' => $evento -> Event -> id,
 					'user_id' => AuthComponent::user('id')
 				);
-				$rate = $this -> find('first', $options);
-				return sizeof($rate) > 0;
+				$compliant = $this -> find('first', $options);
+				return sizeof($compliant) > 0;
 			}
 		}
 

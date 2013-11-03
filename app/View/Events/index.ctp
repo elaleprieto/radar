@@ -612,20 +612,21 @@ if (AuthComponent::user('location')) {
 				<div class="col-sm-1 hidden-xs" id="rampa-south"> </div>
 			</div>
 	
-		    <!-- Events List -->
-		    <div class="row background-black" ng-hide="hideSouthMenu">
-		    	<div class="col-sm-12">
-		    		<table id="eventsList" class="table table-striped">
-		    			<thead>
-		    				<tr>
-		    					<th><?php echo __('Date Start'); ?></th>
-		    					<th><?php echo __('Date End'); ?></th>
-		    					<th><?php echo __('Event'); ?></th>
-		    					<th><?php echo __('Address'); ?></th>
-		    					<th><?php echo __('Rate'); ?></th>
-		    				</tr>
-		    			</thead>
-		    			<tbody>
+			<!-- Events List -->
+			<div class="row background-black" ng-hide="hideSouthMenu">
+				<div class="col-sm-12">
+					<table id="eventsList" class="table table-striped">
+						<thead>
+							<tr>
+								<th><?php echo __('Date Start'); ?></th>
+								<th><?php echo __('Date End'); ?></th>
+								<th><?php echo __('Event'); ?></th>
+								<th><?php echo __('Address'); ?></th>
+								<th><?php echo __('Rate'); ?></th>
+								<th>&nbsp;</th>
+							</tr>
+						</thead>
+						<tbody>
 							<tr ng-repeat="evento in eventos | orderBy:'Event.date_start'">
 								<td ng-bind="evento.Event.date_start | isodate | date:'dd/MM/yyyy HH:mm'"></td>
 								<td ng-bind="evento.Event.date_end | isodate | date:'dd/MM/yyyy HH:mm'"></td>
@@ -635,22 +636,63 @@ if (AuthComponent::user('location')) {
 									<div x-fundoo-rating x-max="max" on-rating-selected="saveRatingToServer(evento, newRating)"
 										x-rating-value="evento.Event.rate" x-readonly="false" x-user-id="user.id" x-user-voted="evento.Rate.user_id"></div>
 								</td>
-		    			    </tr>
-		    			</tbody>
-		    		</table>
-		    	</div>
-		    </div>
+								<td>
+									<a href="#" x-ng-click="openCompliantModal(evento)" x-ng-hide="evento.Compliant.user_id != null">
+										<?php echo __('Denounce'); ?>
+									</a>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
 		</div>
 	</div>
-	<!-- 
-	<div id="view" ng-hide="viewDisplayed()">
-		<div id="viewTitle">
-			<button type="button" class="close" ng-click="resetView($event)">&times;</button>
-			<p><strong>Información del Evento</strong></p>
-		</div>
-		<ng-view></ng-view>
-	</div> 
-	-->
+	
+	<div class="modal fade" id="compliantViewModal" tabindex="-1" role="dialog" aria-labelledby="compliant" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+						&times;
+					</button>
+					<h4 class="modal-title"><?php echo __('Denounce'); ?></h4> 
+				</div>
+				<div class="modal-body">
+					<form class="form-horizontal" role="form">
+						<div class="form-group">
+							<label for="inputCompliantTitle" class="col-sm-2 control-label">
+								<?php echo __('Title'); ?>
+							</label>
+							<div class="col-sm-10">
+								<input class="form-control" id="inputCompliantTitle" 
+									placeholder="<?php echo __('Title'); ?>" required="required" type="text" 
+									x-ng-model="evento.Compliant.title" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="inputCompliantDescription" class="col-sm-2 control-label">
+								<?php echo __('Description'); ?>
+							</label>
+							<div class="col-sm-10">
+								<textarea class="form-control" id="inputCompliantDescription" placeholder="<?php echo __('Description'); ?>"
+									x-ng-model="evento.Compliant.description" />
+								</textarea>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">
+						<?php echo __('Close'); ?>
+					</button>
+					<button type="button" class="btn btn-primary" x-ng-click="denounce(evento)">
+						<?php echo __('Denounce!'); ?>
+					</button>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
 	
 	<div>
 		<div class="modal fade" id="eventViewModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

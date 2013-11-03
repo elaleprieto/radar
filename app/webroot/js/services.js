@@ -1,5 +1,16 @@
 (function() {
-  angular.module('services', []).factory('EventView', function() {
+  angular.module('services', []).service('CompliantView', function() {
+    var modalElement;
+    modalElement = angular.element('#compliantViewModal');
+    this.show = function(scope, evento) {
+      scope.evento = evento;
+      scope.evento.Compliant = {};
+      return modalElement.modal('show');
+    };
+    return this.close = function() {
+      return modalElement.modal('hide');
+    };
+  }).factory('EventView', function() {
     var modalElement;
     modalElement = angular.element('#eventViewModal');
     return function(scope, URL) {
