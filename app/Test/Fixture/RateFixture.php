@@ -15,8 +15,8 @@ class RateFixture extends CakeTestFixture {
 		'rate' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 3),
 		'created' => array('type' => 'datetime', 'null' => false, 'default' => null),
 		'modified' => array('type' => 'datetime', 'null' => false, 'default' => null),
-		'event_id' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 36, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
-		'user_id' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 36, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
+		'event_id' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 36, 'collate' => 'utf8_general_ci', 'charset' => 'utf8', 'key' => 'primary'),
+		'user_id' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 36, 'collate' => 'utf8_general_ci', 'charset' => 'utf8', 'key' => 'primary'),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1)
 		),
@@ -30,13 +30,20 @@ class RateFixture extends CakeTestFixture {
  */
 	public $records = array(
 		array(
-			'id' => '526e9f93-4ff8-4821-9e81-11dd4a46329a',
-			'rate' => 1,
-			'created' => '2013-10-28 14:32:03',
-			'modified' => '2013-10-28 14:32:03',
-			'event_id' => 'Lorem ipsum dolor sit amet',
-			'user_id' => 'Lorem ipsum dolor sit amet'
+			'id' => '52123993-c2f0-43b8-b851-1e104a46329a',
+			'rate' => '2',
+			'created' => '2013-10-21 18:16:03',
+			'modified' => '2013-10-21 18:16:03',
+			'event_id' => '1',
+			'user_id' => '5271039a-bdd8-42ff-917d-065cc0a80a79',
 		),
+		array(
+			'id' => '52123123-c5f0-48b8-b851-1e104a46329a',
+			'rate' => '2',
+			'created' => '2013-10-21 18:16:03',
+			'modified' => '2013-10-21 18:16:03',
+			'event_id' => '2',
+			'user_id' => '5271039a-bdd8-42ff-917d-065cc0a80a79',
+		),	
 	);
-
 }

@@ -41,6 +41,5 @@ class RateTest extends CakeTestCase {
 		unset($this->Rate);
 
 		parent::tearDown();
-	}
-
+	}	
 }

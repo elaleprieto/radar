@@ -36,10 +36,17 @@ class Place extends AppModel {
 		'email' => array(
 			'email' => array(
 				'rule' => array('email', true),
-				'allowEmpty' => false,
+				'allowEmpty' => true,
 				'required' => false,
 				)
-		)
+		),
+		'website' => array(
+			'website' => array(
+				'rule' => 'url',
+				'allowEmpty' => true,
+				'required' => false,
+			)
+		),
 	);
 
 	//The Associations below have been created with all possible keys, those that are not needed can be removed

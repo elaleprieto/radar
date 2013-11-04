@@ -29,11 +29,11 @@ class ClassificationsPlaceFixture extends CakeTestFixture {
  */
 	public $records = array(
 		array(
-			'id' => '527697f4-2f04-400c-80ba-40764a46329a',
+			'id' => '52653f5b-ecb8-40d0-a041-31e54146329a',
 			'classifications_id' => 1,
-			'place_id' => 'Lorem ipsum dolor sit amet',
-			'created' => '2013-11-03 15:37:40',
-			'modified' => '2013-11-03 15:37:40'
+			'place_id' => '',
+			'created' => '2013-10-21 11:51:07',
+			'modified' => '2013-10-21 11:51:07'
 		),
 	);
 
