@@ -1,5 +1,6 @@
 <?php
 App::uses('AppModel', 'Model');
+
 /**
  * Event Model
  *
@@ -13,16 +14,134 @@ class Event extends AppModel {
  *
  * @var array
  */
+
 	public $validate = array(
-		'title' => array('notempty' => array('rule' => array('notempty')))
-		, 'status' => array('numeric' => array('rule' => array('numeric')))
-		, 'date_start' => array('datetime' => array('rule' => array('datetime')))
-		, 'date_end' => array('datetime' => array('rule' => array('datetime')))
-		, 'place_id' => array('numeric' => array('rule' => array('numeric')))
-		, 'Category' => array(
+		'title' => array(
+			'notempty' => array(
+				'rule' => array('notempty')
+			)
+		),
+		'address' => array(
+			'notempty' => array(
+				'rule' => array('notempty')
+			)
+		), 
+		'description' => array(
+			'notempty' => array(
+				'rule' => array('notempty')
+			)
+		), 
+		'lat' => array(
+			'notempty' => array(
+				'rule' => array('notempty'),
+				'message' => 'El campo latitud no puede ser vacío.',
+			),
+			'decimal' => array(
+				'rule' => array('decimal'),
+				'message' => 'El campo latitud debe ser un valor numérico.')
+		), 
+		'long' => array(
+			'notempty' => array(
+				'rule' => array('notempty'),
+				'message' => 'El campo longitud no puede ser vacío.',
+			),
+			'decimal' => array(
+				'rule' => array('decimal'),
+				'message' => 'El campo longitud debe ser un valor numérico.')
+		), 
+		'status' => array(
+			'numeric' => array(
+				'rule' => array('numeric')
+			)
+		),
+		//'date_start' => array('datetime' => array('rule' => array('datetime')))
+/*		'date_start' => array(
+			'datetime' => array(
+				'rule' => array('datetime'),
+				'allowEmpty' => false,
+				'message' => 'El evento debe tener una fecha de inicio.'
+			)
+		),
+*/		
+		'date_start' => array(
+			'allowempty' => array(
+				'rule' => array('notEmpty'),
+				'allowEmpty' => false,
+				'message' => 'El evento debe tener una fecha de inicio.'
+			),
+			'datetime' => array(
+				'rule' => array('datetime'),
+				'message' => 'El evento debe tener una fecha de inicio válida.'
+			),
+		),
+		// 'date_end' => array('datetime' => array('rule' => array('datetime')))
+/*		'date_end' => array(
+			'datetime' => array(
+				'rule' => array('datetime'),
+				'allowEmpty' => false,
+				'message' => 'El evento debe tener una fecha de fin.'
+			)
+		), 
+*/		
+		'date_end' => array(
+			'allowempty' => array(
+				'rule' => array('notEmpty'),
+				'allowEmpty' => false,
+				'message' => 'El evento debe tener una fecha de fin.'
+			),
+			'datetime' => array(
+				'rule' => array('datetime'),
+				'message' => 'El evento debe tener una fecha de fin válida.'
+			),
+			'fechas' => array(
+				'rule' => array('dateStartSmallThanDateEnd', 'date_start'),
+				'message' => 'La Fecha de fin del evento debe ser superior a la fecha de inicio'
+			)
+		),
+		'website' => array(
+			'website' => array(
+				'rule' => 'url', 
+				'allowEmpty' => true, 
+				'required' => false
+			)
+		),
+		/*'Category' => array(
 			'multiple' => array('rule' => array('multiple', array('min' => 1))
 			, 'message' => 'Es necesario seleccionar al menos una categoría'
 			, 'required' => true
+			)
+		)*/
+		'rate' => array(
+			'allowempty' => array(
+				'rule' => array('notEmpty'),
+				'allowEmpty' => false,
+				'message' => 'El campo rate no puede ser vacío.'
+			),
+			'numeric' => array(
+				'rule' => array('numeric'),
+				'message' => 'El campo rate debe ser un valor númerico.'
+			),
+			 'range' => array(
+                'rule'    => array('range', -1, 6),
+                'message' => 'El campo rate debe tener un valor entre 0 y 5'
+            )
+		),
+		'complaint' => array(
+			'numeric' => array(
+				'rule' => array('numeric'),
+				'message' => 'El campo complaint debe ser un valor numérico.'
+			)
+		),
+		'Category' => array(
+			'multiple' => array(
+				'rule' => array(
+					'multiple', array(
+						'min' => 1,
+						'max' => 3
+					)
+				),
+			'message' => 'Es necesario seleccionar al menos una categoría. Máximo 3.',
+			'required' => true
 			)
 		)
 	);
@@ -71,4 +190,14 @@ class Event extends AppModel {
 		}
 		return true;
 	}
+	
+/*
+ * Validación de Fechas. La fecha de fin debe ser superior a la fecha de inicio.
+ * 
+ */
+	public function dateStartSmallThanDateEnd($date_end, $date_start) {
+		return ($this->data[$this->alias]['date_start'] <
+		$this->data[$this->alias]['date_end']) ? true : false;  	
+   }
+
 }
