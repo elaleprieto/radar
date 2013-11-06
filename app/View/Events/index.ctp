@@ -28,7 +28,10 @@ if (AuthComponent::user('location')) {
 }
 ?>
 
-<div ng-controller="EventsController" ng-init="user.locationAux='<?php echo $userLocation; ?>'; user.id='<?php echo AuthComponent::user('id');?>'">
+<link href='//api.tiles.mapbox.com/mapbox.js/v1.4.0/mapbox.css' rel='stylesheet' />
+<script src='//api.tiles.mapbox.com/mapbox.js/v1.4.0/mapbox.js'></script>
+
+<div  ng-init="user.locationAux='<?php echo $userLocation; ?>'; user.id='<?php echo AuthComponent::user('id'); ?>'">
 
 	<!-- LOGO -->
 	<div id="logo">
@@ -157,21 +160,21 @@ if (AuthComponent::user('location')) {
 						<!-- Logout de facebook -->
 						<li>
 							<?php echo $this->Facebook->logout(array(
-										'label' => 'Salir',
-										'redirect' => array(
-											'controller' => 'users',
-											'action' => 'logout'
-										),
-									));
+								'label' => 'Salir',
+								'redirect' => array(
+									'controller' => 'users',
+									'action' => 'logout'
+								),
+							));
 	 						?>
 	 					</li>
 						<?php else: ?>
 						<li>
 							<?php
-								echo $this->Html->link('Ingresar', array(
-										'controller' => 'users',
-										'action' => 'login'
-									), array('id' => 'menu_superior_derecha_verde'));
+							echo $this->Html->link('Ingresar', array(
+								'controller' => 'users',
+								'action' => 'login'
+							), array('id' => 'menu_superior_derecha_verde'));
 							?>
 						</li>
 						<li>
@@ -237,17 +240,17 @@ if (AuthComponent::user('location')) {
 								'redirect' => array(
 									'controller' => 'users',
 									'action' => 'logout'
-									),
-								));
+								),
+							));
 	 						?>
 	 					</li>
 						<?php else: ?>
 						<li>
 							<?php
-								echo $this->Html->link('Ingresar', array(
-									'controller' => 'users',
-									'action' => 'login'
-								), array('id' => 'menu_superior_derecha_verde'));
+							echo $this->Html->link('Ingresar', array(
+								'controller' => 'users',
+								'action' => 'login'
+							), array('id' => 'menu_superior_derecha_verde'));
 							?>
 						</li>
 						<li>
@@ -368,13 +371,13 @@ if (AuthComponent::user('location')) {
 					?>-->
 					<!-- Logout de facebook -->
 					<?php
-						// echo $this->Facebook->logout(array(
-						// 'label' => 'Salir',
-						// 'redirect' => array(
-						// 'controller' => 'users',
-						// 'action' => 'logout'
-						// ),
-						// ));
+					// echo $this->Facebook->logout(array(
+					// 'label' => 'Salir',
+					// 'redirect' => array(
+					// 'controller' => 'users',
+					// 'action' => 'logout'
+					// ),
+					// ));
 					 ?>
 					<!-- 
 					</li>
@@ -457,7 +460,7 @@ if (AuthComponent::user('location')) {
 
 		<br/>
 		<!-- CATEGORIES -->
-		<div ng-controller="CategoriesController">
+		<div >
 			<div id="categoriesContainer" class="background-black color-white" ng-hide="hideCategories">
 				
 				<!-- Titulo -->
@@ -723,4 +726,78 @@ if (AuthComponent::user('location')) {
 	</div>
 	
 	<div id="map"></div>
+	<script type='text/javascript'>
+		var map = L.mapbox.map('map', 'elaleprieto.g79k5cbm').setView([-31.64799, -60.71360], 15);
+		// var map = L.mapbox.map('map', 'http://a.tile.openstreetmap.org/${z}/${x}/${y}.png').setView([40, -74.50], 9);
+
+		// var map = L.mapbox.map('map');
+		// var stamenLayer = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}.png', {
+		// attribution : 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>.'
+		// }).addTo(map);
+		// var OSMLayer = L.tileLayer('http://a.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+		// var OSMLayer = L.tileLayer('http://otile1.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png', {
+		// var OSMLayer = L.tileLayer('http://otile1.mqcdn.com/tiles/1.0.0/sat/{z}/{x}/{y}.png', {
+		// attribution : 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>.'
+		// }).addTo(map);
+		// map.setView([-31.64799, -60.71360], 17);
+		map.markerLayer.on('click', function(e) {
+			map.panTo(e.layer.getLatLng());
+		});
+
+		// The GeoJSON representing the two point features
+		var geoJson = {
+			type : 'FeatureCollection',
+			features : [{
+				type : 'Feature',
+				properties : {
+					title : 'Washington, D.C.',
+					'marker-color' : '#f00',
+					'marker-size' : 'large',
+					url : 'http://en.wikipedia.org/wiki/Washington,_D.C.'
+				},
+				geometry : {
+					type : 'Point',
+					coordinates : [-31.638, -60.7035]
+				}
+			}, {
+				type : 'Feature',
+				properties : {
+					title : 'Baltimore, MD',
+					'marker-color' : '#f00',
+					'marker-size' : 'large',
+					url : 'http://en.wikipedia.org/wiki/Baltimore'
+				},
+				geometry : {
+					type : 'Point',
+					coordinates : [-60.7085, -31.6523]
+				}
+			}]
+		};
+
+		// // Pass features and a custom factory function to the map
+		// map.markerLayer.setGeoJSON(geoJson);
+
+		L.mapbox.markerLayer(geoJson).addTo(map);
+
+		L.mapbox.markerLayer({
+			// this feature is in the GeoJSON format: see geojson.org
+			// for the full specification
+			type : 'Feature',
+			geometry : {
+				type : 'Point',
+				// coordinates here are in longitude, latitude order because
+				// x, y is the standard for GeoJSON and many formats
+				coordinates : [-60.7085, -31.6523]
+			},
+			properties : {
+				title : 'A Single Marker',
+				description : 'Just one of me',
+				// one can customize markers by adding simplestyle properties
+				// http://mapbox.com/developers/simplestyle/
+				'marker-size' : 'large',
+				'marker-color' : '#f0a'
+			}
+		}).addTo(map);
+
+		</script>
 </div>
