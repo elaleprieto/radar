@@ -16,58 +16,6 @@
         return -1 !== this.indexOf(a, b);
     });
 }).call(this), function() {
-    angular.module("RadarApp").controller("CategoriesController", [ "$http", "$location", "$scope", "$timeout", "Category", function(a, b, c, d, e) {
-        var f;
-        return f = b.absUrl(), e.get({}, function(a) {
-            return c.categorias = a.categories;
-        }), c.categoryToogle = function(a) {
-            return a.highlight ? c.$parent.categoriesDelete(a) : c.$parent.categoriesAdd(a);
-        }, c.searchById = function(a) {
-            var b;
-            return null != c.categorias ? (b = c.categorias.filter(function(b) {
-                return +b.Category.id === +a;
-            }), b[0]) : void 0;
-        }, c.show = function(a) {
-            return a.highlight = !a.highlight, a.highlight ? c.categoriesSelected.push(a.Category.id) : c.categoriesSelected.splice(c.categoriesSelected.indexOf(a.Category.id), 1), 
-            $.cookie.json = !0, $.cookie("categoriesSelected", c.categoriesSelected, {
-                expires: 360,
-                path: "/"
-            });
-        }, c.$watch("categorias.length", function() {
-            var a;
-            return !f.contains("events/add") && null != c.categorias && null != $.cookie && c.categorias.length > 0 && ($.cookie.json = !0, 
-            a = $.cookie("categoriesSelected"), null != a && a.length > 0) ? angular.forEach(a, function(a) {
-                return c.show(c.searchById(a));
-            }) : void 0;
-        });
-    } ]);
-}.call(this), function() {
-    angular.module("RadarApp").controller("ClassificationsController", [ "$http", "$location", "$scope", "$timeout", "Classification", function(a, b, c, d, e) {
-        var f;
-        return f = b.absUrl(), e.get({}, function(a) {
-            return c.classifications = a.classifications;
-        }), c.classificationToogle = function(a) {
-            return a.highlight ? c.$parent.classificationsDelete(a) : c.$parent.classificationsAdd(a);
-        }, c.searchById = function(a) {
-            var b;
-            return null != c.classifications ? (b = c.classifications.filter(function(b) {
-                return +b.Classification.id === +a;
-            }), b[0]) : void 0;
-        }, c.show = function(a) {
-            return a.highlight = !a.highlight, a.highlight ? c.classificationsSelected.push(a.Classification.id) : c.classificationsSelected.splice(c.classificationsSelected.indexOf(a.Classification.id), 1), 
-            $.cookie.json = !0, $.cookie("classificationsSelected", c.classificationsSelected, {
-                expires: 360,
-                path: "/"
-            });
-        }, c.$watch("classifications.length", function() {
-            var a;
-            return !f.contains("events/add") && null != c.classifications && null != $.cookie && c.classifications.length > 0 && ($.cookie.json = !0, 
-            a = $.cookie("classificationsSelected"), null != a && a.length > 0) ? angular.forEach(a, function(a) {
-                return c.show(c.searchById(a));
-            }) : void 0;
-        });
-    } ]);
-}.call(this), function() {
     angular.module("RadarApp").controller("EventsController", [ "$http", "$location", "$scope", "$timeout", "$compile", "Compliant", "CompliantView", "Event", "EventView", "Rate", function(a, b, c, d, e, f, g, h, i, j) {
         var k, l, m, n, o, p, q, r, s, t, u;
         return c.eventInterval = 1, c.isReadonly = !1, c.max = 5, c.user = {}, c.categoriesSelected = [], 
@@ -269,479 +217,58 @@
         };
     } ]);
 }.call(this), function() {
-    angular.module("RadarApp").controller("EventsController", [ "$http", "$location", "$scope", "$timeout", "$compile", "Compliant", "CompliantView", "Event", "EventView", "Rate", function(a, b, c, d, e, f, g, h, i, j) {
-        var k, l, m, n, o, p, q, r, s, t, u;
-        return c.eventInterval = 1, c.isReadonly = !1, c.max = 5, c.user = {}, c.categoriesSelected = [], 
-        k = new Date(), c.minutoEnMilisegundos = 6e4, c.diaEnMilisegundos = 1440 * c.minutoEnMilisegundos, 
-        c.event = {}, c.event.categories = [], c.capital = new google.maps.LatLng(-34.603, -58.382), 
-        c.cordoba = new google.maps.LatLng(-31.388813, -64.179726), c.santafe = new google.maps.LatLng(-31.625906, -60.696774), 
-        c.cordobaSantafe = new google.maps.LatLng(-31.52081, -62.411469), c.locationDefault = c.cordobaSantafe, 
-        c.zoomDefault = 8, c.zoomSantafe = 12, c.zoomCordoba = 11, c.zoomCity = 15, c.ROADMAP = google.maps.MapTypeId.ROADMAP, 
-        c.SATELLITE = google.maps.MapTypeId.SATELLITE, c.opciones = {
-            center: c.locationAux,
-            mapTypeId: c.ROADMAP,
-            panControl: !1,
-            zoomControl: !1,
-            mapTypeControl: !1,
-            scaleControl: !1,
-            streetViewControl: !1,
-            overviewMapControl: !1,
-            zoom: c.zoomDefault
-        }, null != $.cookie && ($.cookie.json = !0, s = $.cookie("userMapCenter"), t = $.cookie("userMapTypeId"), 
-        u = $.cookie("userMapZoom"), r = $.cookie("userLastLocationString"), null != s && (c.opciones.center = new google.maps.LatLng(s.lat, s.lng)), 
-        null != t && (c.opciones.mapTypeId = t), null != u && (c.opciones.zoom = u), null != r && (c.user.location = r), 
-        d(function() {
-            return c.setUserLocationByLatLng(c.opciones.center);
-        }, 50)), c.map = new google.maps.Map(document.getElementById("map"), c.opciones), 
-        c.markers = [], c.geocoder = new google.maps.Geocoder(), c.$watch("categoriesSelected.length", function() {
-            return c.eventsUpdate();
-        }), c.$watch("eventInterval", function() {
-            return c.eventsUpdate();
-        }), c.$watch("eventos", function() {
-            return c.deleteOverlays(), angular.forEach(c.eventos, function(a) {
-                var b;
-                return b = new google.maps.LatLng(a.Event.lat, a.Event.long), c.createMarker(a, b);
-            }), c.showOverlays();
-        }, !0), c.$watch("event.date_from", function(a) {
-            return null != a ? ($("#date_to").datepicker("setDate", a), $("#date_to").datepicker("setStartDate", a), 
-            $("#date_to").datepicker("setEndDate", new Date(a.getTime() + 3 * c.diaEnMilisegundos)), 
-            c.event.date_to = a) : void 0;
-        }), c.$watch("event.time_from", function(a) {
-            return null != a ? c.checkTimeTo() : void 0;
-        }), c.$watch("event.time_to", function(a) {
-            return null != a ? c.checkTimeTo() : void 0;
-        }), c.$watch("user.locationAux", function(a) {
-            return null == s && null != a && a.length > 0 ? c.setLocationByUserLocation(a) : void 0;
-        }), google.maps.event.addListener(c.map, "dragend", function() {
-            return c.eventsUpdate(), c.saveUserMapCenter();
-        }), google.maps.event.addListener(c.map, "tilesloaded", function() {
-            return c.eventsUpdate();
-        }), google.maps.event.addListener(c.map, "zoom_changed", function() {
-            return c.eventsUpdate(), c.saveUserMapZoom();
-        }), google.maps.event.addListener(c.map, "position_changed", function() {
-            return c.eventsUpdate();
-        }), c.addAddressToMap = function(a) {
+    angular.module("RadarApp").controller("CategoriesController", [ "$http", "$location", "$scope", "$timeout", "Category", function(a, b, c, d, e) {
+        var f;
+        return f = b.absUrl(), e.get({}, function(a) {
+            return c.categorias = a.categories;
+        }), c.categoryToogle = function(a) {
+            return a.highlight ? c.$parent.categoriesDelete(a) : c.$parent.categoriesAdd(a);
+        }, c.searchById = function(a) {
             var b;
-            return a && 0 !== a.length ? (c.event.lat = a[0].geometry.location.lat(), c.event.long = a[0].geometry.location.lng(), 
-            c.map.setCenter(a[0].geometry.location), c.map.setZoom(13), b = new google.maps.MarkerImage("http://gmaps-samples.googlecode.com/svn/trunk/markers/blue/blank.png", new google.maps.Size(20, 34), new google.maps.Point(0, 0), new google.maps.Point(10, 34)), 
-            null != c.marker && c.marker.setMap(null), c.marker = new google.maps.Marker({
-                position: a[0].geometry.location,
-                map: c.map,
-                icon: b
-            }), c.marker.setMap(c.map)) : this;
-        }, c.centerMap = function(a) {
-            var b;
-            switch (c.map.setZoom(c.zoomDefault), a) {
-              case "cordoba":
-                b = c.cordoba, c.map.setZoom(c.zoomCordoba);
-                break;
-
-              case "santafe":
-                b = c.santafe, c.map.setZoom(c.zoomSantafe);
-                break;
-
-              default:
-                b = c.locationDefault;
-            }
-            return c.map.setCenter(b), c.eventsUpdate(), c.saveUserMapCenter(), c.saveUserMapZoom();
-        }, c.centerMapByUserLocation = function(a) {
-            return null != a[0] && null != a[0].geometry && null != a[0].geometry.location ? (c.map.setCenter(a[0].geometry.location), 
-            c.map.setZoom(c.zoomCity), c.saveUserMapCenter(), q(a[0])) : void 0;
-        }, c.createMarker = function(a, b) {
-            var d, f, g, h;
-            return f = new google.maps.MarkerImage("/img/map-marker/" + m(a), new google.maps.Size(30, 40), new google.maps.Point(0, 0), new google.maps.Point(10, 34)), 
-            h = new google.maps.Marker({
-                eventId: o(a),
-                map: c.map,
-                icon: f,
-                position: b,
-                title: p(a),
-                zIndex: Math.round(-1e5 * b.lat()) << 5
-            }), d = "<div>", d += "<p>" + p(a) + "</p>", d += "<a ng-click=\"openModal('events/view/" + o(a) + "')\">", 
-            d += '<p class="text-right"><i class="icon-expand-alt"></i> info</p>', d += "</a>", 
-            d += "</div>", d = e(d)(c), g = new google.maps.InfoWindow({
-                content: d[0]
-            }), google.maps.event.addListener(h, "click", function() {
-                return g.open(c.map, h);
-            }), c.markers.push(h);
-        }, c.checkTimeTo = function() {
-            var a, b, d, e, f, g, h;
-            if (null != c.event.time_from && c.event.date_from === c.event.date_to) {
-                if (d = c.event.date_from, f = c.event.date_to, g = c.event.time_from.split(":"), 
-                e = new Date(d.getFullYear(), d.getMonth(), d.getDate(), g[0], g[1]), a = new Date(e.getTime() + 15 * c.minutoEnMilisegundos), 
-                null == c.event.time_to) return c.event.time_to = a.getHours() + ":" + a.getMinutes();
-                if (h = c.event.time_to.split(":"), b = new Date(f.getFullYear(), f.getMonth(), f.getDate(), h[0], h[1]), 
-                a.getTime() > b.getTime() && (c.event.time_to = a.getHours() + ":" + a.getMinutes(), 
-                0 === a.getMinutes())) return c.event.time_to += "0";
-            }
-        }, c.clearOverlays = function() {
-            return c.setAllMap(null);
-        }, c.deleteOverlays = function() {
-            return c.clearOverlays(), c.markers = [];
-        }, c.categoriesAdd = function(a) {
-            return c.event.categories.length < 3 ? (c.event.categories.push(a.Category.id), 
-            a.highlight = !0) : void 0;
-        }, c.categoriesDelete = function(a) {
-            var b;
-            return b = c.event.categories.indexOf(a.Category.id), b >= 0 ? (c.event.categories.splice(b, 1), 
-            a.highlight = !1) : void 0;
-        }, c.denounce = function(a) {
-            return null != c.user.id && null != a.Compliant && null != a.Compliant.title ? (f.create(a), 
-            g.close()) : void 0;
-        }, c.eventsUpdate = function() {
-            var a, b, d, e;
-            return null != c.map.getBounds() ? (a = c.map.getBounds(), b = a.getNorthEast(), 
-            e = a.getSouthWest(), d = {
-                categoriesSelected: c.categoriesSelected,
-                eventInterval: c.eventInterval,
-                neLat: b.lat(),
-                neLong: b.lng(),
-                swLat: e.lat(),
-                swLong: e.lng()
-            }, console.log(d), h.get({
-                params: d
-            }, function(a) {
-                return c.eventos = a.events;
-            })) : void 0;
-        }, c.inicializar = function() {
-            return navigator.geolocation ? (window.browserSupportFlag = !0, navigator.geolocation.getCurrentPosition(function(a) {
-                var b;
-                return b = new google.maps.LatLng(a.coords.latitude, a.coords.longitude), c.map.setCenter(b);
-            }, function() {
-                return c.setLocationDefault();
-            })) : void 0;
-        }, c.resetView = function() {
-            return b.path("/");
-        }, c.saveRatingToServer = function(a, b) {
-            return a.Event.rate = b, j.create(a);
-        }, c.saveUserLocationString = function() {
-            return $.cookie.json = !0, $.cookie("userLastLocationString", c.user.location, {
-                expires: 30
+            return null != c.categorias ? (b = c.categorias.filter(function(b) {
+                return +b.Category.id === +a;
+            }), b[0]) : void 0;
+        }, c.show = function(a) {
+            return a.highlight = !a.highlight, a.highlight ? c.categoriesSelected.push(a.Category.id) : c.categoriesSelected.splice(c.categoriesSelected.indexOf(a.Category.id), 1), 
+            $.cookie.json = !0, $.cookie("categoriesSelected", c.categoriesSelected, {
+                expires: 360,
+                path: "/"
             });
-        }, c.saveUserMapCenter = function() {
-            return $.cookie.json = !0, $.cookie("userMapCenter", {
-                lat: c.map.getCenter().lat(),
-                lng: c.map.getCenter().lng()
-            }, {
-                expires: 30
-            });
-        }, c.saveUserMapTypeId = function() {
-            return $.cookie.json = !0, $.cookie("userMapTypeId", c.map.getMapTypeId(), {
-                expires: 30
-            });
-        }, c.saveUserMapZoom = function() {
-            return $.cookie.json = !0, $.cookie("userMapZoom", c.map.getZoom(), {
-                expires: 30
-            });
-        }, c.searchLocation = function(a) {
-            return c.setLocationByUserLocation(a);
-        }, c.setAllMap = function(a) {
-            var b, d, e, f, g;
-            for (f = c.markers, g = [], d = 0, e = f.length; e > d; d++) b = f[d], g.push(b.setMap(a));
-            return g;
-        }, c.setAddress = function() {
+        }, c.$watch("categorias.length", function() {
             var a;
-            return a = new Object(), a.address = c.event.address, a.region = "AR", c.geocoder.geocode(a, c.addAddressToMap);
-        }, c.setEventInterval = function(a) {
-            return c.eventInterval = a;
-        }, c.setLocation = function() {
-            return c.map.setZoom(c.zoomCity), navigator.geolocation ? (window.browserSupportFlag = !0, 
-            navigator.geolocation.getCurrentPosition(function(a) {
-                var b;
-                return b = new google.maps.LatLng(a.coords.latitude, a.coords.longitude), c.map.setCenter(b), 
-                c.eventsUpdate();
-            }, function() {
-                return c.errorLocation = "Debes autorizar la captura de tu ubicación", c.setLocationDefault(), 
-                d(function() {
-                    return c.errorLocation = null;
-                }, 2e3);
-            })) : c.errorLocation = "Esta función no está soportada por tu navegador";
-        }, c.setLocationByUserLocation = function(a) {
-            var b;
-            return b = new Object(), b.address = a, c.geocoder.geocode(b, c.centerMapByUserLocation);
-        }, c.setLocationDefault = function() {
-            return c.map.setZoom(c.zoomDefault), c.map.setCenter(c.locationDefault);
-        }, c.setUserLocationByLatLng = function(a) {
-            var b;
-            return b = {}, b.location = a, c.geocoder.geocode(b, function(a) {
-                return q(a[0]);
-            });
-        }, c.setMapType = function(a) {
-            return c.map.setMapTypeId(a), c.saveUserMapTypeId();
-        }, c.showOverlays = function() {
-            return c.setAllMap(c.map);
-        }, c.submit = function() {
-            return c.cargando = "Cargando.", c.eventForm.$valid ? (c.cargando = "Cargando..", 
-            c.event.categories.length <= 0 ? (c.cargando = "Error: Debe seleccionar al menos una categoría", 
-            console.error("Error: Debe seleccionar al menos una categoría")) : (c.cargando = "Cargando...", 
-            a.post("/events/add", {
-                Event: c.event,
-                Category: c.event.categories
-            }).success(function() {
-                return c.cargando = "¡Evento guardado!", window.location.pathname = "events";
-            }).error(function() {
-                return c.cargando = "Ocurrió un error guardando el evento";
-            }))) : (c.cargando = null, this);
-        }, c.viewDisplayed = function() {
-            return "/" === b.path();
-        }, c.openModal = function(a) {
-            return i(c, a);
-        }, c.openCompliantModal = function(a) {
-            return g.show(c, a);
-        }, l = function(a, b) {
-            var c;
-            return c = a.filter(function(a) {
-                return a.types[0] === b && "political" === a.types[1];
-            }), null != c[0] ? c[0].long_name : null;
-        }, m = function(a) {
-            return a.Category.icon;
-        }, o = function(a) {
-            return a.Event.id;
-        }, p = function(a) {
-            return a.Event.title;
-        }, n = function(a) {
-            return a.Event.description;
-        }, q = function(a) {
-            var b, d, e;
-            return null != a && null != a.address_components ? (e = a.address_components, b = l(e, "locality"), 
-            d = l(e, "country"), c.user.location = b && d ? b + ", " + d : a.formatted_address, 
-            c.saveUserLocationString()) : c.user.location = c.user.locationAux;
-        };
-    } ]);
-}.call(this), function() {
-    angular.module("RadarApp").controller("PlacesController", [ "$http", "$location", "$scope", "$timeout", "$compile", "Place", "PlaceView", function(a, b, c, d, e, f, g) {
-        var h, i, j, k, l, m, n, o, p, q, r;
-        return c.placeInterval = 1, c.user = {}, c.classificationsSelected = [], h = new Date(), 
-        c.minutoEnMilisegundos = 6e4, c.diaEnMilisegundos = 1440 * c.minutoEnMilisegundos, 
-        c.place = {}, c.place.accessibility_parking = 0, c.place.accessibility_ramp = 0, 
-        c.place.accessibility_equipment = 0, c.place.accessibility_signage = 0, c.place.accessibility_braille = 0, 
-        c.place.classifications = [], c.capital = new google.maps.LatLng(-34.603, -58.382), 
-        c.cordoba = new google.maps.LatLng(-31.388813, -64.179726), c.santafe = new google.maps.LatLng(-31.625906, -60.696774), 
-        c.cordobaSantafe = new google.maps.LatLng(-31.52081, -62.411469), c.locationDefault = c.cordobaSantafe, 
-        c.zoomDefault = 8, c.zoomSantafe = 12, c.zoomCordoba = 11, c.zoomCity = 15, c.ROADMAP = google.maps.MapTypeId.ROADMAP, 
-        c.SATELLITE = google.maps.MapTypeId.SATELLITE, c.opciones = {
-            center: c.locationAux,
-            mapTypeId: c.ROADMAP,
-            panControl: !1,
-            zoomControl: !1,
-            mapTypeControl: !1,
-            scaleControl: !1,
-            streetViewControl: !1,
-            overviewMapControl: !1,
-            zoom: c.zoomDefault
-        }, null != $.cookie && ($.cookie.json = !0, p = $.cookie("userMapCenter"), q = $.cookie("userMapTypeId"), 
-        r = $.cookie("userMapZoom"), o = $.cookie("userLastLocationString"), null != p && (c.opciones.center = new google.maps.LatLng(p.lat, p.lng)), 
-        null != q && (c.opciones.mapTypeId = q), null != r && (c.opciones.zoom = r), null != o && (c.user.location = o), 
-        d(function() {
-            return c.setUserLocationByLatLng(c.opciones.center);
-        }, 50)), c.map = new google.maps.Map(document.getElementById("map"), c.opciones), 
-        c.markers = [], c.geocoder = new google.maps.Geocoder(), c.$watch("classificationsSelected.length", function() {
-            return c.placesUpdate();
-        }), c.$watch("placeInterval", function() {
-            return c.placesUpdate();
-        }), c.$watch("places", function() {
-            return c.deleteOverlays(), angular.forEach(c.places, function(a) {
-                var b;
-                return b = new google.maps.LatLng(a.Place.lat, a.Place.long), c.createMarker(a, b);
-            }), c.showOverlays();
-        }, !0), c.$watch("user.locationAux", function(a) {
-            return null == p && null != a && a.length > 0 ? c.setLocationByUserLocation(a) : void 0;
-        }), google.maps.event.addListener(c.map, "dragend", function() {
-            return c.placesUpdate(), c.saveUserMapCenter();
-        }), google.maps.event.addListener(c.map, "tilesloaded", function() {
-            return c.placesUpdate();
-        }), google.maps.event.addListener(c.map, "zoom_changed", function() {
-            return c.placesUpdate(), c.saveUserMapZoom();
-        }), google.maps.event.addListener(c.map, "position_changed", function() {
-            return c.placesUpdate();
-        }), c.accessibilityParkingToogle = function() {
-            return c.place.accessibility_parking = ++c.place.accessibility_parking % 3;
-        }, c.accessibilityRampToogle = function() {
-            return c.place.accessibility_ramp = ++c.place.accessibility_ramp % 3;
-        }, c.accessibilityEquipmentToogle = function() {
-            return c.place.accessibility_equipment = ++c.place.accessibility_equipment % 3;
-        }, c.accessibilitySignageToogle = function() {
-            return c.place.accessibility_signage = ++c.place.accessibility_signage % 3;
-        }, c.accessibilityBrailleToogle = function() {
-            return c.place.accessibility_braille = ++c.place.accessibility_braille % 3;
-        }, c.addAddressToMap = function(a) {
-            var b;
-            return a && 0 !== a.length ? (c.place.lat = a[0].geometry.location.lat(), c.place.long = a[0].geometry.location.lng(), 
-            c.map.setCenter(a[0].geometry.location), c.map.setZoom(13), b = new google.maps.MarkerImage("http://gmaps-samples.googlecode.com/svn/trunk/markers/blue/blank.png", new google.maps.Size(20, 34), new google.maps.Point(0, 0), new google.maps.Point(10, 34)), 
-            null != c.marker && c.marker.setMap(null), c.marker = new google.maps.Marker({
-                position: a[0].geometry.location,
-                map: c.map,
-                icon: b
-            }), c.marker.setMap(c.map)) : this;
-        }, c.centerMap = function(a) {
-            var b;
-            switch (c.map.setZoom(c.zoomDefault), a) {
-              case "cordoba":
-                b = c.cordoba, c.map.setZoom(c.zoomCordoba);
-                break;
-
-              case "santafe":
-                b = c.santafe, c.map.setZoom(c.zoomSantafe);
-                break;
-
-              default:
-                b = c.locationDefault;
-            }
-            return c.map.setCenter(b), c.placesUpdate(), c.saveUserMapCenter(), c.saveUserMapZoom();
-        }, c.centerMapByUserLocation = function(a) {
-            return null != a[0] && null != a[0].geometry && null != a[0].geometry.location ? (c.map.setCenter(a[0].geometry.location), 
-            c.map.setZoom(c.zoomCity), c.saveUserMapCenter(), n(a[0])) : void 0;
-        }, c.createMarker = function(a, b) {
-            var d, f, g, h;
-            return f = {
-                path: google.maps.SymbolPath.CIRCLE,
-                fillColor: j(a),
-                fillOpacity: .8,
-                scale: 1,
-                strokeColor: j(a),
-                strokeWeight: 14
-            }, h = new google.maps.Marker({
-                placeId: l(a),
-                map: c.map,
-                icon: f,
-                position: b,
-                title: m(a),
-                zIndex: Math.round(-1e5 * b.lat()) << 5
-            }), d = "<div>", d += "<p>" + m(a) + "</p>", d += "<a ng-click=\"openModal('places/view/" + l(a) + "')\">", 
-            d += '<p class="text-right"><i class="icon-expand-alt"></i> info</p>', d += "</a>", 
-            d += "</div>", d = e(d)(c), g = new google.maps.InfoWindow({
-                content: d[0]
-            }), google.maps.event.addListener(h, "click", function() {
-                return g.open(c.map, h);
-            }), c.markers.push(h);
-        }, c.clearOverlays = function() {
-            return c.setAllMap(null);
-        }, c.deleteOverlays = function() {
-            return c.clearOverlays(), c.markers = [];
-        }, c.classificationsAdd = function(a) {
-            return c.place.classifications.length < 3 ? (c.place.classifications.push(a.Classification.id), 
-            a.highlight = !0) : void 0;
-        }, c.classificationsDelete = function(a) {
-            var b;
-            return b = c.place.classifications.indexOf(a.Classification.id), b >= 0 ? (c.place.classifications.splice(b, 1), 
-            a.highlight = !1) : void 0;
-        }, c.placesUpdate = function() {
-            var a, b, d, e;
-            return null != c.map.getBounds() ? (a = c.map.getBounds(), b = a.getNorthEast(), 
-            e = a.getSouthWest(), d = {
-                classificationsSelected: c.classificationsSelected,
-                placeInterval: c.placeInterval,
-                neLat: b.lat(),
-                neLong: b.lng(),
-                swLat: e.lat(),
-                swLong: e.lng()
-            }, f.get({
-                params: d
-            }, function(a) {
-                return c.places = a.places;
-            })) : void 0;
-        }, c.inicializar = function() {
-            return navigator.geolocation ? (window.browserSupportFlag = !0, navigator.geolocation.getCurrentPosition(function(a) {
-                var b;
-                return b = new google.maps.LatLng(a.coords.latitude, a.coords.longitude), c.map.setCenter(b);
-            }, function() {
-                return c.setLocationDefault();
-            })) : void 0;
-        }, c.resetView = function() {
-            return console.log($("ng-view").innerHtml), b.path("/");
-        }, c.saveUserLocationString = function() {
-            return $.cookie.json = !0, $.cookie("userLastLocationString", c.user.location, {
-                expires: 30
-            });
-        }, c.saveUserMapCenter = function() {
-            return $.cookie.json = !0, $.cookie("userMapCenter", {
-                lat: c.map.getCenter().lat(),
-                lng: c.map.getCenter().lng()
-            }, {
-                expires: 30
-            });
-        }, c.saveUserMapTypeId = function() {
-            return $.cookie.json = !0, $.cookie("userMapTypeId", c.map.getMapTypeId(), {
-                expires: 30
-            });
-        }, c.saveUserMapZoom = function() {
-            return $.cookie.json = !0, $.cookie("userMapZoom", c.map.getZoom(), {
-                expires: 30
-            });
-        }, c.searchLocation = function(a) {
-            return c.setLocationByUserLocation(a);
-        }, c.setAllMap = function(a) {
-            var b, d, e, f, g;
-            for (f = c.markers, g = [], d = 0, e = f.length; e > d; d++) b = f[d], g.push(b.setMap(a));
-            return g;
-        }, c.setAddress = function() {
-            var a;
-            return a = new Object(), a.address = c.place.address, a.region = "AR", c.geocoder.geocode(a, c.addAddressToMap);
-        }, c.setPlaceInterval = function(a) {
-            return c.placeInterval = a;
-        }, c.setLocation = function() {
-            return c.map.setZoom(c.zoomCity), navigator.geolocation ? (window.browserSupportFlag = !0, 
-            navigator.geolocation.getCurrentPosition(function(a) {
-                var b;
-                return b = new google.maps.LatLng(a.coords.latitude, a.coords.longitude), c.map.setCenter(b), 
-                c.placesUpdate();
-            }, function() {
-                return c.errorLocation = "Debes autorizar la captura de tu ubicación", c.setLocationDefault(), 
-                d(function() {
-                    return c.errorLocation = null;
-                }, 2e3);
-            })) : c.errorLocation = "Esta función no está soportada por tu navegador";
-        }, c.setLocationByUserLocation = function(a) {
-            var b;
-            return b = new Object(), b.address = a, c.geocoder.geocode(b, c.centerMapByUserLocation);
-        }, c.setLocationDefault = function() {
-            return c.map.setZoom(c.zoomDefault), c.map.setCenter(c.locationDefault);
-        }, c.setUserLocationByLatLng = function(a) {
-            var b;
-            return b = {}, b.location = a, c.geocoder.geocode(b, function(a) {
-                return n(a[0]);
-            });
-        }, c.setMapType = function(a) {
-            return c.map.setMapTypeId(a), c.saveUserMapTypeId();
-        }, c.showOverlays = function() {
-            return c.setAllMap(c.map);
-        }, c.submit = function() {
-            return c.cargando = "Cargando.", c.placeForm.$valid ? (c.cargando = "Cargando..", 
-            c.place.classifications.length <= 0 ? (c.cargando = "Error: Debe seleccionar al menos una categoría", 
-            console.error("Error: Debe seleccionar al menos una categoría")) : (c.cargando = "Cargando...", 
-            a.post("/admin/places/add", {
-                Place: c.place,
-                Classification: c.place.classifications
-            }).success(function() {
-                return c.cargando = "¡Lugar guardado!", window.location.pathname = "places";
-            }).error(function() {
-                return c.cargando = "Ocurrió un error guardando el place";
-            }))) : (c.cargando = null, this);
-        }, c.viewDisplayed = function() {
-            return "/" === b.path();
-        }, c.openModal = function(a) {
-            return g(c, a);
-        }, i = function(a, b) {
-            var c;
-            return c = a.filter(function(a) {
-                return a.types[0] === b && "political" === a.types[1];
-            }), null != c[0] ? c[0].long_name : null;
-        }, j = function(a) {
-            return a.Classification.color;
-        }, l = function(a) {
-            return a.Place.id;
-        }, m = function(a) {
-            return a.Place.name;
-        }, k = function(a) {
-            return a.Place.description;
-        }, n = function(a) {
-            var b, d, e;
-            return null != a && null != a.address_components ? (e = a.address_components, b = i(e, "locality"), 
-            d = i(e, "country"), c.user.location = b && d ? b + ", " + d : a.formatted_address, 
-            c.saveUserLocationString()) : c.user.location = c.user.locationAux;
-        };
+            return !f.contains("events/add") && null != c.categorias && null != $.cookie && c.categorias.length > 0 && ($.cookie.json = !0, 
+            a = $.cookie("categoriesSelected"), null != a && a.length > 0) ? angular.forEach(a, function(a) {
+                return c.show(c.searchById(a));
+            }) : void 0;
+        });
     } ]);
 }.call(this), function() {}.call(this), function() {
+    angular.module("RadarApp").controller("ClassificationsController", [ "$http", "$location", "$scope", "$timeout", "Classification", function(a, b, c, d, e) {
+        var f;
+        return f = b.absUrl(), e.get({}, function(a) {
+            return c.classifications = a.classifications;
+        }), c.classificationToogle = function(a) {
+            return a.highlight ? c.$parent.classificationsDelete(a) : c.$parent.classificationsAdd(a);
+        }, c.searchById = function(a) {
+            var b;
+            return null != c.classifications ? (b = c.classifications.filter(function(b) {
+                return +b.Classification.id === +a;
+            }), b[0]) : void 0;
+        }, c.show = function(a) {
+            return a.highlight = !a.highlight, a.highlight ? c.classificationsSelected.push(a.Classification.id) : c.classificationsSelected.splice(c.classificationsSelected.indexOf(a.Classification.id), 1), 
+            $.cookie.json = !0, $.cookie("classificationsSelected", c.classificationsSelected, {
+                expires: 360,
+                path: "/"
+            });
+        }, c.$watch("classifications.length", function() {
+            var a;
+            return !f.contains("events/add") && null != c.classifications && null != $.cookie && c.classifications.length > 0 && ($.cookie.json = !0, 
+            a = $.cookie("classificationsSelected"), null != a && a.length > 0) ? angular.forEach(a, function(a) {
+                return c.show(c.searchById(a));
+            }) : void 0;
+        });
+    } ]);
+}.call(this), function() {
     angular.module("RadarApp").directive("loading", [ "$rootScope", function(a) {
         return {
             link: function(b, c) {

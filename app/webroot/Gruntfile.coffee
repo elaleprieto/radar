@@ -47,6 +47,32 @@ module.exports = (grunt) ->
 				]
 				dest: 'js/radar.js'
 			}
+			OSM: {
+				options: {
+					beautify: {
+						width: 80,
+						beautify: true
+					}
+				}
+				src: ['js/app.js'
+					, 'js/controllers/eventsOSM_controller.js'
+					, 'js/controllers/categories_controller.js'
+					, 'js/controllers/rates_controller.js'
+					, 'js/controllers/classifications_controller.js'
+					, 'js/directives.js'
+					, 'js/filters.js'
+					# , 'js/rutes.js'
+					, 'js/models.js'
+					, 'js/services.js'
+					, 'js/styles.js'
+					, 'js/vendors/angular-resource.min1.1.5.js'
+					, 'js/vendors/bootstrap-datepicker.js'
+					, 'js/vendors/bootstrap-timepicker.js'
+					, 'js/vendors/jquery.cookie.js'
+					, 'js/vendors/keypress.js'
+				]
+				dest: 'js/radar.osm.js'
+			}
 		}
 
 		coffee: {
@@ -87,7 +113,7 @@ module.exports = (grunt) ->
 				tasks: ['coffee'],
 			}
 			ugly: {
-				files: ['js/**/*.js', '!js/radar.min.js', '!js/radar.js'],
+				files: ['js/**/*.js', '!js/radar.min.js', '!js/radar.js', '!js/radar.osm.js'],
 				tasks: ['uglify'],
 			}
 		}
