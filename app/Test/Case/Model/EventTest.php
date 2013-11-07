@@ -17,7 +17,8 @@ class EventTest extends CakeTestCase {
 		'app.place',
 		'app.category',
 		'app.categories_event',
-		'app.user'	
+		'app.user',
+		'app.rate'
 	);
 
 /**
