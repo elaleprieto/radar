@@ -3,7 +3,7 @@
 echo $this->Html->css(array(
 	'inicio',
 	'events/index',
-	'//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css',
+	'//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css',
 	// '//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css'
 ), '', array('inline' => false));
 
@@ -622,6 +622,7 @@ if (AuthComponent::user('location')) {
 								<th><?php echo __('Date End'); ?></th>
 								<th><?php echo __('Event'); ?></th>
 								<th><?php echo __('Address'); ?></th>
+								<th><?php echo __('Like'); ?></th>
 								<th><?php echo __('Rate'); ?></th>
 								<th>&nbsp;</th>
 							</tr>
@@ -632,6 +633,10 @@ if (AuthComponent::user('location')) {
 								<td ng-bind="evento.Event.date_end | isodate | date:'dd/MM/yyyy HH:mm'"></td>
 								<td ng-bind="evento.Event.title"></td>
 								<td ng-bind="evento.Event.address"></td>
+								<td>
+									<i class="fa fa-thumbs-o-up" x-ng-click="saveRatingToServer(evento, 1)" x-ng-hide="evento.like"></i>
+									<i class="fa fa-thumbs-up" x-ng-click="saveRatingToServer(evento, -1)" x-ng-show="evento.like"></i>
+								</td>
 								<td>
 									<div x-fundoo-rating x-max="max" on-rating-selected="saveRatingToServer(evento, newRating)"
 										x-rating-value="evento.Event.rate" x-readonly="false" x-user-id="user.id" x-user-voted="evento.Rate.user_id"></div>
