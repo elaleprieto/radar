@@ -11,24 +11,34 @@ echo $this->Html->css(array(
 if (AuthComponent::user('location')) {
 	$userLocation = AuthComponent::user('location');
 } else {
-	$ip = $this->request->clientIp();
-	if ($ip == '127.0.0.1')
-		$ip = '190.183.62.72';
-	$ipData = @json_decode(file_get_contents("http://www.geoplugin.net/json.gp?ip=" . $ip));
-	if ($ipData && $ipData->geoplugin_countryName != null) {
-		$userLocation = $ipData->geoplugin_city . ', ' . $ipData->geoplugin_countryName;
-
-		# Se guarda el userLocation
-		if ($userId = AuthComponent::user('id')) {
-			$this->requestAction("/users/setLocation/$userId/$userLocation");
-		}
-	} else {
-		$userLocation = null;
-	}
+	$userLocation = null;
 }
+
+# Se elimina la consulta por la IP porque no funciona bien
+// else {
+	// $ip = $this->request->clientIp();
+	// if ($ip == '127.0.0.1')
+		// $ip = '190.183.62.72';
+	// $ipData = @json_decode(file_get_contents("http://www.geoplugin.net/json.gp?ip=" . $ip));
+	// if ($ipData && $ipData->geoplugin_countryName != null) {
+		// // $userLocation = $ipData->geoplugin_city . ', ' . $ipData->geoplugin_countryName;
+		// $userLocation = $ipData->geoplugin_countryName;
+		// $userLocationZoom = 4;
+// 
+		// # No se guardar el userLocation, a menos que se haga clic en el botón explícitamente
+		// // # Se guarda el userLocation
+		// // if ($userId = AuthComponent::user('id')) {
+			// // $this->requestAction("/users/setLocation/$userId/$userLocation");
+		// // }
+	// } else {
+		// $userLocation = null;
+	// }
+// }
 ?>
 
-<div ng-controller="EventsController" ng-init="user.locationAux='<?php echo $userLocation; ?>'; user.id='<?php echo AuthComponent::user('id');?>'">
+<div ng-controller="EventsController" 
+	ng-init="user.locationAux='<?php echo $userLocation; ?>'
+		; user.id='<?php echo AuthComponent::user('id'); ?>'">
 
 	<!-- LOGO -->
 	<div id="logo">
@@ -65,19 +75,19 @@ if (AuthComponent::user('location')) {
 		<div class="display-inline">
 			<span id="contactAndAbout">
 				<span class="menu">
-					<a href="/about"><i class="icon-info-sign icon-large"></i></a>
+					<a href="/about"><i class="icon-info-sign fa-lg"></i></a>
 				</span>
 				<span class="menu">
-					<a href="/contacto"><i class="icon-envelope-alt icon-large"></i></a>
+					<a href="/contacto"><i class="icon-envelope-alt fa-lg"></i></a>
 				</span>
 			</span>
 			
 			<span id="social">
 				<span class="menu">
-					<a href="https://twitter.com/radardecultura"><i class="icon-twitter-sign icon-large"></i></a>
+					<a href="https://twitter.com/radardecultura"><i class="icon-twitter-sign fa-lg"></i></a>
 				</span>
 				<span class="menu">
-					<a href="#"><i class="icon-facebook-sign icon-large"></i></a>
+					<a href="#"><i class="icon-facebook-sign fa-lg"></i></a>
 				</span>
 			</span>
 			-->
@@ -141,10 +151,18 @@ if (AuthComponent::user('location')) {
 						<li><a href="/events/add" ng-click="add()"><button class="btn btn-warning btn-xs pull-right">RADEA!</button></a></li>
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
-		      			<li><a href="/about"><i class="icon-info-sign icon-large"></i></a></li>
-		      			<li><a href="/contacto"><i class="icon-envelope icon-large"></i></a></li> 
-		      			<li><a href="https://twitter.com/radardecultura" target="_blank"><i class="icon-twitter-sign icon-large"></i></a></li>
-		      			<li><a href="https://www.facebook.com/RadarDeCultura" target="_blank"><i class="icon-facebook-sign icon-large"></i></a></li>
+		      			<li><a href="/about"><i class="fa fa-info-circle fa-lg"></i></a></li>
+		      			<li><a href="/contacto"><i class="fa fa-envelope fa-lg"></i></a></li> 
+		      			<li>
+		      				<a href="https://twitter.com/radardecultura" target="_blank">
+		      					<i class="fa fa-twitter-square fa-lg"></i>
+		      				</a>
+		      			</li>
+		      			<li>
+		      				<a href="https://www.facebook.com/RadarDeCultura" target="_blank">
+		      					<i class="fa fa-facebook-square fa-lg"></i>
+		      				</a>
+		      			</li>
 		      			<?php if ($this->Session->read('Auth.User.name') != ''): ?>
 							<li><a href="/users/edit/<?php echo AuthComponent::user('id'); ?>"> 
 								<span><?php echo AuthComponent::user('name') ?> </span>
@@ -157,21 +175,21 @@ if (AuthComponent::user('location')) {
 						<!-- Logout de facebook -->
 						<li>
 							<?php echo $this->Facebook->logout(array(
-										'label' => 'Salir',
-										'redirect' => array(
-											'controller' => 'users',
-											'action' => 'logout'
-										),
-									));
+								'label' => 'Salir',
+								'redirect' => array(
+									'controller' => 'users',
+									'action' => 'logout'
+								),
+							));
 	 						?>
 	 					</li>
 						<?php else: ?>
 						<li>
 							<?php
-								echo $this->Html->link('Ingresar', array(
-										'controller' => 'users',
-										'action' => 'login'
-									), array('id' => 'menu_superior_derecha_verde'));
+							echo $this->Html->link('Ingresar', array(
+								'controller' => 'users',
+								'action' => 'login'
+							), array('id' => 'menu_superior_derecha_verde'));
 							?>
 						</li>
 						<li>
@@ -214,11 +232,19 @@ if (AuthComponent::user('location')) {
 				</li>-->
 		    	</ul>
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="/about"><i class="icon-info-sign icon-large"></i></a></li>
-					<li><a href="/contacto"><i class="icon-envelope icon-large"></i></a></li>
+					<li><a href="/about"><i class="fa fa-info-circle fa-lg"></i></a></li>
+					<li><a href="/contacto"><i class="fa fa-envelope fa-lg"></i></a></li>
 					<li><a>|</a></li>
-					<li><a href="https://twitter.com/radardecultura" target="_blank"><i class="icon-twitter-sign icon-large"></i></a></li>
-					<li><a href="https://www.facebook.com/RadarDeCultura" target="_blank"><i class="icon-facebook-sign icon-large"></i></a></li>
+					<li>
+		      				<a href="https://twitter.com/radardecultura" target="_blank">
+		      					<i class="fa fa-twitter-square fa-lg"></i>
+		      				</a>
+		      			</li>
+		      			<li>
+		      				<a href="https://www.facebook.com/RadarDeCultura" target="_blank">
+		      					<i class="fa fa-facebook-square fa-lg"></i>
+		      				</a>
+		      			</li>
 		      
 		      		<?php if ($this->Session->read('Auth.User.name') != ''): ?>
 						<li><a href="/users/edit/<?php echo AuthComponent::user('id'); ?>"> 
@@ -237,17 +263,17 @@ if (AuthComponent::user('location')) {
 								'redirect' => array(
 									'controller' => 'users',
 									'action' => 'logout'
-									),
-								));
+								),
+							));
 	 						?>
 	 					</li>
 						<?php else: ?>
 						<li>
 							<?php
-								echo $this->Html->link('Ingresar', array(
-									'controller' => 'users',
-									'action' => 'login'
-								), array('id' => 'menu_superior_derecha_verde'));
+							echo $this->Html->link('Ingresar', array(
+								'controller' => 'users',
+								'action' => 'login'
+							), array('id' => 'menu_superior_derecha_verde'));
 							?>
 						</li>
 						<li>
@@ -259,19 +285,19 @@ if (AuthComponent::user('location')) {
 						<div class="display-inline">
 				  			<span id="contactAndAbout">
 								<span class="menu">
-									<a href="/about"><i class="icon-info-sign icon-large"></i></a>
+									<a href="/about"><i class="fa fa-info-circle fa-lg"></i></a>
 								</span>
 								<span class="menu">
-									<a href="/contacto"><i class="icon-envelope-alt icon-large"></i></a>
+									<a href="/contacto"><i class="fa fa-envelope-alt fa-lg"></i></a>
 								</span>
 							</span>
 			
 							<span id="social">
 								<span class="menu">
-									<a href="https://twitter.com/radardecultura"><i class="icon-twitter-sign icon-large"></i></a>
+									<a href="https://twitter.com/radardecultura"><i class="fa fa-twitter-sign fa-lg"></i></a>
 								</span>
 								<span class="menu">
-									<a href="#"><i class="icon-facebook-sign icon-large"></i></a>
+									<a href="#"><i class="fa fa-facebook-sign fa-lg"></i></a>
 								</span>
 							</span>
 	 						-->		
@@ -368,13 +394,13 @@ if (AuthComponent::user('location')) {
 					?>-->
 					<!-- Logout de facebook -->
 					<?php
-						// echo $this->Facebook->logout(array(
-						// 'label' => 'Salir',
-						// 'redirect' => array(
-						// 'controller' => 'users',
-						// 'action' => 'logout'
-						// ),
-						// ));
+					// echo $this->Facebook->logout(array(
+					// 'label' => 'Salir',
+					// 'redirect' => array(
+					// 'controller' => 'users',
+					// 'action' => 'logout'
+					// ),
+					// ));
 					 ?>
 					<!-- 
 					</li>
@@ -396,21 +422,6 @@ if (AuthComponent::user('location')) {
 
 	<!-- EAST -->
 	<div id="east" ng-cloak>
-		<!-- Location Shortcuts -->
-		<!-- 
-		<div>
-			<div id="locationShortcuts" class="btn-group" data-toggle="buttons-radio">
-				<button class="btn btn-verde" data-toggle="button" ng-click="centerMap()">
-					<?php echo __('Region'); ?>
-				</button>
-				<button class="btn btn-verde" data-toggle="button" ng-click="centerMap('cordoba')">Córdoba</button>
-				<button class="btn btn-verde" data-toggle="button" ng-click="centerMap('santafe')">Santa Fe</button>
-				<button class="btn btn-warning" data-toggle="button" ng-click="setLocation()">
-					<?php echo __('My Location'); ?>
-				</button>
-			</div>
-		</div> 
-		-->
 			
 		<!-- Location Advertise -->
 		<div ng-cloak>
@@ -444,14 +455,31 @@ if (AuthComponent::user('location')) {
 			
 			<!-- Rampa east para el Buscador del mapa. Se oculta para los dispositivos xs-->
 			<div id="rampa-east" class="hidden-xs"> </div>
-			<div class="background-black locationBar input-group">
+			<div class="background-black locationBar input-group input-group-sm">
+				
 				<input class="form-control" ng-model="locationSearched" ng-init="locationSearched=user.location"
 					placeholder="<?php echo __('City: Rome, Italy'); ?>" type="text" 
 					ui-keypress="{13:'searchLocation(locationSearched)'}" />
+				<!--
 				<span class="input-group-addon" ng-click="searchLocation(locationSearched)"
 					title="<?php echo __('Search'); ?>">
-					<i class="glyphicon glyphicon-search"></i>
-				</span>
+						<i class="glyphicon glyphicon-search"></i>
+				</span> -->
+				
+				<div class="input-group-btn">
+					<button class="btn btn-default" tabindex="-1" title="<?php echo __('Search'); ?>" type="button" 
+						x-ng-click="searchLocation(locationSearched)">
+							<i class="glyphicon glyphicon-search"></i>
+					</button>
+					<button tabindex="-1" data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button">
+						<span class="caret"></span>
+						<span class="sr-only">Toggle Dropdown</span>
+					</button>
+					<ul role="menu" class="dropdown-menu pull-right">
+						<li><a href="#" x-ng-click="saveUserLocationPreferences()"><?php echo __('Save Location Preferences'); ?></a></li>
+					</ul>
+				</div>
+				
 			</div>
 		</div>
 

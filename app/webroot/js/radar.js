@@ -1,4 +1,4 @@
-/*! radar 2013-11-03 */
+/*! radar 2013-11-07 */
 (function() {
     "use strict";
     var a, b = [].indexOf || function(a) {
@@ -68,16 +68,16 @@
         });
     } ]);
 }.call(this), function() {
-    angular.module("RadarApp").controller("EventsController", [ "$http", "$location", "$scope", "$timeout", "$compile", "Compliant", "CompliantView", "Event", "EventView", "Rate", function(a, b, c, d, e, f, g, h, i, j) {
-        var k, l, m, n, o, p, q, r, s, t, u;
+    angular.module("RadarApp").controller("EventsController", [ "$http", "$location", "$scope", "$timeout", "$compile", "Compliant", "CompliantView", "Event", "EventView", "Rate", "User", function(a, b, c, d, e, f, g, h, i, j, k) {
+        var l, m, n, o, p, q, r, s, t, u, v;
         return c.eventInterval = 1, c.isReadonly = !1, c.max = 5, c.user = {}, c.categoriesSelected = [], 
-        k = new Date(), c.minutoEnMilisegundos = 6e4, c.diaEnMilisegundos = 1440 * c.minutoEnMilisegundos, 
+        l = new Date(), c.minutoEnMilisegundos = 6e4, c.diaEnMilisegundos = 1440 * c.minutoEnMilisegundos, 
         c.event = {}, c.event.categories = [], c.capital = new google.maps.LatLng(-34.603, -58.382), 
         c.cordoba = new google.maps.LatLng(-31.388813, -64.179726), c.santafe = new google.maps.LatLng(-31.625906, -60.696774), 
         c.cordobaSantafe = new google.maps.LatLng(-31.52081, -62.411469), c.locationDefault = c.cordobaSantafe, 
         c.zoomDefault = 8, c.zoomSantafe = 12, c.zoomCordoba = 11, c.zoomCity = 15, c.ROADMAP = google.maps.MapTypeId.ROADMAP, 
         c.SATELLITE = google.maps.MapTypeId.SATELLITE, c.opciones = {
-            center: c.locationAux,
+            center: c.locationDefault,
             mapTypeId: c.ROADMAP,
             panControl: !1,
             zoomControl: !1,
@@ -86,13 +86,11 @@
             streetViewControl: !1,
             overviewMapControl: !1,
             zoom: c.zoomDefault
-        }, null != $.cookie && ($.cookie.json = !0, s = $.cookie("userMapCenter"), t = $.cookie("userMapTypeId"), 
-        u = $.cookie("userMapZoom"), r = $.cookie("userLastLocationString"), null != s && (c.opciones.center = new google.maps.LatLng(s.lat, s.lng)), 
-        null != t && (c.opciones.mapTypeId = t), null != u && (c.opciones.zoom = u), null != r && (c.user.location = r), 
-        d(function() {
-            return c.setUserLocationByLatLng(c.opciones.center);
-        }, 50)), c.map = new google.maps.Map(document.getElementById("map"), c.opciones), 
-        c.markers = [], c.geocoder = new google.maps.Geocoder(), c.$watch("categoriesSelected.length", function() {
+        }, null != $.cookie && ($.cookie.json = !0, t = $.cookie("userMapCenter"), u = $.cookie("userMapTypeId"), 
+        v = $.cookie("userMapZoom"), s = $.cookie("userLastLocationString"), null != t && (c.opciones.center = new google.maps.LatLng(t.lat, t.lng)), 
+        null != u && (c.opciones.mapTypeId = u), null != v && (c.opciones.zoom = v), null != s && (c.user.location = s)), 
+        c.map = new google.maps.Map(document.getElementById("map"), c.opciones), c.markers = [], 
+        c.geocoder = new google.maps.Geocoder(), c.$watch("categoriesSelected.length", function() {
             return c.eventsUpdate();
         }), c.$watch("eventInterval", function() {
             return c.eventsUpdate();
@@ -110,7 +108,7 @@
         }), c.$watch("event.time_to", function(a) {
             return null != a ? c.checkTimeTo() : void 0;
         }), c.$watch("user.locationAux", function(a) {
-            return null == s && null != a && a.length > 0 ? c.setLocationByUserLocation(a) : void 0;
+            return null != a && a.length > 0 ? c.setLocationByUserLocation(a) : void 0;
         }), google.maps.event.addListener(c.map, "dragend", function() {
             return c.eventsUpdate(), c.saveUserMapCenter();
         }), google.maps.event.addListener(c.map, "tilesloaded", function() {
@@ -145,18 +143,18 @@
             return c.map.setCenter(b), c.eventsUpdate(), c.saveUserMapCenter(), c.saveUserMapZoom();
         }, c.centerMapByUserLocation = function(a) {
             return null != a[0] && null != a[0].geometry && null != a[0].geometry.location ? (c.map.setCenter(a[0].geometry.location), 
-            c.map.setZoom(c.zoomCity), c.saveUserMapCenter(), q(a[0])) : void 0;
+            c.map.setZoom(c.zoomCity), c.saveUserMapCenter(), r(a[0])) : void 0;
         }, c.createMarker = function(a, b) {
             var d, f, g, h;
-            return f = new google.maps.MarkerImage("/img/map-marker/" + m(a), new google.maps.Size(30, 40), new google.maps.Point(0, 0), new google.maps.Point(10, 34)), 
+            return f = new google.maps.MarkerImage("/img/map-marker/" + n(a), new google.maps.Size(30, 40), new google.maps.Point(0, 0), new google.maps.Point(10, 34)), 
             h = new google.maps.Marker({
-                eventId: o(a),
+                eventId: p(a),
                 map: c.map,
                 icon: f,
                 position: b,
-                title: p(a),
+                title: q(a),
                 zIndex: Math.round(-1e5 * b.lat()) << 5
-            }), d = "<div>", d += "<p>" + p(a) + "</p>", d += "<a ng-click=\"openModal('events/view/" + o(a) + "')\">", 
+            }), d = "<div>", d += "<p>" + q(a) + "</p>", d += "<a ng-click=\"openModal('events/view/" + p(a) + "')\">", 
             d += '<p class="text-right"><i class="icon-expand-alt"></i> info</p>', d += "</a>", 
             d += "</div>", d = e(d)(c), g = new google.maps.InfoWindow({
                 content: d[0]
@@ -213,6 +211,13 @@
             return b.path("/");
         }, c.saveRatingToServer = function(a, b) {
             return a.Event.rate = b, j.create(a);
+        }, c.saveUserLocationPreferences = function() {
+            return c.saveUserLocationString(), c.saveUserMapCenter(), c.saveUserMapTypeId(), 
+            c.saveUserMapZoom(), null != c.user.id ? (c.user.map_lat = c.map.getCenter().lat(), 
+            c.user.map_lng = c.map.getCenter().lng(), c.user.map_type = c.map.getMapTypeId(), 
+            c.user.map_zoom = c.map.getZoom(), k.update({
+                id: c.user.id
+            }, c.user)) : void 0;
         }, c.saveUserLocationString = function() {
             return $.cookie.json = !0, $.cookie("userLastLocationString", c.user.location, {
                 expires: 30
@@ -263,7 +268,7 @@
         }, c.setUserLocationByLatLng = function(a) {
             var b;
             return b = {}, b.location = a, c.geocoder.geocode(b, function(a) {
-                return q(a[0]);
+                return r(a[0]);
             });
         }, c.setMapType = function(a) {
             return c.map.setMapTypeId(a), c.saveUserMapTypeId();
@@ -287,24 +292,24 @@
             return i(c, a);
         }, c.openCompliantModal = function(a) {
             return g.show(c, a);
-        }, l = function(a, b) {
+        }, m = function(a, b) {
             var c;
             return c = a.filter(function(a) {
                 return a.types[0] === b && "political" === a.types[1];
             }), null != c[0] ? c[0].long_name : null;
-        }, m = function(a) {
-            return a.Category.icon;
-        }, o = function(a) {
-            return a.Event.id;
-        }, p = function(a) {
-            return a.Event.title;
         }, n = function(a) {
-            return a.Event.description;
+            return a.Category.icon;
+        }, p = function(a) {
+            return a.Event.id;
         }, q = function(a) {
+            return a.Event.title;
+        }, o = function(a) {
+            return a.Event.description;
+        }, r = function(a) {
             var b, d, e;
-            return null != a && null != a.address_components ? (e = a.address_components, b = l(e, "locality"), 
-            d = l(e, "country"), c.user.location = b && d ? b + ", " + d : a.formatted_address, 
-            c.saveUserLocationString()) : c.user.location = c.user.locationAux;
+            return null != a && null != a.address_components ? (e = a.address_components, b = m(e, "locality"), 
+            d = m(e, "country"), c.user.location = b && d ? b + ", " + d : a.formatted_address, 
+            c.locationSearched = c.user.location, c.saveUserLocationString()) : c.user.location = c.user.locationAux;
         };
     } ]);
 }.call(this), function() {
@@ -679,6 +684,18 @@
             create: {
                 method: "POST",
                 url: "/rates.json"
+            }
+        });
+    } ]).factory("User", [ "$resource", function(a) {
+        return a("/users.json", {
+            callback: "JSON_CALLBACK"
+        }, {
+            buscar: {
+                method: "GET"
+            },
+            update: {
+                method: "PUT",
+                url: "/users/:id.json"
             }
         });
     } ]);

@@ -87,6 +87,20 @@
         }
       });
     }
+  ]).factory('User', [
+    '$resource', function($resource) {
+      return $resource('/users.json', {
+        callback: 'JSON_CALLBACK'
+      }, {
+        buscar: {
+          method: 'GET'
+        },
+        update: {
+          method: 'PUT',
+          url: '/users/:id.json'
+        }
+      });
+    }
   ]);
 
 }).call(this);

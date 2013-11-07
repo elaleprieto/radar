@@ -47,3 +47,11 @@ angular.module('models', ['ngResource'])
 			, buscar: {method:'GET'}
 				, create: {method: 'POST', url: '/rates.json'}
 	])
+
+	# User
+	.factory('User', ['$resource', ($resource) ->
+		$resource '/users.json'
+			, { callback:'JSON_CALLBACK' }
+			, buscar: {method:'GET'}
+				, update: {method: 'PUT', url: '/users/:id.json'}
+	])

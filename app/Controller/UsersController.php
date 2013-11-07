@@ -7,12 +7,12 @@ App::uses('CakeEmail', 'Network/Email');
  * @property User $User
  */
 class UsersController extends AppController {
+	
+	public $components = array('RequestHandler');
 
 	public function beforeFilter() {
 		parent::beforeFilter();
-		// $this -> Auth -> allow('contactar', 'mailup', 'logout');
 		$this->Auth->allow('add', 'callbackTwitter', 'loginTwitter', 'edit', 'logout');
-		// $this -> Auth -> allow('contactar');
 	}
 
 	/**
@@ -179,8 +179,7 @@ class UsersController extends AppController {
 			} else {
 				$this->request->data = $this->User->read(null, $id);
 			}
-		}
-		else {
+		} else {
 			$this->redirect(array(
 				'controller' => 'events',
 				'action' => 'index'

@@ -3,7 +3,8 @@
 ******************************************************************************************************************* ###
 angular.module('RadarApp').controller 'EventsController'
 	, ['$http', '$location', '$scope', '$timeout', '$compile', 'Compliant', 'CompliantView', 'Event', 'EventView', 'Rate'
-		, ($http, $location, $scope, $timeout, $compile, Compliant, CompliantView, Event, EventView, Rate) ->
+		, 'User'
+			, ($http, $location, $scope, $timeout, $compile, Compliant, CompliantView, Event, EventView, Rate, User) ->
 
 	### ***************************************************************************************************************
 			Inicialización de Objetos
@@ -35,7 +36,7 @@ angular.module('RadarApp').controller 'EventsController'
 	$scope.SATELLITE = google.maps.MapTypeId.SATELLITE
 	
 	# Map defaults
-	$scope.opciones = center: $scope.locationAux
+	$scope.opciones = center: $scope.locationDefault
 		, mapTypeId: $scope.ROADMAP
 		, panControl: false
 		, zoomControl: false
@@ -60,9 +61,9 @@ angular.module('RadarApp').controller 'EventsController'
 		$scope.opciones.zoom = userMapZoom if userMapZoom?
 		$scope.user.location = userLastLocationString if userLastLocationString?
 		
-		$timeout ->
-			$scope.setUserLocationByLatLng($scope.opciones.center)
-		, 50
+		# $timeout ->
+			# $scope.setUserLocationByLatLng($scope.opciones.center)
+		# , 50
 	
 	$scope.map = new google.maps.Map(document.getElementById("map"), $scope.opciones)
 	$scope.markers = []
@@ -118,7 +119,7 @@ angular.module('RadarApp').controller 'EventsController'
 	
 	# Se observa el user.location
 	$scope.$watch 'user.locationAux', (location) ->
-		if not userMapCenter? and location? and location.length > 0
+		if location? and location.length > 0
 			$scope.setLocationByUserLocation(location)
 
 	# # google.maps.event.addListener window.map, 'bounds_changed', () ->
@@ -343,6 +344,20 @@ angular.module('RadarApp').controller 'EventsController'
 		evento.Event.rate = newRating
 		Rate.create evento
 
+	# Save Location Preferences
+	$scope.saveUserLocationPreferences = ->
+		$scope.saveUserLocationString()
+		$scope.saveUserMapCenter()
+		$scope.saveUserMapTypeId()
+		$scope.saveUserMapZoom()
+		
+		if $scope.user.id?
+			$scope.user.map_lat = $scope.map.getCenter().lat()
+			$scope.user.map_lng = $scope.map.getCenter().lng()
+			$scope.user.map_type = $scope.map.getMapTypeId()
+			$scope.user.map_zoom = $scope.map.getZoom()
+			User.update {id: $scope.user.id}, $scope.user
+		
 	# Save as cookie, the user map desired center
 	$scope.saveUserLocationString = ->
 		$.cookie.json = true
@@ -520,6 +535,9 @@ angular.module('RadarApp').controller 'EventsController'
 				$scope.user.location = city + ', ' + country
 			else
 				$scope.user.location = location.formatted_address
+				
+			# Se setea el input de búsqueda
+			$scope.locationSearched = $scope.user.location
 				
 			$scope.saveUserLocationString()
 		else

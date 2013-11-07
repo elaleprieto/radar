@@ -6,7 +6,7 @@
 
 (function() {
   angular.module('RadarApp').controller('EventsController', [
-    '$http', '$location', '$scope', '$timeout', '$compile', 'Compliant', 'CompliantView', 'Event', 'EventView', 'Rate', function($http, $location, $scope, $timeout, $compile, Compliant, CompliantView, Event, EventView, Rate) {
+    '$http', '$location', '$scope', '$timeout', '$compile', 'Compliant', 'CompliantView', 'Event', 'EventView', 'Rate', 'User', function($http, $location, $scope, $timeout, $compile, Compliant, CompliantView, Event, EventView, Rate, User) {
       /* ***************************************************************************************************************
       			Inicialización de Objetos
       	***************************************************************************************************************
@@ -35,7 +35,7 @@
       $scope.ROADMAP = google.maps.MapTypeId.ROADMAP;
       $scope.SATELLITE = google.maps.MapTypeId.SATELLITE;
       $scope.opciones = {
-        center: $scope.locationAux,
+        center: $scope.locationDefault,
         mapTypeId: $scope.ROADMAP,
         panControl: false,
         zoomControl: false,
@@ -63,9 +63,6 @@
         if (userLastLocationString != null) {
           $scope.user.location = userLastLocationString;
         }
-        $timeout(function() {
-          return $scope.setUserLocationByLatLng($scope.opciones.center);
-        }, 50);
       }
       $scope.map = new google.maps.Map(document.getElementById("map"), $scope.opciones);
       $scope.markers = [];
@@ -110,7 +107,7 @@
         }
       });
       $scope.$watch('user.locationAux', function(location) {
-        if ((userMapCenter == null) && (location != null) && location.length > 0) {
+        if ((location != null) && location.length > 0) {
           return $scope.setLocationByUserLocation(location);
         }
       });
@@ -300,6 +297,21 @@
         evento.Event.rate = newRating;
         return Rate.create(evento);
       };
+      $scope.saveUserLocationPreferences = function() {
+        $scope.saveUserLocationString();
+        $scope.saveUserMapCenter();
+        $scope.saveUserMapTypeId();
+        $scope.saveUserMapZoom();
+        if ($scope.user.id != null) {
+          $scope.user.map_lat = $scope.map.getCenter().lat();
+          $scope.user.map_lng = $scope.map.getCenter().lng();
+          $scope.user.map_type = $scope.map.getMapTypeId();
+          $scope.user.map_zoom = $scope.map.getZoom();
+          return User.update({
+            id: $scope.user.id
+          }, $scope.user);
+        }
+      };
       $scope.saveUserLocationString = function() {
         $.cookie.json = true;
         return $.cookie("userLastLocationString", $scope.user.location, {
@@ -466,6 +478,7 @@
           } else {
             $scope.user.location = location.formatted_address;
           }
+          $scope.locationSearched = $scope.user.location;
           return $scope.saveUserLocationString();
         } else {
           return $scope.user.location = $scope.user.locationAux;
