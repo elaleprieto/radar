@@ -258,7 +258,7 @@
       };
       $scope.eventsUpdate = function() {
         var bounds, ne, options, sw;
-        if ($scope.map.getBounds() != null) {
+        if (!$location.absUrl().contains('events/add') && ($scope.map.getBounds() != null)) {
           bounds = $scope.map.getBounds();
           ne = bounds.getNorthEast();
           sw = bounds.getSouthWest();
@@ -270,7 +270,6 @@
             "swLat": sw.lat(),
             "swLong": sw.lng()
           };
-          console.log(options);
           return Event.get({
             params: options
           }, function(response) {

@@ -170,10 +170,6 @@ angular.module('RadarApp').controller 'EventsController'
 		
 		$scope.marker.setMap($scope.map) # inserto el marcador en el mapa
 	
-	# # add(): despliega la ventana para agregar un evento
-	# $scope.add = ->
-		# console.log 'add'
-	
 	# centerMap: centers map with parameter city
 	$scope.centerMap = (city) ->
 		$scope.map.setZoom($scope.zoomDefault)
@@ -311,7 +307,8 @@ angular.module('RadarApp').controller 'EventsController'
 	# Se consulta al servidor por los eventos dentro de los límites del mapa y que cumplen las condiciones
 	# de categoría e intervalo seleccionadas.
 	$scope.eventsUpdate = ->
-		if $scope.map.getBounds()?
+		# Se verifica que no se obtengan los eventos en la pantalla de agregar evento.
+		if not $location.absUrl().contains('events/add') and $scope.map.getBounds()?
 			bounds = $scope.map.getBounds()
 			ne = bounds.getNorthEast()
 			sw = bounds.getSouthWest()
@@ -321,8 +318,6 @@ angular.module('RadarApp').controller 'EventsController'
 				, "neLong": ne.lng()
 				, "swLat": sw.lat()
 				, "swLong": sw.lng()
-			
-			console.log options
 			
 			Event.get {params:options}, (response) ->
 				$scope.eventos = response.events

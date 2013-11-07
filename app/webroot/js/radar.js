@@ -186,20 +186,20 @@
             return null != c.user.id && null != a.Compliant && null != a.Compliant.title ? (f.create(a), 
             g.close()) : void 0;
         }, c.eventsUpdate = function() {
-            var a, b, d, e;
-            return null != c.map.getBounds() ? (a = c.map.getBounds(), b = a.getNorthEast(), 
-            e = a.getSouthWest(), d = {
+            var a, d, e, f;
+            return b.absUrl().contains("events/add") || null == c.map.getBounds() ? void 0 : (a = c.map.getBounds(), 
+            d = a.getNorthEast(), f = a.getSouthWest(), e = {
                 categoriesSelected: c.categoriesSelected,
                 eventInterval: c.eventInterval,
-                neLat: b.lat(),
-                neLong: b.lng(),
-                swLat: e.lat(),
-                swLong: e.lng()
-            }, console.log(d), h.get({
-                params: d
+                neLat: d.lat(),
+                neLong: d.lng(),
+                swLat: f.lat(),
+                swLong: f.lng()
+            }, h.get({
+                params: e
             }, function(a) {
                 return c.eventos = a.events;
-            })) : void 0;
+            }));
         }, c.inicializar = function() {
             return navigator.geolocation ? (window.browserSupportFlag = !0, navigator.geolocation.getCurrentPosition(function(a) {
                 var b;
