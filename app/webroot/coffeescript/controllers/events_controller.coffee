@@ -19,6 +19,7 @@ angular.module('RadarApp').controller 'EventsController'
 	$scope.diaEnMilisegundos = 24 * 60 * $scope.minutoEnMilisegundos
 	$scope.event = {}
 	$scope.event.categories = []
+	$scope.descriptionSize = 500
 
 	# Cities
 	$scope.capital = new google.maps.LatLng(-34.603, -58.382)
@@ -248,6 +249,14 @@ angular.module('RadarApp').controller 'EventsController'
 			infowindow.open($scope.map, marker)
 		
 		$scope.markers.push(marker)
+
+
+	$scope.checkDescriptionSize = (event, description) ->
+		if description?
+			if +$scope.descriptionSize - description.length < 0
+				description = description.substr(0, 500)
+				console.log description
+				event.preventDefault()
 
 	$scope.checkTimeTo = ->
 		# Se setea el mínimo tiempo de finalización y el máximo tiempo de finalización del evento

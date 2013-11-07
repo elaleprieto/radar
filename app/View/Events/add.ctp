@@ -67,7 +67,7 @@ if (AuthComponent::user('location')) {
         						<div class="row form-group">
                                 	<label for="EventTitle"><?php echo __('Title');?></label>
                                     <input autofocus="true" class="textbox form-control" id="EventTitle" maxlength="255" 
-                                        ng-model="event.title" required="required" type="text">
+                                        ng-model="evento.title" required="required" type="text">
         						</div>
         							
         						<!-- Address -->
@@ -77,7 +77,7 @@ if (AuthComponent::user('location')) {
 	                                    <label for="EventAddress"><?php echo __('Address');?></label>
 	                            		<div class="input-group input-group-sm">
 	                            			<input class="textbox col-sm-11 form-control" id="EventAddress" maxlength="255" 
-	                                            ng-model="event.address" required="required" type="text">
+	                                            ng-model="evento.address" required="required" type="text">
 											<span class="input-group-btn">
 												<button class="btn btn-default" ng-click="setAddress()" type="button">
 													 <span class="glyphicon glyphicon-map-marker"></span>
@@ -89,9 +89,15 @@ if (AuthComponent::user('location')) {
         							
         						<!-- Description -->
         						<div class="row form-group">
-                                	<label for="EventDescription"><?php echo __('Description');?></label>
+                                	<label for="EventDescription">
+                                		<?php echo __('Description');?> 
+                                		<span ng-cloak>
+                                			({{descriptionSize - evento.description.length}})
+                                		</span>
+                                	</label>
                                     <textarea class="textarea col-sm-12 form-control" cols="30" id="EventDescription" 
-                                        ng-model="event.description" required="required" rows="4">
+                                        ng-model="evento.description" required="required" rows="4" 
+                                        x-ng-keypup="checkDescriptionSize($event, evento.description)">
                                     </textarea>
         						</div>
     
@@ -143,7 +149,7 @@ if (AuthComponent::user('location')) {
                                                	data-date-format="dd/mm/yyyy"
                                                	data-start-date="-1d" 
                                                 id="date_from" 
-                                                ng-model="event.date_from" 
+                                                ng-model="evento.date_from" 
                                                 required="required" 
                                               	today-btn="true" 
                                                 type="text" 
@@ -164,8 +170,8 @@ if (AuthComponent::user('location')) {
                                                	class="col-sm-10 form-control" 
                                                	data-show-meridian="false"
                                                 id="time_from" 
-                                              	ng-disabled="!event.date_from" 
-                                                ng-model="event.time_from" 
+                                              	ng-disabled="!evento.date_from" 
+                                                ng-model="evento.time_from" 
                                                 required="required" 
                                                 type="text" 
                                             />
@@ -192,8 +198,8 @@ if (AuthComponent::user('location')) {
                                                	data-end-date="12/07/2013" 
                                                	id="date_to" 
                                                	data-date-format="dd/mm/yyyy" 
-                                               	ng-disabled="!event.date_from" 
-                                               	ng-model="event.date_to" 
+                                               	ng-disabled="!evento.date_from" 
+                                               	ng-model="evento.date_to" 
                                                	required="required" 
                                                	today-btn="true" 
                                                	type="text" 
@@ -213,8 +219,8 @@ if (AuthComponent::user('location')) {
                                               	bs-timepicker 
                                                	class="col-sm-9 form-control" 
                                                	data-show-meridian="false"
-                                               	ng-disabled="!event.date_from && !event.time_from" 
-                                                ng-model="event.time_to" 
+                                               	ng-disabled="!evento.date_from && !evento.time_from" 
+                                                ng-model="evento.time_to" 
                                                 required="required" 
                                                 type="text" 
                                             />
@@ -275,18 +281,18 @@ if (AuthComponent::user('location')) {
                                     </div>
                                     <div class="col-sm-4" ng-init="hasCost=0">
                                         <label class="radio-inline">
-                                            <input ng-checked="hasCost" ng-click="hasCost=1" ng-model="event.hasCost" 
+                                            <input ng-checked="hasCost" ng-click="hasCost=1" ng-model="evento.hasCost" 
                                             	type="radio" />
                                             si
                                         </label>
                                         <label class="radio-inline">
-                                            <input ng-checked="!hasCost" ng-click="hasCost=0; event.cost=null" 
-                                            	ng-model="event.hasCost" type="radio" />
+                                            <input ng-checked="!hasCost" ng-click="hasCost=0; evento.cost=null" 
+                                            	ng-model="evento.hasCost" type="radio" />
                                             no
                                         </label>
                                     </div>   
 									<div class="input text form-control" ng-show="hasCost" ng-cloak>
-										<input class="textbox col-sm-4 inline" name="cost" ng-disabled="!hasCost" ng-model="event.cost" 
+										<input class="textbox col-sm-4 inline" name="cost" ng-disabled="!hasCost" ng-model="evento.cost" 
 											placeholder="<?php __('Cost') ?>" type="number" />
 										<span class="alert-danger" ng-show="!eventForm.cost.$valid">
         									<?php echo __('invalid') ?>
@@ -297,7 +303,7 @@ if (AuthComponent::user('location')) {
                                     <?php //echo $this->Form->input('website', array('class'=>'textbox', 'label'=>__('web'))) ?>
                                     <div class="input text">
                                     	<label for="web">web</label>
-                                    	<input class="textbox form-control" ng-model="event.website" type="text" />
+                                    	<input class="textbox form-control" ng-model="evento.website" type="text" />
                                     </div>
                                 </div>
                                 <div class="row form-group">

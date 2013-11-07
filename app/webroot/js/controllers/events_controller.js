@@ -23,6 +23,7 @@
       $scope.diaEnMilisegundos = 24 * 60 * $scope.minutoEnMilisegundos;
       $scope.event = {};
       $scope.event.categories = [];
+      $scope.descriptionSize = 500;
       $scope.capital = new google.maps.LatLng(-34.603, -58.382);
       $scope.cordoba = new google.maps.LatLng(-31.388813, -64.179726);
       $scope.santafe = new google.maps.LatLng(-31.625906, -60.696774);
@@ -204,6 +205,15 @@
           return infowindow.open($scope.map, marker);
         });
         return $scope.markers.push(marker);
+      };
+      $scope.checkDescriptionSize = function(event, description) {
+        if (description != null) {
+          if (+$scope.descriptionSize - description.length < 0) {
+            description = description.substr(0, 500);
+            console.log(description);
+            return event.preventDefault();
+          }
+        }
       };
       $scope.checkTimeTo = function() {
         var dateEnd, dateEndAux, dateFrom, dateStart, dateTo, timeFrom, timeTo;

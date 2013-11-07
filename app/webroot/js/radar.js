@@ -72,7 +72,7 @@
         var l, m, n, o, p, q, r, s, t, u, v;
         return c.eventInterval = 1, c.isReadonly = !1, c.max = 5, c.user = {}, c.categoriesSelected = [], 
         l = new Date(), c.minutoEnMilisegundos = 6e4, c.diaEnMilisegundos = 1440 * c.minutoEnMilisegundos, 
-        c.event = {}, c.event.categories = [], c.capital = new google.maps.LatLng(-34.603, -58.382), 
+        c.event = {}, c.event.categories = [], c.descriptionSize = 500, c.capital = new google.maps.LatLng(-34.603, -58.382), 
         c.cordoba = new google.maps.LatLng(-31.388813, -64.179726), c.santafe = new google.maps.LatLng(-31.625906, -60.696774), 
         c.cordobaSantafe = new google.maps.LatLng(-31.52081, -62.411469), c.locationDefault = c.cordobaSantafe, 
         c.zoomDefault = 8, c.zoomSantafe = 12, c.zoomCordoba = 11, c.zoomCity = 15, c.ROADMAP = google.maps.MapTypeId.ROADMAP, 
@@ -161,6 +161,9 @@
             }), google.maps.event.addListener(h, "click", function() {
                 return g.open(c.map, h);
             }), c.markers.push(h);
+        }, c.checkDescriptionSize = function(a, b) {
+            return null != b && +c.descriptionSize - b.length < 0 ? (b = b.substr(0, 500), console.log(b), 
+            a.preventDefault()) : void 0;
         }, c.checkTimeTo = function() {
             var a, b, d, e, f, g, h;
             if (null != c.event.time_from && c.event.date_from === c.event.date_to) {
