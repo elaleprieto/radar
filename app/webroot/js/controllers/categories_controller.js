@@ -41,7 +41,21 @@
           path: '/'
         });
       };
-      return $scope.$watch('categorias.length', function() {
+      $scope.showAllCategories = function() {
+        if ($scope.allCategoriesSelected) {
+          $scope.categoriesSelected = [];
+          angular.forEach($scope.categorias, function(category, index) {
+            return category.highlight = false;
+          });
+        } else {
+          angular.forEach($scope.categorias, function(category, index) {
+            category.highlight = true;
+            return $scope.categoriesSelected.push(category.Category.id);
+          });
+        }
+        return $scope.allCategoriesSelected = !$scope.allCategoriesSelected;
+      };
+      $scope.$watch('categorias.length', function() {
         var lastValEventCategory;
         if (!location.contains('events/add')) {
           if (($scope.categorias != null) && ($.cookie != null) && $scope.categorias.length > 0) {
@@ -53,6 +67,13 @@
               });
             }
           }
+        }
+      });
+      return $scope.$watch('categoriesSelected.length', function() {
+        console.log($scope.categoriesSelected.length);
+        if ($scope.categoriesSelected.length === 0) {
+          $scope.allCategoriesSelected = false;
+          return $scope.showAllCategories();
         }
       });
     }

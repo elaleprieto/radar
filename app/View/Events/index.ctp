@@ -489,27 +489,28 @@ if (AuthComponent::user('location')) {
 			<div id="categoriesContainer" class="background-black color-white" x-ng-hide="hideCategories">
 				
 				<!-- Titulo -->
-				<!-- 
-				<button type="button" class="close" x-ng-click="hideCategories = !hideCategories" 
-					x-ng-hide="hideCategories">
-					<i class="icon-collapse-alt"></i>
-				</button> -->
 				<p class="text-left">
 					<?php echo __('Categories'); ?>
+					
+					<!-- Todas las categorías -->
 					<span class="label label-primary pointer pull-right" x-ng-click="showAllCategories()">
 						<?php echo __('All Categories'); ?>
 					</span>
 				</p>
 				
-				<!-- Scroll -->
+				<!-- Scroll de Categorías -->
 				<div id="categoryScroll">
-					<div class="row categoriaLink" x-ng-class="{highlight:categoria.highlight}" 
-						x-ng-model="categoria" x-ng-repeat="categoria in categorias | orderBy:'Category.name'" x-ng-click="show(categoria)">
-						<div class="col-sm-3 category-icon">
-							<img class="icono-categoria" 
-								x-ng-src="/img/categorias/{{categoria.Category.icon}}" />
-						</div>
-						<div class="col-sm-9 item-categoria" x-ng-bind="categoria.Category.name"></div>
+					<div class="row categoriaLink" 
+						x-ng-class="{highlight:categoria.highlight}" 
+						x-ng-click="show(categoria)" 
+						x-ng-model="categoria" 
+						x-ng-repeat="categoria in categorias | orderBy:'Category.name'" >
+							
+							<div class="col-sm-3 category-icon">
+								<img class="icono-categoria" 
+									x-ng-src="/img/categorias/{{categoria.Category.icon}}" />
+							</div>
+							<div class="col-sm-9 item-categoria" x-ng-bind="categoria.Category.name"></div>
 					</div>
 				</div>
 			</div>

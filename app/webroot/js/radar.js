@@ -33,12 +33,21 @@
                 expires: 360,
                 path: "/"
             });
+        }, c.showAllCategories = function() {
+            return c.allCategoriesSelected ? (c.categoriesSelected = [], angular.forEach(c.categorias, function(a) {
+                return a.highlight = !1;
+            })) : angular.forEach(c.categorias, function(a) {
+                return a.highlight = !0, c.categoriesSelected.push(a.Category.id);
+            }), c.allCategoriesSelected = !c.allCategoriesSelected;
         }, c.$watch("categorias.length", function() {
             var a;
             return !f.contains("events/add") && null != c.categorias && null != $.cookie && c.categorias.length > 0 && ($.cookie.json = !0, 
             a = $.cookie("categoriesSelected"), null != a && a.length > 0) ? angular.forEach(a, function(a) {
                 return c.show(c.searchById(a));
             }) : void 0;
+        }), c.$watch("categoriesSelected.length", function() {
+            return console.log(c.categoriesSelected.length), 0 === c.categoriesSelected.length ? (c.allCategoriesSelected = !1, 
+            c.showAllCategories()) : void 0;
         });
     } ]);
 }.call(this), function() {
@@ -99,13 +108,13 @@
                 var b;
                 return b = new google.maps.LatLng(a.Event.lat, a.Event.long), c.createMarker(a, b);
             }), c.showOverlays();
-        }, !0), c.$watch("event.date_from", function(a) {
+        }, !0), c.$watch("evento.date_from", function(a) {
             return null != a ? ($("#date_to").datepicker("setDate", a), $("#date_to").datepicker("setStartDate", a), 
             $("#date_to").datepicker("setEndDate", new Date(a.getTime() + 3 * c.diaEnMilisegundos)), 
             c.evento.date_to = a) : void 0;
-        }), c.$watch("event.time_from", function(a) {
+        }), c.$watch("evento.time_from", function(a) {
             return null != a ? c.checkTimeTo() : void 0;
-        }), c.$watch("event.time_to", function(a) {
+        }), c.$watch("evento.time_to", function(a) {
             return null != a ? c.checkTimeTo() : void 0;
         }), c.$watch("user.locationAux", function(a) {
             return null != a && a.length > 0 ? c.setLocationByUserLocation(a) : void 0;
@@ -281,12 +290,12 @@
             return c.cargando = "Cargando.", c.eventForm.$valid ? (c.cargando = "Cargando..", 
             c.evento.categories.length <= 0 ? (c.cargando = "Error: Debe seleccionar al menos una categoría", 
             console.error("Error: Debe seleccionar al menos una categoría")) : (c.cargando = "Cargando...", 
-            a.post("/events/add", {
-                Event: c.event,
+            h.save({}, {
+                Event: c.evento,
                 Category: c.evento.categories
-            }).success(function() {
+            }, function() {
                 return c.cargando = "¡Evento guardado!", window.location.pathname = "events";
-            }).error(function() {
+            }, function() {
                 return c.cargando = "Ocurrió un error guardando el evento";
             }))) : (c.cargando = null, this);
         }, c.viewDisplayed = function() {

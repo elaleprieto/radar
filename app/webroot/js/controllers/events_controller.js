@@ -82,14 +82,14 @@
       });
       $scope.$watch('eventos', function() {
         $scope.deleteOverlays();
-        angular.forEach($scope.eventos, function(event, key) {
+        angular.forEach($scope.eventos, function(evento, key) {
           var latlng;
-          latlng = new google.maps.LatLng(event.Event.lat, event.Event.long);
-          return $scope.createMarker(event, latlng);
+          latlng = new google.maps.LatLng(evento.Event.lat, evento.Event.long);
+          return $scope.createMarker(evento, latlng);
         });
         return $scope.showOverlays();
       }, true);
-      $scope.$watch('event.date_from', function(newValue) {
+      $scope.$watch('evento.date_from', function(newValue) {
         if (newValue != null) {
           $('#date_to').datepicker('setDate', newValue);
           $('#date_to').datepicker('setStartDate', newValue);
@@ -97,12 +97,12 @@
           return $scope.evento.date_to = newValue;
         }
       });
-      $scope.$watch('event.time_from', function(newValue) {
+      $scope.$watch('evento.time_from', function(newValue) {
         if (newValue != null) {
           return $scope.checkTimeTo();
         }
       });
-      $scope.$watch('event.time_to', function(newValue) {
+      $scope.$watch('evento.time_to', function(newValue) {
         if (newValue != null) {
           return $scope.checkTimeTo();
         }
@@ -180,20 +180,20 @@
           return setUserLocationString(response[0]);
         }
       };
-      $scope.createMarker = function(event, latlng) {
+      $scope.createMarker = function(evento, latlng) {
         var contenido, icon, infowindow, marker;
-        icon = new google.maps.MarkerImage('/img/map-marker/' + getEventCategoryIcon(event), new google.maps.Size(30, 40), new google.maps.Point(0, 0), new google.maps.Point(10, 34));
+        icon = new google.maps.MarkerImage('/img/map-marker/' + getEventCategoryIcon(evento), new google.maps.Size(30, 40), new google.maps.Point(0, 0), new google.maps.Point(10, 34));
         marker = new google.maps.Marker({
-          eventId: getEventId(event),
+          eventId: getEventId(evento),
           map: $scope.map,
           icon: icon,
           position: latlng,
-          title: getEventTitle(event),
+          title: getEventTitle(evento),
           zIndex: Math.round(latlng.lat() * -100000) << 5
         });
         contenido = '<div>';
-        contenido += '<p>' + getEventTitle(event) + '</p>';
-        contenido += '<a ng-click="openModal(\'events/view/' + getEventId(event) + '\')">';
+        contenido += '<p>' + getEventTitle(evento) + '</p>';
+        contenido += '<a ng-click="openModal(\'events/view/' + getEventId(evento) + '\')">';
         contenido += '<p class="text-right"><i class="icon-expand-alt"></i> info</p>';
         contenido += '</a>';
         contenido += '</div>';
@@ -298,7 +298,7 @@
           });
         }
       };
-      $scope.resetView = function(event) {
+      $scope.resetView = function(evento) {
         return $location.path('/');
       };
       $scope.saveRatingToServer = function(evento, newRating) {
@@ -426,13 +426,13 @@
           return console.error('Error: Debe seleccionar al menos una categoría');
         }
         $scope.cargando = 'Cargando...';
-        return $http.post('/events/add', {
-          Event: $scope.event,
+        return Event.save({}, {
+          Event: $scope.evento,
           Category: $scope.evento.categories
-        }).success(function(data) {
+        }, function(data) {
           $scope.cargando = '¡Evento guardado!';
           return window.location.pathname = 'events';
-        }).error(function() {
+        }, function() {
           return $scope.cargando = 'Ocurrió un error guardando el evento';
         });
       };
@@ -462,17 +462,17 @@
           return null;
         }
       };
-      getEventCategoryIcon = function(event) {
-        return event.Category.icon;
+      getEventCategoryIcon = function(evento) {
+        return evento.Category.icon;
       };
-      getEventId = function(event) {
-        return event.Event.id;
+      getEventId = function(evento) {
+        return evento.Event.id;
       };
-      getEventTitle = function(event) {
-        return event.Event.title;
+      getEventTitle = function(evento) {
+        return evento.Event.title;
       };
-      getEventDescription = function(event) {
-        return event.Event.description;
+      getEventDescription = function(evento) {
+        return evento.Event.description;
       };
       return setUserLocationString = function(location) {
         var city, country, results;

@@ -26,12 +26,8 @@ angular.module('RadarApp').controller 'CategoriesController'
 	$scope.show = (categoria) ->
 		categoria.highlight = !categoria.highlight
 		if categoria.highlight
-			# $scope.eventCategory.push(categoria.Category.id)
-			# $scope.categoriesSelectedAdd(categoria.Category.id)
 			$scope.categoriesSelected.push(categoria.Category.id)
 		else
-			# $scope.eventCategory.splice($scope.eventCategory.indexOf(categoria.Category.id), 1)
-			# $scope.categoriesSelectedDeleted(categoria.Category.id)
 			$scope.categoriesSelected.splice($scope.categoriesSelected.indexOf(categoria.Category.id), 1)
 		
 		$.cookie.json = true
@@ -56,6 +52,17 @@ angular.module('RadarApp').controller 'CategoriesController'
 			}
 		);
 	
+	$scope.showAllCategories = ->
+		if $scope.allCategoriesSelected
+			$scope.categoriesSelected = []
+			angular.forEach $scope.categorias, (category, index) ->
+				category.highlight = off
+		else
+			angular.forEach $scope.categorias, (category, index) ->
+				category.highlight = on
+				$scope.categoriesSelected.push category.Category.id
+		$scope.allCategoriesSelected = !$scope.allCategoriesSelected
+	
 	$scope.$watch 'categorias.length', ->
 		if not location.contains('events/add')
 			if $scope.categorias? and $.cookie? and $scope.categorias.length > 0
@@ -64,6 +71,14 @@ angular.module('RadarApp').controller 'CategoriesController'
 				if lastValEventCategory? and lastValEventCategory.length > 0
 					angular.forEach lastValEventCategory, (categoryId, index) ->
 						$scope.show($scope.searchById(categoryId))
+
+	$scope.$watch 'categoriesSelected.length', ->
+		console.log $scope.categoriesSelected.length
+		
+		# Si no hay ninguna categoría seleccionada, se seleccionan todas.
+		if $scope.categoriesSelected.length is 0
+			$scope.allCategoriesSelected = off
+			$scope.showAllCategories()
 
 	]
 	
