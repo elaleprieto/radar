@@ -97,7 +97,7 @@ if (AuthComponent::user('location')) {
                                 	</label>
                                     <textarea class="textarea col-sm-12 form-control" cols="30" id="EventDescription" 
                                         ng-model="evento.description" required="required" rows="4" 
-                                        x-ng-keypup="checkDescriptionSize($event, evento.description)">
+                                        x-ng-change="checkDescriptionSize($event, evento)">
                                     </textarea>
         						</div>
     

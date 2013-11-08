@@ -206,11 +206,11 @@
         });
         return $scope.markers.push(marker);
       };
-      $scope.checkDescriptionSize = function(event, description) {
-        if (description != null) {
-          if (+$scope.descriptionSize - description.length < 0) {
-            description = description.substr(0, 500);
-            console.log(description);
+      $scope.checkDescriptionSize = function(event, evento) {
+        if (evento.description != null) {
+          if (+$scope.descriptionSize - evento.description.length < 0) {
+            evento.description = evento.description.substr(0, 500);
+            console.log(evento.description);
             return event.preventDefault();
           }
         }

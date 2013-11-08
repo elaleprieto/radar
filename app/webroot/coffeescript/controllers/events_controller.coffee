@@ -251,11 +251,11 @@ angular.module('RadarApp').controller 'EventsController'
 		$scope.markers.push(marker)
 
 
-	$scope.checkDescriptionSize = (event, description) ->
-		if description?
-			if +$scope.descriptionSize - description.length < 0
-				description = description.substr(0, 500)
-				console.log description
+	$scope.checkDescriptionSize = (event, evento) ->
+		if evento.description?
+			if +$scope.descriptionSize - evento.description.length < 0
+				evento.description = evento.description.substr(0, 500)
+				console.log evento.description
 				event.preventDefault()
 
 	$scope.checkTimeTo = ->

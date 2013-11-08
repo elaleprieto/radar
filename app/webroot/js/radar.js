@@ -162,8 +162,8 @@
                 return g.open(c.map, h);
             }), c.markers.push(h);
         }, c.checkDescriptionSize = function(a, b) {
-            return null != b && +c.descriptionSize - b.length < 0 ? (b = b.substr(0, 500), console.log(b), 
-            a.preventDefault()) : void 0;
+            return null != b.description && +c.descriptionSize - b.description.length < 0 ? (b.description = b.description.substr(0, 500), 
+            console.log(b.description), a.preventDefault()) : void 0;
         }, c.checkTimeTo = function() {
             var a, b, d, e, f, g, h;
             if (null != c.event.time_from && c.event.date_from === c.event.date_to) {
