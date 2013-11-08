@@ -1,11 +1,11 @@
-/*! radar 2013-11-07 */
+/*! radar 2013-11-08 */
 (function() {
     "use strict";
     var a, b = [].indexOf || function(a) {
         for (var b = 0, c = this.length; c > b; b++) if (b in this && this[b] === a) return b;
         return -1;
     };
-    a = angular.module("RadarApp", [ "fechaFilters", "ui.keypress", "rutes", "$strap.directives", "components", "models", "services" ]), 
+    a = angular.module("RadarApp", [ "fechaFilters", "ui.keypress", "$strap.directives", "models", "services" ]), 
     a.config([ "$httpProvider", "$locationProvider", function(a) {
         return a.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
     } ]), a.value("$strapConfig", {
@@ -72,7 +72,7 @@
         var l, m, n, o, p, q, r, s, t, u, v;
         return c.eventInterval = 1, c.isReadonly = !1, c.max = 5, c.user = {}, c.categoriesSelected = [], 
         l = new Date(), c.minutoEnMilisegundos = 6e4, c.diaEnMilisegundos = 1440 * c.minutoEnMilisegundos, 
-        c.event = {}, c.event.categories = [], c.descriptionSize = 500, c.capital = new google.maps.LatLng(-34.603, -58.382), 
+        c.evento = {}, c.evento.categories = [], c.descriptionSize = 500, c.capital = new google.maps.LatLng(-34.603, -58.382), 
         c.cordoba = new google.maps.LatLng(-31.388813, -64.179726), c.santafe = new google.maps.LatLng(-31.625906, -60.696774), 
         c.cordobaSantafe = new google.maps.LatLng(-31.52081, -62.411469), c.locationDefault = c.cordobaSantafe, 
         c.zoomDefault = 8, c.zoomSantafe = 12, c.zoomCordoba = 11, c.zoomCity = 15, c.ROADMAP = google.maps.MapTypeId.ROADMAP, 
@@ -102,7 +102,7 @@
         }, !0), c.$watch("event.date_from", function(a) {
             return null != a ? ($("#date_to").datepicker("setDate", a), $("#date_to").datepicker("setStartDate", a), 
             $("#date_to").datepicker("setEndDate", new Date(a.getTime() + 3 * c.diaEnMilisegundos)), 
-            c.event.date_to = a) : void 0;
+            c.evento.date_to = a) : void 0;
         }), c.$watch("event.time_from", function(a) {
             return null != a ? c.checkTimeTo() : void 0;
         }), c.$watch("event.time_to", function(a) {
@@ -119,7 +119,7 @@
             return c.eventsUpdate();
         }), c.addAddressToMap = function(a) {
             var b;
-            return a && 0 !== a.length ? (c.event.lat = a[0].geometry.location.lat(), c.event.long = a[0].geometry.location.lng(), 
+            return a && 0 !== a.length ? (c.evento.lat = a[0].geometry.location.lat(), c.evento.long = a[0].geometry.location.lng(), 
             c.map.setCenter(a[0].geometry.location), c.map.setZoom(13), b = new google.maps.MarkerImage("http://gmaps-samples.googlecode.com/svn/trunk/markers/blue/blank.png", new google.maps.Size(20, 34), new google.maps.Point(0, 0), new google.maps.Point(10, 34)), 
             null != c.marker && c.marker.setMap(null), c.marker = new google.maps.Marker({
                 position: a[0].geometry.location,
@@ -163,27 +163,27 @@
             }), c.markers.push(h);
         }, c.checkDescriptionSize = function(a, b) {
             return null != b.description && +c.descriptionSize - b.description.length < 0 ? (b.description = b.description.substr(0, 500), 
-            console.log(b.description), a.preventDefault()) : void 0;
+            a.preventDefault()) : void 0;
         }, c.checkTimeTo = function() {
             var a, b, d, e, f, g, h;
-            if (null != c.event.time_from && c.event.date_from === c.event.date_to) {
-                if (d = c.event.date_from, f = c.event.date_to, g = c.event.time_from.split(":"), 
+            if (null != c.evento.time_from && c.evento.date_from === c.evento.date_to) {
+                if (d = c.evento.date_from, f = c.evento.date_to, g = c.evento.time_from.split(":"), 
                 e = new Date(d.getFullYear(), d.getMonth(), d.getDate(), g[0], g[1]), a = new Date(e.getTime() + 15 * c.minutoEnMilisegundos), 
-                null == c.event.time_to) return c.event.time_to = a.getHours() + ":" + a.getMinutes();
-                if (h = c.event.time_to.split(":"), b = new Date(f.getFullYear(), f.getMonth(), f.getDate(), h[0], h[1]), 
-                a.getTime() > b.getTime() && (c.event.time_to = a.getHours() + ":" + a.getMinutes(), 
-                0 === a.getMinutes())) return c.event.time_to += "0";
+                null == c.evento.time_to) return c.evento.time_to = a.getHours() + ":" + a.getMinutes();
+                if (h = c.evento.time_to.split(":"), b = new Date(f.getFullYear(), f.getMonth(), f.getDate(), h[0], h[1]), 
+                a.getTime() > b.getTime() && (c.evento.time_to = a.getHours() + ":" + a.getMinutes(), 
+                0 === a.getMinutes())) return c.evento.time_to += "0";
             }
         }, c.clearOverlays = function() {
             return c.setAllMap(null);
         }, c.deleteOverlays = function() {
             return c.clearOverlays(), c.markers = [];
         }, c.categoriesAdd = function(a) {
-            return c.event.categories.length < 3 ? (c.event.categories.push(a.Category.id), 
+            return c.evento.categories.length < 3 ? (c.evento.categories.push(a.Category.id), 
             a.highlight = !0) : void 0;
         }, c.categoriesDelete = function(a) {
             var b;
-            return b = c.event.categories.indexOf(a.Category.id), b >= 0 ? (c.event.categories.splice(b, 1), 
+            return b = c.evento.categories.indexOf(a.Category.id), b >= 0 ? (c.evento.categories.splice(b, 1), 
             a.highlight = !1) : void 0;
         }, c.denounce = function(a) {
             return null != c.user.id && null != a.Compliant && null != a.Compliant.title ? (f.create(a), 
@@ -248,7 +248,7 @@
             return g;
         }, c.setAddress = function() {
             var a;
-            return a = new Object(), a.address = c.event.address, a.region = "AR", c.geocoder.geocode(a, c.addAddressToMap);
+            return a = new Object(), a.address = c.evento.address, c.geocoder.geocode(a, c.addAddressToMap);
         }, c.setEventInterval = function(a) {
             return c.eventInterval = a;
         }, c.setLocation = function() {
@@ -279,11 +279,11 @@
             return c.setAllMap(c.map);
         }, c.submit = function() {
             return c.cargando = "Cargando.", c.eventForm.$valid ? (c.cargando = "Cargando..", 
-            c.event.categories.length <= 0 ? (c.cargando = "Error: Debe seleccionar al menos una categoría", 
+            c.evento.categories.length <= 0 ? (c.cargando = "Error: Debe seleccionar al menos una categoría", 
             console.error("Error: Debe seleccionar al menos una categoría")) : (c.cargando = "Cargando...", 
             a.post("/events/add", {
                 Event: c.event,
-                Category: c.event.categories
+                Category: c.evento.categories
             }).success(function() {
                 return c.cargando = "¡Evento guardado!", window.location.pathname = "events";
             }).error(function() {
@@ -729,9 +729,9 @@
         });
     }), a = function() {
         var a, b, c, d, e;
-        return e = $(window).height(), a = $("body").height(), b = $("body").width(), d = $("#east").position(), 
-        c = $("#categoryScroll").position(), $("#categoryScroll").css("height", e - c.top - d.top), 
-        $(".modal-body").css("height", .6 * a), $(".modal-dialog, .modal-content").css("width", .5 * b);
+        return e = $(window).height(), a = $("body").height(), b = $("body").width(), $(".modal-body").css("height", .6 * a), 
+        $(".modal-dialog, .modal-content").css("width", .5 * b), $("#east").length > 0 && (d = $("#east").position()), 
+        $("#categoryScroll").length > 0 ? (c = $("#categoryScroll").position(), $("#categoryScroll").css("height", e - c.top - d.top)) : void 0;
     };
 }.call(this), function(a, b, c) {
     "use strict";

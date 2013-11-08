@@ -17,8 +17,8 @@ angular.module('RadarApp').controller 'EventsController'
 	date = new Date()
 	$scope.minutoEnMilisegundos = 60 * 1000
 	$scope.diaEnMilisegundos = 24 * 60 * $scope.minutoEnMilisegundos
-	$scope.event = {}
-	$scope.event.categories = []
+	$scope.evento = {}
+	$scope.evento.categories = []
 	$scope.descriptionSize = 500
 
 	# Cities
@@ -106,7 +106,7 @@ angular.module('RadarApp').controller 'EventsController'
 			$('#date_to').datepicker('setDate', newValue)
 			$('#date_to').datepicker('setStartDate', newValue)
 			$('#date_to').datepicker('setEndDate', new Date(newValue.getTime() + (3 * $scope.diaEnMilisegundos)))
-			$scope.event.date_to = newValue
+			$scope.evento.date_to = newValue
 
 	# Se observa cuando cambie el time_from y se setea el time_to
 	$scope.$watch 'event.time_from', (newValue) ->
@@ -145,10 +145,10 @@ angular.module('RadarApp').controller 'EventsController'
 	*************************************************************************************************************** ###
 	
 	$scope.addAddressToMap = (response, status) ->
-		if !response or response.length is 0 then return @ #si no pudo
+		if not response or response.length is 0 then return @ #si no pudo
 		
-		$scope.event.lat = response[0].geometry.location.lat()
-		$scope.event.long = response[0].geometry.location.lng()
+		$scope.evento.lat = response[0].geometry.location.lat()
+		$scope.evento.long = response[0].geometry.location.lng()
 		
 		# Center Map
 		$scope.map.setCenter(response[0].geometry.location)
@@ -255,27 +255,26 @@ angular.module('RadarApp').controller 'EventsController'
 		if evento.description?
 			if +$scope.descriptionSize - evento.description.length < 0
 				evento.description = evento.description.substr(0, 500)
-				console.log evento.description
 				event.preventDefault()
 
 	$scope.checkTimeTo = ->
 		# Se setea el mínimo tiempo de finalización y el máximo tiempo de finalización del evento
-		if $scope.event.time_from?
+		if $scope.evento.time_from?
 			# Si las fechas de inicio y fin coinciden, el tiempo de inicio y finalización debería distar al menos
 			# 15 (quince) minutos.
-			if $scope.event.date_from is $scope.event.date_to
-				dateFrom = $scope.event.date_from
-				dateTo = $scope.event.date_to
-				timeFrom = ($scope.event.time_from).split(':')
+			if $scope.evento.date_from is $scope.evento.date_to
+				dateFrom = $scope.evento.date_from
+				dateTo = $scope.evento.date_to
+				timeFrom = ($scope.evento.time_from).split(':')
 				dateStart = new Date(dateFrom.getFullYear(), dateFrom.getMonth(), dateFrom.getDate(), timeFrom[0], timeFrom[1])
 				dateEnd = new Date(dateStart.getTime() + (15 * $scope.minutoEnMilisegundos))
 				
 				# Si está vacío el time_to se autocompleta con una diferencia de 15 minutos
 				# si contiene algo, se verifica que la diferencia sea 15 minutos, sino se ajusta.
-				if !$scope.event.time_to?
-					$scope.event.time_to = dateEnd.getHours() + ':' + dateEnd.getMinutes()
+				if !$scope.evento.time_to?
+					$scope.evento.time_to = dateEnd.getHours() + ':' + dateEnd.getMinutes()
 				else
-					timeTo = ($scope.event.time_to).split(':') 
+					timeTo = ($scope.evento.time_to).split(':') 
 					dateEndAux = new Date(dateTo.getFullYear(), dateTo.getMonth(), dateTo.getDate(), timeTo[0], timeTo[1])
 					
 					# Se compara la dateEnd que debería ser con la dateEnd que es
@@ -283,9 +282,9 @@ angular.module('RadarApp').controller 'EventsController'
 					# (dateEndAux), entonces se sobreescribe con la dateEnd que debería ser para respetar los 
 					# 15 minutos de diferencia. 
 					if dateEnd.getTime() > dateEndAux.getTime()
-						$scope.event.time_to = dateEnd.getHours() + ':' + dateEnd.getMinutes()
+						$scope.evento.time_to = dateEnd.getHours() + ':' + dateEnd.getMinutes()
 						# Ajuste de minutos cuando es cero
-						if dateEnd.getMinutes() is 0 then $scope.event.time_to += '0'
+						if dateEnd.getMinutes() is 0 then $scope.evento.time_to += '0'
 		
 	# Removes the overlays from the map, but keeps them in the array.
 	$scope.clearOverlays = ->
@@ -297,14 +296,14 @@ angular.module('RadarApp').controller 'EventsController'
 		$scope.markers = []
 
 	$scope.categoriesAdd = (category) ->
-		if($scope.event.categories.length < 3)
-			$scope.event.categories.push(category.Category.id)
+		if($scope.evento.categories.length < 3)
+			$scope.evento.categories.push(category.Category.id)
 			category.highlight = true
 
 	$scope.categoriesDelete = (category) ->
-		index = $scope.event.categories.indexOf(category.Category.id)
+		index = $scope.evento.categories.indexOf(category.Category.id)
 		if index >= 0 
-			$scope.event.categories.splice(index, 1)
+			$scope.evento.categories.splice(index, 1)
 			category.highlight = false
 
 	$scope.denounce = (evento) ->
@@ -399,10 +398,10 @@ angular.module('RadarApp').controller 'EventsController'
 	# setAddress hace la llamada al API y hace el callback
 	$scope.setAddress = () ->
 		request = new Object() # se crea un objeto request
-		request.address = $scope.event.address
+		request.address = $scope.evento.address
 		# se comenta para que busque en todo el país y no solo en el mapa que se ve
 		# request.bounds = $scope.map.getBounds()
-		request.region = 'AR'
+		# request.region = 'AR'
 		# geocode hace la conversión a un punto, y su segundo parámetro es una función de callback
 		$scope.geocoder.geocode(request, $scope.addAddressToMap)
 
@@ -469,7 +468,7 @@ angular.module('RadarApp').controller 'EventsController'
 		$scope.cargando = 'Cargando..'
 		
 		# Se verifica que se haya seleccionado al menos una categoría
-		if $scope.event.categories.length <= 0
+		if $scope.evento.categories.length <= 0
 			# Se actualiza el mensaje
 			$scope.cargando = 'Error: Debe seleccionar al menos una categoría'
 			return console.error 'Error: Debe seleccionar al menos una categoría'
@@ -478,7 +477,7 @@ angular.module('RadarApp').controller 'EventsController'
 		$scope.cargando = 'Cargando...'
 
 		# Se guarda el evento
-		$http.post('/events/add', {Event: $scope.event, Category: $scope.event.categories})
+		$http.post('/events/add', {Event: $scope.event, Category: $scope.evento.categories})
 			.success (data) ->
 				# Se actualiza el mensaje
 				$scope.cargando = '¡Evento guardado!'
