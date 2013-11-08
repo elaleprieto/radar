@@ -70,7 +70,6 @@
         }
       });
       return $scope.$watch('categoriesSelected.length', function() {
-        console.log($scope.categoriesSelected.length);
         if ($scope.categoriesSelected.length === 0) {
           $scope.allCategoriesSelected = false;
           return $scope.showAllCategories();

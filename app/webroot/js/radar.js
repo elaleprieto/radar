@@ -46,8 +46,7 @@
                 return c.show(c.searchById(a));
             }) : void 0;
         }), c.$watch("categoriesSelected.length", function() {
-            return console.log(c.categoriesSelected.length), 0 === c.categoriesSelected.length ? (c.allCategoriesSelected = !1, 
-            c.showAllCategories()) : void 0;
+            return 0 === c.categoriesSelected.length ? (c.allCategoriesSelected = !1, c.showAllCategories()) : void 0;
         });
     } ]);
 }.call(this), function() {

@@ -73,13 +73,11 @@ angular.module('RadarApp').controller 'CategoriesController'
 						$scope.show($scope.searchById(categoryId))
 
 	$scope.$watch 'categoriesSelected.length', ->
-		console.log $scope.categoriesSelected.length
-		
 		# Si no hay ninguna categoría seleccionada, se seleccionan todas.
 		if $scope.categoriesSelected.length is 0
 			$scope.allCategoriesSelected = off
 			$scope.showAllCategories()
 
-	]
+]
 	
 
