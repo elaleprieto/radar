@@ -315,10 +315,6 @@ angular.module('RadarApp').controller 'EventsController'
 	# Se consulta al servidor por los eventos dentro de los límites del mapa y que cumplen las condiciones
 	# de categoría e intervalo seleccionadas.
 	$scope.eventsUpdate = ->
-		
-		# console.log $scope.map.getBounds()
-		# console.log not $location.absUrl().contains('events/add')
-		
 		# Se verifica que no se obtengan los eventos en la pantalla de agregar evento.
 		if not $location.absUrl().contains('events/add') and $scope.map.getBounds()?
 			bounds = $scope.map.getBounds()
@@ -330,6 +326,7 @@ angular.module('RadarApp').controller 'EventsController'
 				, "neLong": ne.lng()
 				, "swLat": sw.lat()
 				, "swLong": sw.lng()
+			
 			
 			Event.get {params:options}, (response) ->
 				$scope.eventos = response.events

@@ -29,24 +29,29 @@
             }), b[0]) : void 0;
         }, c.show = function(a) {
             return a.highlight = !a.highlight, a.highlight ? c.categoriesSelected.push(a.Category.id) : c.categoriesSelected.splice(c.categoriesSelected.indexOf(a.Category.id), 1), 
-            $.cookie.json = !0, $.cookie("categoriesSelected", c.categoriesSelected, {
+            c.setCookieCategoriesSelected();
+        }, c.hideAllCategories = function() {
+            return c.$parent.categoriesSelected = [], c.allCategoriesSelected = !1, angular.forEach(c.categorias, function(a) {
+                return a.highlight = !1;
+            });
+        }, c.setCookieCategoriesSelected = function() {
+            return $.cookie.json = !0, $.cookie("categoriesSelected", c.categoriesSelected, {
                 expires: 360,
                 path: "/"
             });
-        }, c.showAllCategories = function() {
-            return c.allCategoriesSelected ? (c.categoriesSelected = [], angular.forEach(c.categorias, function(a) {
-                return a.highlight = !1;
-            })) : angular.forEach(c.categorias, function(a) {
+        }, c.selectAllCategories = function() {
+            return c.$parent.categoriesSelected = [], c.allCategoriesSelected = !0, angular.forEach(c.categorias, function(a) {
                 return a.highlight = !0, c.categoriesSelected.push(a.Category.id);
-            }), c.allCategoriesSelected = !c.allCategoriesSelected;
+            });
+        }, c.showAllCategories = function() {
+            return c.selectAllCategories(), c.setCookieCategoriesSelected();
         }, c.$watch("categorias.length", function() {
             var a;
-            return !f.contains("events/add") && null != c.categorias && null != $.cookie && c.categorias.length > 0 && ($.cookie.json = !0, 
-            a = $.cookie("categoriesSelected"), null != a && a.length > 0) ? angular.forEach(a, function(a) {
+            return !f.contains("events/add") && null != c.categorias && c.categorias.length > 0 && (0 === c.categoriesSelected.length && c.selectAllCategories(), 
+            null != $.cookie && ($.cookie.json = !0, a = $.cookie("categoriesSelected"), null != a && a.length > 0)) ? (c.hideAllCategories(), 
+            angular.forEach(a, function(a) {
                 return c.show(c.searchById(a));
-            }) : void 0;
-        }), c.$watch("categoriesSelected.length", function() {
-            return 0 === c.categoriesSelected.length ? (c.allCategoriesSelected = !1, c.showAllCategories()) : void 0;
+            })) : void 0;
         });
     } ]);
 }.call(this), function() {

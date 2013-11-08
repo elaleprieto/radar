@@ -30,6 +30,17 @@ angular.module('RadarApp').controller 'CategoriesController'
 		else
 			$scope.categoriesSelected.splice($scope.categoriesSelected.indexOf(categoria.Category.id), 1)
 		
+		$scope.setCookieCategoriesSelected()
+	
+	# hideAllCategories: borra todas las categorías seleccionadas del array categoriesSelected
+	# y elimina el highlight de todas las categorías
+	$scope.hideAllCategories = ->
+		$scope.$parent.categoriesSelected = []
+		$scope.allCategoriesSelected = off
+		angular.forEach $scope.categorias, (category, index) ->
+			category.highlight = off
+	
+	$scope.setCookieCategoriesSelected = ->
 		$.cookie.json = true
 		$.cookie("categoriesSelected"
 			, $scope.categoriesSelected
@@ -52,31 +63,35 @@ angular.module('RadarApp').controller 'CategoriesController'
 			}
 		);
 	
-	$scope.showAllCategories = ->
-		if $scope.allCategoriesSelected
-			$scope.categoriesSelected = []
-			angular.forEach $scope.categorias, (category, index) ->
-				category.highlight = off
-		else
-			angular.forEach $scope.categorias, (category, index) ->
-				category.highlight = on
-				$scope.categoriesSelected.push category.Category.id
-		$scope.allCategoriesSelected = !$scope.allCategoriesSelected
+	# selectAllCategories: resetea el array categoriesSelected,
+	# agrega todas las categorías seleccionadas al array categoriesSelected
+	# y setea el highlight en todas las categorías
+	$scope.selectAllCategories = ->
+		$scope.$parent.categoriesSelected = []
+		$scope.allCategoriesSelected = on
+		angular.forEach $scope.categorias, (category, index) ->
+			category.highlight = on
+			$scope.categoriesSelected.push category.Category.id
 	
+	$scope.showAllCategories = ->
+		$scope.selectAllCategories()
+		$scope.setCookieCategoriesSelected()
+
 	$scope.$watch 'categorias.length', ->
-		if not location.contains('events/add')
-			if $scope.categorias? and $.cookie? and $scope.categorias.length > 0
+		if not location.contains('events/add') and $scope.categorias? and $scope.categorias.length > 0
+			# Al inicio, se seleccionan todas las categorías
+			# si hay cookie, se sobreescriben después.
+			if $scope.categoriesSelected.length is 0
+				$scope.selectAllCategories()
+
+			if $.cookie?
 				$.cookie.json = true
 				lastValEventCategory = $.cookie('categoriesSelected')
 				if lastValEventCategory? and lastValEventCategory.length > 0
+					$scope.hideAllCategories()
 					angular.forEach lastValEventCategory, (categoryId, index) ->
 						$scope.show($scope.searchById(categoryId))
-
-	$scope.$watch 'categoriesSelected.length', ->
-		# Si no hay ninguna categoría seleccionada, se seleccionan todas.
-		if $scope.categoriesSelected.length is 0
-			$scope.allCategoriesSelected = off
-			$scope.showAllCategories()
+			
 
 ]
 	
