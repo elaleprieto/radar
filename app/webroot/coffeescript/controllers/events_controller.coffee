@@ -87,20 +87,20 @@ angular.module('RadarApp').controller 'EventsController'
 	# Se observa el listado de eventos
 	$scope.$watch 'eventos', ->
 			$scope.deleteOverlays()
-			angular.forEach $scope.eventos, (event, key) ->
-				latlng = new google.maps.LatLng(event.Event.lat, event.Event.long)
-				# $scope.createMarker(event.Event.id, event.Event.title, event.Category.icon, latlng)
-				$scope.createMarker(event, latlng)
+			angular.forEach $scope.eventos, (evento, key) ->
+				latlng = new google.maps.LatLng(evento.Event.lat, evento.Event.long)
+				# $scope.createMarker(evento.Event.id, evento.Event.title, evento.Category.icon, latlng)
+				$scope.createMarker(evento, latlng)
 			$scope.showOverlays()
 		, true
 	
 	# Se comenta esto para hacerlo con un botón
 	# Se observa cuando cambia el address y se hace la llamada al API si la longitud es superior a 3
-	# $scope.$watch 'event.address', (newValue) ->
+	# $scope.$watch 'evento.address', (newValue) ->
 		# $scope.setAddress(newValue) if newValue? and newValue.length > 3
 	
 	# Se observa cuando cambie el date_from y se setea el date_to
-	$scope.$watch 'event.date_from', (newValue) ->
+	$scope.$watch 'evento.date_from', (newValue) ->
 		# Se setea el mínimo día de finalización y el máximo día de finalización del evento
 		if newValue?
 			$('#date_to').datepicker('setDate', newValue)
@@ -109,12 +109,12 @@ angular.module('RadarApp').controller 'EventsController'
 			$scope.evento.date_to = newValue
 
 	# Se observa cuando cambie el time_from y se setea el time_to
-	$scope.$watch 'event.time_from', (newValue) ->
+	$scope.$watch 'evento.time_from', (newValue) ->
 		# Se setea el mínimo tiempo de finalización y el máximo tiempo de finalización del evento
 		if newValue? then $scope.checkTimeTo()
 
 	# Se observa cuando cambie el time_to y se verifica que no sea menor a time_from
-	$scope.$watch 'event.time_to', (newValue) ->
+	$scope.$watch 'evento.time_to', (newValue) ->
 		# Se setea el mínimo tiempo de finalización y el máximo tiempo de finalización del evento
 		if newValue? then $scope.checkTimeTo()
 	
@@ -199,43 +199,43 @@ angular.module('RadarApp').controller 'EventsController'
 			$scope.saveUserMapCenter()
 			setUserLocationString(response[0])
 
-	# A function to create the marker and set up the event window function
+	# A function to create the marker and set up the evento window function
 	# $scope.createMarker = (eventId, eventTitle, categoriesSelected, latlng) ->
-	$scope.createMarker = (event, latlng) ->
+	$scope.createMarker = (evento, latlng) ->
 		# icon = new google.maps.MarkerImage("http://gmaps-samples.googlecode.com/svn/trunk/markers/blue/blank.png"
-		icon = new google.maps.MarkerImage('/img/map-marker/' + getEventCategoryIcon(event)
+		icon = new google.maps.MarkerImage('/img/map-marker/' + getEventCategoryIcon(evento)
 			#, new google.maps.Size(25, 26)
 			, new google.maps.Size(30, 40)
 			, new google.maps.Point(0, 0)
 			, new google.maps.Point(10, 34)
 		)
 		
-		marker = new google.maps.Marker eventId: getEventId(event)
+		marker = new google.maps.Marker eventId: getEventId(evento)
 			, map: $scope.map
 			, icon: icon
 			, position: latlng
-			, title: getEventTitle(event)
+			, title: getEventTitle(evento)
 			, zIndex: Math.round(latlng.lat()*-100000)<<5
 		
-		# $scope.eventMarkerAux = event
+		# $scope.eventMarkerAux = evento
 # 			
-		# contenido = $compile('<marker event="eventMarkerAux"></marker>')($scope)
+		# contenido = $compile('<marker evento="eventMarkerAux"></marker>')($scope)
 		# console.log contenido
 		# console.log contenido[0]
 		# console.log contenido[0].textContent
 		# console.log contenido[0].innerHTML
 		
 		contenido = '<div>'
-		contenido += '<p>' + getEventTitle(event) + '</p>'
-		# contenido += '<a href="/events/view/' + getEventId(event) + '">'
-		contenido += '<a ng-click="openModal(\'events/view/' + getEventId(event) + '\')">'
+		contenido += '<p>' + getEventTitle(evento) + '</p>'
+		# contenido += '<a href="/events/view/' + getEventId(evento) + '">'
+		contenido += '<a ng-click="openModal(\'events/view/' + getEventId(evento) + '\')">'
 		contenido += '<p class="text-right"><i class="icon-expand-alt"></i> info</p>'
 		contenido += '</a>'
 		contenido += '</div>'
 		contenido = $compile(contenido)($scope)
-		# if getEventDescription(event) then contenido += '<p>' + getEventDescription(event) + '</p>'
-		# if getEventDescription(event) 
-			# contenido += '<p>' + getEventDescription(event) + '</p>'
+		# if getEventDescription(evento) then contenido += '<p>' + getEventDescription(evento) + '</p>'
+		# if getEventDescription(evento) 
+			# contenido += '<p>' + getEventDescription(evento) + '</p>'
 		# else 
 			# contenido += '<p>No description</p>'
 		
@@ -315,6 +315,10 @@ angular.module('RadarApp').controller 'EventsController'
 	# Se consulta al servidor por los eventos dentro de los límites del mapa y que cumplen las condiciones
 	# de categoría e intervalo seleccionadas.
 	$scope.eventsUpdate = ->
+		
+		# console.log $scope.map.getBounds()
+		# console.log not $location.absUrl().contains('events/add')
+		
 		# Se verifica que no se obtengan los eventos en la pantalla de agregar evento.
 		if not $location.absUrl().contains('events/add') and $scope.map.getBounds()?
 			bounds = $scope.map.getBounds()
@@ -340,7 +344,7 @@ angular.module('RadarApp').controller 'EventsController'
 			, ->
 				$scope.setLocationDefault()
 
-	$scope.resetView = (event) ->
+	$scope.resetView = (evento) ->
 		$location.path('/')
 
 	$scope.saveRatingToServer = (evento, newRating) ->
@@ -477,12 +481,21 @@ angular.module('RadarApp').controller 'EventsController'
 		$scope.cargando = 'Cargando...'
 
 		# Se guarda el evento
-		$http.post('/events/add', {Event: $scope.event, Category: $scope.evento.categories})
-			.success (data) ->
+		# $http.post('/events/add', {Event: $scope.evento, Category: $scope.evento.categories})
+			# .success (data) ->
+				# # Se actualiza el mensaje
+				# $scope.cargando = '¡Evento guardado!'
+				# # window.location.pathname = 'events'
+			# .error ->
+				# # Se actualiza el mensaje
+				# $scope.cargando = 'Ocurrió un error guardando el evento'		
+		Event.save {}
+			, {Event: $scope.evento, Category: $scope.evento.categories}
+			, (data) ->
 				# Se actualiza el mensaje
 				$scope.cargando = '¡Evento guardado!'
 				window.location.pathname = 'events'
-			.error ->
+			, ->
 				# Se actualiza el mensaje
 				$scope.cargando = 'Ocurrió un error guardando el evento'
 	
@@ -516,17 +529,17 @@ angular.module('RadarApp').controller 'EventsController'
 			obj.types[0] is name and obj.types[1] is "political"
 		if result[0]? then result[0].long_name else null
 	
-	getEventCategoryIcon = (event) ->
-		event.Category.icon
+	getEventCategoryIcon = (evento) ->
+		evento.Category.icon
 	
-	getEventId = (event) ->
-		event.Event.id
+	getEventId = (evento) ->
+		evento.Event.id
 	
-	getEventTitle = (event) ->
-		event.Event.title
+	getEventTitle = (evento) ->
+		evento.Event.title
 	
-	getEventDescription = (event) ->
-		event.Event.description
+	getEventDescription = (evento) ->
+		evento.Event.description
 	
 	setUserLocationString = (location) ->
 		if location? and location.address_components?

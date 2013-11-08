@@ -35,7 +35,9 @@ if (AuthComponent::user('location')) {
 // }
 ?>
 
-<div x-ng-controller="EventsController" x-ng-init="user.location='<?php echo $userLocation; ?>'">
+<div x-ng-controller="EventsController" 
+	x-ng-init="user.locationAux='<?php echo $userLocation; ?>'
+		; user.id='<?php echo AuthComponent::user('id'); ?>'">
 
     <!-- BARRA PROGRESO -->
     <div class="row">

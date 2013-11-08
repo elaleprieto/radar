@@ -19,7 +19,7 @@ body { padding-top: 80px; }
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak { display: none !important; }
 
 /* line 18, ../../sass/layouts/default.sass */
-input { -webkit-touch-callout: text; -webkit-user-select: text; -khtml-user-select: text; -moz-user-select: text; -ms-user-select: text; user-select: text; }
+input, textarea { -webkit-touch-callout: text; -webkit-user-select: text; -khtml-user-select: text; -moz-user-select: text; -ms-user-select: text; user-select: text; }
 
 /* line 27, ../../sass/layouts/default.sass */
 .beta { border: 0; color: #bcd35f; position: absolute; top: 46px; }

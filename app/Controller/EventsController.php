@@ -44,8 +44,7 @@
          * @return void
          */
         public function add() {
-            if ($this->request->is('post') && AuthComponent::user('id')) {
-                $this->layout = 'ajax';
+            if ($this->request->is('ajax') && AuthComponent::user('id')) {
                 date_default_timezone_set('UTC');
 				
                 $data = $this->request->input('json_decode');
@@ -72,10 +71,9 @@
                 # Se crea el evento
                 $this->Event->create();
                 if(!$this->Event->save($event)) {
-                    throw new Exception('Evento inválido', 1);
+					throw new Exception('Evento inválido', 1);
+					return;
                 }
-                
-				$this->render();
             }
         }
 
