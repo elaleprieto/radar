@@ -494,7 +494,12 @@ if (AuthComponent::user('location')) {
 					ng-hide="hideCategories">
 					<i class="icon-collapse-alt"></i>
 				</button> -->
-				<p class="text-center"><?php echo __('Categories'); ?></p>
+				<p class="text-left">
+					<?php echo __('Categories'); ?>
+					<span class="label label-primary pointer pull-right" x-ng-click="showAllCategories()">
+						<?php echo __('All Categories'); ?>
+					</span>
+				</p>
 				
 				<!-- Scroll -->
 				<div id="categoryScroll">
