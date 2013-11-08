@@ -36,8 +36,8 @@ if (AuthComponent::user('location')) {
 // }
 ?>
 
-<div ng-controller="EventsController" 
-	ng-init="user.locationAux='<?php echo $userLocation; ?>'
+<div x-ng-controller="EventsController" 
+	x-ng-init="user.locationAux='<?php echo $userLocation; ?>'
 		; user.id='<?php echo AuthComponent::user('id'); ?>'">
 
 	<!-- LOGO -->
@@ -48,23 +48,23 @@ if (AuthComponent::user('location')) {
 	</div>
 
 	<!-- NORTH -->
-	<!-- <div id="north" ng-cloak>-->
-	<div ng-cloak>
+	<!-- <div id="north" x-ng-cloak>-->
+	<div x-ng-cloak>
 	
 		<!-- Button to Display or Hide North Menu -->
 		<!--
-		<div class="arrow-sponsor" ng-click="hideNorth = !hideNorth">
-			<span class="arrow btn btn-xs" ng-show="hideNorth">
+		<div class="arrow-sponsor" x-ng-click="hideNorth = !hideNorth">
+			<span class="arrow btn btn-xs" x-ng-show="hideNorth">
 				<i class="glyphicon glyphicon-chevron-left"></i>
 			</span>
-			<span class="arrow btn btn-xs" ng-hide="hideNorth">
+			<span class="arrow btn btn-xs" x-ng-hide="hideNorth">
 				<i class="glyphicon glyphicon-chevron-right"></i>
 			</span>
 		</div>
 		-->
 		
 		<!--
-		<div class="display-inline" ng-hide="hideNorth">
+		<div class="display-inline" x-ng-hide="hideNorth">
 			 <span class="menu">
 				<?php echo $this->Html->link('Espacios', '/espacios'); ?>
 			</span>
@@ -148,7 +148,7 @@ if (AuthComponent::user('location')) {
 		    		<ul class="nav navbar-nav menu-centro">
 		    			<li class="active"><a href="/"><span class="glyphicon glyphicon-calendar"></span></a></li>
 						<li><a href="/places"><span class="glyphicon glyphicon-map-marker"></span></a></li>
-						<li><a href="/events/add" ng-click="add()"><button class="btn btn-warning btn-xs pull-right">RADEA!</button></a></li>
+						<li><a href="/events/add" x-ng-click="add()"><button class="btn btn-warning btn-xs pull-right">RADEA!</button></a></li>
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
 		      			<li><a href="/about"><i class="fa fa-info-circle fa-lg"></i></a></li>
@@ -225,7 +225,7 @@ if (AuthComponent::user('location')) {
 						</a>
 					</li>
 					<li>	
-						<a href="/events/add" id="btn-radea" ng-click="add()"><button class="btn btn-warning pull-right">¡RADEAR MIS EVENTOS!</button></a>
+						<a href="/events/add" id="btn-radea" x-ng-click="add()"><button class="btn btn-warning pull-right">¡RADEAR MIS EVENTOS!</button></a>
 					</li>
 		      	<!--<li>
 		      		<a href="#"><span class="glyphicon"><img src="img/glyphicons/espacios.png"/></span> espacios</a>
@@ -350,11 +350,11 @@ if (AuthComponent::user('location')) {
 	</div>
 
 	<!-- 
-	<div id="north" class="row" ng-cloak> -->
+	<div id="north" class="row" x-ng-cloak> -->
 		
 		<!-- NAV LARGE -->
 		<!-- 
-		<nav class="navbar navbar-fixed-top" id="nav-large" ng-hide="hideNavLarge" role="navigation">
+		<nav class="navbar navbar-fixed-top" id="nav-large" x-ng-hide="hideNavLarge" role="navigation">
 			<div class="container"> -->
 				<!-- 
 				<ul class="nav navbar-nav">
@@ -374,7 +374,7 @@ if (AuthComponent::user('location')) {
 					<li class="menu"><?php echo $this->Html->link('Sobre radar', '/about') ?></li>
 					<li class="menu"><?php echo $this->Html->link('Contacto', '/contacto') ?></li>
 					<li class="menu">
-						<span ng-click="hideNavLarge = !hideNavLarge">
+						<span x-ng-click="hideNavLarge = !hideNavLarge">
 							<i class="glyphicon glyphicon-minus-sign icon-minus" title="Mostrar Menos"></i>
 						</span>
 					</li>
@@ -421,31 +421,31 @@ if (AuthComponent::user('location')) {
 	</div> -->
 
 	<!-- EAST -->
-	<div id="east" ng-cloak>
+	<div id="east" x-ng-cloak>
 			
 		<!-- Location Advertise -->
-		<div ng-cloak>
+		<div x-ng-cloak>
 			<!-- 
-			<div class="background-white alert alert-dismissable" ng-hide="showSearchLocationBar">
+			<div class="background-white alert alert-dismissable" x-ng-hide="showSearchLocationBar">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-				<strong ng-bind='user.location'></strong>
+				<strong x-ng-bind='user.location'></strong>
 				<br />
 				<?php echo __('Is not your current location?'); ?>
-				<a href="#" ng-click="showSearchLocationBar = !showSearchLocationBar">
+				<a href="#" x-ng-click="showSearchLocationBar = !showSearchLocationBar">
 					<?php echo __('Change'); ?>
 				</a> 
 			</div>
-			<div ng-show="showSearchLocationBar">
+			<div x-ng-show="showSearchLocationBar">
 				<div class="input-group">
-					<input class="form-control" ng-model="locationSearched" 
+					<input class="form-control" x-ng-model="locationSearched" 
 						placeholder="<?php echo __('City: Rome, Italy'); ?>" type="text" 
 						ui-keypress="{13:'searchLocation(locationSearched)'}" />
-					<span class="input-group-addon" ng-click="searchLocation(locationSearched)"
+					<span class="input-group-addon" x-ng-click="searchLocation(locationSearched)"
 						title="<?php echo __('Search'); ?>">
 						<i class="glyphicon glyphicon-search"></i>
 					</span>
 					
-					<span class="input-group-addon" ng-click="showSearchLocationBar = !showSearchLocationBar" 
+					<span class="input-group-addon" x-ng-click="showSearchLocationBar = !showSearchLocationBar" 
 							title="<?php echo __('Hide'); ?>">
 						<i class="glyphicon glyphicon-eye-close"></i>
 					</span>
@@ -457,11 +457,11 @@ if (AuthComponent::user('location')) {
 			<div id="rampa-east" class="hidden-xs"> </div>
 			<div class="background-black locationBar input-group input-group-sm">
 				
-				<input class="form-control" ng-model="locationSearched" ng-init="locationSearched=user.location"
+				<input class="form-control" x-ng-model="locationSearched" x-ng-init="locationSearched=user.location"
 					placeholder="<?php echo __('City: Rome, Italy'); ?>" type="text" 
 					ui-keypress="{13:'searchLocation(locationSearched)'}" />
 				<!--
-				<span class="input-group-addon" ng-click="searchLocation(locationSearched)"
+				<span class="input-group-addon" x-ng-click="searchLocation(locationSearched)"
 					title="<?php echo __('Search'); ?>">
 						<i class="glyphicon glyphicon-search"></i>
 				</span> -->
@@ -485,13 +485,13 @@ if (AuthComponent::user('location')) {
 
 		<br/>
 		<!-- CATEGORIES -->
-		<div ng-controller="CategoriesController">
-			<div id="categoriesContainer" class="background-black color-white" ng-hide="hideCategories">
+		<div x-ng-controller="CategoriesController">
+			<div id="categoriesContainer" class="background-black color-white" x-ng-hide="hideCategories">
 				
 				<!-- Titulo -->
 				<!-- 
-				<button type="button" class="close" ng-click="hideCategories = !hideCategories" 
-					ng-hide="hideCategories">
+				<button type="button" class="close" x-ng-click="hideCategories = !hideCategories" 
+					x-ng-hide="hideCategories">
 					<i class="icon-collapse-alt"></i>
 				</button> -->
 				<p class="text-left">
@@ -503,23 +503,23 @@ if (AuthComponent::user('location')) {
 				
 				<!-- Scroll -->
 				<div id="categoryScroll">
-					<div class="row categoriaLink" ng-class="{highlight:categoria.highlight}" 
-						ng-model="categoria" ng-repeat="categoria in categorias | orderBy:'Category.name'" ng-click="show(categoria)">
+					<div class="row categoriaLink" x-ng-class="{highlight:categoria.highlight}" 
+						x-ng-model="categoria" x-ng-repeat="categoria in categorias | orderBy:'Category.name'" x-ng-click="show(categoria)">
 						<div class="col-sm-3 category-icon">
 							<img class="icono-categoria" 
-								ng-src="/img/categorias/{{categoria.Category.icon}}" />
+								x-ng-src="/img/categorias/{{categoria.Category.icon}}" />
 						</div>
-						<div class="col-sm-9 item-categoria" ng-bind="categoria.Category.name"></div>
+						<div class="col-sm-9 item-categoria" x-ng-bind="categoria.Category.name"></div>
 					</div>
 				</div>
 			</div>
 				
 			<!-- Button to Display or Hide Categories -->
-			<div class="arrow-category" ng-click="hideCategories = !hideCategories">
-				<span class="arrow btn btn-xs" ng-hide="hideCategories">
+			<div class="arrow-category" x-ng-click="hideCategories = !hideCategories">
+				<span class="arrow btn btn-xs" x-ng-hide="hideCategories">
 					<i class="glyphicon glyphicon-chevron-left"></i>
 				</span>
-				<span class="arrow btn btn-xs" ng-show="hideCategories">
+				<span class="arrow btn btn-xs" x-ng-show="hideCategories">
 					<i class="glyphicon glyphicon-chevron-right"></i>
 				</span>
 			</div>
@@ -527,26 +527,26 @@ if (AuthComponent::user('location')) {
 	</div>
 	
 	<!-- WEAST -->
-	<div id="west" ng-cloak>
+	<div id="west" x-ng-cloak>
 		
 		<!-- SPONSOR -->
 		<!-- Button to Display or Hide Sponsors -->
-		<div class="arrow-sponsor background-black" ng-click="hideSponsors = !hideSponsors">
-			<span class="arrow btn btn-xs" ng-show="hideSponsors">
+		<div class="arrow-sponsor background-black" x-ng-click="hideSponsors = !hideSponsors">
+			<span class="arrow btn btn-xs" x-ng-show="hideSponsors">
 				<i class="glyphicon glyphicon-chevron-left"></i>
 			</span>
-			<span class="arrow btn btn-xs" ng-hide="hideSponsors">
+			<span class="arrow btn btn-xs" x-ng-hide="hideSponsors">
 				<i class="glyphicon glyphicon-chevron-right"></i>
 			</span>
 		</div>
 		
 		<!-- Sponsors -->
-		<div id="sponsorContainer" class="background-black" ng-hide="hideSponsors">
+		<div id="sponsorContainer" class="background-black" x-ng-hide="hideSponsors">
 			
 			<!-- Titulo -->
 			<!-- 
-			<button type="button" class="close sponsor" ng-click="hideSponsors = !hideSponsors" 
-				ng-hide="hideSponsors">
+			<button type="button" class="close sponsor" x-ng-click="hideSponsors = !hideSponsors" 
+				x-ng-hide="hideSponsors">
 				<i class="icon-collapse-alt"></i>
 			</button>
 			<p class="text-center"><?php echo __('Sponsors'); ?></p> -->
@@ -562,17 +562,17 @@ if (AuthComponent::user('location')) {
 	</div>
 
 	<!-- SOUTH -->
-	<div id="south" ng-cloak>
+	<div id="south" x-ng-cloak>
 		
 		<!-- Button to Display or Hide South Menu -->
 		<!--
-		<div class="arrow-south background-black" ng-click="hideSouthMenu = !hideSouthMenu">
+		<div class="arrow-south background-black" x-ng-click="hideSouthMenu = !hideSouthMenu">
 		-->
-		<div class="row arrow-south pull-right" ng-click="hideSouthMenu = !hideSouthMenu">
-			<span class="arrow btn btn-xs" ng-hide="hideSouthMenu">
+		<div class="row arrow-south pull-right" x-ng-click="hideSouthMenu = !hideSouthMenu">
+			<span class="arrow btn btn-xs" x-ng-hide="hideSouthMenu">
 				<i class="glyphicon glyphicon-chevron-down"></i>
 			</span>
-			<span class="arrow btn btn-xs" ng-show="hideSouthMenu">
+			<span class="arrow btn btn-xs" x-ng-show="hideSouthMenu">
 				<i class="glyphicon glyphicon-chevron-up"></i>
 			</span>
 		</div>
@@ -589,13 +589,13 @@ if (AuthComponent::user('location')) {
 						<button type="radio" data-toggle="button" class="btn disabled">
 							<?php echo __('What to do?'); ?>
 						</button>
-						<button type="radio" data-toggle="button" class="btn btn-verde " ng-click="setEventInterval(1)">
+						<button type="radio" data-toggle="button" class="btn btn-verde " x-ng-click="setEventInterval(1)">
 							<?php echo __('Today'); ?>
 						</button>
-						<button type="radio" data-toggle="button" class="btn btn-verde"  ng-click="setEventInterval(2)">
+						<button type="radio" data-toggle="button" class="btn btn-verde"  x-ng-click="setEventInterval(2)">
 							<?php echo __('Tomorrow'); ?>
 						</button>
-						<button type="radio" data-toggle="button" class="btn btn-verde" ng-click="setEventInterval(7)">
+						<button type="radio" data-toggle="button" class="btn btn-verde" x-ng-click="setEventInterval(7)">
 							<?php echo __('This Week'); ?>
 						</button>
 					</div>
@@ -605,28 +605,28 @@ if (AuthComponent::user('location')) {
 						// , array('controller'=>'events', 'action'=>'add')
 						// , array('class'=>'btn btn-warning pull-right'))
 						?>
-						<a href="/events/add" class="btn btn-warning pull-right" ng-click="add()">Agregar Evento</a>
+						<a href="/events/add" class="btn btn-warning pull-right" x-ng-click="add()">Agregar Evento</a>
 					</div>
 				</div>
 				-->	
 				<!-- Map Types -->
 				<!--
 				<div class="col-sm-4 text-right">
-					<span class="btn btn-primary" ng-click="setMapType(ROADMAP)"><?php echo __('Map'); ?></span>
-					<span class="btn btn-primary" ng-click="setMapType(SATELLITE)"><?php echo __('Satellite'); ?></span>
+					<span class="btn btn-primary" x-ng-click="setMapType(ROADMAP)"><?php echo __('Map'); ?></span>
+					<span class="btn btn-primary" x-ng-click="setMapType(SATELLITE)"><?php echo __('Satellite'); ?></span>
 				</div>
 				-->			
 								
 				<div class="col-sm-8 col-xs-10 background-black" id="btn-south">
 					<input value="1" name="interval" type="hidden">
 					<div id="eventInterval" class="control-group btn-group" data-toggle="buttons">
-						<button type="radio" data-toggle="button" class="btn btn-verde-simple " ng-click="setEventInterval(1)">
+						<button type="radio" data-toggle="button" class="btn btn-verde-simple " x-ng-click="setEventInterval(1)">
 							<?php echo __('Today'); ?>
 						</button>
-						<button type="radio" data-toggle="button" class="btn btn-verde-simple"  ng-click="setEventInterval(2)">
+						<button type="radio" data-toggle="button" class="btn btn-verde-simple"  x-ng-click="setEventInterval(2)">
 							<?php echo __('Tomorrow'); ?>
 						</button>
-						<button type="radio" data-toggle="button" class="btn btn-verde-simple" ng-click="setEventInterval(7)">
+						<button type="radio" data-toggle="button" class="btn btn-verde-simple" x-ng-click="setEventInterval(7)">
 							<?php echo __('This Week'); ?>
 						</button>
 					</div>
@@ -637,7 +637,7 @@ if (AuthComponent::user('location')) {
 						// , array('class'=>'btn btn-warning pull-right'))
 						?>
 						<!--				
-						<a href="#/events/add" class="btn btn-warning pull-right" ng-click="add()">Agregar Evento</a>
+						<a href="#/events/add" class="btn btn-warning pull-right" x-ng-click="add()">Agregar Evento</a>
 						-->
 					</div>
 				</div>
@@ -646,7 +646,7 @@ if (AuthComponent::user('location')) {
 			</div>
 	
 			<!-- Events List -->
-			<div class="row background-black" ng-hide="hideSouthMenu">
+			<div class="row background-black" x-ng-hide="hideSouthMenu">
 				<div class="col-sm-12">
 					<table id="eventsList" class="table table-striped">
 						<thead>
@@ -661,11 +661,11 @@ if (AuthComponent::user('location')) {
 							</tr>
 						</thead>
 						<tbody>
-							<tr ng-repeat="evento in eventos | orderBy:'Event.date_start'">
-								<td ng-bind="evento.Event.date_start | isodate | date:'dd/MM/yyyy HH:mm'"></td>
-								<td ng-bind="evento.Event.date_end | isodate | date:'dd/MM/yyyy HH:mm'"></td>
-								<td ng-bind="evento.Event.title"></td>
-								<td ng-bind="evento.Event.address"></td>
+							<tr x-ng-repeat="evento in eventos | orderBy:'Event.date_start'">
+								<td x-ng-bind="evento.Event.date_start | isodate | date:'dd/MM/yyyy HH:mm'"></td>
+								<td x-ng-bind="evento.Event.date_end | isodate | date:'dd/MM/yyyy HH:mm'"></td>
+								<td x-ng-bind="evento.Event.title"></td>
+								<td x-ng-bind="evento.Event.address"></td>
 								<td>
 									<i class="fa fa-thumbs-o-up" x-ng-click="saveRatingToServer(evento, 1)" x-ng-hide="evento.like"></i>
 									<i class="fa fa-thumbs-up" x-ng-click="saveRatingToServer(evento, -1)" x-ng-show="evento.like"></i>
@@ -744,7 +744,7 @@ if (AuthComponent::user('location')) {
 						<h4 class="modal-title">Modal title</h4> 
 						-->
 					</div>
-					<div ng-include src="modalURL" class="modal-body">
+					<div x-ng-include src="modalURL" class="modal-body">
 					</div>
 					<!-- 
 					<div class="modal-footer">
