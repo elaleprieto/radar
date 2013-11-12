@@ -156,7 +156,7 @@ if (AuthComponent::user('location')) {
                                                	bs-datepicker 
                                                	class="col-sm-9 form-control" 
                                                	data-date-format="dd/mm/yyyy"
-                                               	data-start-date="-1d" 
+                                               	data-start-date="-0d"
                                                 id="date_from" 
                                                 x-ng-model="evento.date_from" 
                                                 required="required" 
