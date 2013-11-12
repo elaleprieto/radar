@@ -534,7 +534,7 @@
 								<td x-ng-bind="evento.Event.date_end | isodate | date:'dd/MM/yyyy HH:mm'"></td>
 								<td x-ng-bind="evento.Event.title"></td>
 								<td x-ng-bind="evento.Event.address"></td>
-								<td class="text-center" x-ng-cloak>
+								<td class="pointer text-center" x-ng-cloak>
 									<i class="fa fa-thumbs-o-up" x-ng-click="saveRatingToServer(evento, 1)" x-ng-hide="evento.Rate.user_id"></i>
 									<i class="fa fa-thumbs-up" x-ng-click="saveRatingToServer(evento, -1)" x-ng-show="evento.Rate.user_id"></i>
 									<span x-ng-bind="evento.Event.rate"></span>
@@ -544,9 +544,10 @@
 										x-rating-value="evento.Event.rate" x-readonly="false" x-user-id="user.id" x-user-voted="evento.Rate.user_id"></div>
 								</td> -->
 								<td>
-									<a href="#" x-ng-click="openCompliantModal(evento)" x-ng-hide="evento.Compliant.user_id != null">
-										<?php echo __('Denounce'); ?>
-									</a>
+									<span class="pointer" x-ng-click="openCompliantModal(evento)" 
+										x-ng-hide="evento.Compliant.user_id != null">
+											<?php echo __('Denounce'); ?>
+									</span>
 								</td>
 							</tr>
 						</tbody>
