@@ -62,7 +62,31 @@
 					<ul class="nav navbar-nav menu-centro">
 						<li class="active"><a href="/"><span class="glyphicon glyphicon-calendar"></span></a></li>
 						<li><a href="/places"><span class="glyphicon glyphicon-map-marker"></span></a></li>
-						<li><a href="/events/add" x-ng-click="add()"><button class="btn btn-warning btn-xs pull-right">RADEA!</button></a></li>
+						
+						<?php
+						# Si el usuario es administrador se habilita el menú. 
+						if ($this->Session->read('Auth.User.role') == 'admin'): 
+						?>
+							<li>
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+									<i class="fa fa-caret-down"></i>
+									<span class="sr-only">Toggle Dropdown</span>
+								</a>
+								<ul class="dropdown-menu" role="menu">
+									<li>
+										<a href="/admin/places/add">
+											<?php echo __('Add Place'); ?>
+										</a>
+									</li>
+								</ul>
+							</li>
+						<?php endif; ?>
+						
+						<li>
+							<a href="/events/add">
+								<button class="btn btn-warning btn-xs pull-right"><?php echo __('RADEA!'); ?></button>
+							</a>
+						</li>
 					</ul>
 					
 					<!-- Nav right -->
@@ -101,14 +125,14 @@
 							</li>
 
 							<!--<?php 
-								// echo $this->Html->link('Salir', array('controller'=>'users'
+								// echo $this->Html->link(__('Logout'), array('controller'=>'users'
 								//	, 'action'=>'logout'), array('class'=>'menu menu_derecha'))
 							?>-->
 	
 							<!-- Logout de facebook -->
 							<li>
 								<?php echo $this->Facebook->logout(array(
-									'label' => 'Salir',
+									'label' => __('Logout'),
 									'redirect' => array(
 										'controller' => 'users',
 										'action' => 'logout'
@@ -119,14 +143,14 @@
 						<?php else: ?>
 							<li>
 								<?php
-									echo $this->Html->link('Ingresar', array(
+									echo $this->Html->link(__('Login'), array(
 										'controller' => 'users',
 										'action' => 'login'
 									), array('id' => 'menu_superior_derecha_verde'));
 								?>
 							</li>
 							<li>
-								<?php echo $this->Html->link('¡Registrate!', '/registrate', array('class' => 'menu_superior_derecha')); ?>
+								<?php echo $this->Html->link(__('Sign up!'), '/registrate', array('class' => 'menu_superior_derecha')); ?>
 							</li>
 						<?php endif; ?>
 					</ul>
@@ -140,7 +164,7 @@
 					<li class="active">
 						<a href="/">
 							<span class="glyphicon glyphicon-calendar"></span>
-							<?php echo __('Event'); ?> 
+							<?php echo __('Events'); ?> 
 						</a>
 					</li>
 					<li>
@@ -148,9 +172,34 @@
 							<?php echo __('Places'); ?>	
 						</a>
 					</li>
+					
+					<?php
+					# Si el usuario es administrador se habilita el menú. 
+					if ($this->Session->read('Auth.User.role') == 'admin'): 
+					?>
+						<li>
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+								<i class="fa fa-caret-down"></i>
+								<span class="sr-only">Toggle Dropdown</span>
+							</a>
+							<ul class="dropdown-menu pull-right" role="menu">
+								<li>
+									<a href="/admin/places/add">
+										<?php echo __('Add Place'); ?>
+									</a>
+								</li>
+							</ul>
+						</li>
+					<?php endif; ?>
+					
 					<li>	
-						<a href="/events/add" id="btn-radea" x-ng-click="add()">
-							<button class="btn btn-warning pull-right">¡RADEAR MIS EVENTOS!</button>
+						<a href="/events/add" id="btn-radea">
+							<button class="btn btn-warning pull-right">
+								<?php echo __('RADEAR MY EVENTS!'); ?>
+							</button>
+							<!-- <span class="btn btn-warning label">
+								<?php echo __('RADEAR MY EVENTS!'); ?>
+							</span> -->
 						</a>
 					</li>
 				</ul>
@@ -192,14 +241,14 @@
 						</li>
 				 		 
 						<!--<?php 
-								// echo $this->Html->link('Salir', array('controller'=>'users'
+								// echo $this->Html->link(__('Logout'), array('controller'=>'users'
 								//	, 'action'=>'logout'), array('class'=>'menu menu_derecha'))
 							?>-->
 
 						<!-- Logout de facebook -->
 						<li>
 							<?php echo $this->Facebook->logout(array(
-								'label' => 'Salir',
+								'label' => __('Logout'),
 								'redirect' => array(
 									'controller' => 'users',
 									'action' => 'logout'
@@ -210,14 +259,14 @@
 					<?php else: ?>
 						<li>
 							<?php
-								echo $this->Html->link('Ingresar', array(
+								echo $this->Html->link(__('Login'), array(
 									'controller' => 'users',
 									'action' => 'login'
 								), array('id' => 'menu_superior_derecha_verde'));
 							?>
 						</li>
 						<li>
-							<?php echo $this->Html->link('¡Registrate!', '/registrate', array('class' => 'menu_superior_derecha')); ?>
+							<?php echo $this->Html->link(__('Sign up!'), '/registrate', array('class' => 'menu_superior_derecha')); ?>
 						</li>
 					<?php endif; ?>
 				</ul>
