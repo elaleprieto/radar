@@ -64,12 +64,11 @@
                     </ul>
 				</div>
 			</nav>
-			<div id="header"></div>
+			
 			<div class="container">
 				<?php echo $this -> Session -> flash(); ?>
 				<?php echo $this -> fetch('content'); ?>
 			</div>
-			<div id="footer"></div>
 		</div>
 		<?php
 			echo $this->element('scripts');

@@ -21,8 +21,8 @@
       date = new Date();
       $scope.minutoEnMilisegundos = 60 * 1000;
       $scope.diaEnMilisegundos = 24 * 60 * $scope.minutoEnMilisegundos;
-      $scope.event = {};
-      $scope.event.categories = [];
+      $scope.evento = {};
+      $scope.evento.categories = [];
       $scope.descriptionSize = 500;
       $scope.capital = new google.maps.LatLng(-34.603, -58.382);
       $scope.cordoba = new google.maps.LatLng(-31.388813, -64.179726);
@@ -82,27 +82,27 @@
       });
       $scope.$watch('eventos', function() {
         $scope.deleteOverlays();
-        angular.forEach($scope.eventos, function(event, key) {
+        angular.forEach($scope.eventos, function(evento, key) {
           var latlng;
-          latlng = new google.maps.LatLng(event.Event.lat, event.Event.long);
-          return $scope.createMarker(event, latlng);
+          latlng = new google.maps.LatLng(evento.Event.lat, evento.Event.long);
+          return $scope.createMarker(evento, latlng);
         });
         return $scope.showOverlays();
       }, true);
-      $scope.$watch('event.date_from', function(newValue) {
+      $scope.$watch('evento.date_from', function(newValue) {
         if (newValue != null) {
           $('#date_to').datepicker('setDate', newValue);
           $('#date_to').datepicker('setStartDate', newValue);
           $('#date_to').datepicker('setEndDate', new Date(newValue.getTime() + (3 * $scope.diaEnMilisegundos)));
-          return $scope.event.date_to = newValue;
+          return $scope.evento.date_to = newValue;
         }
       });
-      $scope.$watch('event.time_from', function(newValue) {
+      $scope.$watch('evento.time_from', function(newValue) {
         if (newValue != null) {
           return $scope.checkTimeTo();
         }
       });
-      $scope.$watch('event.time_to', function(newValue) {
+      $scope.$watch('evento.time_to', function(newValue) {
         if (newValue != null) {
           return $scope.checkTimeTo();
         }
@@ -137,8 +137,8 @@
         if (!response || response.length === 0) {
           return this;
         }
-        $scope.event.lat = response[0].geometry.location.lat();
-        $scope.event.long = response[0].geometry.location.lng();
+        $scope.evento.lat = response[0].geometry.location.lat();
+        $scope.evento.long = response[0].geometry.location.lng();
         $scope.map.setCenter(response[0].geometry.location);
         $scope.map.setZoom(13);
         icon = new google.maps.MarkerImage("http://gmaps-samples.googlecode.com/svn/trunk/markers/blue/blank.png", new google.maps.Size(20, 34), new google.maps.Point(0, 0), new google.maps.Point(10, 34));
@@ -180,20 +180,20 @@
           return setUserLocationString(response[0]);
         }
       };
-      $scope.createMarker = function(event, latlng) {
+      $scope.createMarker = function(evento, latlng) {
         var contenido, icon, infowindow, marker;
-        icon = new google.maps.MarkerImage('/img/map-marker/' + getEventCategoryIcon(event), new google.maps.Size(30, 40), new google.maps.Point(0, 0), new google.maps.Point(10, 34));
+        icon = new google.maps.MarkerImage('/img/map-marker/' + getEventCategoryIcon(evento), new google.maps.Size(30, 40), new google.maps.Point(0, 0), new google.maps.Point(10, 34));
         marker = new google.maps.Marker({
-          eventId: getEventId(event),
+          eventId: getEventId(evento),
           map: $scope.map,
           icon: icon,
           position: latlng,
-          title: getEventTitle(event),
+          title: getEventTitle(evento),
           zIndex: Math.round(latlng.lat() * -100000) << 5
         });
         contenido = '<div>';
-        contenido += '<p>' + getEventTitle(event) + '</p>';
-        contenido += '<a ng-click="openModal(\'events/view/' + getEventId(event) + '\')">';
+        contenido += '<p>' + getEventTitle(evento) + '</p>';
+        contenido += '<a ng-click="openModal(\'events/view/' + getEventId(evento) + '\')">';
         contenido += '<p class="text-right"><i class="icon-expand-alt"></i> info</p>';
         contenido += '</a>';
         contenido += '</div>';
@@ -210,29 +210,28 @@
         if (evento.description != null) {
           if (+$scope.descriptionSize - evento.description.length < 0) {
             evento.description = evento.description.substr(0, 500);
-            console.log(evento.description);
             return event.preventDefault();
           }
         }
       };
       $scope.checkTimeTo = function() {
         var dateEnd, dateEndAux, dateFrom, dateStart, dateTo, timeFrom, timeTo;
-        if ($scope.event.time_from != null) {
-          if ($scope.event.date_from === $scope.event.date_to) {
-            dateFrom = $scope.event.date_from;
-            dateTo = $scope.event.date_to;
-            timeFrom = $scope.event.time_from.split(':');
+        if ($scope.evento.time_from != null) {
+          if ($scope.evento.date_from === $scope.evento.date_to) {
+            dateFrom = $scope.evento.date_from;
+            dateTo = $scope.evento.date_to;
+            timeFrom = $scope.evento.time_from.split(':');
             dateStart = new Date(dateFrom.getFullYear(), dateFrom.getMonth(), dateFrom.getDate(), timeFrom[0], timeFrom[1]);
             dateEnd = new Date(dateStart.getTime() + (15 * $scope.minutoEnMilisegundos));
-            if ($scope.event.time_to == null) {
-              return $scope.event.time_to = dateEnd.getHours() + ':' + dateEnd.getMinutes();
+            if ($scope.evento.time_to == null) {
+              return $scope.evento.time_to = dateEnd.getHours() + ':' + dateEnd.getMinutes();
             } else {
-              timeTo = $scope.event.time_to.split(':');
+              timeTo = $scope.evento.time_to.split(':');
               dateEndAux = new Date(dateTo.getFullYear(), dateTo.getMonth(), dateTo.getDate(), timeTo[0], timeTo[1]);
               if (dateEnd.getTime() > dateEndAux.getTime()) {
-                $scope.event.time_to = dateEnd.getHours() + ':' + dateEnd.getMinutes();
+                $scope.evento.time_to = dateEnd.getHours() + ':' + dateEnd.getMinutes();
                 if (dateEnd.getMinutes() === 0) {
-                  return $scope.event.time_to += '0';
+                  return $scope.evento.time_to += '0';
                 }
               }
             }
@@ -247,16 +246,16 @@
         return $scope.markers = [];
       };
       $scope.categoriesAdd = function(category) {
-        if ($scope.event.categories.length < 3) {
-          $scope.event.categories.push(category.Category.id);
+        if ($scope.evento.categories.length < 3) {
+          $scope.evento.categories.push(category.Category.id);
           return category.highlight = true;
         }
       };
       $scope.categoriesDelete = function(category) {
         var index;
-        index = $scope.event.categories.indexOf(category.Category.id);
+        index = $scope.evento.categories.indexOf(category.Category.id);
         if (index >= 0) {
-          $scope.event.categories.splice(index, 1);
+          $scope.evento.categories.splice(index, 1);
           return category.highlight = false;
         }
       };
@@ -299,7 +298,7 @@
           });
         }
       };
-      $scope.resetView = function(event) {
+      $scope.resetView = function(evento) {
         return $location.path('/');
       };
       $scope.saveRatingToServer = function(evento, newRating) {
@@ -364,8 +363,7 @@
       $scope.setAddress = function() {
         var request;
         request = new Object();
-        request.address = $scope.event.address;
-        request.region = 'AR';
+        request.address = $scope.evento.address;
         return $scope.geocoder.geocode(request, $scope.addAddressToMap);
       };
       $scope.setEventInterval = function(interval) {
@@ -423,18 +421,18 @@
           return this;
         }
         $scope.cargando = 'Cargando..';
-        if ($scope.event.categories.length <= 0) {
+        if ($scope.evento.categories.length <= 0) {
           $scope.cargando = 'Error: Debe seleccionar al menos una categoría';
           return console.error('Error: Debe seleccionar al menos una categoría');
         }
         $scope.cargando = 'Cargando...';
-        return $http.post('/events/add', {
-          Event: $scope.event,
-          Category: $scope.event.categories
-        }).success(function(data) {
+        return Event.save({}, {
+          Event: $scope.evento,
+          Category: $scope.evento.categories
+        }, function(data) {
           $scope.cargando = '¡Evento guardado!';
           return window.location.pathname = 'events';
-        }).error(function() {
+        }, function() {
           return $scope.cargando = 'Ocurrió un error guardando el evento';
         });
       };
@@ -464,17 +462,17 @@
           return null;
         }
       };
-      getEventCategoryIcon = function(event) {
-        return event.Category.icon;
+      getEventCategoryIcon = function(evento) {
+        return evento.Category.icon;
       };
-      getEventId = function(event) {
-        return event.Event.id;
+      getEventId = function(evento) {
+        return evento.Event.id;
       };
-      getEventTitle = function(event) {
-        return event.Event.title;
+      getEventTitle = function(evento) {
+        return evento.Event.title;
       };
-      getEventDescription = function(event) {
-        return event.Event.description;
+      getEventDescription = function(evento) {
+        return evento.Event.description;
       };
       return setUserLocationString = function(location) {
         var city, country, results;

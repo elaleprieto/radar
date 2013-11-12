@@ -35,19 +35,45 @@
         } else {
           $scope.categoriesSelected.splice($scope.categoriesSelected.indexOf(categoria.Category.id), 1);
         }
+        return $scope.setCookieCategoriesSelected();
+      };
+      $scope.hideAllCategories = function() {
+        $scope.$parent.categoriesSelected = [];
+        $scope.allCategoriesSelected = false;
+        return angular.forEach($scope.categorias, function(category, index) {
+          return category.highlight = false;
+        });
+      };
+      $scope.setCookieCategoriesSelected = function() {
         $.cookie.json = true;
         return $.cookie("categoriesSelected", $scope.categoriesSelected, {
           expires: 360,
           path: '/'
         });
       };
+      $scope.selectAllCategories = function() {
+        $scope.$parent.categoriesSelected = [];
+        $scope.allCategoriesSelected = true;
+        return angular.forEach($scope.categorias, function(category, index) {
+          category.highlight = true;
+          return $scope.categoriesSelected.push(category.Category.id);
+        });
+      };
+      $scope.showAllCategories = function() {
+        $scope.selectAllCategories();
+        return $scope.setCookieCategoriesSelected();
+      };
       return $scope.$watch('categorias.length', function() {
         var lastValEventCategory;
-        if (!location.contains('events/add')) {
-          if (($scope.categorias != null) && ($.cookie != null) && $scope.categorias.length > 0) {
+        if (!location.contains('events/add') && ($scope.categorias != null) && $scope.categorias.length > 0) {
+          if ($scope.categoriesSelected.length === 0) {
+            $scope.selectAllCategories();
+          }
+          if ($.cookie != null) {
             $.cookie.json = true;
             lastValEventCategory = $.cookie('categoriesSelected');
             if ((lastValEventCategory != null) && lastValEventCategory.length > 0) {
+              $scope.hideAllCategories();
               return angular.forEach(lastValEventCategory, function(categoryId, index) {
                 return $scope.show($scope.searchById(categoryId));
               });
