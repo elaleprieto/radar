@@ -137,7 +137,7 @@ class RatesController extends AppController {
 		
 		if ($this->request->is('post')) {
 			$evento = $this->request->input('json_decode');
-			return $this->Rate->rateEvent($evento);
+			$this->Rate->rateEvent($evento);
 			
 			// if ($this->Rate->save($rate)) {
 				// // $this->Session->setFlash(__('The rate has been saved'));

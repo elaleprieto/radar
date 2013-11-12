@@ -91,7 +91,6 @@
 		 */
 		public function rateEvent($evento = null) {
 			if ($evento && AuthComponent::user('id')) {
-				debug($evento);
 				if (!$this->userHasRated($evento)) {
 					$this->add($evento);
 				} else {
