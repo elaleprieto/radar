@@ -546,13 +546,38 @@ if (AuthComponent::user('location')) {
 			</button>
 			<p class="text-center"><?php echo __('Sponsors'); ?></p> -->
 			
-			<div class="col-sm-12">
+			
+			<!-- <div class="col-sm-12">
 				<a href="#"><?=$this->Html->image('sponsor/santafedisenia.jpg'); ?></a>
 			</div>
 			<br />
 			<div class="col-sm-12">
 				<a href="#"><?=$this->Html->image('sponsor/tallercandombe.jpg'); ?></a>
+			</div> -->
+			
+			<div class="col-sm-12">
+				<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+				<!-- Radar Lateral Derecho -->
+				<ins class="adsbygoogle"
+				     style="display:inline-block;width:300px;height:600px"
+				     data-ad-client="ca-pub-1237436927136399"
+				     data-ad-slot="4560027016"></ins>
+				<script>
+				(adsbygoogle = window.adsbygoogle || []).push({});
+				</script>
 			</div>
+			<div class="col-sm-12">
+				<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+				<!-- Radar Derecho Mediano -->
+				<ins class="adsbygoogle"
+				     style="display:inline-block;width:300px;height:250px"
+				     data-ad-client="ca-pub-1237436927136399"
+				     data-ad-slot="6939913814"></ins>
+				<script>
+				(adsbygoogle = window.adsbygoogle || []).push({});
+				</script>
+			</div>
+			
 		</div>
 	</div>
 
@@ -641,7 +666,7 @@ if (AuthComponent::user('location')) {
 			</div>
 	
 			<!-- Events List -->
-			<div class="row background-black" ng-hide="hideSouthMenu">
+			<div class="row background-black color-white" ng-hide="hideSouthMenu">
 				<div class="col-sm-12">
 					<table id="eventsList" class="table table-striped">
 						<thead>
@@ -651,7 +676,7 @@ if (AuthComponent::user('location')) {
 								<th><?php echo __('Event'); ?></th>
 								<th><?php echo __('Address'); ?></th>
 								<th><?php echo __('Like'); ?></th>
-								<th><?php echo __('Rate'); ?></th>
+								<!-- <th><?php echo __('Rate'); ?></th> -->
 								<th>&nbsp;</th>
 							</tr>
 						</thead>
@@ -664,11 +689,12 @@ if (AuthComponent::user('location')) {
 								<td>
 									<i class="fa fa-thumbs-o-up" x-ng-click="saveRatingToServer(evento, 1)" x-ng-hide="evento.like"></i>
 									<i class="fa fa-thumbs-up" x-ng-click="saveRatingToServer(evento, -1)" x-ng-show="evento.like"></i>
+									<span x-ng-bind="evento.Event.rate"></span>
 								</td>
-								<td>
+								<!-- <td>
 									<div x-fundoo-rating x-max="max" on-rating-selected="saveRatingToServer(evento, newRating)"
 										x-rating-value="evento.Event.rate" x-readonly="false" x-user-id="user.id" x-user-voted="evento.Rate.user_id"></div>
-								</td>
+								</td> -->
 								<td>
 									<a href="#" x-ng-click="openCompliantModal(evento)" x-ng-hide="evento.Compliant.user_id != null">
 										<?php echo __('Denounce'); ?>
