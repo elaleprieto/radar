@@ -42,218 +42,136 @@ if (AuthComponent::user('location')) {
 	<div id="logo">
 		<?php
 		echo $this->Html->link($this->Html->image("logo_blanco.png", array('alt' => 'logo')), '/', array('escape' => false));
- 		?>
+		?>
 	</div>
 
 	<!-- NORTH -->
-	<!-- <div id="north" x-ng-cloak>-->
 	<div x-ng-cloak>
-	
-		<!-- Button to Display or Hide North Menu -->
-		<!--
-		<div class="arrow-sponsor" x-ng-click="hideNorth = !hideNorth">
-			<span class="arrow btn btn-xs" x-ng-show="hideNorth">
-				<i class="glyphicon glyphicon-chevron-left"></i>
-			</span>
-			<span class="arrow btn btn-xs" x-ng-hide="hideNorth">
-				<i class="glyphicon glyphicon-chevron-right"></i>
-			</span>
-		</div>
-		-->
-		
-		<!--
-		<div class="display-inline" x-ng-hide="hideNorth">
-			 <span class="menu">
-				<?php echo $this->Html->link('Espacios', '/espacios'); ?>
-			</span>
-			<span class="menu">
-				<?php echo $this->Html->link('Eventos', '/'); ?>
-			</span> -->
-		<!--	
-		<div class="display-inline">
-			<span id="contactAndAbout">
-				<span class="menu">
-					<a href="/about"><i class="icon-info-sign fa-lg"></i></a>
-				</span>
-				<span class="menu">
-					<a href="/contacto"><i class="icon-envelope-alt fa-lg"></i></a>
-				</span>
-			</span>
-			
-			<span id="social">
-				<span class="menu">
-					<a href="https://twitter.com/radardecultura"><i class="icon-twitter-sign fa-lg"></i></a>
-				</span>
-				<span class="menu">
-					<a href="#"><i class="icon-facebook-sign fa-lg"></i></a>
-				</span>
-			</span>
-			-->
-			
-			<!-- Logged In User -->
-			<!--			
-			<?php if ($this->Session->read('Auth.User.name') != ''): ?>
-				<span>
-					<a href="/users/edit/<?php echo AuthComponent::user('id'); ?>"> 
-						<span><?php echo AuthComponent::user('name') ?></span>
-					</a>
-				</span>
-				 | 
-				<span>
-			-->
-			<!--<?php 
-					// echo $this->Html->link('Salir', array('controller'=>'users'
-					//	, 'action'=>'logout'), array('class'=>'menu menu_derecha'))
-				?>-->
-				<!-- Logout de facebook -->
-				<!--
-				<?php 
-				//		echo $this->Facebook->logout(array(
-				//			'label' => 'Salir',
-				//			'redirect' => array(
-				//				'controller' => 'users',
-				//				'action' => 'logout'
-				//			),
-				//	));
-	 				?>
-				</span>
-			<?php //else: ?>
-				<span>
-					<?php
-				//		echo $this->Html->link('Ingresar', array(
-				//		'controller' => 'users',
-				//		'action' => 'login'
-				//	), array('id' => 'menu_superior_derecha_verde'));
-					?>
-				</span>
-				<span>
-					<?php 
-						//echo $this->Html->link('¡Registrate!', '/registrate', array('class' => 'menu_superior_derecha')); 
-					?>
-				</span>
-			<?php endif; ?>
-		
-		</div>
-		-->		
-		<!-- North -->
 		<!-- Rampa irregular del logo -->
 		<div id="rampa"></div>
+		
 		<!-- Menú Superior -->
 		<nav class="navbar navbar-inverse" role="navigation">
+			
 			<!-- Vista para dispositivos sm y xs -->
 			<div class="visible-sm visible-xs hidden-md hidden-lg">
 				<div class="navbar-collapse collapse col-xs-12">
-		    		<ul class="nav navbar-nav menu-centro">
-		    			<li class="active"><a href="/"><span class="glyphicon glyphicon-calendar"></span></a></li>
+					<ul class="nav navbar-nav menu-centro">
+						<li class="active"><a href="/"><span class="glyphicon glyphicon-calendar"></span></a></li>
 						<li><a href="/places"><span class="glyphicon glyphicon-map-marker"></span></a></li>
 						<li><a href="/events/add" x-ng-click="add()"><button class="btn btn-warning btn-xs pull-right">RADEA!</button></a></li>
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
-		      			<li><a href="/about"><i class="fa fa-info-circle fa-lg"></i></a></li>
-		      			<li><a href="/contacto"><i class="fa fa-envelope fa-lg"></i></a></li> 
-		      			<li>
-		      				<a href="https://twitter.com/radardecultura" target="_blank">
-		      					<i class="fa fa-twitter-square fa-lg"></i>
-		      				</a>
-		      			</li>
-		      			<li>
-		      				<a href="https://www.facebook.com/RadarDeCultura" target="_blank">
-		      					<i class="fa fa-facebook-square fa-lg"></i>
-		      				</a>
-		      			</li>
-		      			<?php if ($this->Session->read('Auth.User.name') != ''): ?>
-							<li><a href="/users/edit/<?php echo AuthComponent::user('id'); ?>"> 
-								<span><?php echo AuthComponent::user('name') ?> </span>
-							</a></li>
-				 		 
-						<!--<?php 
-							// echo $this->Html->link('Salir', array('controller'=>'users'
-							//	, 'action'=>'logout'), array('class'=>'menu menu_derecha'))
-						?>-->
-						<!-- Logout de facebook -->
+						<li><a href="/about"><i class="fa fa-info-circle fa-lg"></i></a></li>
+						<li><a href="/contacto"><i class="fa fa-envelope fa-lg"></i></a></li> 
 						<li>
-							<?php echo $this->Facebook->logout(array(
-								'label' => 'Salir',
-								'redirect' => array(
-									'controller' => 'users',
-									'action' => 'logout'
-								),
-							));
-	 						?>
-	 					</li>
+							<a href="https://twitter.com/radardecultura" target="_blank">
+								<i class="fa fa-twitter-square fa-lg"></i>
+							</a>
+						</li>
+						<li>
+							<a href="https://www.facebook.com/RadarDeCultura" target="_blank">
+								<i class="fa fa-facebook-square fa-lg"></i>
+							</a>
+						</li>
+						<?php if ($this->Session->read('Auth.User.name') != ''): ?>
+							<li>
+								<a href="/users/edit/<?php echo AuthComponent::user('id'); ?>"> 
+									<span><?php echo AuthComponent::user('name') ?> </span>
+								</a>
+							</li>
+
+							<!--<?php 
+								// echo $this->Html->link('Salir', array('controller'=>'users'
+								//	, 'action'=>'logout'), array('class'=>'menu menu_derecha'))
+							?>-->
+	
+							<!-- Logout de facebook -->
+							<li>
+								<?php echo $this->Facebook->logout(array(
+									'label' => 'Salir',
+									'redirect' => array(
+										'controller' => 'users',
+										'action' => 'logout'
+									),
+								));
+								?>
+							</li>
 						<?php else: ?>
-						<li>
-							<?php
-							echo $this->Html->link('Ingresar', array(
-								'controller' => 'users',
-								'action' => 'login'
-							), array('id' => 'menu_superior_derecha_verde'));
-							?>
-						</li>
-						<li>
-							<?php echo $this->Html->link('¡Registrate!', '/registrate', array('class' => 'menu_superior_derecha')); ?>
-						</li>
+							<li>
+								<?php
+								echo $this->Html->link('Ingresar', array(
+									'controller' => 'users',
+									'action' => 'login'
+								), array('id' => 'menu_superior_derecha_verde'));
+								?>
+							</li>
+							<li>
+								<?php echo $this->Html->link('¡Registrate!', '/registrate', array('class' => 'menu_superior_derecha')); ?>
+							</li>
 						<?php endif; ?>
-		      		</ul>
+					</ul>
 				</div>
 			</div>
-		
-		<!-- Brand and toggle get grouped for better mobile display -->
-		<!--<div class="navbar-header">
-				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-radar-collapse">
-      				<span class="sr-only">Toggle navigation</span>
-      				<span class="icon-bar"></span>
-      				<span class="icon-bar"></span>
-      				<span class="icon-bar"></span>
-    			</button>
-		</div>-->
-	
+
+
 			<!-- Vista para dispositivos md y lg -->
 			<div class="navbar-collapse collapse navbar-radar-collapse visible-md visible-lg hidden-sm hidden-xs">
-		    	<ul class="nav navbar-nav menu-centro">
-		    		<li class="active">
-			    		<a href="/"><span class="glyphicon glyphicon-calendar"></span>
-			    			<?php echo __('Event'); ?> 
-			    		</a>
-		    			<!--<?php //echo $this->Html->link('Eventos', '/'); ?>-->
-		    		</li>
+				<ul class="nav navbar-nav menu-centro">
+					<li class="active">
+						<a href="/">
+							<span class="glyphicon glyphicon-calendar"></span>
+							<?php echo __('Event'); ?> 
+						</a>
+					</li>
 					<li>
 						<a href="/places"><span class="glyphicon glyphicon-map-marker"></span>
 							<?php echo __('Places'); ?>	
 						</a>
 					</li>
 					<li>	
-						<a href="/events/add" id="btn-radea" x-ng-click="add()"><button class="btn btn-warning pull-right">¡RADEAR MIS EVENTOS!</button></a>
+						<a href="/events/add" id="btn-radea" x-ng-click="add()">
+							<button class="btn btn-warning pull-right">¡RADEAR MIS EVENTOS!</button>
+						</a>
 					</li>
-		      	<!--<li>
-		      		<a href="#"><span class="glyphicon"><img src="img/glyphicons/espacios.png"/></span> espacios</a>
-				</li>-->
-		    	</ul>
+				</ul>
 				<ul class="nav navbar-nav navbar-right">
+					<li class="zoom-button">
+						<a href="#" x-ng-click="map.setZoom(map.getZoom() + 1)">
+							<span class="fa fa-search-plus"></span>
+						</a>
+					</li>
+					<li class="zoom-button">
+						<a href="#" x-ng-click="map.setZoom(map.getZoom() - 1)">
+							<span class="fa fa-search-minus"></span>
+						</a>
+					</li>
+					<li><a>|</a></li>
 					<li><a href="/about"><i class="fa fa-info-circle fa-lg"></i></a></li>
 					<li><a href="/contacto"><i class="fa fa-envelope fa-lg"></i></a></li>
 					<li><a>|</a></li>
 					<li>
-		      				<a href="https://twitter.com/radardecultura" target="_blank">
-		      					<i class="fa fa-twitter-square fa-lg"></i>
-		      				</a>
-		      			</li>
-		      			<li>
-		      				<a href="https://www.facebook.com/RadarDeCultura" target="_blank">
-		      					<i class="fa fa-facebook-square fa-lg"></i>
-		      				</a>
-		      			</li>
-		      
-		      		<?php if ($this->Session->read('Auth.User.name') != ''): ?>
+						<a href="https://twitter.com/radardecultura" target="_blank">
+							<i class="fa fa-twitter-square fa-lg"></i>
+						</a>
+					</li>
+					<li>
+						<a href="https://www.facebook.com/RadarDeCultura" target="_blank">
+							<i class="fa fa-facebook-square fa-lg"></i>
+						</a>
+					</li>
+
+					<?php if ($this->Session->read('Auth.User.name') != ''): ?>
 						<li><a href="/users/edit/<?php echo AuthComponent::user('id'); ?>"> 
 							<span><?php echo AuthComponent::user('name') ?> </span>
 							</a>
 						</li>
 				 		 
-				<!--<?php 
-						// echo $this->Html->link('Salir', array('controller'=>'users'
-						//	, 'action'=>'logout'), array('class'=>'menu menu_derecha'))
-					?>-->
+						<!--<?php 
+								// echo $this->Html->link('Salir', array('controller'=>'users'
+								//	, 'action'=>'logout'), array('class'=>'menu menu_derecha'))
+							?>-->
+
 						<!-- Logout de facebook -->
 						<li>
 							<?php echo $this->Facebook->logout(array(
@@ -265,7 +183,7 @@ if (AuthComponent::user('location')) {
 							));
 	 						?>
 	 					</li>
-						<?php else: ?>
+					<?php else: ?>
 						<li>
 							<?php
 							echo $this->Html->link('Ingresar', array(
@@ -277,146 +195,12 @@ if (AuthComponent::user('location')) {
 						<li>
 							<?php echo $this->Html->link('¡Registrate!', '/registrate', array('class' => 'menu_superior_derecha')); ?>
 						</li>
-						<?php endif; ?>
-		      
-			    		<!--
-						<div class="display-inline">
-				  			<span id="contactAndAbout">
-								<span class="menu">
-									<a href="/about"><i class="fa fa-info-circle fa-lg"></i></a>
-								</span>
-								<span class="menu">
-									<a href="/contacto"><i class="fa fa-envelope-alt fa-lg"></i></a>
-								</span>
-							</span>
-			
-							<span id="social">
-								<span class="menu">
-									<a href="https://twitter.com/radardecultura"><i class="fa fa-twitter-sign fa-lg"></i></a>
-								</span>
-								<span class="menu">
-									<a href="#"><i class="fa fa-facebook-sign fa-lg"></i></a>
-								</span>
-							</span>
-	 						-->		
-							<!-- Logged In User -->
-							<!--
-							<?php //if ($this->Session->read('Auth.User.name') != ''): ?>
-							<span>
-								<a href="/users/edit/<?php echo AuthComponent::user('id'); ?>"> 
-									<span><?php echo AuthComponent::user('name') ?></span>
-								</a>
-							</span>
-				 			| 
-							<span>
-							-->			
-							<!--
-							<?php 
-								// echo $this->Html->link('Salir', array('controller'=>'users'
-								//	, 'action'=>'logout'), array('class'=>'menu menu_derecha'))
-							?>-->
-							<!-- Logout de facebook -->
-							<!--
-								<?php //echo $this->Facebook->logout(array(
-					  				//	'label' => 'Salir',
-					  				//			'redirect' => array(
-									//			'controller' => 'users',
-									//			'action' => 'logout'
-									//		),
-									//	));
-	 							?>
-							</span>
-							<?php //else: ?>
-							<span>
-							<?php
-								//echo $this->Html->link('Ingresar', array(
-								//		'controller' => 'users',
-								//			'action' => 'login'
-								//	), array('id' => 'menu_superior_derecha_verde'));
-							?>
-							</span>
-							<span>
-								<?php //echo $this->Html->link('¡Registrate!', '/registrate', array('class' => 'menu_superior_derecha')); ?>
-							</span>
-							<?php //endif; ?>
-			
-						</div>
-						-->
+					<?php endif; ?>
 				</ul>
 			</div><!-- /.navbar-collapse -->
 		</nav>
 	</div>
 
-	<!-- 
-	<div id="north" class="row" x-ng-cloak> -->
-		
-		<!-- NAV LARGE -->
-		<!-- 
-		<nav class="navbar navbar-fixed-top" id="nav-large" x-ng-hide="hideNavLarge" role="navigation">
-			<div class="container"> -->
-				<!-- 
-				<ul class="nav navbar-nav">
-					<li>
-						<?php echo $this->Html->link($this->Html->image("logo_radar_blanco.png", array('alt' => 'logo')), '/', array(
-							'class' => 'menu_icono',
-							'style' => 'padding-top: 8px',
-							'escape' => false
-						));
- 						?>
-					</li>
-				</ul> -->
-				<!-- 
-				<ul class="nav navbar-nav" id="menu_superior">
-					<li class="menu"><?php echo $this->Html->link('Espacios', '/espacios') ?></li>
-					<li class="menu"><?php echo $this->Html->link('Eventos', '/') ?></li>
-					<li class="menu"><?php echo $this->Html->link('Sobre radar', '/about') ?></li>
-					<li class="menu"><?php echo $this->Html->link('Contacto', '/contacto') ?></li>
-					<li class="menu">
-						<span x-ng-click="hideNavLarge = !hideNavLarge">
-							<i class="glyphicon glyphicon-minus-sign icon-minus" title="Mostrar Menos"></i>
-						</span>
-					</li>
-				</ul>
-				<ul id="menu_superior_derecha" class="nav navbar-nav navbar-right">
-					<?php if ($this->Session->read('Auth.User.name') != ''): ?>
-					<li>
-						<a href="/users/edit/<?php echo AuthComponent::user('id'); ?>"> 
-							<span><?php echo AuthComponent::user('name') ?></span>
-						</a>
-					</li>
-					<li> 
-					-->
-				<!--<?php 
-						// echo $this->Html->link('Salir', array('controller'=>'users'
-						//	, 'action'=>'logout'), array('class'=>'menu menu_derecha'))
-					?>-->
-					<!-- Logout de facebook -->
-					<?php
-					// echo $this->Facebook->logout(array(
-					// 'label' => 'Salir',
-					// 'redirect' => array(
-					// 'controller' => 'users',
-					// 'action' => 'logout'
-					// ),
-					// ));
-					 ?>
-					<!-- 
-					</li>
-					<?php else: ?>
-					<li>
-						<?php
-							//echo $this->Html->link('Ingresar', array('controller'=>'users'
-							//	, 'action'=>'login'),  array('id'=>'menu_superior_derecha_verde'))
-						?>
-					</li>
-					<li>
-						<?php //echo $this->Html->link('¡Registrate!', '/registrate', array('class'=>'menu_superior_derecha'))?>
-					</li>
-					<?php endif ?>
-				</ul>
-			</div>
-		</nav> 
-	</div> -->
 
 	<!-- EAST -->
 	<div id="east" x-ng-cloak>
@@ -628,35 +412,29 @@ if (AuthComponent::user('location')) {
 					<span class="btn btn-primary" x-ng-click="setMapType(SATELLITE)"><?php echo __('Satellite'); ?></span>
 				</div>
 				-->			
-								
+
 				<div class="col-sm-8 col-xs-10 background-black" id="btn-south">
 					<input value="1" name="interval" type="hidden">
-					<div id="eventInterval" class="control-group btn-group" data-toggle="buttons">
-						<button type="radio" data-toggle="button" class="btn btn-verde-simple " x-ng-click="setEventInterval(1)">
-							<?php echo __('Today'); ?>
+					<div id="eventInterval" class="control-group btn-group">
+						<button type="radio" class="btn btn-verde-simple " 
+							x-ng-class="{'active': eventInterval == 1}" x-ng-click="setEventInterval(1)">
+								<?php echo __('Today'); ?>
 						</button>
-						<button type="radio" data-toggle="button" class="btn btn-verde-simple"  x-ng-click="setEventInterval(2)">
-							<?php echo __('Tomorrow'); ?>
+						<button type="radio" class="btn btn-verde-simple" 
+							x-ng-class="{'active': eventInterval == 2}" x-ng-click="setEventInterval(2)">
+								<?php echo __('Tomorrow'); ?>
 						</button>
-						<button type="radio" data-toggle="button" class="btn btn-verde-simple" x-ng-click="setEventInterval(7)">
-							<?php echo __('This Week'); ?>
+						<button type="radio" class="btn btn-verde-simple" 
+							x-ng-class="{'active': eventInterval == 7}" x-ng-click="setEventInterval(7)">
+								<?php echo __('This Week'); ?>
 						</button>
-					</div>
-					<div id="eventInterval" class="control-group btn-group pull-right">
-						<?php
-						// echo $this->Html->link(__('Add Event')
-						// , array('controller'=>'events', 'action'=>'add')
-						// , array('class'=>'btn btn-warning pull-right'))
-						?>
-						<!--				
-						<a href="#/events/add" class="btn btn-warning pull-right" x-ng-click="add()">Agregar Evento</a>
-						-->
 					</div>
 				</div>
+				
 				<!-- Rampa inferior, se oculta para dispositivos xs -->
 				<div class="col-sm-1 hidden-xs" id="rampa-south"> </div>
 			</div>
-	
+
 			<!-- Events List -->
 			<div class="row background-black color-white" ng-hide="hideSouthMenu">
 				<div class="col-sm-12">
@@ -667,7 +445,7 @@ if (AuthComponent::user('location')) {
 								<th><?php echo __('Date End'); ?></th>
 								<th><?php echo __('Event'); ?></th>
 								<th><?php echo __('Address'); ?></th>
-								<th><?php echo __('Like'); ?></th>
+								<th class="text-center"><?php echo __('Like'); ?></th>
 								<!-- <th><?php echo __('Rate'); ?></th> -->
 								<th>&nbsp;</th>
 							</tr>
@@ -678,7 +456,7 @@ if (AuthComponent::user('location')) {
 								<td x-ng-bind="evento.Event.date_end | isodate | date:'dd/MM/yyyy HH:mm'"></td>
 								<td x-ng-bind="evento.Event.title"></td>
 								<td x-ng-bind="evento.Event.address"></td>
-								<td x-ng-cloak>
+								<td class="text-center" x-ng-cloak>
 									<i class="fa fa-thumbs-o-up" x-ng-click="saveRatingToServer(evento, 1)" x-ng-hide="evento.Rate.user_id"></i>
 									<i class="fa fa-thumbs-up" x-ng-click="saveRatingToServer(evento, -1)" x-ng-show="evento.Rate.user_id"></i>
 									<span x-ng-bind="evento.Event.rate"></span>
