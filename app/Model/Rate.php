@@ -125,8 +125,8 @@
 		public function userHasRated($evento = null) {
 			if ($evento && AuthComponent::user('id')) {
 				$options['conditions'] = array(
-					'event_id' => $evento->Event->id,
-					'user_id' => AuthComponent::user('id')
+					'Rate.event_id' => $evento->Event->id,
+					'Rate.user_id' => AuthComponent::user('id')
 				);
 				$rate = $this->find('first', $options);
 				return sizeof($rate) > 0;
