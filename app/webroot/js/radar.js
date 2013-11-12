@@ -260,9 +260,10 @@
             var b, d, e, f, g;
             for (f = c.markers, g = [], d = 0, e = f.length; e > d; d++) b = f[d], g.push(b.setMap(a));
             return g;
-        }, c.setAddress = function() {
-            var a;
-            return a = new Object(), a.address = c.evento.address, c.geocoder.geocode(a, c.addAddressToMap);
+        }, c.setAddress = function(a) {
+            var b;
+            return null != a && a.preventDefault(), b = new Object(), b.address = c.evento.address, 
+            c.geocoder.geocode(b, c.addAddressToMap);
         }, c.setEventInterval = function(a) {
             return c.eventInterval = a;
         }, c.setLocation = function() {
@@ -495,9 +496,10 @@
             var b, d, e, f, g;
             for (f = c.markers, g = [], d = 0, e = f.length; e > d; d++) b = f[d], g.push(b.setMap(a));
             return g;
-        }, c.setAddress = function() {
-            var a;
-            return a = new Object(), a.address = c.place.address, a.region = "AR", c.geocoder.geocode(a, c.addAddressToMap);
+        }, c.setAddress = function(a) {
+            var b;
+            return null != a && a.preventDefault(), b = new Object(), b.address = c.place.address, 
+            b.region = "AR", c.geocoder.geocode(b, c.addAddressToMap);
         }, c.setPlaceInterval = function(a) {
             return c.placeInterval = a;
         }, c.setLocation = function() {

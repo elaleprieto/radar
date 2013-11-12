@@ -75,22 +75,23 @@ if (AuthComponent::user('location')) {
         						<!-- Title -->
         						<div class="row form-group">
                                 	<label for="EventTitle"><?php echo __('Title');?></label>
-                                    <input autofocus="true" class="textbox form-control" id="EventTitle" maxlength="255" 
-                                        x-ng-model="evento.title" required="required" type="text">
+                                    <input autofocus="true" class="capitalize form-control textbox" id="EventTitle" 
+                                    	maxlength="255" required="required" type="text"
+                                    	x-ng-model="evento.title" />
         						</div>
         							
         						<!-- Address -->
         						<div class="row">
         							<div class="form-group">
-										<!-- <input class="span2" id="appendedInputButton" type="text"> -->
 	                                    <label for="EventAddress"><?php echo __('Address');?></label>
 	                            		<div class="input-group input-group-sm">
-	                            			<input class="textbox col-sm-11 form-control" id="EventAddress" maxlength="255" 
-	                                            x-ng-model="evento.address" required="required" type="text">
+	                            			<input class="capitalize col-sm-11 form-control textbox" id="EventAddress" 
+	                            				maxlength="255" required="required" type="text" 
+	                            				ui-keypress="{13:'setAddress($event)'}" x-ng-model="evento.address" />
 											<span class="input-group-btn">
 												<button class="btn btn-default" x-ng-click="setAddress()" type="button">
 													 <span class="glyphicon glyphicon-map-marker"></span>
-												</button>	
+												</button>
 											</span>
 	                            		</div>
 									</div>

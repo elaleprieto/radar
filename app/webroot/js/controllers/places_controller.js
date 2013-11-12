@@ -313,8 +313,11 @@
         }
         return _results;
       };
-      $scope.setAddress = function() {
+      $scope.setAddress = function(event) {
         var request;
+        if (event != null) {
+          event.preventDefault();
+        }
         request = new Object();
         request.address = $scope.place.address;
         request.region = 'AR';
