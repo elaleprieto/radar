@@ -1,25 +1,25 @@
 <?php
 	# Styles
-	echo $this -> Html -> css(array(
-		'//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css',
+	echo $this->Html->css(array(
 		'inicio',
-		'places/index'
+		'places/index',
+		'//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css'
 	), '', array('inline' => false));
 
 	# User Location
 	if (AuthComponent::user('location')) {
 		$userLocation = AuthComponent::user('location');
 	} else {
-		$ip = $this -> request -> clientIp();
+		$ip = $this->request->clientIp();
 		if ($ip == '127.0.0.1')
 			$ip = '190.183.62.72';
 		$ipData = @json_decode(file_get_contents("http://www.geoplugin.net/json.gp?ip=" . $ip));
-		if ($ipData && $ipData -> geoplugin_countryName != null) {
-			$userLocation = $ipData -> geoplugin_city . ', ' . $ipData -> geoplugin_countryName;
+		if ($ipData && $ipData->geoplugin_countryName != null) {
+			$userLocation = $ipData->geoplugin_city . ', ' . $ipData->geoplugin_countryName;
 
 			# Se guarda el userLocation
 			if ($userId = AuthComponent::user('id')) {
-				$this -> requestAction("/users/setLocation/$userId/$userLocation");
+				$this->requestAction("/users/setLocation/$userId/$userLocation");
 			}
 		} else {
 			$userLocation = null;
@@ -28,231 +28,142 @@
 ?>
 
 <div ng-controller="PlacesController" ng-init="user.locationAux='<?php echo $userLocation; ?>'">
-	<!--
-	<div class="row">
-		<div class="col-sm-8">
-			<div class="row">
-				<!-- Error Message -->
-				<!--	
-				<div class="col-sm-4" ng-show="errorLocation" ng-cloak>
-					<span class="alert" ng-bind="errorLocation"></span>
-				</div>
-			</div><br>
-		</div>
-	</div>
-	-->
 	<!-- LOGO -->
 	<div id="logo">
-		<?php echo $this -> Html -> link($this -> Html -> image("logo_blanco.png", array('alt' => 'logo')), '/', array('escape' => false)); ?>
+		<?php echo $this->Html->link($this->Html->image("logo_blanco.png", array('alt' => 'logo')), '/', array('escape' => false)); ?>
 	</div>
 
 	<!-- NORTH -->
-	<!--	
-	<div id="north" class="row" ng-cloak>
-	-->		
-		<!-- NAV SMALL -->
-		<!--
-		<nav class="navbar navbar-default navbar-fixed-top" id="nav-small" ng-show="hideNavLarge" role="navigation">
-			<div class="container">
-				<div class="navbar-header">
-					<button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-					</button>
-					<a href="#" class="navbar-brand">RADAR</a>
-				</div>
-				<div class="collapse navbar-collapse">
-					<ul class="nav navbar-nav">
-						<li class="menu"><?php echo $this->Html->link('Espacios', '/espacios') ?></li>
-						<li class="menu"><?php echo $this->Html->link('Eventos', '/') ?></li>
-						<li class="menu"><?php echo $this->Html->link('Sobre radar', '/about') ?></li>
-						<li class="menu"><?php echo $this->Html->link('Contacto', '/contacto') ?></li>
-					</ul>
-					<ul class="nav navbar-nav navbar-right">
-						<li class="menu">
-							<span ng-click="hideNavLarge = !hideNavLarge" >
-								<i class="glyphicon glyphicon-plus-sign icon-plus" title="Mostrar Más"></i>
-							</span>
-						</li>
-					</ul>
-				</div><!--/.nav-collapse -->
-			<!--		
-			</div>
-		</nav>
-		-->
-		<!-- NAV LARGE -->
-		<!--		
-		<nav class="navbar navbar-fixed-top" id="nav-large" ng-hide="hideNavLarge" role="navigation">
-			<div class="container">
-				<ul class="nav navbar-nav">
-					<li>
-						<?php 	//echo $this->Html->link($this->Html->image("logoBeta.png", array('alt' => 'logo')), '/', array(
-								//	'class' => 'menu_icono',
-								//	'style' => 'padding-top: 8px',
-								//	'escape' => false
-								//));
- 						?>
-					</li>
-				</ul>
-				<ul class="nav navbar-nav" id="menu_superior">
-					<li class="menu"><?php echo $this->Html->link('Espacios', '/espacios') ?></li>
-					<li class="menu"><?php echo $this->Html->link('Eventos', '/') ?></li>
-					<li class="menu"><?php echo $this->Html->link('Sobre radar', '/about') ?></li>
-					<li class="menu"><?php echo $this->Html->link('Contacto', '/contacto') ?></li>
-					<li class="menu">
-						<span ng-click="hideNavLarge = !hideNavLarge">
-							<i class="glyphicon glyphicon-minus-sign icon-minus" title="Mostrar Menos"></i>
-						</span>
-					</li>
-				</ul>
-				<ul id="menu_superior_derecha" class="nav navbar-nav navbar-right">
-					<?php if ($this->Session->read('Auth.User.name') != ''): ?>
-					<li>
-						<a href="/users/edit/<?php echo AuthComponent::user('id'); ?>"> 
-							<span><?php echo AuthComponent::user('name') ?></span>
-						</a>
-					</li>
-					<li>
-						<!--
-						<?php 
-							// echo $this->Html->link('Salir', array('controller'=>'users'
-							//	, 'action'=>'logout'), array('class'=>'menu menu_derecha'))
-						?>
-						-->
-						<!-- Logout de facebook -->
-						<!--						
-						<?php 	//echo $this->Facebook->logout(array(
-								//	'label' => 'Salir',
-								//	'redirect' => array(
-								//		'controller' => 'users',
-								//		'action' => 'logout'
-								//	),
-								//));
- 						?>
-					</li>
-					<?php else: ?>
-					<li>
-						<?php
-							//echo $this->Html->link('Ingresar', array('controller'=>'users'
-							//, 'action'=>'login'),  array('id'=>'menu_superior_derecha_verde'))
-						?>
-					</li>
-					<li>
-						<?php //echo $this->Html->link('¡Registrate!', '/registrate', array('class'=>'menu_superior_derecha'))?>
-					</li>
-					<?php endif ?>
-				</ul>
-			</div>
-		</nav>
-	</div>
-	-->
 	<div ng-cloak>
 		<div id="rampa"></div>
 		<nav class="navbar navbar-inverse" role="navigation">
+			
 			<!-- Vista para dispositivos sm y xs -->
 			<div class="visible-sm visible-xs hidden-md hidden-lg">
 				<div class="navbar-collapse collapse col-xs-12">
-		    		<ul class="nav navbar-nav menu-centro">
-		    			<li><a href="/"><span class="glyphicon glyphicon-calendar"></span></a></li>
+					<ul class="nav navbar-nav menu-centro">
+						<li><a href="/"><span class="glyphicon glyphicon-calendar"></span></a></li>
 						<li class="active"><a href="/places"><span class="glyphicon glyphicon-map-marker"></span></a></li>
 						<li><a href="/events/add" ng-click="add()"><button class="btn btn-warning btn-xs pull-right">RADEA!</button></a></li>
 					</ul>
+					
+					<!-- Nav right -->
 					<ul class="nav navbar-nav navbar-right">
-		      			<li><a href="/about"><i class="icon-info-sign icon-large"></i></a></li>
-		      			<li><a href="/contacto"><i class="icon-envelope icon-large"></i></a></li> 
-		      			<li><a href="https://twitter.com/radardecultura"  target="_blank"><i class="icon-twitter-sign icon-large"></i></a></li>
-		      			<li><a href="https://www.facebook.com/RadarDeCultura"  target="_blank"><i class="icon-facebook-sign icon-large"></i></a></li>
-		      			<?php if ($this->Session->read('Auth.User.name') != ''): ?>
-						<li><a href="/users/edit/<?php echo AuthComponent::user('id'); ?>"> 
-								<span><?php echo AuthComponent::user('name') ?> </span>
+						
+						<!-- Zoom -->
+						<li class="zoom-button">
+							<a href="#" x-ng-click="map.setZoom(map.getZoom() + 1)">
+								<span class="fa fa-search-plus"></span>
 							</a>
 						</li>
-						<li>
-							<?php echo $this -> Facebook -> logout(array(
-								'label' => 'Salir',
-								'redirect' => array(
-									'controller' => 'users',
-									'action' => 'logout'
-								),
-							));
-	 						?>
-	 					</li>
+						<li class="zoom-button">
+							<a href="#" x-ng-click="map.setZoom(map.getZoom() - 1)">
+								<span class="fa fa-search-minus"></span>
+							</a>
+						</li>
+						
+						
+						<li><a href="/about"><i class="fa fa-info-sign fa-lg"></i></a></li>
+						<li><a href="/contacto"><i class="fa fa-envelope fa-lg"></i></a></li> 
+						<li><a href="https://twitter.com/radardecultura"  target="_blank"><i class="fa fa-twitter-square fa-lg"></i></a></li>
+						<li><a href="https://www.facebook.com/RadarDeCultura"  target="_blank"><i class="fa fa-facebook-square fa-lg"></i></a></li>
+						
+						<?php if ($this->Session->read('Auth.User.name') != ''): ?>
+							<li><a href="/users/edit/<?php echo AuthComponent::user('id'); ?>"> 
+									<span><?php echo AuthComponent::user('name') ?> </span>
+								</a>
+							</li>
+							<li>
+								<?php echo $this->Facebook->logout(array(
+									'label' => 'Salir',
+									'redirect' => array(
+										'controller' => 'users',
+										'action' => 'logout'
+									),
+								));
+								?>
+							</li>
 						<?php else: ?>
-						<li>
-							<?php
-								echo $this -> Html -> link('Ingresar', array(
-									'controller' => 'users',
-									'action' => 'login'
-								), array('id' => 'menu_superior_derecha_verde'));
-							?>
-						</li>
-						<li>
-							<?php echo $this -> Html -> link('¡Registrate!', '/registrate', array('class' => 'menu_superior_derecha')); ?>
-						</li>
+							<li>
+								<?php
+									echo $this->Html->link('Ingresar', array(
+										'controller' => 'users',
+										'action' => 'login'
+									), array('id' => 'menu_superior_derecha_verde'));
+								?>
+							</li>
+							<li>
+								<?php echo $this->Html->link('¡Registrate!', '/registrate', array('class' => 'menu_superior_derecha')); ?>
+							</li>
 						<?php endif; ?>
-		      		</ul>
+					</ul>
 				</div>
 			</div>
+
 			<!-- Vista para dispositivos md y lg -->
 			<div class="navbar-collapse collapse navbar-radar-collapse visible-md visible-lg hidden-sm hidden-xs">
-			    <ul class="nav navbar-nav menu-centro">
-			    	<li>
-		    			<a href="/"><span class="glyphicon glyphicon-calendar"></span><?php echo __('Event'); ?></a>
-			    		<!--<?php echo $this->Html->link('Eventos', '/'); ?>-->
-			    	</li>
+				<ul class="nav navbar-nav menu-centro">
+					<li>
+					<a href="/"><span class="glyphicon glyphicon-calendar"></span><?php echo __('Event'); ?></a>
+					</li>
 					<li class="active">
 						<a href="/places"><span class="glyphicon glyphicon-map-marker"></span><?php echo __('Places'); ?></a>
 					</li>
 					<li>	
 						<a href="/events/add" id="btn-radea" ng-click="add()"><button class="btn btn-warning pull-right">¡RADEAR MIS EVENTOS!</button></a>
 					</li>
-			      	<!--<li>
-		    	  		<a href="#"><span class="glyphicon"><img src="img/glyphicons/espacios.png"/></span> espacios</a>
-					</li>-->
-		    	</ul>
-		    	<ul class="nav navbar-nav navbar-right">
-		      		<li><a href="/about"><i class="icon-info-sign icon-large"></i></a></li>
-		      		<li><a href="/contacto"><i class="icon-envelope icon-large"></i></a></li> 
-		      		<li><a>|</a></li> 
-		      		<li><a href="https://twitter.com/radardecultura" target="_blank"><i class="icon-twitter-sign icon-large"></i></a></li>
-		      		<li><a href="https://www.facebook.com/RadarDeCultura"  target="_blank"><i class="icon-facebook-sign icon-large"></i></a></li>
-		      
-		      		<?php if ($this->Session->read('Auth.User.name') != ''): ?>
-					<li><a href="/users/edit/<?php echo AuthComponent::user('id'); ?>"> 
-						<span><?php echo AuthComponent::user('name') ?> </span>
+				</ul>
+				
+				<!-- Nav right -->
+				<ul class="nav navbar-nav navbar-right">
+					
+					<!-- Zoom -->
+					<li class="zoom-button">
+						<a href="#" x-ng-click="map.setZoom(map.getZoom() + 1)">
+							<span class="fa fa-search-plus"></span>
 						</a>
 					</li>
-				 		 
-					<!--
-					<?php 
-						// echo $this->Html->link('Salir', array('controller'=>'users'
-						//	, 'action'=>'logout'), array('class'=>'menu menu_derecha'))
-					?>
-					-->
-					<!-- Logout de facebook -->
-					<li>
-						<?php echo $this -> Facebook -> logout(array(
-							'label' => 'Salir',
-							'redirect' => array(
-								'controller' => 'users',
-								'action' => 'logout'
-							),
-						));
-	 					?>
-	 				</li>
+					<li class="zoom-button">
+						<a href="#" x-ng-click="map.setZoom(map.getZoom() - 1)">
+							<span class="fa fa-search-minus"></span>
+						</a>
+					</li>
+					
+					<li><a href="/about"><i class="fa fa-info-sign fa-lg"></i></a></li>
+					<li><a href="/contacto"><i class="fa fa-envelope fa-lg"></i></a></li> 
+					<li><a>|</a></li> 
+					<li><a href="https://twitter.com/radardecultura" target="_blank"><i class="fa fa-twitter-square fa-lg"></i></a></li>
+					<li><a href="https://www.facebook.com/RadarDeCultura"  target="_blank"><i class="fa fa-facebook-square fa-lg"></i></a></li>
+
+					<?php if ($this->Session->read('Auth.User.name') != ''): ?>
+						<li><a href="/users/edit/<?php echo AuthComponent::user('id'); ?>"> 
+							<span><?php echo AuthComponent::user('name') ?> </span>
+							</a>
+						</li>
+	
+						<!-- Logout de facebook -->
+						<li>
+							<?php echo $this->Facebook->logout(array(
+								'label' => 'Salir',
+								'redirect' => array(
+									'controller' => 'users',
+									'action' => 'logout'
+								),
+							));
+		 					?>
+		 				</li>
 					<?php else: ?>
-					<li>
-						<?php
-							echo $this -> Html -> link('Ingresar', array(
-								'controller' => 'users',
-								'action' => 'login'
-							), array('id' => 'menu_superior_derecha_verde'));
-						?>
-					</li>
-					<li>
-						<?php echo $this -> Html -> link('¡Registrate!', '/registrate', array('class' => 'menu_superior_derecha')); ?>
-					</li>
+						<li>
+							<?php
+								echo $this->Html->link('Ingresar', array(
+									'controller' => 'users',
+									'action' => 'login'
+								), array('id' => 'menu_superior_derecha_verde'));
+							?>
+						</li>
+						<li>
+							<?php echo $this->Html->link('¡Registrate!', '/registrate', array('class' => 'menu_superior_derecha')); ?>
+						</li>
 					<?php endif; ?>
 				</ul>
 			</div>
@@ -349,107 +260,66 @@
 				</span>
 			</div>
 		</div>
-
-		<!--		
-		<div ng-controller="CategoriesController">
-			<div class="row">
-				<div class="col-sm-12">
-					<div id="categoriesContainer" class="background-white display-inline" ng-hide="hideCategories">
-						
-						<!-- Titulo -->
-						<!--					
-						<button type="button" class="close" ng-click="hideCategories = !hideCategories" 
-							ng-hide="hideCategories">
-								<i class="icon-collapse-alt"></i>
-						</button>
-						<p class="text-center"><?php echo __('Categories'); ?></p>
-						
-						<!-- Scroll -->
-						<!--						
-						<div id="categoryScroll">
-							<div class="row categoriaLink" ng-class="{highlight:categoria.highlight}" 
-								ng-model="categoria" ng-repeat="categoria in categorias | orderBy:'Category.name'" ng-click="show(categoria)">
-								<div class="col-sm-3">
-									<img class="icono-categoria" 
-										ng-src="/img/categorias/{{categoria.Category.icon}}" />
-								</div>
-								<div class="col-sm-9 item-categoria" ng-bind="categoria.Category.name"></div>
-							</div>
-						</div>
-					</div>
-					
-					<!-- Button to Display or Hide Categories -->
-					<!--
-					<div class="display-inline" ng-click="hideCategories = !hideCategories">
-						<span class="btn btn-primary btn-xs" ng-show="hideCategories">
-							<i class="icon-caret-right"></i>
-						</span>
-					</div>
-				</div>
-			</div>
-		</div>
-		-->
 	</div>
 	
 	<!-- WEAST -->
 	<div id="west" ng-cloak>
 		
 		<!-- SPONSOR -->
-		<!--	
-		<div class="row">
-			<div class="col-sm-12">
-		-->		
-				<!-- Button to Display or Hide Sponsors -->
-				<!--				
-				<div class="display-inline" ng-click="hideSponsors = !hideSponsors">
-					<span class="btn btn-primary btn-xs" ng-show="hideSponsors">
-						<i class="icon-caret-left"></i>
-					</span>
-					<!-- <span class="btn btn-primary" ng-hide="hideSponsors">
-						<i class="glyphicon glyphicon-chevron-right"></i>
-					</span> -->
-				<!--			
-				</div>
-				-->				
-				<!-- Button to Display or Hide Sponsors -->
-		 		<div class="arrow-sponsor background-black" ng-click="hideSponsors = !hideSponsors">
-					<span class="arrow btn btn-xs" ng-show="hideSponsors">
-						<i class="glyphicon glyphicon-chevron-left"></i>
-					</span>
-					<span class="arrow btn btn-xs" ng-hide="hideSponsors">
-						<i class="glyphicon glyphicon-chevron-right"></i>
-					</span>
-				</div>
+		
+		<!-- Button to Display or Hide Sponsors -->
+ 		<div class="arrow-sponsor background-black" ng-click="hideSponsors = !hideSponsors">
+			<span class="arrow btn btn-xs" ng-show="hideSponsors">
+				<i class="glyphicon glyphicon-chevron-left"></i>
+			</span>
+			<span class="arrow btn btn-xs" ng-hide="hideSponsors">
+				<i class="glyphicon glyphicon-chevron-right"></i>
+			</span>
+		</div>
 
-				<!-- Sponsors	 -->
-				<div id="sponsorContainer" class="background-black"  ng-hide="hideSponsors">
-					
-					<!-- Titulo -->
-					<!--					
-					<button type="button" class="close sponsor" ng-click="hideSponsors = !hideSponsors" 
-						ng-hide="hideSponsors">
-						<i class="icon-collapse-alt"></i>
-					</button>
-					<p class="text-center"><?php echo __('Sponsors'); ?></p>
-					-->					
-					<div class="col-sm-12">
-						<a href="#"><?=$this -> Html -> image('sponsor/santafedisenia.jpg'); ?></a>
-					</div>
-					<div class="col-sm-12">
-						<a href="#"><?=$this -> Html -> image('sponsor/tallercandombe.jpg'); ?></a>
-					</div>
-				</div>
+		<!-- Sponsors	 -->
+		<div id="sponsorContainer" class="background-black text-center"  ng-hide="hideSponsors">
+			
+			<!-- Titulo -->
+			<p>
+				<?php
+					echo $this->Html->link(__('Advertise here!'), '/contacto', array("class" => "btn btn-default btn-xs"));
+				?>
+			</p>
+			
+			
+			<!--					
+			<button type="button" class="close sponsor" ng-click="hideSponsors = !hideSponsors" 
+				ng-hide="hideSponsors">
+				<i class="fa fa-collapse-alt"></i>
+			</button>
+			<p class="text-center"><?php echo __('Sponsors'); ?></p>
+			-->					
+			<!-- <div class="col-sm-12">
+				<a href="#"><?=$this -> Html -> image('sponsor/santafedisenia.jpg'); ?></a>
 			</div>
-		<!--		
+			<div class="col-sm-12">
+				<a href="#"><?=$this -> Html -> image('sponsor/tallercandombe.jpg'); ?></a>
+			</div> -->
+			
+			<div class="col-sm-12">
+				<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+				<!-- Radar Derecho Vertical -->
+				<ins class="adsbygoogle"
+				     style="display:inline-block;width:160px;height:600px"
+				     data-ad-client="ca-pub-1237436927136399"
+				     data-ad-slot="9834504613"></ins>
+				<script>
+					( adsbygoogle = window.adsbygoogle || []).push({});
+				</script>
+			</div>
 		</div>
 	</div>
-	-->
 
 	<!-- SOUTH -->
 	<div id="south" ng-cloak>
 		
 		<!-- Button to Display or Hide South Menu -->
-		<!--<div class="arrow-south background-black" ng-click="hideSouthMenu = !hideSouthMenu">-->
 		<div class="row arrow-south pull-right" ng-click="hideSouthMenu = !hideSouthMenu">
 			<span class="arrow btn btn-xs" ng-hide="hideSouthMenu">
 				<i class="glyphicon glyphicon-chevron-down"></i>
@@ -459,98 +329,32 @@
 			</span>
 		</div>
 		
-		<!--<div class="background-black color-white">-->
 		<div class="row color-white">
 			<div class="row menu-south">
 	
-				<!-- Event Interval -->
-				<!--
-				<div class="col-sm-8">
-					<input value="1" name="interval" type="hidden">
-					<div id="eventInterval" class="control-group btn-group" data-toggle="buttons">
-						<button type="radio" data-toggle="button" class="btn disabled">
-							<?php echo __('What to do?'); ?>
-						</button>
-						<button type="radio" data-toggle="button" class="btn btn-verde " ng-click="setEventInterval(1)">
-							<?php echo __('Today'); ?>
-						</button>
-						<button type="radio" data-toggle="button" class="btn btn-verde"  ng-click="setEventInterval(2)">
-							<?php echo __('Tomorrow'); ?>
-						</button>
-						<button type="radio" data-toggle="button" class="btn btn-verde" ng-click="setEventInterval(7)">
-							<?php echo __('This Week'); ?>
-						</button>
-					</div>
-					<div id="eventInterval" class="control-group btn-group pull-right">
-						<?php
-						// echo $this->Html->link(__('Add Event')
-						// , array('controller'=>'events', 'action'=>'add')
-						// , array('class'=>'btn btn-warning pull-right'))
-						?>
-						<a href="#/events/add" class="btn btn-warning pull-right" ng-click="add()">Agregar Evento</a>
-					</div>
-				</div>
-				-->	
-				<!-- Map Types -->
-				<!--			
-				<div class="col-sm-4 text-right">
-					<span class="btn btn-primary" ng-click="setMapType(ROADMAP)"><?php echo __('Map'); ?></span>
-					<span class="btn btn-primary" ng-click="setMapType(SATELLITE)"><?php echo __('Satellite'); ?></span>
-				</div>
-				-->			
-				
 				<div class="col-sm-8 col-xs-10 background-black" id="btn-south">
 					<input value="1" name="interval" type="hidden">
 					<div id="eventInterval" class="control-group btn-group" data-toggle="buttons">
-						<!--		
-						<button type="radio" data-toggle="button" class="btn btn-verde-simple " ng-click="setEventInterval(1)">
-							<?php echo __('Today'); ?>
-						</button>
-						<button type="radio" data-toggle="button" class="btn btn-verde-simple"  ng-click="setEventInterval(2)">
-							<?php echo __('Tomorrow'); ?>
-						</button>
-						<button type="radio" data-toggle="button" class="btn btn-verde-simple" ng-click="setEventInterval(7)">
-							<?php echo __('This Week'); ?>
-						</button>
-						-->
 						<button type="radio" data-toggle="button" class="btn btn-verde-simple">
 							<?php echo __('Places'); ?>
 						</button>						
-					</div>
-					<div id="eventInterval" class="control-group btn-group pull-right">
-						<?php
-							// echo $this->Html->link(__('Add Event')
-							// , array('controller'=>'events', 'action'=>'add')
-							// , array('class'=>'btn btn-warning pull-right'))
-						?>
-						<!--					
-						<a href="#/events/add" class="btn btn-warning pull-right" ng-click="add()">Agregar Evento</a>
-						-->					
 					</div>
 				</div>
 				<div class="col-sm-1 hidden-xs" id="rampa-south"> </div>
 			</div>
 	
 		    <!-- Places List -->
-		    <div class="row background-black" ng-hide="hideSouthMenu">
+		    <div class="row background-black color-white" ng-hide="hideSouthMenu">
 		    	<div class="col-sm-12">
 		    		<table id="eventsList" class="table table-striped">
 		    			<thead>
 		    				<tr>
 		    					<th>Nombre</th>
 		    					<th>Direccion</th>
-		    					<!--
-		    					<th>Evento</th>
-		    					<th>Dirección</th>
-		    					-->
 		    				</tr>
 		    			</thead>
 		    			<tbody>
 		    			    <tr ng-repeat="place in places | orderBy:'Place.name'">
-		    			    	<!--
-		    			    	<td ng-bind="evento.Event.date_start | isodate | date:'dd/MM/yyyy HH:mm'"></td>
-		    			        <td ng-bind="evento.Event.date_end | isodate | date:'dd/MM/yyyy HH:mm'"></td>
-		    			        -->
 		    			        <td ng-bind="place.Place.name"></td>
 		    			        <td ng-bind="place.Place.address"></td>
 		    			    </tr>

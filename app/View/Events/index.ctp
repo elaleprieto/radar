@@ -64,7 +64,23 @@
 						<li><a href="/places"><span class="glyphicon glyphicon-map-marker"></span></a></li>
 						<li><a href="/events/add" x-ng-click="add()"><button class="btn btn-warning btn-xs pull-right">RADEA!</button></a></li>
 					</ul>
+					
+					<!-- Nav right -->
 					<ul class="nav navbar-nav navbar-right">
+						
+						<!-- Zoom -->
+						<li class="zoom-button">
+							<a href="#" x-ng-click="map.setZoom(map.getZoom() + 1)">
+								<span class="fa fa-search-plus"></span>
+							</a>
+						</li>
+						<li class="zoom-button">
+							<a href="#" x-ng-click="map.setZoom(map.getZoom() - 1)">
+								<span class="fa fa-search-minus"></span>
+							</a>
+						</li>
+						
+						
 						<li><a href="/about"><i class="fa fa-info-circle fa-lg"></i></a></li>
 						<li><a href="/contacto"><i class="fa fa-envelope fa-lg"></i></a></li> 
 						<li>
@@ -138,7 +154,11 @@
 						</a>
 					</li>
 				</ul>
+				
+				<!-- Nav right -->
 				<ul class="nav navbar-nav navbar-right">
+					
+					<!-- Zoom -->
 					<li class="zoom-button">
 						<a href="#" x-ng-click="map.setZoom(map.getZoom() + 1)">
 							<span class="fa fa-search-plus"></span>
@@ -149,6 +169,7 @@
 							<span class="fa fa-search-minus"></span>
 						</a>
 					</li>
+					
 					<li><a>|</a></li>
 					<li><a href="/about"><i class="fa fa-info-circle fa-lg"></i></a></li>
 					<li><a href="/contacto"><i class="fa fa-envelope fa-lg"></i></a></li>
@@ -334,6 +355,7 @@
 					echo $this->Html->link(__('Advertise here!'), '/contacto', array("class" => "btn btn-default btn-xs"));
 				?>
 			</p>
+			
 			<!-- 
 			<button type="button" class="close sponsor" x-ng-click="hideSponsors = !hideSponsors" 
 				x-ng-hide="hideSponsors">
