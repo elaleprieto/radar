@@ -1,4 +1,4 @@
-/*! radar 2013-11-08 */
+/*! radar 2013-11-12 */
 (function() {
     "use strict";
     var a, b = [].indexOf || function(a) {
@@ -226,7 +226,8 @@
         }, c.resetView = function() {
             return b.path("/");
         }, c.saveRatingToServer = function(a, b) {
-            return a.Event.rate = b, j.create(a);
+            return a.Event.rate = +a.Event.rate + b, a.Rate.rate = b, b > 0 && (a.Rate.user_id = c.user.id), 
+            0 > b && (a.Rate.user_id = !1), j.create(a);
         }, c.saveUserLocationPreferences = function() {
             return c.saveUserLocationString(), c.saveUserMapCenter(), c.saveUserMapTypeId(), 
             c.saveUserMapZoom(), null != c.user.id ? (c.user.map_lat = c.map.getCenter().lat(), 

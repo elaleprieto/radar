@@ -70,14 +70,49 @@
 		 */
 		public function add($evento = null) {
 			if ($evento && AuthComponent::user('id') && !$this->userHasRated($evento)) {
-				$rate['Rate']['rate'] = $evento -> Event -> rate;
-				$rate['Rate']['event_id'] = $evento -> Event -> id;
+				$rate['Rate']['rate'] = $evento->Rate->rate;
+				$rate['Rate']['event_id'] = $evento->Event->id;
 				$rate['Rate']['user_id'] = AuthComponent::user('id');
 
-				$this -> create();
-				if ($this -> save($rate)) {
-					$this -> Event -> rate($evento -> Event -> id, $evento -> Event -> rate);
+				$this->create();
+				if ($this->save($rate)) {
+					return $this->Event->rate($evento->Event->id, $evento->Rate->rate);
 				}
+			}
+		}
+
+		/**
+		 * rate: si el usuario está registrado y no ha votado,
+		 * se llama al método que agrega la votación.
+		 * Si el usuario ya votó, se borra la votación y se llama al método que agrega la
+		 * votación.
+		 * @param evento: el evento votado
+		 * @param user->id: el id del usuario registrado.
+		 */
+		public function rateEvent($evento = null) {
+			if ($evento && AuthComponent::user('id')) {
+				debug($evento);
+				if (!$this->userHasRated($evento)) {
+					$this->add($evento);
+				} else {
+					$this->deleteUserRates($evento->Event->id, AuthComponent::user('id'));
+					$this->add($evento);
+				}
+			}
+		}
+
+		/**
+		 * deleteUserRates: elimina las votaciones del evento y usuario pasados como
+		 * parámetro.
+		 * @param evento_id: el evento buscado
+		 * @param user_id: el id del usuario.
+		 */
+		public function deleteUserRates($evento_id = null, $user_id = null) {
+			if ($evento_id && $user_id) {
+				$this->deleteAll(array(
+					'Rate.event_id' => $evento_id,
+					'Rate.user_id' => $user_id
+				), false);
 			}
 		}
 
@@ -91,10 +126,10 @@
 		public function userHasRated($evento = null) {
 			if ($evento && AuthComponent::user('id')) {
 				$options['conditions'] = array(
-					'event_id' => $evento -> Event -> id,
+					'event_id' => $evento->Event->id,
 					'user_id' => AuthComponent::user('id')
 				);
-				$rate = $this -> find('first', $options);
+				$rate = $this->find('first', $options);
 				return sizeof($rate) > 0;
 			}
 		}

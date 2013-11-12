@@ -302,7 +302,14 @@
         return $location.path('/');
       };
       $scope.saveRatingToServer = function(evento, newRating) {
-        evento.Event.rate = newRating;
+        evento.Event.rate = +evento.Event.rate + newRating;
+        evento.Rate.rate = newRating;
+        if (newRating > 0) {
+          evento.Rate.user_id = $scope.user.id;
+        }
+        if (newRating < 0) {
+          evento.Rate.user_id = false;
+        }
         return Rate.create(evento);
       };
       $scope.saveUserLocationPreferences = function() {

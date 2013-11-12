@@ -36,9 +36,7 @@ if (AuthComponent::user('location')) {
 // }
 ?>
 
-<div x-ng-controller="EventsController" 
-	x-ng-init="user.locationAux='<?php echo $userLocation; ?>'
-		; user.id='<?php echo AuthComponent::user('id'); ?>'">
+<div x-ng-controller="EventsController" x-ng-init="user.locationAux='<?php echo $userLocation; ?>'; user.id='<?php echo AuthComponent::user('id'); ?>'">
 
 	<!-- LOGO -->
 	<div id="logo">
@@ -563,27 +561,15 @@ if (AuthComponent::user('location')) {
 			
 			<div class="col-sm-12">
 				<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-				<!-- Radar Lateral Derecho -->
+				<!-- Radar Derecho Vertical -->
 				<ins class="adsbygoogle"
-				     style="display:inline-block;width:300px;height:600px"
+				     style="display:inline-block;width:160px;height:600px"
 				     data-ad-client="ca-pub-1237436927136399"
-				     data-ad-slot="4560027016"></ins>
+				     data-ad-slot="9834504613"></ins>
 				<script>
 				(adsbygoogle = window.adsbygoogle || []).push({});
 				</script>
 			</div>
-			<div class="col-sm-12">
-				<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-				<!-- Radar Derecho Mediano -->
-				<ins class="adsbygoogle"
-				     style="display:inline-block;width:300px;height:250px"
-				     data-ad-client="ca-pub-1237436927136399"
-				     data-ad-slot="6939913814"></ins>
-				<script>
-				(adsbygoogle = window.adsbygoogle || []).push({});
-				</script>
-			</div>
-			
 		</div>
 	</div>
 
@@ -692,9 +678,9 @@ if (AuthComponent::user('location')) {
 								<td x-ng-bind="evento.Event.date_end | isodate | date:'dd/MM/yyyy HH:mm'"></td>
 								<td x-ng-bind="evento.Event.title"></td>
 								<td x-ng-bind="evento.Event.address"></td>
-								<td>
-									<i class="fa fa-thumbs-o-up" x-ng-click="saveRatingToServer(evento, 1)" x-ng-hide="evento.like"></i>
-									<i class="fa fa-thumbs-up" x-ng-click="saveRatingToServer(evento, -1)" x-ng-show="evento.like"></i>
+								<td x-ng-cloak>
+									<i class="fa fa-thumbs-o-up" x-ng-click="saveRatingToServer(evento, 1)" x-ng-hide="evento.Rate.user_id"></i>
+									<i class="fa fa-thumbs-up" x-ng-click="saveRatingToServer(evento, -1)" x-ng-show="evento.Rate.user_id"></i>
 									<span x-ng-bind="evento.Event.rate"></span>
 								</td>
 								<!-- <td>

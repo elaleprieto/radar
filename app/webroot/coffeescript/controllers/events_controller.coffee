@@ -345,7 +345,11 @@ angular.module('RadarApp').controller 'EventsController'
 		$location.path('/')
 
 	$scope.saveRatingToServer = (evento, newRating) ->
-		evento.Event.rate = newRating
+		evento.Event.rate = +evento.Event.rate + newRating
+		evento.Rate.rate = newRating
+		evento.Rate.user_id = $scope.user.id if newRating > 0 
+		evento.Rate.user_id = false if newRating < 0
+		 
 		Rate.create evento
 
 	# Save Location Preferences

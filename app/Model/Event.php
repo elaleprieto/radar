@@ -93,12 +93,13 @@ class Event extends AppModel {
 			// $rateOld = $this->field('rate', array('id' => $id));
 			$rateSum = $this->query("SELECT SUM(rate) as rateOld FROM rates WHERE event_id = '$id' GROUP BY event_id");			$rateSum = (Integer) $rateSum[0][0]['rateOld'];
 			
-			$count = $this->Rate->find('count', array('conditions' => array('Rate.event_id' => $id)));
-			
-			$rateNew = ceil($rateSum / $count);
+			// $count = $this->Rate->find('count', array('conditions' => array('Rate.event_id' => $id)));
+// 			
+			// $rateNew = ceil($rateSum / $count);
 			
 			$this->id = $id;
-			$this->saveField('rate', $rateNew);
+			$this->saveField('rate', $rateSum);
+			return $rateSum;
 		}
 	}
 }
