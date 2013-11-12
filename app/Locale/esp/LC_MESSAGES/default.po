@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Radar 0.2\n"
-"POT-Creation-Date: 2013-11-12 13:24-0300\n"
+"POT-Creation-Date: 2013-11-12 18:47-0300\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Ale Prieto <aleprieto@gmail.com>\n"
 "Language-Team: Radar Cultural <contacto@colectivolibre.com.ar>\n"
@@ -372,8 +372,8 @@ msgid "Are you sure you want to delete # %s?"
 msgstr "¿Está seguro que desea eliminar # %s?"
 
 #: View/Categories/admin_index.ctp:2
-#: View/Events/index.ctp:278
-#: View/Places/index.ctp:328;365
+#: View/Events/index.ctp:348
+#: View/Places/index.ctp:287
 msgid "Categories"
 msgstr "Categorías"
 
@@ -515,7 +515,7 @@ msgstr "Eventos relacionados"
 #: View/Categories/view.ctp:48
 #: View/Compliants/admin_view.ctp:9
 #: View/Events/add.ctp:77
-#: View/Events/index.ctp:501;505
+#: View/Events/index.ctp:572;576
 #: View/Events/view.ctp:101
 #: View/Places/view.ctp:167
 #: View/Users/view.ctp:53
@@ -543,14 +543,14 @@ msgid "Status"
 msgstr "Estado"
 
 #: View/Categories/view.ctp:52
-#: View/Events/index.ctp:451
+#: View/Events/index.ctp:522
 #: View/Events/view.ctp:76;121
 #: View/Places/view.ctp:171
 msgid "Date Start"
 msgstr "Fecha de Inicio"
 
 #: View/Categories/view.ctp:53
-#: View/Events/index.ctp:452
+#: View/Events/index.ctp:523
 #: View/Events/view.ctp:82;126
 #: View/Places/view.ctp:172
 msgid "Date End"
@@ -596,9 +596,8 @@ msgstr "Categoría"
 
 #: View/CategoriesEvents/view.ctp:14
 #: View/Compliants/admin_view.ctp:29
-#: View/Events/index.ctp:127;453
+#: View/Events/index.ctp:524
 #: View/Events/view.ctp:94
-#: View/Places/index.ctp:201
 #: View/Rates/admin_view.ctp:24
 msgid "Event"
 msgstr "Evento"
@@ -684,33 +683,33 @@ msgstr "Eliminar Lugar"
 
 #: View/Classifications/admin_view.ctp:59
 #: View/Compliants/admin_view.ctp:14
-#: View/Events/add.ctp:102
-#: View/Events/index.ctp:511;514
-#: View/Places/admin_add.ctp:90
+#: View/Events/add.ctp:103
+#: View/Events/index.ctp:582;585
+#: View/Places/admin_add.ctp:91
 msgid "Description"
 msgstr "Descripción"
 
 #: View/Classifications/admin_view.ctp:60
 #: View/Events/add.ctp:86
-#: View/Events/index.ctp:454
+#: View/Events/index.ctp:525
 #: View/Places/admin_add.ctp:75
 msgid "Address"
 msgstr "Dirección"
 
 #: View/Classifications/admin_view.ctp:61
-#: View/Places/admin_add.ctp:98
+#: View/Places/admin_add.ctp:99
 msgid "Phone"
 msgstr "Teléfono"
 
 #: View/Classifications/admin_view.ctp:62
-#: View/Places/admin_add.ctp:105
+#: View/Places/admin_add.ctp:106
 #: View/Users/add.ctp:27
 #: View/Users/edit.ctp:27
 msgid "Email"
 msgstr "Correo Electrónico"
 
 #: View/Classifications/admin_view.ctp:63
-#: View/Places/admin_add.ctp:112
+#: View/Places/admin_add.ctp:113
 msgid "Website"
 msgstr "Sitio Web"
 
@@ -857,24 +856,24 @@ msgstr "Eliminar Categoría"
 msgid "Add Event"
 msgstr "Agregar Evento"
 
-#: View/Events/add.ctp:305
+#: View/Events/add.ctp:306
 msgid "Cost"
 msgstr "Costo"
 
-#: View/Events/add.ctp:307
+#: View/Events/add.ctp:308
 msgid "invalid"
 msgstr "Evento inválido"
 
-#: View/Events/add.ctp:319
+#: View/Events/add.ctp:320
 msgid "Video"
 msgstr "Video"
 
-#: View/Events/add.ctp:324
+#: View/Events/add.ctp:325
 msgid "News source"
 msgstr "Fuente de Noticias"
 
-#: View/Events/add.ctp:330
-#: View/Places/admin_add.ctp:119
+#: View/Events/add.ctp:331
+#: View/Places/admin_add.ctp:120
 msgid "Photo"
 msgstr "Foto"
 
@@ -883,106 +882,137 @@ msgstr "Foto"
 msgid "Edit Event"
 msgstr "Editar Evento"
 
-#: View/Events/index.ctp:132
-#: View/Places/index.ctp:205;517
+#: View/Events/index.ctp:78;188
+#: View/Places/admin_add.ctp:50
+#: View/Places/index.ctp:60;149
+msgid "Add Place"
+msgstr "Agregar Lugar"
+
+#: View/Events/index.ctp:87
+#: View/Places/index.ctp:69
+msgid "RADEA!"
+msgstr "¡RADEÁ!"
+
+#: View/Events/index.ctp:135;251
+#: View/Places/index.ctp:102;195
+msgid "Logout"
+msgstr "Salir"
+
+#: View/Events/index.ctp:146;262
+#: View/Places/index.ctp:113;206
+#: View/Users/login.ctp:51
+msgid "Login"
+msgstr "Ingresar"
+
+#: View/Events/index.ctp:153;269
+#: View/Places/index.ctp:120;213
+msgid "Sign up!"
+msgstr "¡Registrate!"
+
+#: View/Events/index.ctp:167
+#: View/Places/index.ctp:131
+msgid "Events"
+msgstr "Evento"
+
+#: View/Events/index.ctp:172
+#: View/Places/index.ctp:134;387
 msgid "Places"
 msgstr "Lugares"
 
-#: View/Events/index.ctp:218
-#: View/Places/index.ctp:287
+#: View/Events/index.ctp:198;201
+msgid "RADEAR MY EVENTS!"
+msgstr "¡RADEAR MIS EVENTOS!"
+
+#: View/Events/index.ctp:288
+#: View/Places/index.ctp:246
 msgid "Is not your current location?"
 msgstr "¿No es tu ubicación actual?"
 
-#: View/Events/index.ctp:220
-#: View/Places/index.ctp:289
+#: View/Events/index.ctp:290
+#: View/Places/index.ctp:248
 msgid "Change"
 msgstr "Cambiar"
 
-#: View/Events/index.ctp:226;246
-#: View/Places/index.ctp:295;315
+#: View/Events/index.ctp:296;316
+#: View/Places/index.ctp:254;274
 msgid "City: Rome, Italy"
 msgstr "Ciudad: Roma, Italia"
 
-#: View/Events/index.ctp:229;250;255
-#: View/Places/index.ctp:298;318
+#: View/Events/index.ctp:299;320;325
+#: View/Places/index.ctp:257;277
 msgid "Search"
 msgstr "Buscar"
 
-#: View/Events/index.ctp:234
-#: View/Places/index.ctp:302
+#: View/Events/index.ctp:304
+#: View/Places/index.ctp:261
 msgid "Hide"
 msgstr "Ocultar"
 
-#: View/Events/index.ctp:264
+#: View/Events/index.ctp:334
 msgid "Save Location Preferences"
 msgstr "Guardar Preferencias de Localización"
 
-#: View/Events/index.ctp:282
+#: View/Events/index.ctp:352
 msgid "All Categories"
 msgstr "Todas las Categorías"
 
-#: View/Events/index.ctp:334
+#: View/Events/index.ctp:404
+#: View/Places/index.ctp:334
 msgid "Advertise here!"
 msgstr "¡Quiero anunciarme aquí!"
 
-#: View/Events/index.ctp:342
-#: View/Places/index.ctp:433
+#: View/Events/index.ctp:413
+#: View/Places/index.ctp:344
 msgid "Sponsors"
 msgstr "Publicidades"
 
-#: View/Events/index.ctp:393
-#: View/Places/index.ctp:472
+#: View/Events/index.ctp:464
 msgid "What to do?"
 msgstr "¿Qué hacer?"
 
-#: View/Events/index.ctp:396;428
-#: View/Places/index.ctp:475;507
+#: View/Events/index.ctp:467;499
 msgid "Today"
 msgstr "Hoy"
 
-#: View/Events/index.ctp:399;432
-#: View/Places/index.ctp:478;510
+#: View/Events/index.ctp:470;503
 msgid "Tomorrow"
 msgstr "Mañana"
 
-#: View/Events/index.ctp:402;436
-#: View/Places/index.ctp:481;513
+#: View/Events/index.ctp:473;507
 msgid "This Week"
 msgstr "Esta semana"
 
-#: View/Events/index.ctp:418
-#: View/Places/index.ctp:497
+#: View/Events/index.ctp:489
 msgid "Map"
 msgstr "Mapa"
 
-#: View/Events/index.ctp:419
-#: View/Places/index.ctp:498
+#: View/Events/index.ctp:490
 msgid "Satellite"
 msgstr "Satélite"
 
-#: View/Events/index.ctp:455
+#: View/Events/index.ctp:526
 msgid "Like"
 msgstr "Me gusta"
 
-#: View/Events/index.ctp:456
+#: View/Events/index.ctp:527
 #: View/Rates/admin_view.ctp:2;9
 msgid "Rate"
 msgstr "Votar"
 
-#: View/Events/index.ctp:477;495
+#: View/Events/index.ctp:548;566
 msgid "Denounce"
 msgstr "Denunciar"
 
-#: View/Events/index.ctp:523
+#: View/Events/index.ctp:594
 msgid "Close"
 msgstr "Cerrar"
 
-#: View/Events/index.ctp:526
+#: View/Events/index.ctp:597
 msgid "Denounce!"
 msgstr "¡Denunciar!"
 
 #: View/Events/view.ctp:60
-#: View/Places/admin_add.ctp:128
+#: View/Places/admin_add.ctp:129
 #: View/Places/view.ctp:45
 msgid "Accessibility"
 msgstr "Accesibilidad"
@@ -999,20 +1029,16 @@ msgstr "Ticket"
 msgid "Delete Event"
 msgstr "Borrar Evento"
 
-#: View/Places/admin_add.ctp:50
-msgid "Add Place"
-msgstr "Agregar Lugar"
-
 #: View/Places/edit.ctp:4
 #: View/Places/view.ctp:137
 msgid "Edit Place"
 msgstr "Editar Lugar"
 
-#: View/Places/index.ctp:269
+#: View/Places/index.ctp:228
 msgid "Region"
 msgstr "Región"
 
-#: View/Places/index.ctp:274
+#: View/Places/index.ctp:233
 msgid "My Location"
 msgstr "Mi Ubicación"
 
@@ -1113,10 +1139,6 @@ msgstr "Listar Noticias"
 #: View/Users/view.ctp:44;82
 msgid "New Noticia"
 msgstr "Nueva Noticia"
-
-#: View/Users/login.ctp:51
-msgid "Login"
-msgstr "Ingresar"
 
 #: View/Users/login.ctp:56
 msgid "Register!"
