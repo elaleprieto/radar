@@ -1,39 +1,42 @@
 <?php
-# Styles
-echo $this->Html->css(array(
-	'inicio',
-	'events/index',
-	'//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css',
-	// '//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css'
-), '', array('inline' => false));
+	# Styles
+	echo $this->Html->css(array(
+		'inicio',
+		'events/index',
+		'//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css',
+		// '//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css'
+	), '', array('inline' => false));
 
-# User Location
-if (AuthComponent::user('location')) {
-	$userLocation = AuthComponent::user('location');
-} else {
-	$userLocation = null;
-}
+	# User Location
+	if (AuthComponent::user('location')) {
+		$userLocation = AuthComponent::user('location');
+	} else {
+		$userLocation = null;
+	}
 
-# Se elimina la consulta por la IP porque no funciona bien
-// else {
+	# Se elimina la consulta por la IP porque no funciona bien
+	// else {
 	// $ip = $this->request->clientIp();
 	// if ($ip == '127.0.0.1')
-		// $ip = '190.183.62.72';
-	// $ipData = @json_decode(file_get_contents("http://www.geoplugin.net/json.gp?ip=" . $ip));
+	// $ip = '190.183.62.72';
+	// $ipData =
+	// @json_decode(file_get_contents("http://www.geoplugin.net/json.gp?ip=" . $ip));
 	// if ($ipData && $ipData->geoplugin_countryName != null) {
-		// // $userLocation = $ipData->geoplugin_city . ', ' . $ipData->geoplugin_countryName;
-		// $userLocation = $ipData->geoplugin_countryName;
-		// $userLocationZoom = 4;
-// 
-		// # No se guardar el userLocation, a menos que se haga clic en el botón explícitamente
-		// // # Se guarda el userLocation
-		// // if ($userId = AuthComponent::user('id')) {
-			// // $this->requestAction("/users/setLocation/$userId/$userLocation");
-		// // }
+	// // $userLocation = $ipData->geoplugin_city . ', ' .
+	// $ipData->geoplugin_countryName;
+	// $userLocation = $ipData->geoplugin_countryName;
+	// $userLocationZoom = 4;
+	//
+	// # No se guardar el userLocation, a menos que se haga clic en el botón
+	// explícitamente
+	// // # Se guarda el userLocation
+	// // if ($userId = AuthComponent::user('id')) {
+	// // $this->requestAction("/users/setLocation/$userId/$userLocation");
+	// // }
 	// } else {
-		// $userLocation = null;
+	// $userLocation = null;
 	// }
-// }
+	// }
 ?>
 
 <div x-ng-controller="EventsController" x-ng-init="user.locationAux='<?php echo $userLocation; ?>'; user.id='<?php echo AuthComponent::user('id'); ?>'">
@@ -41,7 +44,7 @@ if (AuthComponent::user('location')) {
 	<!-- LOGO -->
 	<div id="logo">
 		<?php
-		echo $this->Html->link($this->Html->image("logo_blanco.png", array('alt' => 'logo')), '/', array('escape' => false));
+			echo $this->Html->link($this->Html->image("logo_blanco.png", array('alt' => 'logo')), '/', array('escape' => false));
 		?>
 	</div>
 
@@ -100,10 +103,10 @@ if (AuthComponent::user('location')) {
 						<?php else: ?>
 							<li>
 								<?php
-								echo $this->Html->link('Ingresar', array(
-									'controller' => 'users',
-									'action' => 'login'
-								), array('id' => 'menu_superior_derecha_verde'));
+									echo $this->Html->link('Ingresar', array(
+										'controller' => 'users',
+										'action' => 'login'
+									), array('id' => 'menu_superior_derecha_verde'));
 								?>
 							</li>
 							<li>
@@ -186,10 +189,10 @@ if (AuthComponent::user('location')) {
 					<?php else: ?>
 						<li>
 							<?php
-							echo $this->Html->link('Ingresar', array(
-								'controller' => 'users',
-								'action' => 'login'
-							), array('id' => 'menu_superior_derecha_verde'));
+								echo $this->Html->link('Ingresar', array(
+									'controller' => 'users',
+									'action' => 'login'
+								), array('id' => 'menu_superior_derecha_verde'));
 							?>
 						</li>
 						<li>
@@ -324,9 +327,13 @@ if (AuthComponent::user('location')) {
 		</div>
 		
 		<!-- Sponsors -->
-		<div id="sponsorContainer" class="background-black" x-ng-hide="hideSponsors">
-			
+		<div id="sponsorContainer" class="background-black text-center" x-ng-hide="hideSponsors">
 			<!-- Titulo -->
+			<p>
+				<?php
+					echo $this->Html->link(__('Advertise here!'), '/contacto', array("class" => "btn btn-default btn-xs"));
+				?>
+			</p>
 			<!-- 
 			<button type="button" class="close sponsor" x-ng-click="hideSponsors = !hideSponsors" 
 				x-ng-hide="hideSponsors">
@@ -351,7 +358,7 @@ if (AuthComponent::user('location')) {
 				     data-ad-client="ca-pub-1237436927136399"
 				     data-ad-slot="9834504613"></ins>
 				<script>
-				(adsbygoogle = window.adsbygoogle || []).push({});
+					( adsbygoogle = window.adsbygoogle || []).push({});
 				</script>
 			</div>
 		</div>
