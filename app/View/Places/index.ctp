@@ -63,7 +63,7 @@
 						</li>
 						
 						
-						<li><a href="/about"><i class="fa fa-info-sign fa-lg"></i></a></li>
+						<li><a href="/about"><i class="fa fa-info-circle fa-lg"></i></a></li>
 						<li><a href="/contacto"><i class="fa fa-envelope fa-lg"></i></a></li> 
 						<li><a href="https://twitter.com/radardecultura"  target="_blank"><i class="fa fa-twitter-square fa-lg"></i></a></li>
 						<li><a href="https://www.facebook.com/RadarDeCultura"  target="_blank"><i class="fa fa-facebook-square fa-lg"></i></a></li>
@@ -128,8 +128,10 @@
 							<span class="fa fa-search-minus"></span>
 						</a>
 					</li>
+
+					<li><a>|</a></li> 
 					
-					<li><a href="/about"><i class="fa fa-info-sign fa-lg"></i></a></li>
+					<li><a href="/about"><i class="fa fa-info-circle fa-lg"></i></a></li>
 					<li><a href="/contacto"><i class="fa fa-envelope fa-lg"></i></a></li> 
 					<li><a>|</a></li> 
 					<li><a href="https://twitter.com/radardecultura" target="_blank"><i class="fa fa-twitter-square fa-lg"></i></a></li>
