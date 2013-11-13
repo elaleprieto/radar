@@ -9,9 +9,10 @@
 			echo $this->Html->meta('icon');
 			echo $this->Html->css(array(
 				'bootstrap.min',
+				'//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css',
 				'events/index',
 				'inicio',
-				'//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css'
+				'layouts/default',
 			));
 			echo $this->fetch('meta');
 			echo $this->fetch('css');
