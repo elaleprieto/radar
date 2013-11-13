@@ -51,17 +51,22 @@
 				<ul class="nav navbar-nav navbar-right">
 					
 					<!-- Zoom -->
-					<li class="zoom-button">
-						<a href="#" x-ng-click="map.setZoom(map.getZoom() + 1)">
-							<span class="fa fa-search-plus"></span>
-						</a>
-					</li>
-					<li class="zoom-button">
-						<a href="#" x-ng-click="map.setZoom(map.getZoom() - 1)">
-							<span class="fa fa-search-minus"></span>
-						</a>
-					</li>
-					
+					<?php
+					# Si el usuario se encuenta en events/index ó en places/index se habilitan los botones de zoom 
+					if(($this->request->controller == 'events' && $this->request->action == 'index') 
+						|| ($this->request->controller == 'places' && $this->request->action == 'index')):
+					?>
+						<li class="zoom-button">
+							<a href="#" x-ng-click="map.setZoom(map.getZoom() + 1)">
+								<span class="fa fa-search-plus"></span>
+							</a>
+						</li>
+						<li class="zoom-button">
+							<a href="#" x-ng-click="map.setZoom(map.getZoom() - 1)">
+								<span class="fa fa-search-minus"></span>
+							</a>
+						</li>
+					<?php endif; ?>
 					
 					<li><a href="/about"><i class="fa fa-info-circle fa-lg"></i></a></li>
 					<li><a href="/contacto"><i class="fa fa-envelope fa-lg"></i></a></li> 
@@ -166,18 +171,26 @@
 			<ul class="nav navbar-nav navbar-right">
 				
 				<!-- Zoom -->
-				<li class="zoom-button">
-					<a href="#" x-ng-click="map.setZoom(map.getZoom() + 1)">
-						<span class="fa fa-search-plus"></span>
-					</a>
-				</li>
-				<li class="zoom-button">
-					<a href="#" x-ng-click="map.setZoom(map.getZoom() - 1)">
-						<span class="fa fa-search-minus"></span>
-					</a>
-				</li>
+				<?php
+				# Si el usuario se encuenta en events/index ó en places/index se habilitan los botones de zoom 
+				if(($this->request->controller == 'events' && $this->request->action == 'index') 
+					|| ($this->request->controller == 'places' && $this->request->action == 'index')):
+				?>
+						<li class="zoom-button">
+							<a href="#" x-ng-click="map.setZoom(map.getZoom() + 1)">
+								<span class="fa fa-search-plus"></span>
+							</a>
+						</li>
+						<li class="zoom-button">
+							<a href="#" x-ng-click="map.setZoom(map.getZoom() - 1)">
+								<span class="fa fa-search-minus"></span>
+							</a>
+						</li>
+						<li>
+							<a href="#">|</a>
+						</li>
+				<?php endif; ?>				
 				
-				<li><a>|</a></li>
 				<li><a href="/about"><i class="fa fa-info-circle fa-lg"></i></a></li>
 				<li><a href="/contacto"><i class="fa fa-envelope fa-lg"></i></a></li>
 				<li><a>|</a></li>
