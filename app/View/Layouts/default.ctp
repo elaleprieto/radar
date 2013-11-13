@@ -2,22 +2,29 @@
 <!--<html>-->
 <?php echo $this->Facebook->html(); ?>
 	<head>
-		<?php echo $this -> Html -> charset(); ?>
+		<?php echo $this->Html->charset(); ?>
 		<title> #RadarCultural :: <?php echo $title_for_layout; ?></title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<?php
-            echo $this -> Html -> meta('icon');
-            echo $this -> Html -> css(array( 'bootstrap.min','layouts/default',  'inicio', /*'bootstrap-responsive.min'*/));
-            echo $this -> fetch('meta');
-            echo $this -> fetch('css');
+			echo $this->Html->meta('icon');
+			echo $this->Html->css(array(
+				'bootstrap.min',
+				'inicio',
+				'events/index',
+				'//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css'
+			));
+			echo $this->fetch('meta');
+			echo $this->fetch('css');
 		?>
 		<!--[if lt IE 9]>
 		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
 	</head>
 	<body ng-app="RadarApp">
+			<?php echo $this->element('navbar'); ?>
 		<div id="container">
-			<nav class="navbar navbar-fixed-top" role="navigation">
+			
+			<!-- <nav class="navbar navbar-fixed-top" role="navigation">
 				<div class="container">
     				<ul class="nav navbar-nav">
     					<li>
@@ -41,14 +48,13 @@
                                         , 'action'=>'logout'), array('class'=>'menu menu_derecha'))
                                     ?>-->
                                     <!-- Logout de facebook -->
-                                <?php echo $this->Facebook->logout(
-                                  	array(
-                                   		'label' => 'Salir', 
-                                   		'redirect' => array(
-                                  			'controller' => 'users', 
-                                   			'action' => 'logout'),
-										)
-									); 
+                                <?php echo $this->Facebook->logout(array(
+											'label' => 'Salir',
+											'redirect' => array(
+												'controller' => 'users',
+												'action' => 'logout'
+											),
+										));
 								?>
                             </li>
     					<?php else: ?>
@@ -63,11 +69,11 @@
     					<?php endif ?>
                     </ul>
 				</div>
-			</nav>
+			</nav> -->
 			
 			<div class="container">
-				<?php echo $this -> Session -> flash(); ?>
-				<?php echo $this -> fetch('content'); ?>
+				<?php echo $this->Session->flash(); ?>
+				<?php echo $this->fetch('content'); ?>
 			</div>
 		</div>
 		<?php
@@ -76,19 +82,22 @@
 		?>
 		
 		<script type="text/javascript">
-		  var _gaq = _gaq || [];
-		  _gaq.push(['_setAccount', 'UA-27799433-2']);
-		  _gaq.push(['_trackPageview']);
-		  (function() {
-		    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-		    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-		    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-		  })();
+			var _gaq = _gaq || [];
+			_gaq.push(['_setAccount', 'UA-27799433-2']);
+			_gaq.push(['_trackPageview']);
+			(function() {
+				var ga = document.createElement('script');
+				ga.type = 'text/javascript';
+				ga.async = true;
+				ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+				var s = document.getElementsByTagName('script')[0];
+				s.parentNode.insertBefore(ga, s);
+			})();
 		</script>
 		<!-- Plugin Facebook-->
 		<?php echo $this->Facebook->init(); ?>
 
-		<?php echo $this -> element('sql_dump'); ?>	
+		<?php echo $this->element('sql_dump'); ?>	
 
 	</body>
 </html>
