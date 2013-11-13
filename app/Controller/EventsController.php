@@ -45,6 +45,7 @@
          */
         public function add() {
             if ($this->request->is('ajax') && AuthComponent::user('id')) {
+            	$this->autoRender = false;
                 date_default_timezone_set('UTC');
 				
                 $data = $this->request->input('json_decode');
@@ -72,7 +73,6 @@
                 $this->Event->create();
                 if(!$this->Event->save($event)) {
 					throw new Exception('Evento inválido', 1);
-					return;
                 }
             }
         }
