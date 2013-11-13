@@ -1,14 +1,9 @@
-$azul_claro: #4883CC
-$azul_oscuro: #275692
-
-@font-face 
-	font-family: "isocpe"
-	src: url(../Isocpeur-Regular.ttf) format("truetype")
+@import colors, fonts
 
 .btn-facebook a
-	color: #FFFFFF
+	color: $blanco
 	&:hover
-		color: #FFFFFF
+		color: $blanco
 		text-decoration: none
 	
 .btn-facebook
@@ -32,7 +27,7 @@ $azul_oscuro: #275692
 .btn-facebook.active,
 .btn-facebook.disabled,
 .btn-facebook[disabled]
-	color: #FFFFFF
+	color: $blanco
 	background-color: $azul_oscuro
 	*background-color: $azul_claro
 	

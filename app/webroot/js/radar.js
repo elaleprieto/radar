@@ -1,11 +1,11 @@
-/*! radar 2013-11-03 */
+/*! radar 2013-11-12 */
 (function() {
     "use strict";
     var a, b = [].indexOf || function(a) {
         for (var b = 0, c = this.length; c > b; b++) if (b in this && this[b] === a) return b;
         return -1;
     };
-    a = angular.module("RadarApp", [ "fechaFilters", "ui.keypress", "rutes", "$strap.directives", "components", "models", "services" ]), 
+    a = angular.module("RadarApp", [ "fechaFilters", "ui.keypress", "$strap.directives", "models", "services" ]), 
     a.config([ "$httpProvider", "$locationProvider", function(a) {
         return a.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
     } ]), a.value("$strapConfig", {
@@ -29,16 +29,29 @@
             }), b[0]) : void 0;
         }, c.show = function(a) {
             return a.highlight = !a.highlight, a.highlight ? c.categoriesSelected.push(a.Category.id) : c.categoriesSelected.splice(c.categoriesSelected.indexOf(a.Category.id), 1), 
-            $.cookie.json = !0, $.cookie("categoriesSelected", c.categoriesSelected, {
+            c.setCookieCategoriesSelected();
+        }, c.hideAllCategories = function() {
+            return c.$parent.categoriesSelected = [], c.allCategoriesSelected = !1, angular.forEach(c.categorias, function(a) {
+                return a.highlight = !1;
+            });
+        }, c.setCookieCategoriesSelected = function() {
+            return $.cookie.json = !0, $.cookie("categoriesSelected", c.categoriesSelected, {
                 expires: 360,
                 path: "/"
             });
+        }, c.selectAllCategories = function() {
+            return c.$parent.categoriesSelected = [], c.allCategoriesSelected = !0, angular.forEach(c.categorias, function(a) {
+                return a.highlight = !0, c.categoriesSelected.push(a.Category.id);
+            });
+        }, c.showAllCategories = function() {
+            return c.selectAllCategories(), c.setCookieCategoriesSelected();
         }, c.$watch("categorias.length", function() {
             var a;
-            return !f.contains("events/add") && null != c.categorias && null != $.cookie && c.categorias.length > 0 && ($.cookie.json = !0, 
-            a = $.cookie("categoriesSelected"), null != a && a.length > 0) ? angular.forEach(a, function(a) {
+            return !f.contains("events/add") && null != c.categorias && c.categorias.length > 0 && (0 === c.categoriesSelected.length && c.selectAllCategories(), 
+            null != $.cookie && ($.cookie.json = !0, a = $.cookie("categoriesSelected"), null != a && a.length > 0)) ? (c.hideAllCategories(), 
+            angular.forEach(a, function(a) {
                 return c.show(c.searchById(a));
-            }) : void 0;
+            })) : void 0;
         });
     } ]);
 }.call(this), function() {
@@ -68,16 +81,16 @@
         });
     } ]);
 }.call(this), function() {
-    angular.module("RadarApp").controller("EventsController", [ "$http", "$location", "$scope", "$timeout", "$compile", "Compliant", "CompliantView", "Event", "EventView", "Rate", function(a, b, c, d, e, f, g, h, i, j) {
-        var k, l, m, n, o, p, q, r, s, t, u;
+    angular.module("RadarApp").controller("EventsController", [ "$http", "$location", "$scope", "$timeout", "$compile", "Compliant", "CompliantView", "Event", "EventView", "Rate", "User", function(a, b, c, d, e, f, g, h, i, j, k) {
+        var l, m, n, o, p, q, r, s, t, u, v;
         return c.eventInterval = 1, c.isReadonly = !1, c.max = 5, c.user = {}, c.categoriesSelected = [], 
-        k = new Date(), c.minutoEnMilisegundos = 6e4, c.diaEnMilisegundos = 1440 * c.minutoEnMilisegundos, 
-        c.event = {}, c.event.categories = [], c.capital = new google.maps.LatLng(-34.603, -58.382), 
+        l = new Date(), c.minutoEnMilisegundos = 6e4, c.diaEnMilisegundos = 1440 * c.minutoEnMilisegundos, 
+        c.evento = {}, c.evento.categories = [], c.descriptionSize = 500, c.capital = new google.maps.LatLng(-34.603, -58.382), 
         c.cordoba = new google.maps.LatLng(-31.388813, -64.179726), c.santafe = new google.maps.LatLng(-31.625906, -60.696774), 
         c.cordobaSantafe = new google.maps.LatLng(-31.52081, -62.411469), c.locationDefault = c.cordobaSantafe, 
         c.zoomDefault = 8, c.zoomSantafe = 12, c.zoomCordoba = 11, c.zoomCity = 15, c.ROADMAP = google.maps.MapTypeId.ROADMAP, 
         c.SATELLITE = google.maps.MapTypeId.SATELLITE, c.opciones = {
-            center: c.locationAux,
+            center: c.locationDefault,
             mapTypeId: c.ROADMAP,
             panControl: !1,
             zoomControl: !1,
@@ -86,13 +99,11 @@
             streetViewControl: !1,
             overviewMapControl: !1,
             zoom: c.zoomDefault
-        }, null != $.cookie && ($.cookie.json = !0, s = $.cookie("userMapCenter"), t = $.cookie("userMapTypeId"), 
-        u = $.cookie("userMapZoom"), r = $.cookie("userLastLocationString"), null != s && (c.opciones.center = new google.maps.LatLng(s.lat, s.lng)), 
-        null != t && (c.opciones.mapTypeId = t), null != u && (c.opciones.zoom = u), null != r && (c.user.location = r), 
-        d(function() {
-            return c.setUserLocationByLatLng(c.opciones.center);
-        }, 50)), c.map = new google.maps.Map(document.getElementById("map"), c.opciones), 
-        c.markers = [], c.geocoder = new google.maps.Geocoder(), c.$watch("categoriesSelected.length", function() {
+        }, null != $.cookie && ($.cookie.json = !0, t = $.cookie("userMapCenter"), u = $.cookie("userMapTypeId"), 
+        v = $.cookie("userMapZoom"), s = $.cookie("userLastLocationString"), null != t && (c.opciones.center = new google.maps.LatLng(t.lat, t.lng)), 
+        null != u && (c.opciones.mapTypeId = u), null != v && (c.opciones.zoom = v), null != s && (c.user.location = s)), 
+        c.map = new google.maps.Map(document.getElementById("map"), c.opciones), c.markers = [], 
+        c.geocoder = new google.maps.Geocoder(), c.$watch("categoriesSelected.length", function() {
             return c.eventsUpdate();
         }), c.$watch("eventInterval", function() {
             return c.eventsUpdate();
@@ -101,16 +112,16 @@
                 var b;
                 return b = new google.maps.LatLng(a.Event.lat, a.Event.long), c.createMarker(a, b);
             }), c.showOverlays();
-        }, !0), c.$watch("event.date_from", function(a) {
+        }, !0), c.$watch("evento.date_from", function(a) {
             return null != a ? ($("#date_to").datepicker("setDate", a), $("#date_to").datepicker("setStartDate", a), 
             $("#date_to").datepicker("setEndDate", new Date(a.getTime() + 3 * c.diaEnMilisegundos)), 
-            c.event.date_to = a) : void 0;
-        }), c.$watch("event.time_from", function(a) {
+            c.evento.date_to = a) : void 0;
+        }), c.$watch("evento.time_from", function(a) {
             return null != a ? c.checkTimeTo() : void 0;
-        }), c.$watch("event.time_to", function(a) {
+        }), c.$watch("evento.time_to", function(a) {
             return null != a ? c.checkTimeTo() : void 0;
         }), c.$watch("user.locationAux", function(a) {
-            return null == s && null != a && a.length > 0 ? c.setLocationByUserLocation(a) : void 0;
+            return null != a && a.length > 0 ? c.setLocationByUserLocation(a) : void 0;
         }), google.maps.event.addListener(c.map, "dragend", function() {
             return c.eventsUpdate(), c.saveUserMapCenter();
         }), google.maps.event.addListener(c.map, "tilesloaded", function() {
@@ -121,7 +132,7 @@
             return c.eventsUpdate();
         }), c.addAddressToMap = function(a) {
             var b;
-            return a && 0 !== a.length ? (c.event.lat = a[0].geometry.location.lat(), c.event.long = a[0].geometry.location.lng(), 
+            return a && 0 !== a.length ? (c.evento.lat = a[0].geometry.location.lat(), c.evento.long = a[0].geometry.location.lng(), 
             c.map.setCenter(a[0].geometry.location), c.map.setZoom(13), b = new google.maps.MarkerImage("http://gmaps-samples.googlecode.com/svn/trunk/markers/blue/blank.png", new google.maps.Size(20, 34), new google.maps.Point(0, 0), new google.maps.Point(10, 34)), 
             null != c.marker && c.marker.setMap(null), c.marker = new google.maps.Marker({
                 position: a[0].geometry.location,
@@ -145,63 +156,66 @@
             return c.map.setCenter(b), c.eventsUpdate(), c.saveUserMapCenter(), c.saveUserMapZoom();
         }, c.centerMapByUserLocation = function(a) {
             return null != a[0] && null != a[0].geometry && null != a[0].geometry.location ? (c.map.setCenter(a[0].geometry.location), 
-            c.map.setZoom(c.zoomCity), c.saveUserMapCenter(), q(a[0])) : void 0;
+            c.map.setZoom(c.zoomCity), c.saveUserMapCenter(), r(a[0])) : void 0;
         }, c.createMarker = function(a, b) {
             var d, f, g, h;
-            return f = new google.maps.MarkerImage("/img/map-marker/" + m(a), new google.maps.Size(30, 40), new google.maps.Point(0, 0), new google.maps.Point(10, 34)), 
+            return f = new google.maps.MarkerImage("/img/map-marker/" + n(a), new google.maps.Size(30, 40), new google.maps.Point(0, 0), new google.maps.Point(10, 34)), 
             h = new google.maps.Marker({
-                eventId: o(a),
+                eventId: p(a),
                 map: c.map,
                 icon: f,
                 position: b,
-                title: p(a),
+                title: q(a),
                 zIndex: Math.round(-1e5 * b.lat()) << 5
-            }), d = "<div>", d += "<p>" + p(a) + "</p>", d += "<a ng-click=\"openModal('events/view/" + o(a) + "')\">", 
+            }), d = "<div>", d += "<p>" + q(a) + "</p>", d += "<a ng-click=\"openModal('events/view/" + p(a) + "')\">", 
             d += '<p class="text-right"><i class="icon-expand-alt"></i> info</p>', d += "</a>", 
             d += "</div>", d = e(d)(c), g = new google.maps.InfoWindow({
                 content: d[0]
             }), google.maps.event.addListener(h, "click", function() {
                 return g.open(c.map, h);
             }), c.markers.push(h);
+        }, c.checkDescriptionSize = function(a, b) {
+            return null != b.description && +c.descriptionSize - b.description.length < 0 ? (b.description = b.description.substr(0, 500), 
+            a.preventDefault()) : void 0;
         }, c.checkTimeTo = function() {
             var a, b, d, e, f, g, h;
-            if (null != c.event.time_from && c.event.date_from === c.event.date_to) {
-                if (d = c.event.date_from, f = c.event.date_to, g = c.event.time_from.split(":"), 
+            if (null != c.evento.time_from && c.evento.date_from === c.evento.date_to) {
+                if (d = c.evento.date_from, f = c.evento.date_to, g = c.evento.time_from.split(":"), 
                 e = new Date(d.getFullYear(), d.getMonth(), d.getDate(), g[0], g[1]), a = new Date(e.getTime() + 15 * c.minutoEnMilisegundos), 
-                null == c.event.time_to) return c.event.time_to = a.getHours() + ":" + a.getMinutes();
-                if (h = c.event.time_to.split(":"), b = new Date(f.getFullYear(), f.getMonth(), f.getDate(), h[0], h[1]), 
-                a.getTime() > b.getTime() && (c.event.time_to = a.getHours() + ":" + a.getMinutes(), 
-                0 === a.getMinutes())) return c.event.time_to += "0";
+                null == c.evento.time_to) return c.evento.time_to = a.getHours() + ":" + a.getMinutes();
+                if (h = c.evento.time_to.split(":"), b = new Date(f.getFullYear(), f.getMonth(), f.getDate(), h[0], h[1]), 
+                a.getTime() > b.getTime() && (c.evento.time_to = a.getHours() + ":" + a.getMinutes(), 
+                0 === a.getMinutes())) return c.evento.time_to += "0";
             }
         }, c.clearOverlays = function() {
             return c.setAllMap(null);
         }, c.deleteOverlays = function() {
             return c.clearOverlays(), c.markers = [];
         }, c.categoriesAdd = function(a) {
-            return c.event.categories.length < 3 ? (c.event.categories.push(a.Category.id), 
+            return c.evento.categories.length < 3 ? (c.evento.categories.push(a.Category.id), 
             a.highlight = !0) : void 0;
         }, c.categoriesDelete = function(a) {
             var b;
-            return b = c.event.categories.indexOf(a.Category.id), b >= 0 ? (c.event.categories.splice(b, 1), 
+            return b = c.evento.categories.indexOf(a.Category.id), b >= 0 ? (c.evento.categories.splice(b, 1), 
             a.highlight = !1) : void 0;
         }, c.denounce = function(a) {
             return null != c.user.id && null != a.Compliant && null != a.Compliant.title ? (f.create(a), 
             g.close()) : void 0;
         }, c.eventsUpdate = function() {
-            var a, b, d, e;
-            return null != c.map.getBounds() ? (a = c.map.getBounds(), b = a.getNorthEast(), 
-            e = a.getSouthWest(), d = {
+            var a, d, e, f;
+            return b.absUrl().contains("events/add") || null == c.map.getBounds() ? void 0 : (a = c.map.getBounds(), 
+            d = a.getNorthEast(), f = a.getSouthWest(), e = {
                 categoriesSelected: c.categoriesSelected,
                 eventInterval: c.eventInterval,
-                neLat: b.lat(),
-                neLong: b.lng(),
-                swLat: e.lat(),
-                swLong: e.lng()
-            }, console.log(d), h.get({
-                params: d
+                neLat: d.lat(),
+                neLong: d.lng(),
+                swLat: f.lat(),
+                swLong: f.lng()
+            }, h.get({
+                params: e
             }, function(a) {
                 return c.eventos = a.events;
-            })) : void 0;
+            }));
         }, c.inicializar = function() {
             return navigator.geolocation ? (window.browserSupportFlag = !0, navigator.geolocation.getCurrentPosition(function(a) {
                 var b;
@@ -212,7 +226,15 @@
         }, c.resetView = function() {
             return b.path("/");
         }, c.saveRatingToServer = function(a, b) {
-            return a.Event.rate = b, j.create(a);
+            return a.Event.rate = +a.Event.rate + b, a.Rate.rate = b, b > 0 && (a.Rate.user_id = c.user.id), 
+            0 > b && (a.Rate.user_id = !1), j.create(a);
+        }, c.saveUserLocationPreferences = function() {
+            return c.saveUserLocationString(), c.saveUserMapCenter(), c.saveUserMapTypeId(), 
+            c.saveUserMapZoom(), null != c.user.id ? (c.user.map_lat = c.map.getCenter().lat(), 
+            c.user.map_lng = c.map.getCenter().lng(), c.user.map_type = c.map.getMapTypeId(), 
+            c.user.map_zoom = c.map.getZoom(), k.update({
+                id: c.user.id
+            }, c.user)) : void 0;
         }, c.saveUserLocationString = function() {
             return $.cookie.json = !0, $.cookie("userLastLocationString", c.user.location, {
                 expires: 30
@@ -238,9 +260,10 @@
             var b, d, e, f, g;
             for (f = c.markers, g = [], d = 0, e = f.length; e > d; d++) b = f[d], g.push(b.setMap(a));
             return g;
-        }, c.setAddress = function() {
-            var a;
-            return a = new Object(), a.address = c.event.address, a.region = "AR", c.geocoder.geocode(a, c.addAddressToMap);
+        }, c.setAddress = function(a) {
+            var b;
+            return null != a && a.preventDefault(), b = new Object(), b.address = c.evento.address, 
+            c.geocoder.geocode(b, c.addAddressToMap);
         }, c.setEventInterval = function(a) {
             return c.eventInterval = a;
         }, c.setLocation = function() {
@@ -263,7 +286,7 @@
         }, c.setUserLocationByLatLng = function(a) {
             var b;
             return b = {}, b.location = a, c.geocoder.geocode(b, function(a) {
-                return q(a[0]);
+                return r(a[0]);
             });
         }, c.setMapType = function(a) {
             return c.map.setMapTypeId(a), c.saveUserMapTypeId();
@@ -271,14 +294,14 @@
             return c.setAllMap(c.map);
         }, c.submit = function() {
             return c.cargando = "Cargando.", c.eventForm.$valid ? (c.cargando = "Cargando..", 
-            c.event.categories.length <= 0 ? (c.cargando = "Error: Debe seleccionar al menos una categoría", 
+            c.evento.categories.length <= 0 ? (c.cargando = "Error: Debe seleccionar al menos una categoría", 
             console.error("Error: Debe seleccionar al menos una categoría")) : (c.cargando = "Cargando...", 
-            a.post("/events/add", {
-                Event: c.event,
-                Category: c.event.categories
-            }).success(function() {
+            h.save({}, {
+                Event: c.evento,
+                Category: c.evento.categories
+            }, function() {
                 return c.cargando = "¡Evento guardado!", window.location.pathname = "events";
-            }).error(function() {
+            }, function() {
                 return c.cargando = "Ocurrió un error guardando el evento";
             }))) : (c.cargando = null, this);
         }, c.viewDisplayed = function() {
@@ -287,24 +310,24 @@
             return i(c, a);
         }, c.openCompliantModal = function(a) {
             return g.show(c, a);
-        }, l = function(a, b) {
+        }, m = function(a, b) {
             var c;
             return c = a.filter(function(a) {
                 return a.types[0] === b && "political" === a.types[1];
             }), null != c[0] ? c[0].long_name : null;
-        }, m = function(a) {
-            return a.Category.icon;
-        }, o = function(a) {
-            return a.Event.id;
-        }, p = function(a) {
-            return a.Event.title;
         }, n = function(a) {
-            return a.Event.description;
+            return a.Category.icon;
+        }, p = function(a) {
+            return a.Event.id;
         }, q = function(a) {
+            return a.Event.title;
+        }, o = function(a) {
+            return a.Event.description;
+        }, r = function(a) {
             var b, d, e;
-            return null != a && null != a.address_components ? (e = a.address_components, b = l(e, "locality"), 
-            d = l(e, "country"), c.user.location = b && d ? b + ", " + d : a.formatted_address, 
-            c.saveUserLocationString()) : c.user.location = c.user.locationAux;
+            return null != a && null != a.address_components ? (e = a.address_components, b = m(e, "locality"), 
+            d = m(e, "country"), c.user.location = b && d ? b + ", " + d : a.formatted_address, 
+            c.locationSearched = c.user.location, c.saveUserLocationString()) : c.user.location = c.user.locationAux;
         };
     } ]);
 }.call(this), function() {
@@ -473,9 +496,10 @@
             var b, d, e, f, g;
             for (f = c.markers, g = [], d = 0, e = f.length; e > d; d++) b = f[d], g.push(b.setMap(a));
             return g;
-        }, c.setAddress = function() {
-            var a;
-            return a = new Object(), a.address = c.place.address, a.region = "AR", c.geocoder.geocode(a, c.addAddressToMap);
+        }, c.setAddress = function(a) {
+            var b;
+            return null != a && a.preventDefault(), b = new Object(), b.address = c.place.address, 
+            b.region = "AR", c.geocoder.geocode(b, c.addAddressToMap);
         }, c.setPlaceInterval = function(a) {
             return c.placeInterval = a;
         }, c.setLocation = function() {
@@ -681,6 +705,18 @@
                 url: "/rates.json"
             }
         });
+    } ]).factory("User", [ "$resource", function(a) {
+        return a("/users.json", {
+            callback: "JSON_CALLBACK"
+        }, {
+            buscar: {
+                method: "GET"
+            },
+            update: {
+                method: "PUT",
+                url: "/users/:id.json"
+            }
+        });
     } ]);
 }.call(this), function() {
     angular.module("services", []).service("CompliantView", function() {
@@ -709,9 +745,9 @@
         });
     }), a = function() {
         var a, b, c, d, e;
-        return e = $(window).height(), a = $("body").height(), b = $("body").width(), d = $("#east").position(), 
-        c = $("#categoryScroll").position(), $("#categoryScroll").css("height", e - c.top - d.top), 
-        $(".modal-body").css("height", .6 * a), $(".modal-dialog, .modal-content").css("width", .5 * b);
+        return e = $(window).height(), a = $("body").height(), b = $("body").width(), $(".modal-body").css("height", .6 * a), 
+        $(".modal-dialog, .modal-content").css("width", .5 * b), $("#east").length > 0 && (d = $("#east").position()), 
+        $("#categoryScroll").length > 0 ? (c = $("#categoryScroll").position(), $("#categoryScroll").css("height", e - c.top - d.top)) : void 0;
     };
 }.call(this), function(a, b, c) {
     "use strict";

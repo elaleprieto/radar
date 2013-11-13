@@ -64,7 +64,7 @@
         						<!-- Name -->
         						<div class="row form-group">
                                 	<label for="PlaceName"><?php echo __('Name'); ?></label>
-                                    <input autofocus="true" class="textbox form-control" id="PlaceName" maxlength="255" 
+                                    <input autofocus="true" class="capitalize form-control textbox" id="PlaceName" maxlength="255" 
                                         ng-model="place.name" required="required" type="text">
         						</div>
         							
@@ -74,8 +74,9 @@
 										<!-- <input class="span2" id="appendedInputButton" type="text"> -->
 	                                    <label for="PlaceAddress"><?php echo __('Address'); ?></label>
 	                            		<div class="input-group input-group-sm">
-	                            			<input class="textbox col-sm-11 form-control" id="PlaceAddress" maxlength="255" 
-	                                            ng-model="place.address" required="required" type="text">
+	                            			<input class="capitalize col-sm-11 form-control textbox" id="PlaceAddress" 
+	                            				maxlength="255" ng-model="place.address" required="required" 
+	                            				type="text" ui-keypress="{13:'setAddress($event)'}" />
 											<span class="input-group-btn">
 												<button class="btn btn-default" ng-click="setAddress()" type="button">
 													 <span class="glyphicon glyphicon-map-marker"></span>

@@ -349,7 +349,8 @@ angular.module('RadarApp').controller 'PlacesController'
 			marker.setMap(map)
 
 	# setAddress hace la llamada al API y hace el callback
-	$scope.setAddress = () ->
+	$scope.setAddress = (event) ->
+		event.preventDefault() if event?
 		request = new Object() # se crea un objeto request
 		request.address = $scope.place.address
 		# se comenta para que busque en todo el país y no solo en el mapa que se ve
