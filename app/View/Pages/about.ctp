@@ -93,4 +93,5 @@
 	<div class="col-sm-2">
 	    <?php echo $this->element('sponsors'); ?>
 	</div>
+
 </div>
