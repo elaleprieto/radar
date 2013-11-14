@@ -7,11 +7,8 @@ echo $this -> Html -> css(array('users/login'), null, array('inline' => FALSE));
 <div class="row">
 	<div class="col-sm-10">
 		<div class="row">
-			<div class="col-sm-4 whipala">
-				<img src="img/whipalaRadar.png" class="whipala">
-			</div>
-    		<div class="col-sm-6">
-    			<h1 class="titulo">Bienvenidos</h1>
+    		<div class="col-sm-7 col-sm-offset-3" >
+    			<h1 class="titulo"><?php echo __('Welcome')?></h1>
 				<?php echo $this->Form->create('User') ?>
 					<div class="form-group">
 						<div class="row">
@@ -82,10 +79,8 @@ echo $this -> Html -> css(array('users/login'), null, array('inline' => FALSE));
 			</div>
 		</div>
 	</div>
-	
 	<!-- SPONSOR -->
 	<div class="col-sm-2">
 	    <?php echo $this->element('sponsors'); ?>
 	</div>
-
 </div>

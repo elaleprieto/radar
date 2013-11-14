@@ -48,7 +48,7 @@ echo $this -> Html -> css(array('events/view'));
 				?>
 					<p>
 						<span class="glyphicon glyphicon-warning-sign" style="color:#ABD402"></span>&nbsp;&nbsp;
-						Plazas de aparcamiento reservadas para personas con discapacidad
+						<?php echo __('Parking spaces reserved for people with disabilities')?>
 					</p>
 				<?php
 				endif;
@@ -56,7 +56,7 @@ echo $this -> Html -> css(array('events/view'));
 				?>
 					<p>
 						<span class="glyphicon glyphicon-road" style="color:#ABD402"></span>&nbsp;&nbsp;
-						Escaleras, rampas o ascensores accesibles para vehículos de personas con movilidad reducida
+						<?php echo __('Stairs, ramps or elevators accessible wheelchair')?>
 					</p>
 				<?php
 				endif;
@@ -64,7 +64,7 @@ echo $this -> Html -> css(array('events/view'));
 				?>
 					<p>
 						<span class="glyphicon glyphicon-headphones" style="color:#ABD402"></span>&nbsp;&nbsp;
-						Equipos electrónicos, informáticos y audiovisuales adaptados
+						<?php echo __('Electronic equipment and audiovisual adapted')?>
 					</p>
 				<?php
 				endif;
@@ -72,7 +72,7 @@ echo $this -> Html -> css(array('events/view'));
 				?>
 					<p>
 						<span class="glyphicon glyphicon-eye-open" style="color:#ABD402"></span>&nbsp;&nbsp;
-						Señales y paneles informativos claramente perceptibles y comprensibles
+						<?php echo __('Signs and information boards clearly perceived and understood')?>
 					</p>
 				<?php
 				endif;
@@ -80,7 +80,7 @@ echo $this -> Html -> css(array('events/view'));
 				?>
 					<p>
 						<span class="glyphicon glyphicon-hand-up" style="color:#ABD402"></span>&nbsp;&nbsp;
-						Información táctil: Braille
+						<?php echo __('Tactile information: Braille')?>
 					</p>
 				<?php
 				endif;

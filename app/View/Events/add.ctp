@@ -254,7 +254,7 @@ if (AuthComponent::user('location')) {
                         <div class="row">
                             <div class="col-sm-12">
                                 <div class="row">
-                                    <h4>Accesibilidad</h4>
+                                    <h4><?php echo __('Accessibility'); ?></h4>
                                 </div>
                                 <div class="row form-group">
                                    <p>¿El espacio donde se desarrolla la actividad está adaptado para personas 
@@ -312,7 +312,7 @@ if (AuthComponent::user('location')) {
                                 <div class="row form-group">
                                     <?php //echo $this->Form->input('website', array('class'=>'textbox', 'label'=>__('web'))) ?>
                                     <div class="input text">
-                                    	<label for="web">web</label>
+                                    	<label for="web"><?php echo __('Website') ?></label>
                                     	<input class="textbox form-control" x-ng-model="evento.website" type="text" />
                                     </div>
                                 </div>

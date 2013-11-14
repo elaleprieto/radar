@@ -89,13 +89,8 @@
 			</div>
 		</div>
 	</div>
-<!-- SPONSOR -->
+	<!-- SPONSOR -->
 	<div class="col-sm-2">
-	    <div class="col-sm-12">
-	    	  <a href="#" class="thumbnail"><?=$this->Html->image('sponsor/santafedisenia.jpg');?></a>
-	    </div>
-	    <div class="col-sm-12">
-	    	    <a href="#" class="thumbnail"><?=$this->Html->image('sponsor/tallercandombe.jpg');?></a>
-	    </div>
+	    <?php echo $this->element('sponsors'); ?>
 	</div>
 </div>
