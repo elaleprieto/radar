@@ -22,7 +22,7 @@ body { font-family: "liberation"; font-size: 14px; }
 .btn { font-family: "isocpe"; font-size: 16px; font-weight: bold; }
 
 /* line 29, ../sass/inicio.sass */
-.btn-warning:hover, .btn-warning:focus, .btn-warning:active, .btn-warning.active { background-color: #ffcc00; }
+.btn-warning:hover, .btn-warning:focus, .btn-warning:active, .btn-warning.active { background-color: #fbb829; }
 
 /* line 35, ../sass/inicio.sass */
 .btn-verde { color: white; background-color: #bdda4d; border-color: #aacf19; }
