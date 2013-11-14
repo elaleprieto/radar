@@ -543,14 +543,14 @@
                 Place: c.place,
                 Classification: c.place.classifications
             }, function() {
-                return c.cargando = "¡Lugar guardado!";
+                return c.cargando = "¡Lugar guardado!", window.location.pathname = "admin/places";
             }, function() {
                 return c.cargando = "Ocurrió un error guardando el place";
             }) : f.create({}, {
                 Place: c.place,
                 Classification: c.place.classifications
             }, function() {
-                return c.cargando = "¡Lugar guardado!";
+                return c.cargando = "¡Lugar guardado!", window.location.pathname = "places";
             }, function() {
                 return c.cargando = "Ocurrió un error guardando el place";
             }))) : (c.cargando = null, this);

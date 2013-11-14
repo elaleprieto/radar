@@ -400,7 +400,8 @@
             Place: $scope.place,
             Classification: $scope.place.classifications
           }, function(data) {
-            return $scope.cargando = '¡Lugar guardado!';
+            $scope.cargando = '¡Lugar guardado!';
+            return window.location.pathname = 'places';
           }, function() {
             return $scope.cargando = 'Ocurrió un error guardando el place';
           });
@@ -411,7 +412,8 @@
             Place: $scope.place,
             Classification: $scope.place.classifications
           }, function(data) {
-            return $scope.cargando = '¡Lugar guardado!';
+            $scope.cargando = '¡Lugar guardado!';
+            return window.location.pathname = 'admin/places';
           }, function() {
             return $scope.cargando = 'Ocurrió un error guardando el place';
           });

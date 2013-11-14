@@ -280,7 +280,7 @@
 			} else {
 				$options = array('conditions' => array('Place.' . $this->Place->primaryKey => $id));
 				$this->request->data = $this->Place->find('first', $options);
-				// $this->render('admin_editar');
+				$this->render('admin_editar');
 			}
 		}
 

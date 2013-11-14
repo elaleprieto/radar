@@ -453,6 +453,7 @@ angular.module('RadarApp').controller 'PlacesController'
 				, (data) ->
 					# Se actualiza el mensaje
 					$scope.cargando = '¡Lugar guardado!'
+					window.location.pathname = 'places'
 				, ->
 					# Se actualiza el mensaje
 					$scope.cargando = 'Ocurrió un error guardando el place'
@@ -473,6 +474,7 @@ angular.module('RadarApp').controller 'PlacesController'
 				, (data) ->
 					# Se actualiza el mensaje
 					$scope.cargando = '¡Lugar guardado!'
+					window.location.pathname = 'admin/places'
 				, ->
 					# Se actualiza el mensaje
 					$scope.cargando = 'Ocurrió un error guardando el place'

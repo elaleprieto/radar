@@ -71,10 +71,11 @@
 					<!-- <td><?php echo h($place['Place']['user_id']); ?>&nbsp;</td> -->
 					<td><?php echo h($place['User']['name']); ?>&nbsp;</td>
 					<td class="actions">
-						<?php echo $this->Html->link(__('View'), array(
-							'action' => 'view',
-							$place['Place']['id']
-						));
+						<?php 
+						// echo $this->Html->link(__('View'), array(
+							// 'action' => 'view',
+							// $place['Place']['id']
+						// ));
 						?>
 						<?php echo $this->Html->link(__('Edit'), array(
 								'action' => 'edit',
