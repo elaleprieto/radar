@@ -151,6 +151,11 @@
 									<?php echo __('Add Place'); ?>
 								</a>
 							</li>
+							<li>
+								<a href="/admin/places/index">
+									<?php echo __('List Places'); ?>
+								</a>
+							</li>
 						</ul>
 					</li>
 				<?php endif; ?>
