@@ -71,11 +71,11 @@
 			if ($this->request->is('post') && AuthComponent::user('id')) {
 				$place = $this->request->data;
 				$place['Place']['user_id'] = AuthComponent::user('id');
-
-				$this->Place->create();
-				if ($this->Place->save($place)) {
+				
+				if ($this->Place->crear($place)) {
 					$this->flash(__('Place saved.'), array('action' => 'index'));
 				} else {
+					throw new Exception("Error Processing Request", 1);
 				}
 			}
 		}
@@ -219,7 +219,7 @@
 		 */
 		public function admin_index() {
 			$this->Place->recursive = 0;
-			
+
 			# Si bindea con User para obtener el nombre del creador.
 			$this->Place->bindModel(array('belongsTo' => array('User' => array(
 						'className' => 'User',
@@ -267,13 +267,20 @@
 				throw new NotFoundException(__('Invalid place'));
 			}
 			if ($this->request->is('post') || $this->request->is('put')) {
-				if ($this->Place->save($this->request->data)) {
+				// debug($this->request->data);
+				if ($this->Place->edit($this->request->data)) {
 					$this->flash(__('The place has been saved.'), array('action' => 'index'));
 				} else {
+					throw new Exception("Error Processing Request", 1);
 				}
+				// if ($this->Place->save($this->request->data)) {
+				// $this->flash(__('The place has been saved.'), array('action' => 'index'));
+				// } else {
+				// }
 			} else {
 				$options = array('conditions' => array('Place.' . $this->Place->primaryKey => $id));
 				$this->request->data = $this->Place->find('first', $options);
+				// $this->render('admin_editar');
 			}
 		}
 

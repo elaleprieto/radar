@@ -37,7 +37,9 @@ angular.module('models', ['ngResource'])
 		$resource '/places.json'
 			, { callback:'JSON_CALLBACK' }
 			, buscar: {method:'GET'}
+				, create: {method: 'POST', url: '/admin/places/add.json'}
 				, get: {cache: true, method: 'GET', url: '/places/get.json'}
+				, update: {method: 'POST', url: '/admin/places/edit/:id.json'}
 	])
 
 	# Rate

@@ -261,6 +261,29 @@ angular.module('RadarApp').controller 'PlacesController'
 		
 		$scope.markers.push(marker)
 
+	$scope.classificationsAdd = (classification) ->
+		if $scope.place.classifications.length < 3
+			$scope.place.classifications.push(classification)
+			# $scope.place.classifications.push(classification.Classification.id)
+			# classification.highlight = true
+
+	# $scope.classificationsDelete = (classification) ->
+		# index = $scope.place.classifications.indexOf(classification.Classification.id)
+		# if index >= 0 
+			# $scope.place.classifications.splice(index, 1)
+			# classification.highlight = false
+	$scope.classificationsDelete = (classification) ->
+		angular.forEach $scope.place.classifications, (element, index, array) ->
+			if element.id is classification.id
+				$scope.place.classifications.splice(index, 1)
+
+	# classificationToogle(classification): agrega o elimina la clasificacion al padre.
+	$scope.classificationToogle = (classification) ->
+		if not $scope.placeHasClassification(classification)
+			$scope.classificationsAdd(classification)
+		else
+			$scope.classificationsDelete(classification)
+
 	# Removes the overlays from the map, but keeps them in the array.
 	$scope.clearOverlays = ->
 		$scope.setAllMap(null)
@@ -269,17 +292,21 @@ angular.module('RadarApp').controller 'PlacesController'
 	$scope.deleteOverlays = ->
 		$scope.clearOverlays()
 		$scope.markers = []
+			
+	# Inicializa el mapa
+	$scope.inicializar = ->
+		if navigator.geolocation
+			window.browserSupportFlag = on
+			navigator.geolocation.getCurrentPosition (position) ->
+				initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude)
+				$scope.map.setCenter(initialLocation)
+			, ->
+				$scope.setLocationDefault()
 
-	$scope.classificationsAdd = (classification) ->
-		if($scope.place.classifications.length < 3)
-			$scope.place.classifications.push(classification.Classification.id)
-			classification.highlight = true
-
-	$scope.classificationsDelete = (classification) ->
-		index = $scope.place.classifications.indexOf(classification.Classification.id)
-		if index >= 0 
-			$scope.place.classifications.splice(index, 1)
-			classification.highlight = false
+	$scope.placeHasClassification = (classification) ->
+		if $scope.place.classifications?
+			$scope.place.classifications.some (element, index, array) ->
+				element.id is classification.id
 
 	# Se consulta al servidor por los places dentro de los límites del mapa y que cumplen las condiciones
 	# de categoría e intervalo seleccionadas.
@@ -297,17 +324,6 @@ angular.module('RadarApp').controller 'PlacesController'
 			
 			Place.get {params:options}, (response) ->
 				$scope.places = response.places
-			
-	# Inicializa el mapa
-	$scope.inicializar = ->
-		if navigator.geolocation
-			window.browserSupportFlag = on
-			navigator.geolocation.getCurrentPosition (position) ->
-				initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude)
-				$scope.map.setCenter(initialLocation)
-			, ->
-				$scope.setLocationDefault()
-
 		
 	$scope.resetView = (place) ->
 		console.log $('ng-view').innerHtml
@@ -430,15 +446,36 @@ angular.module('RadarApp').controller 'PlacesController'
 		# Se actualiza el mensaje
 		$scope.cargando = 'Cargando...'
 
-		# Se guarda el place
-		$http.post('/admin/places/add', {Place: $scope.place, Classification: $scope.place.classifications})
-			.success (data) ->
-				# Se actualiza el mensaje
-				$scope.cargando = '¡Lugar guardado!'
-				window.location.pathname = 'places'
-			.error ->
-				# Se actualiza el mensaje
-				$scope.cargando = 'Ocurrió un error guardando el place'
+		if not $scope.place.id
+			# Se guarda el place
+			Place.create {}
+				, {Place: $scope.place, Classification: $scope.place.classifications}
+				, (data) ->
+					# Se actualiza el mensaje
+					$scope.cargando = '¡Lugar guardado!'
+				, ->
+					# Se actualiza el mensaje
+					$scope.cargando = 'Ocurrió un error guardando el place'
+	
+				
+			# $http.post('/admin/places/add', {Place: $scope.place, Classification: $scope.place.classifications})
+				# .success (data) ->
+					# # Se actualiza el mensaje
+					# $scope.cargando = '¡Lugar guardado!'
+					# # window.location.pathname = 'places'
+				# .error ->
+					# # Se actualiza el mensaje
+					# $scope.cargando = 'Ocurrió un error guardando el place'		
+		else
+			# Se actualiza
+			Place.update {id: $scope.place.id}
+				, {Place: $scope.place, Classification: $scope.place.classifications}
+				, (data) ->
+					# Se actualiza el mensaje
+					$scope.cargando = '¡Lugar guardado!'
+				, ->
+					# Se actualiza el mensaje
+					$scope.cargando = 'Ocurrió un error guardando el place'
 	
 	$scope.viewDisplayed = ->
 		$location.path() == '/'
