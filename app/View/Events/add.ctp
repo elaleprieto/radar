@@ -42,9 +42,9 @@ if (AuthComponent::user('location')) {
     <!-- BARRA PROGRESO -->
     <div class="row">
         <div class="progress">
-            <div class="progress-bar progress-bar-success" style="width: 33%;">Info básica</div>
-            <div class="progress-bar progress-bar-warning" style="width: 34%;">ubicación</div>
-            <div class="progress-bar progress-bar-danger" style="width: 33%;">accesibilidad</div>     
+            <div class="progress-bar progress-bar-success" style="width: 33%;"><?php echo __('Basic information')?></div>
+            <div class="progress-bar progress-bar-warning" style="width: 34%;"><?php echo __('Location')?></div>
+            <div class="progress-bar progress-bar-danger" style="width: 33%;"><?php echo __('Accessibility')?></div>     
         </div>
     </div>
     
@@ -69,7 +69,7 @@ if (AuthComponent::user('location')) {
         				<div class="row">
         					<div class="col-sm-12">
         					    <div class="row">
-                                    <h4>Información básica</h4>
+                                    <h4><?php echo __('Basic information')?></h4>
                                 </div>
         							
         						<!-- Title -->
@@ -102,7 +102,7 @@ if (AuthComponent::user('location')) {
                                 	<label for="EventDescription">
                                 		<?php echo __('Description');?> 
                                 		<span x-ng-cloak>
-                                			({{descriptionSize - evento.description.length}})
+                                			<small>({{descriptionSize - evento.description.length}} <?php echo __('characters')?>)</small>
                                 		</span>
                                 	</label>
                                     <textarea class="textarea col-sm-12 form-control" cols="30" id="EventDescription" 
@@ -113,7 +113,7 @@ if (AuthComponent::user('location')) {
     
     							<!-- Categorías -->
         						<div class="row">
-        							<p>¿De qué se trata?</p>
+        							<p><?php echo __('What is it?') ?></p>
                                     <div x-ng-controller="CategoriesController">
                                         <div class="row form-group">
                                             <div class="col-sm-12">
@@ -142,13 +142,13 @@ if (AuthComponent::user('location')) {
                         <div class="row">
                 	       <div class="col-sm-12">
                 	           <div class="row">
-                                    <h4>Fecha</h4>
+                                    <h4><?php echo __('Date')?></h4>
                                 </div>
         		                <div class="row form-group">
 
                                 	<!-- FECHA DE INICIO -->
                                     <div class="col-sm-12">
-                                    	<label>Fecha y hora de inicio:</label>
+                                    	<label><?php echo __('Start Date and Time')?>:</label>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="control-group input-group input-group-sm">
@@ -197,7 +197,7 @@ if (AuthComponent::user('location')) {
                                     
                                     <!-- FECHA DE FINALIZACIÓN -->
                                     <div class="col-sm-12">
-                                    	<label>Fecha y hora de fin:</label>
+                                    	<label><?php echo __('End Date and Time')?>:</label>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="control-group input-group input-group-sm">
@@ -257,48 +257,47 @@ if (AuthComponent::user('location')) {
                                     <h4><?php echo __('Accessibility'); ?></h4>
                                 </div>
                                 <div class="row form-group">
-                                   <p>¿El espacio donde se desarrolla la actividad está adaptado para personas 
-                                        con alguna discapacidad física o sensorial?</p>
+                                   <p><?php echo __('Is space adapted for people with physical or sensory disabilities?')?></p>
                                     <label class="checkbox" id="label_simple">
                                         <input type="checkbox" value="">
-                                        Plazas de aparcamiento reservadas para personas con discapacidad
+                                        <?php echo __('Parking spaces reserved for people with disabilities')?>
                                     </label>
                                     <label class="checkbox" id="label_simple">
                                         <input type="checkbox" value="">
-                                        Escaleras, rampas o ascensores accesibles para vehículos de personas con movilidad reducida                            
+                                        <?php echo __('Stairs, ramps or elevators accessible wheelchair')?>                            
                                     </label>
                                     <label class="checkbox" id="label_simple">
                                         <input type="checkbox" value="">
-                                        Equipos electrónicos, informáticos y audiovisuales adaptados                            
+                                        <?php echo __('Electronic equipment and audiovisual adapted')?>                            
                                     </label>
                                     <label class="checkbox" id="label_simple">
                                         <input type="checkbox" value="">
-                                        Señales y paneles informativos claramente perceptibles y comprensibles                            
+                                       	<?php echo __('Signs and information boards clearly perceived and understood')?>                         
                                     </label>
                                     <label class="checkbox" id="label_simple">
                                         <input type="checkbox" value="">
-                                        Información táctil: Braille                            
+                                        <?php echo __('Tactile information: Braille')?>                            
                                     </label>   
                                 </div>
                            </div>
                            <div class="col-sm-12">
                                 <div class="row">
-                                    <h4>Información adicional</h4>
+                                    <h4><?php echo __('Additional information')?></h4>
                                 </div>
                                 <div class="row form-group">
                                     <div class="col-sm-12">
-                                        <p>venta de entradas</p>
+                                        <p><?php echo __('Ticket sales')?></p>
                                     </div>
                                     <div class="col-sm-4" x-ng-init="hasCost=0">
                                         <label class="radio-inline">
                                             <input x-ng-checked="hasCost" x-ng-click="hasCost=1" x-ng-model="evento.hasCost" 
                                             	type="radio" />
-                                            si
+                                            <?php echo __('yes')?>
                                         </label>
                                         <label class="radio-inline">
                                             <input x-ng-checked="!hasCost" x-ng-click="hasCost=0; evento.cost=null" 
                                             	x-ng-model="evento.hasCost" type="radio" />
-                                            no
+                                            <?php echo __('no')?>
                                         </label>
                                     </div>   
 									<div class="input text form-control" x-ng-show="hasCost" x-ng-cloak>

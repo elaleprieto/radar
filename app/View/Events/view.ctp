@@ -64,8 +64,8 @@ echo $this -> Html -> css(array('events/view'));
 		<hr>
 		<div class="row">
 			<div class="col-sm-12">
-				<p><?php echo __('More'); ?></p>
-				<p><?php echo __('Ticket').' :'.$event['Event']['cost']; ?></p>
+				<p><?php echo __('Additional Information'); ?></p>
+				<p><?php echo __('Ticket sales').' :'.$event['Event']['cost']; ?></p>
 				<p><?php echo $event['Event']['website']; ?></p>
 			</div>
 		</div>

@@ -178,8 +178,8 @@
 		    		<table id="eventsList" class="table table-striped">
 		    			<thead>
 		    				<tr>
-		    					<th>Nombre</th>
-		    					<th>Direccion</th>
+		    					<th><?php echo __('Name')?></th>
+		    					<th><?php echo __('Address')?></th>
 		    				</tr>
 		    			</thead>
 		    			<tbody>
