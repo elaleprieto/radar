@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2013-11-14 23:30-0300\n"
+"POT-Creation-Date: 2013-11-15 00:38-0300\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -538,6 +538,7 @@ msgstr ""
 #: View/Pages/contacto.ctp:12
 #: View/Places/add.ctp:65
 #: View/Places/admin_add.ctp:66
+#: View/Places/index.ctp:181
 #: View/Places/view.ctp:102
 #: View/Users/add.ctp:19
 #: View/Users/edit.ctp:22
@@ -819,6 +820,7 @@ msgstr ""
 #: View/Events/index.ctp:262;268
 #: View/Places/add.ctp:74
 #: View/Places/admin_add.ctp:75
+#: View/Places/index.ctp:182
 msgid "Address"
 msgstr ""
 
@@ -1091,6 +1093,7 @@ msgid "Tactile information: Braille"
 msgstr ""
 
 #: View/Events/add.ctp:285
+#: View/Events/view.ctp:67
 msgid "Additional information"
 msgstr ""
 
@@ -1236,8 +1239,12 @@ msgstr ""
 msgid "Denounce!"
 msgstr ""
 
-#: View/Events/view.ctp:67
-msgid "Aditional Information"
+#: View/Events/view.ctp:37
+msgid "From"
+msgstr ""
+
+#: View/Events/view.ctp:48
+msgid "To"
 msgstr ""
 
 #: View/Events/view.ctp:157

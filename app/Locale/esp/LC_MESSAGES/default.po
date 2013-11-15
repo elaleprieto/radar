@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Radar 0.2\n"
-"POT-Creation-Date: 2013-11-14 23:30-0300\n"
+"POT-Creation-Date: 2013-11-15 00:38-0300\n"
 "PO-Revision-Date: \n"
 "Last-Translator: cele <celeweidmann@gmail.com>\n"
 "Language-Team: Radar Cultural <contacto@colectivolibre.com.ar>\n"
@@ -547,6 +547,7 @@ msgstr "Id"
 #: View/Pages/contacto.ctp:12
 #: View/Places/add.ctp:65
 #: View/Places/admin_add.ctp:66
+#: View/Places/index.ctp:181
 #: View/Places/view.ctp:102
 #: View/Users/add.ctp:19
 #: View/Users/edit.ctp:22
@@ -828,6 +829,7 @@ msgstr "Descripción"
 #: View/Events/index.ctp:262;268
 #: View/Places/add.ctp:74
 #: View/Places/admin_add.ctp:75
+#: View/Places/index.ctp:182
 msgid "Address"
 msgstr "Dirección"
 
@@ -1100,6 +1102,7 @@ msgid "Tactile information: Braille"
 msgstr "Información táctil: Braille"
 
 #: View/Events/add.ctp:285
+#: View/Events/view.ctp:67
 msgid "Additional information"
 msgstr "Información adicional"
 
@@ -1247,9 +1250,13 @@ msgstr "Cerrar"
 msgid "Denounce!"
 msgstr "¡Denunciar!"
 
-#: View/Events/view.ctp:67
-msgid "Aditional Information"
-msgstr ""
+#: View/Events/view.ctp:37
+msgid "From"
+msgstr "De"
+
+#: View/Events/view.ctp:48
+msgid "To"
+msgstr "Hasta"
 
 #: View/Events/view.ctp:157
 msgid "Delete Event"
