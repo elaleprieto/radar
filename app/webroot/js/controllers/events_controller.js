@@ -484,7 +484,7 @@
       getEventDescription = function(evento) {
         return evento.Event.description;
       };
-      return setUserLocationString = function(location) {
+      setUserLocationString = function(location) {
         var city, country, results;
         if ((location != null) && (location.address_components != null)) {
           results = location.address_components;
@@ -501,6 +501,21 @@
           return $scope.user.location = $scope.user.locationAux;
         }
       };
+      return $('.typeahead').typeahead({
+        limit: 10,
+        name: 'countries',
+        local: ['timtrueman', 'JakeHarding', 'vskarich'],
+        source: function(query, process) {
+          return $.get('/my_search_url', {
+            query: query
+          }, function(data) {
+            return process(data.options);
+          });
+        }
+      }).on('typeahead:selected typeahead:autocompleted', function(e, datum) {
+        console.log('event');
+        return console.log(datum.id);
+      });
     }
   ]);
 

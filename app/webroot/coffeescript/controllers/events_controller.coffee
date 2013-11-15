@@ -560,5 +560,36 @@ angular.module('RadarApp').controller 'EventsController'
 			$scope.saveUserLocationString()
 		else
 			$scope.user.location = $scope.user.locationAux
-			
+	
+	$('.typeahead').typeahead({
+		limit: 10,
+		name: 'countries',
+		# local: $scope.locationsSearched($('.typeahead').val()) 
+		local: ['timtrueman', 'JakeHarding', 'vskarich']
+		source: (query, process) ->
+        return $.get('/my_search_url', { query: query }, (data) ->
+            return process(data.options);
+        );
+	})
+	.on('typeahead:selected typeahead:autocompleted', (e, datum) ->
+		console.log('event');
+		console.log(datum.id);
+	);
+	
+	# $('.typeahead').on 'typeahead:selected', (evt, item) ->
+		# event.preventDefault() if event?
+		# request = new Object() # se crea un objeto request
+		# request.address = $scope.evento.address
+		# # se comenta para que busque en todo el país y no solo en el mapa que se ve
+		# # request.bounds = $scope.map.getBounds()
+		# # request.region = 'AR'
+		# # geocode hace la conversión a un punto, y su segundo parámetro es una función de callback
+		# $scope.geocoder.geocode(request, $scope.addAddressToMap)
+# 		
+	# $('.typeahead').on 'typeahead:selected', (evt, item) ->
+    # console.log item
+    # $scope.evento.address = item.value
+    # $scope.setAddress()
+	
+	
 	]
