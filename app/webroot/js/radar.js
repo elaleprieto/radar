@@ -328,10 +328,10 @@
             return null != a && null != a.address_components ? (e = a.address_components, b = m(e, "locality"), 
             d = m(e, "country"), c.user.location = b && d ? b + ", " + d : a.formatted_address, 
             c.locationSearched = c.user.location, c.saveUserLocationString()) : c.user.location = c.user.locationAux;
-        }, $(".typeahead").typeahead({
+        }, c.countries = [ "timtrueman", "JakeHarding", "vskarich" ], $(".typeahead").typeahead({
             limit: 10,
             name: "countries",
-            local: [ "timtrueman", "JakeHarding", "vskarich" ],
+            local: c.countries,
             source: function(a, b) {
                 return $.get("/my_search_url", {
                     query: a
@@ -341,7 +341,11 @@
             }
         }).on("typeahead:selected typeahead:autocompleted", function(a, b) {
             return console.log("event"), console.log(b.id);
-        });
+        }), $(".typeahead").on("change", function() {
+            return console.log("change");
+        }), c.setAddressLocal = function() {
+            return console.log("setAddressLocal"), c.countries = [ "timtrueman", "JakeHarding", "vskarich", "Argentina" ];
+        };
     } ]);
 }.call(this), function() {
     angular.module("RadarApp").controller("PlacesController", [ "$http", "$location", "$scope", "$timeout", "$compile", "Place", "PlaceView", function(a, b, c, d, e, f, g) {

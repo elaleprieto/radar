@@ -561,11 +561,13 @@ angular.module('RadarApp').controller 'EventsController'
 		else
 			$scope.user.location = $scope.user.locationAux
 	
+	$scope.countries = ['timtrueman', 'JakeHarding', 'vskarich']
+
 	$('.typeahead').typeahead({
 		limit: 10,
 		name: 'countries',
 		# local: $scope.locationsSearched($('.typeahead').val()) 
-		local: ['timtrueman', 'JakeHarding', 'vskarich']
+		local: $scope.countries
 		source: (query, process) ->
         return $.get('/my_search_url', { query: query }, (data) ->
             return process(data.options);
@@ -574,7 +576,15 @@ angular.module('RadarApp').controller 'EventsController'
 	.on('typeahead:selected typeahead:autocompleted', (e, datum) ->
 		console.log('event');
 		console.log(datum.id);
-	);
+	)
+	
+	
+	$('.typeahead').on 'change', ->
+		console.log 'change'
+	
+	$scope.setAddressLocal = ->
+		console.log 'setAddressLocal'
+		$scope.countries = ['timtrueman', 'JakeHarding', 'vskarich', 'Argentina']
 	
 	# $('.typeahead').on 'typeahead:selected', (evt, item) ->
 		# event.preventDefault() if event?

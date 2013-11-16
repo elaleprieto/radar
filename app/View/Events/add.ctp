@@ -85,9 +85,11 @@ if (AuthComponent::user('location')) {
         							<div class="form-group">
 	                                    <label for="EventAddress"><?php echo __('Address');?></label>
 	                            		<div class="input-group input-group-sm">
-	                            			<input class="capitalize col-sm-11 form-control textbox" id="EventAddress" 
+	                            			<input class="capitalize col-sm-11 form-control textbox typeahead" id="EventAddress" 
 	                            				maxlength="255" required="required" type="text" 
-	                            				ui-keypress="{13:'setAddress($event)'}" x-ng-model="evento.address" />
+	                            				ui-keypress="{13:'setAddress($event)'}" 
+	                            				x-ng-change="setAddressLocal()"
+	                            				x-ng-model="evento.address" />
 											<span class="input-group-btn">
 												<button class="btn btn-default" x-ng-click="setAddress()" type="button">
 													 <span class="glyphicon glyphicon-map-marker"></span>
