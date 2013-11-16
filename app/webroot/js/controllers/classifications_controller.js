@@ -10,15 +10,11 @@
       var location;
       location = $location.absUrl();
       Classification.get({}, function(response) {
-        return $scope.classifications = response.classifications;
+        $scope.classifications = [];
+        return angular.forEach(response.classifications, function(element) {
+          return $scope.classifications.push(element.Classification);
+        });
       });
-      $scope.classificationToogle = function(classification) {
-        if (!classification.highlight) {
-          return $scope.$parent.classificationsAdd(classification);
-        } else {
-          return $scope.$parent.classificationsDelete(classification);
-        }
-      };
       $scope.searchById = function(id) {
         var aux;
         if ($scope.classifications != null) {
@@ -28,12 +24,12 @@
           return aux[0];
         }
       };
-      $scope.show = function(clasificacion) {
-        clasificacion.highlight = !clasificacion.highlight;
-        if (clasificacion.highlight) {
-          $scope.classificationsSelected.push(clasificacion.Classification.id);
+      $scope.show = function(classification) {
+        classification.highlight = !classification.highlight;
+        if (classification.highlight) {
+          $scope.classificationsSelected.push(classification.id);
         } else {
-          $scope.classificationsSelected.splice($scope.classificationsSelected.indexOf(clasificacion.Classification.id), 1);
+          $scope.classificationsSelected.splice($scope.classificationsSelected.indexOf(classification.id), 1);
         }
         $.cookie.json = true;
         return $.cookie("classificationsSelected", $scope.classificationsSelected, {

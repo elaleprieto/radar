@@ -95,6 +95,7 @@
 		</div>
 
 		<br />
+		
 		<!-- CATEGORIES -->
 		<div ng-controller="ClassificationsController">
 			<div id="categoriesContainer" class="background-black color-white" ng-hide="hideCategories">
@@ -102,13 +103,13 @@
 				<div id="categoryScroll">
 					<div class="row categoriaLink" x-ng-class="{highlight:classification.highlight}" 
 						x-ng-click="show(classification)" x-ng-model="classification" 
-						x-ng-repeat="classification in classifications | orderBy:'Classification.name'">
+						x-ng-repeat="classification in classifications | orderBy:'name'">
 							<div class="col-sm-3 category-icon">
 								<div class="classification" 
-									x-ng-style="{'background-color':classification.Classification.color}">
+									x-ng-style="{'background-color':classification.color}">
 								</div>
 							</div>
-							<div class="col-sm-9 item-categoria" ng-bind="classification.Classification.name"></div>
+							<div class="col-sm-9 item-categoria" ng-bind="classification.name"></div>
 					</div>
 				</div>
 			</div>
@@ -122,6 +123,7 @@
 				</span>
 			</div>
 		</div>
+		
 	</div>
 	
 	<!-- WEAST -->
@@ -178,12 +180,18 @@
 		    		<table id="eventsList" class="table table-striped">
 		    			<thead>
 		    				<tr>
-		    					<th>Nombre</th>
-		    					<th>Direccion</th>
+		    					<th><?php echo __('Category'); ?></th>
+		    					<th><?php echo __('Name')?></th>
+		    					<th><?php echo __('Address')?></th>
 		    				</tr>
 		    			</thead>
 		    			<tbody>
 		    			    <tr ng-repeat="place in places | orderBy:'Place.name'">
+		    			        <td>
+		    			        	<div class="classification" 
+										x-ng-style="{'background-color':place.Classification.color}">
+									</div>
+		    			        </td>
 		    			        <td ng-bind="place.Place.name"></td>
 		    			        <td ng-bind="place.Place.address"></td>
 		    			    </tr>

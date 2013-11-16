@@ -8,14 +8,16 @@ angular.module('RadarApp').controller 'ClassificationsController'
 	location = $location.absUrl()
 	
 	Classification.get {}, (response) ->
-		$scope.classifications = response.classifications
+		$scope.classifications = []
+		angular.forEach response.classifications, (element) ->
+			$scope.classifications.push(element.Classification)
 	
-	# classificationToogle(classification): agrega o elimina la clasificacion al padre.
-	$scope.classificationToogle = (classification) ->
-		if not classification.highlight
-			$scope.$parent.classificationsAdd(classification)
-		else
-			$scope.$parent.classificationsDelete(classification)
+	# # classificationToogle(classification): agrega o elimina la clasificacion al padre.
+	# $scope.classificationToogle = (classification) ->
+		# if not classification.highlight
+			# $scope.$parent.classificationsAdd(classification)
+		# else
+			# $scope.$parent.classificationsDelete(classification)
 	
 	$scope.searchById = (id) ->
 		if $scope.classifications?
@@ -23,12 +25,12 @@ angular.module('RadarApp').controller 'ClassificationsController'
 				+classification.Classification.id is +id
 			aux[0]
 	
-	$scope.show = (clasificacion) ->
-		clasificacion.highlight = !clasificacion.highlight
-		if clasificacion.highlight
-			$scope.classificationsSelected.push(clasificacion.Classification.id)
+	$scope.show = (classification) ->
+		classification.highlight = !classification.highlight
+		if classification.highlight
+			$scope.classificationsSelected.push(classification.id)
 		else
-			$scope.classificationsSelected.splice($scope.classificationsSelected.indexOf(clasificacion.Classification.id), 1)
+			$scope.classificationsSelected.splice($scope.classificationsSelected.indexOf(classification.id), 1)
 				
 		$.cookie.json = true
 		$.cookie("classificationsSelected"

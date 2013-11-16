@@ -1,30 +1,30 @@
-/* line 3, ../../sass/events/add.sass */
+/* line 1, /datos/Documentos/Colectivo Libre/radar cultural/workspace/radar/app/webroot/sass/_text.sass */
 .capitalize { text-transform: capitalize; }
 
-/* line 6, ../../sass/events/add.sass */
+/* line 3, ../../sass/events/add.sass */
 .categoriaLink { cursor: pointer; }
 
-/* line 9, ../../sass/events/add.sass */
+/* line 6, ../../sass/events/add.sass */
 .dateField { width: 20%; }
 
-/* line 12, ../../sass/events/add.sass */
+/* line 9, ../../sass/events/add.sass */
 .highlight { background-color: #dfdfdf; }
 
-/* line 15, ../../sass/events/add.sass */
+/* line 12, ../../sass/events/add.sass */
 .textbox { width: 100%; width: -moz-available; }
 
-/* line 19, ../../sass/events/add.sass */
+/* line 16, ../../sass/events/add.sass */
 select { max-width: 100%; }
-/* line 22, ../../sass/events/add.sass */
+/* line 19, ../../sass/events/add.sass */
 select[name*="month"] { min-width: 100px; }
-/* line 25, ../../sass/events/add.sass */
+/* line 22, ../../sass/events/add.sass */
 select[name*="year"] { min-width: 65px; }
 
-/* line 28, ../../sass/events/add.sass */
+/* line 25, ../../sass/events/add.sass */
 #alertMessage { display: none; float: right; }
 
-/* line 32, ../../sass/events/add.sass */
+/* line 29, ../../sass/events/add.sass */
 #label_simple { font-weight: normal; }
 
-/* line 35, ../../sass/events/add.sass */
+/* line 32, ../../sass/events/add.sass */
 #map img { max-width: none; }

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2013-11-12 18:47-0300\n"
+"POT-Creation-Date: 2013-11-14 08:09-0300\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -219,7 +219,7 @@ msgstr ""
 msgid "CakePHP Tickets, Wiki pages, Roadmap"
 msgstr ""
 
-#: webroot/test.php:87
+#: webroot/test.php:89
 msgid "Debug setting does not allow access to this url."
 msgstr ""
 

@@ -501,10 +501,11 @@
           return $scope.user.location = $scope.user.locationAux;
         }
       };
-      return $('.typeahead').typeahead({
+      $scope.countries = ['timtrueman', 'JakeHarding', 'vskarich'];
+      $('.typeahead').typeahead({
         limit: 10,
         name: 'countries',
-        local: ['timtrueman', 'JakeHarding', 'vskarich'],
+        local: $scope.countries,
         source: function(query, process) {
           return $.get('/my_search_url', {
             query: query
@@ -516,6 +517,13 @@
         console.log('event');
         return console.log(datum.id);
       });
+      $('#EventAddress').on('keyup', function() {
+        return console.log('change');
+      });
+      return $scope.setAddressLocal = function() {
+        console.log('setAddressLocal');
+        return $scope.countries = ['timtrueman', 'JakeHarding', 'vskarich', 'Argentina'];
+      };
     }
   ]);
 

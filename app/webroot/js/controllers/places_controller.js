@@ -215,6 +215,25 @@
         });
         return $scope.markers.push(marker);
       };
+      $scope.classificationsAdd = function(classification) {
+        if ($scope.place.classifications.length < 3) {
+          return $scope.place.classifications.push(classification);
+        }
+      };
+      $scope.classificationsDelete = function(classification) {
+        return angular.forEach($scope.place.classifications, function(element, index, array) {
+          if (element.id === classification.id) {
+            return $scope.place.classifications.splice(index, 1);
+          }
+        });
+      };
+      $scope.classificationToogle = function(classification) {
+        if (!$scope.placeHasClassification(classification)) {
+          return $scope.classificationsAdd(classification);
+        } else {
+          return $scope.classificationsDelete(classification);
+        }
+      };
       $scope.clearOverlays = function() {
         return $scope.setAllMap(null);
       };
@@ -222,18 +241,23 @@
         $scope.clearOverlays();
         return $scope.markers = [];
       };
-      $scope.classificationsAdd = function(classification) {
-        if ($scope.place.classifications.length < 3) {
-          $scope.place.classifications.push(classification.Classification.id);
-          return classification.highlight = true;
+      $scope.inicializar = function() {
+        if (navigator.geolocation) {
+          window.browserSupportFlag = true;
+          return navigator.geolocation.getCurrentPosition(function(position) {
+            var initialLocation;
+            initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+            return $scope.map.setCenter(initialLocation);
+          }, function() {
+            return $scope.setLocationDefault();
+          });
         }
       };
-      $scope.classificationsDelete = function(classification) {
-        var index;
-        index = $scope.place.classifications.indexOf(classification.Classification.id);
-        if (index >= 0) {
-          $scope.place.classifications.splice(index, 1);
-          return classification.highlight = false;
+      $scope.placeHasClassification = function(classification) {
+        if ($scope.place.classifications != null) {
+          return $scope.place.classifications.some(function(element, index, array) {
+            return element.id === classification.id;
+          });
         }
       };
       $scope.placesUpdate = function() {
@@ -254,18 +278,6 @@
             params: options
           }, function(response) {
             return $scope.places = response.places;
-          });
-        }
-      };
-      $scope.inicializar = function() {
-        if (navigator.geolocation) {
-          window.browserSupportFlag = true;
-          return navigator.geolocation.getCurrentPosition(function(position) {
-            var initialLocation;
-            initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-            return $scope.map.setCenter(initialLocation);
-          }, function() {
-            return $scope.setLocationDefault();
           });
         }
       };
@@ -383,15 +395,29 @@
           return console.error('Error: Debe seleccionar al menos una categoría');
         }
         $scope.cargando = 'Cargando...';
-        return $http.post('/admin/places/add', {
-          Place: $scope.place,
-          Classification: $scope.place.classifications
-        }).success(function(data) {
-          $scope.cargando = '¡Lugar guardado!';
-          return window.location.pathname = 'places';
-        }).error(function() {
-          return $scope.cargando = 'Ocurrió un error guardando el place';
-        });
+        if (!$scope.place.id) {
+          return Place.create({}, {
+            Place: $scope.place,
+            Classification: $scope.place.classifications
+          }, function(data) {
+            $scope.cargando = '¡Lugar guardado!';
+            return window.location.pathname = 'places';
+          }, function() {
+            return $scope.cargando = 'Ocurrió un error guardando el place';
+          });
+        } else {
+          return Place.update({
+            id: $scope.place.id
+          }, {
+            Place: $scope.place,
+            Classification: $scope.place.classifications
+          }, function(data) {
+            $scope.cargando = '¡Lugar guardado!';
+            return window.location.pathname = 'admin/places';
+          }, function() {
+            return $scope.cargando = 'Ocurrió un error guardando el place';
+          });
+        }
       };
       $scope.viewDisplayed = function() {
         return $location.path() === '/';
