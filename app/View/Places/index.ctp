@@ -180,9 +180,9 @@
 		    		<table id="eventsList" class="table table-striped">
 		    			<thead>
 		    				<tr>
-		    					<th><?php __('Category'); ?></th>
-		    					<th><?php __('Name'); ?></th>
-		    					<th><?php __('Address'); ?></th>
+		    					<th><?php echo __('Category'); ?></th>
+		    					<th><?php echo __('Name')?></th>
+		    					<th><?php echo __('Address')?></th>
 		    				</tr>
 		    			</thead>
 		    			<tbody>

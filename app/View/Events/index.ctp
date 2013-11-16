@@ -226,12 +226,17 @@
 						<thead>
 							<tr>
 								<th><?php echo __('Category'); ?></th>
-								<th><?php echo __('Date Start'); ?></th>
+							<!--	<th><?php echo __('Date Start'); ?></th>
 								<th><?php echo __('Date End'); ?></th>
 								<th><?php echo __('Event'); ?></th>
 								<th><?php echo __('Address'); ?></th>
-								<th class="text-center"><?php echo __('Like'); ?></th>
+								<th class="text-center"><?php echo __('Like'); ?></th>-->
 								<!-- <th><?php echo __('Rate'); ?></th> -->
+								<th><?php echo __('Start'); ?></th>
+								<th><?php echo __('End'); ?></th>
+								<th><?php echo __('Event'); ?></th>
+								<th><?php echo __('Address'); ?></th>
+								<th class="text-center"><?php echo __('Like'); ?></th>
 								<th>&nbsp;</th>
 							</tr>
 						</thead>

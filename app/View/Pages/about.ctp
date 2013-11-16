@@ -89,7 +89,6 @@
 			</div>
 		</div>
 	</div>
-
 	<!-- SPONSOR -->
 	<div class="col-sm-2">
 	    <?php echo $this->element('sponsors'); ?>
