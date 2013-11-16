@@ -213,6 +213,24 @@ ul.rating
 	padding:
 		top: 10px
 
+.zoom-mas
+	color: #CCCCCC
+	margin-left: 2px
+	padding-top: 10px
+	
+.zoom-menos
+	color: #CCCCCC
+	margin-left: -10px
+	padding-top: 10px
+	
+.zoom-list
+	left: 285px
+	margin:
+		bottom: 0px
+		top: 5px
+	position: absolute 
+	top: -72px
+	
 #btn-south
 	height: 37px
 
@@ -340,6 +358,32 @@ ul.rating
 	padding-right: 20px
 	position: absolute
 	width: 300px
+	z-index: 0
+
+#rampa-east-mas
+	+opacity(0.8)
+	border-top: 33px solid $gris_oscuro //top
+	border-left: 10px solid $gris_oscuro
+	border-right: 8px solid transparent
+	height: 20px
+	margin-left: 275px
+	margin-top: -66px //bottom
+	padding-right: 24px
+	position: absolute
+	//width: 42px
+	z-index: 0
+
+#rampa-east-menos
+	+opacity(0.8)
+	border-top: 32px solid $gris_oscuro //top
+	border-left: 3px solid $gris_oscuro
+	border-right: 6px solid transparent
+	height: 20px
+	margin-left: 275px
+	margin-top: -32px //bottom
+	padding-right: 24px
+	position: absolute
+	//width: 42px
 	z-index: 0
 
 #rampa-south
