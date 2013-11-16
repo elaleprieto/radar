@@ -1,4 +1,4 @@
-/*! radar 2013-11-12 */
+/*! radar 2013-11-14 */
 (function() {
     "use strict";
     var a, b = [].indexOf || function(a) {
@@ -58,16 +58,16 @@
     angular.module("RadarApp").controller("ClassificationsController", [ "$http", "$location", "$scope", "$timeout", "Classification", function(a, b, c, d, e) {
         var f;
         return f = b.absUrl(), e.get({}, function(a) {
-            return c.classifications = a.classifications;
-        }), c.classificationToogle = function(a) {
-            return a.highlight ? c.$parent.classificationsDelete(a) : c.$parent.classificationsAdd(a);
-        }, c.searchById = function(a) {
+            return c.classifications = [], angular.forEach(a.classifications, function(a) {
+                return c.classifications.push(a.Classification);
+            });
+        }), c.searchById = function(a) {
             var b;
             return null != c.classifications ? (b = c.classifications.filter(function(b) {
                 return +b.Classification.id === +a;
             }), b[0]) : void 0;
         }, c.show = function(a) {
-            return a.highlight = !a.highlight, a.highlight ? c.classificationsSelected.push(a.Classification.id) : c.classificationsSelected.splice(c.classificationsSelected.indexOf(a.Classification.id), 1), 
+            return a.highlight = !a.highlight, a.highlight ? c.classificationsSelected.push(a.id) : c.classificationsSelected.splice(c.classificationsSelected.indexOf(a.id), 1), 
             $.cookie.json = !0, $.cookie("classificationsSelected", c.classificationsSelected, {
                 expires: 360,
                 path: "/"
@@ -436,17 +436,29 @@
             }), google.maps.event.addListener(h, "click", function() {
                 return g.open(c.map, h);
             }), c.markers.push(h);
+        }, c.classificationsAdd = function(a) {
+            return c.place.classifications.length < 3 ? c.place.classifications.push(a) : void 0;
+        }, c.classificationsDelete = function(a) {
+            return angular.forEach(c.place.classifications, function(b, d) {
+                return b.id === a.id ? c.place.classifications.splice(d, 1) : void 0;
+            });
+        }, c.classificationToogle = function(a) {
+            return c.placeHasClassification(a) ? c.classificationsDelete(a) : c.classificationsAdd(a);
         }, c.clearOverlays = function() {
             return c.setAllMap(null);
         }, c.deleteOverlays = function() {
             return c.clearOverlays(), c.markers = [];
-        }, c.classificationsAdd = function(a) {
-            return c.place.classifications.length < 3 ? (c.place.classifications.push(a.Classification.id), 
-            a.highlight = !0) : void 0;
-        }, c.classificationsDelete = function(a) {
-            var b;
-            return b = c.place.classifications.indexOf(a.Classification.id), b >= 0 ? (c.place.classifications.splice(b, 1), 
-            a.highlight = !1) : void 0;
+        }, c.inicializar = function() {
+            return navigator.geolocation ? (window.browserSupportFlag = !0, navigator.geolocation.getCurrentPosition(function(a) {
+                var b;
+                return b = new google.maps.LatLng(a.coords.latitude, a.coords.longitude), c.map.setCenter(b);
+            }, function() {
+                return c.setLocationDefault();
+            })) : void 0;
+        }, c.placeHasClassification = function(a) {
+            return null != c.place.classifications ? c.place.classifications.some(function(b) {
+                return b.id === a.id;
+            }) : void 0;
         }, c.placesUpdate = function() {
             var a, b, d, e;
             return null != c.map.getBounds() ? (a = c.map.getBounds(), b = a.getNorthEast(), 
@@ -461,13 +473,6 @@
                 params: d
             }, function(a) {
                 return c.places = a.places;
-            })) : void 0;
-        }, c.inicializar = function() {
-            return navigator.geolocation ? (window.browserSupportFlag = !0, navigator.geolocation.getCurrentPosition(function(a) {
-                var b;
-                return b = new google.maps.LatLng(a.coords.latitude, a.coords.longitude), c.map.setCenter(b);
-            }, function() {
-                return c.setLocationDefault();
             })) : void 0;
         }, c.resetView = function() {
             return console.log($("ng-view").innerHtml), b.path("/");
@@ -532,12 +537,21 @@
             return c.cargando = "Cargando.", c.placeForm.$valid ? (c.cargando = "Cargando..", 
             c.place.classifications.length <= 0 ? (c.cargando = "Error: Debe seleccionar al menos una categoría", 
             console.error("Error: Debe seleccionar al menos una categoría")) : (c.cargando = "Cargando...", 
-            a.post("/admin/places/add", {
+            c.place.id ? f.update({
+                id: c.place.id
+            }, {
                 Place: c.place,
                 Classification: c.place.classifications
-            }).success(function() {
+            }, function() {
+                return c.cargando = "¡Lugar guardado!", window.location.pathname = "admin/places";
+            }, function() {
+                return c.cargando = "Ocurrió un error guardando el place";
+            }) : f.create({}, {
+                Place: c.place,
+                Classification: c.place.classifications
+            }, function() {
                 return c.cargando = "¡Lugar guardado!", window.location.pathname = "places";
-            }).error(function() {
+            }, function() {
                 return c.cargando = "Ocurrió un error guardando el place";
             }))) : (c.cargando = null, this);
         }, c.viewDisplayed = function() {
@@ -687,10 +701,18 @@
             buscar: {
                 method: "GET"
             },
+            create: {
+                method: "POST",
+                url: "/admin/places/add.json"
+            },
             get: {
                 cache: !0,
                 method: "GET",
                 url: "/places/get.json"
+            },
+            update: {
+                method: "POST",
+                url: "/admin/places/edit/:id.json"
             }
         });
     } ]).factory("Rate", [ "$resource", function(a) {

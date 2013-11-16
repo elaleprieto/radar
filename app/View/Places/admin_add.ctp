@@ -204,7 +204,7 @@
                                     <div ng-controller="ClassificationsController">
                                         <div class="row form-group">
                                             <div class="col-sm-12">
-                                                <div class="row categoriaLink"
+                                                <!-- <div class="row categoriaLink"
                                                 	ng-class="{highlight:classification.highlight}"
                                                 	ng-model="classification"
                                                 	ng-repeat="classification in classifications | orderBy:'Classification.name'"
@@ -213,7 +213,18 @@
                                                         	<div class="classification" x-ng-style="{'background-color':classification.Classification.color}"></div>
                                                         </div>
                                                         <div class="col-sm-10" x-ng-bind="classification.Classification.name"></div>
-                                                </div>
+                                                </div> -->
+                                                <div class="row categoriaLink"
+													x-ng-class="{highlight: placeHasClassification(classification)}"
+													x-ng-model="classification"
+													x-ng-repeat="classification in classifications | orderBy:'name'"
+													x-ng-click="classificationToogle(classification)">
+														
+														<div class="col-sm-1">
+															<div class="classification" x-ng-style="{'background-color':classification.color}"></div>
+														</div>
+														<div class="col-sm-10" x-ng-bind="classification.name"></div>
+												</div>
                                             </div>
                                         </div>
                                    </div>

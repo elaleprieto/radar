@@ -50,33 +50,6 @@
 			
 		<!-- Location Advertise -->
 		<div x-ng-cloak>
-			<!-- 
-			<div class="background-white alert alert-dismissable" x-ng-hide="showSearchLocationBar">
-				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-				<strong x-ng-bind='user.location'></strong>
-				<br />
-				<?php echo __('Is not your current location?'); ?>
-				<a href="#" x-ng-click="showSearchLocationBar = !showSearchLocationBar">
-					<?php echo __('Change'); ?>
-				</a> 
-			</div>
-			<div x-ng-show="showSearchLocationBar">
-				<div class="input-group">
-					<input class="form-control" x-ng-model="locationSearched" 
-						placeholder="<?php echo __('City: Rome, Italy'); ?>" type="text" 
-						ui-keypress="{13:'searchLocation(locationSearched)'}" />
-					<span class="input-group-addon" x-ng-click="searchLocation(locationSearched)"
-						title="<?php echo __('Search'); ?>">
-						<i class="glyphicon glyphicon-search"></i>
-					</span>
-					
-					<span class="input-group-addon" x-ng-click="showSearchLocationBar = !showSearchLocationBar" 
-							title="<?php echo __('Hide'); ?>">
-						<i class="glyphicon glyphicon-eye-close"></i>
-					</span>
-				</div>
-			</div> 
-			-->
 			
 			<!-- Rampa east para el Buscador del mapa. Se oculta para los dispositivos xs-->
 			<div id="rampa-east" class="hidden-xs"> 
@@ -110,11 +83,6 @@
 				<input class="form-control" x-ng-model="locationSearched" x-ng-init="locationSearched=user.location"
 					placeholder="<?php echo __('City: Rome, Italy'); ?>" type="text" 
 					ui-keypress="{13:'searchLocation(locationSearched)'}" />
-				<!--
-				<span class="input-group-addon" x-ng-click="searchLocation(locationSearched)"
-					title="<?php echo __('Search'); ?>">
-						<i class="glyphicon glyphicon-search"></i>
-				</span> -->
 				
 				<div class="input-group-btn">
 					<button class="btn btn-default" tabindex="-1" title="<?php echo __('Search'); ?>" type="button" 
@@ -134,6 +102,7 @@
 		</div>
 
 		<br/>
+
 		<!-- CATEGORIES -->
 		<div x-ng-controller="CategoriesController">
 			<div id="categoriesContainer" class="background-black color-white" x-ng-hide="hideCategories">
@@ -304,6 +273,7 @@
 					<table class="table">
 						<thead>
 							<tr>
+								<th><?php echo __('Category'); ?></th>
 							<!--	<th><?php echo __('Date Start'); ?></th>
 								<th><?php echo __('Date End'); ?></th>
 								<th><?php echo __('Event'); ?></th>
@@ -324,6 +294,12 @@
 					<table id="eventsList" class="table table-striped">
 						<tbody>
 							<tr x-ng-repeat="evento in eventos | orderBy:'Event.date_start'">
+								<td>
+									<div class="col-sm-3 category-icon">
+										<img class="icono-categoria" 
+											x-ng-src="/img/categorias/{{evento.Category.icon}}" />
+									</div>
+								</td>
 								<td x-ng-bind="evento.Event.date_start | isodate | date:'dd/MM/yyyy HH:mm'"></td>
 								<td x-ng-bind="evento.Event.date_end | isodate | date:'dd/MM/yyyy HH:mm'"></td>
 								<td x-ng-bind="evento.Event.title"></td>
