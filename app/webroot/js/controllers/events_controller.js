@@ -517,7 +517,7 @@
         console.log('event');
         return console.log(datum.id);
       });
-      $('.typeahead').on('change', function() {
+      $('#EventAddress').on('keyup', function() {
         return console.log('change');
       });
       return $scope.setAddressLocal = function() {

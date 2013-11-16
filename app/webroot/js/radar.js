@@ -341,7 +341,7 @@
             }
         }).on("typeahead:selected typeahead:autocompleted", function(a, b) {
             return console.log("event"), console.log(b.id);
-        }), $(".typeahead").on("change", function() {
+        }), $("#EventAddress").on("keyup", function() {
             return console.log("change");
         }), c.setAddressLocal = function() {
             return console.log("setAddressLocal"), c.countries = [ "timtrueman", "JakeHarding", "vskarich", "Argentina" ];

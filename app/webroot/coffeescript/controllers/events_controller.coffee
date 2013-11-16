@@ -579,7 +579,7 @@ angular.module('RadarApp').controller 'EventsController'
 	)
 	
 	
-	$('.typeahead').on 'change', ->
+	$('#EventAddress').on 'keyup', ->
 		console.log 'change'
 	
 	$scope.setAddressLocal = ->
