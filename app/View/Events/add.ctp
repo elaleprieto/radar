@@ -2,6 +2,7 @@
 echo $this->Html->css(array(
 	'vendors/bootstrap-datepicker',
 	'vendors/bootstrap-timepicker',
+	'vendors/typeahead.js-bootstrap',
 	'inicio',
 	'events/add'
 ), '', array('inline' => false));
@@ -85,7 +86,7 @@ if (AuthComponent::user('location')) {
         							<div class="form-group">
 	                                    <label for="EventAddress"><?php echo __('Address');?></label>
 	                            		<div class="input-group input-group-sm">
-	                            			<input class="capitalize col-sm-11 form-control textbox" id="EventAddress" 
+	                            			<input class="capitalize col-sm-11 form-control textbox typeahead" id="EventAddress" 
 	                            				maxlength="255" required="required" type="text" 
 	                            				ui-keypress="{13:'setAddress($event)'}" x-ng-model="evento.address" />
 											<span class="input-group-btn">

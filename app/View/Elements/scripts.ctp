@@ -5,6 +5,7 @@
 	'//maps.googleapis.com/maps/api/js?v=3.exp&sensor=true',
 	'vendors/bootstrap.min',
 	'vendors/angular-strap.min',
+	'vendors/typeahead',
 	'radar.min'
 	// 'radar'
 	// 'rutes',
