@@ -2,13 +2,10 @@
 <div class="row">
     <div class="col-sm-10">
     	<div class="row">
-    		<div class="col-sm-4 whipala">
-				<img src="img/whipalaRadar.png" class="whipala">
-			</div>
-    		<div class="col-sm-6">
+    		<div class="col-sm-7 col-sm-offset-3">
     			<?php echo $this -> Form -> create('User'); ?>
 		        <fieldset>
-		        	<h1 class="titulo" >REGISTRO</h1>
+		        	<h1 class="titulo"><?php echo __('Registration')?></h1>
 		        	<?php
 		            	echo $this -> Form -> input('username', array('class' => 'col-sm-12 form-group form-control'
 		            		, 'label' => __('Username')
@@ -61,13 +58,8 @@
     		</div>
     	</div>
     </div>
-<!-- SPONSOR -->
+    <!-- SPONSOR -->
 	<div class="col-sm-2">
-	    <div class="col-sm-12">
-	    	  <a href="#" class="thumbnail"><?=$this->Html->image('sponsor/santafedisenia.jpg');?></a>
-	    </div>
-	    <div class="col-sm-12">
-	    	    <a href="#" class="thumbnail"><?=$this->Html->image('sponsor/tallercandombe.jpg');?></a>
-	    </div>
+	    <?php echo $this->element('sponsors'); ?>
 	</div>
 </div>

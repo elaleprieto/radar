@@ -34,7 +34,7 @@ echo $this -> Html -> css(array('events/view'));
 		<hr>
 		<div class="row">
 			<div class="col-sm-2 col-offset-2">
-				<p>De</p>
+				<p><?php echo __('From')?></p>
 			</div>
 			<div class="col-sm-4">
 				<p><span class="glyphicon glyphicon-calendar" style="color:#ABD402"></span>&nbsp;&nbsp;<?php echo CakeTime::format($event['Event']['date_start'], '%d/%m/%Y'); ?></p>
@@ -45,7 +45,7 @@ echo $this -> Html -> css(array('events/view'));
 		</div>	<hr>
 		<div class="row">
 			<div class="col-sm-2 col-offset-2">
-				<p>Hasta</p>
+				<p><?php echo __('To')?></p>
 			</div>
 			<div class="col-sm-4">
 				<p><span class="glyphicon glyphicon-calendar" style="color:#ABD402"></span>&nbsp;&nbsp;<?php echo CakeTime::format($event['Event']['date_end'], '%d/%m/%Y'); ?></p>
@@ -64,8 +64,8 @@ echo $this -> Html -> css(array('events/view'));
 		<hr>
 		<div class="row">
 			<div class="col-sm-12">
-				<p><?php echo __('More'); ?></p>
-				<p><?php echo __('Ticket').' :'.$event['Event']['cost']; ?></p>
+				<p><?php echo __('Additional information'); ?></p>
+				<p><?php echo __('Ticket sales').' :'.$event['Event']['cost']; ?></p>
 				<p><?php echo $event['Event']['website']; ?></p>
 			</div>
 		</div>
