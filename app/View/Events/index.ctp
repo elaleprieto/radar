@@ -79,7 +79,32 @@
 			-->
 			
 			<!-- Rampa east para el Buscador del mapa. Se oculta para los dispositivos xs-->
-			<div id="rampa-east" class="hidden-xs"> </div>
+			<div id="rampa-east" class="hidden-xs"> 
+			
+				<div id="rampa-east-menos" class="hidden-xs"></div>
+				<div id="rampa-east-mas" class="hidden-xs"></div>
+				<div class="text-center">
+					<?php
+					# Si el usuario se encuenta en events/index ó en places/index se habilitan los botones de zoom 
+					if(($this->request->controller == 'events' && $this->request->action == 'index') 
+						|| ($this->request->controller == 'places' && $this->request->action == 'index')):
+					?>
+						<ul class="list-inline zoom-list">
+							<li class="zoom-button">
+								<a href="#" x-ng-click="map.setZoom(map.getZoom() + 1)">
+									<span class="fa fa-search-plus fa zoom-mas"></span>
+								</a>
+							</li>
+							<li class="zoom-button">
+								<a href="#" x-ng-click="map.setZoom(map.getZoom() - 1)">
+									<span class="fa fa-search-minus zoom-menos"></span>
+								</a>
+							</li>
+						</ul>
+					<?php endif; ?>			
+				</div>	
+			</div>
+			
 			<div class="background-black locationBar input-group input-group-sm">
 				
 				<input class="form-control" x-ng-model="locationSearched" x-ng-init="locationSearched=user.location"
@@ -248,12 +273,35 @@
 				
 				<!-- Rampa inferior, se oculta para dispositivos xs -->
 				<div class="col-sm-1 hidden-xs" id="rampa-south"> </div>
+				
+				
+<!--				<div class="col-sm-2 col-xs-2 text-center">
+				<?php
+				# Si el usuario se encuenta en events/index ó en places/index se habilitan los botones de zoom 
+				if(($this->request->controller == 'events' && $this->request->action == 'index') 
+					|| ($this->request->controller == 'places' && $this->request->action == 'index')):
+				?>
+					<ul class="list-inline zoom-list">
+						<li class="zoom-button">
+							<a href="#" x-ng-click="map.setZoom(map.getZoom() + 1)">
+								<span class="fa fa-search-plus fa zoom"></span>
+							</a>
+						</li>
+						<li class="zoom-button">
+							<a href="#" x-ng-click="map.setZoom(map.getZoom() - 1)">
+								<span class="fa fa-search-minus zoom"></span>
+							</a>
+						</li>
+					</ul>
+				<?php endif; ?>			
+				</div>
+	-->			
 			</div>
 
 			<!-- Events List -->
 			<div class="row background-black color-white" ng-hide="hideSouthMenu">
 				<div class="col-sm-12">
-					<table id="eventsList" class="table table-striped">
+					<table class="table">
 						<thead>
 							<tr>
 							<!--	<th><?php echo __('Date Start'); ?></th>
@@ -262,14 +310,18 @@
 								<th><?php echo __('Address'); ?></th>
 								<th class="text-center"><?php echo __('Like'); ?></th>-->
 								<!-- <th><?php echo __('Rate'); ?></th> -->
-								<th><?php echo __('Start'); ?></th>
-								<th><?php echo __('End'); ?></th>
-								<th><?php echo __('Event'); ?></th>
-								<th><?php echo __('Address'); ?></th>
-								<th class="text-center"><?php echo __('Like'); ?></th>
+								<td class="text-center"><?php echo __('Start'); ?></td>
+								<td class="text-center"><?php echo __('End'); ?></td>
+								<td class="text-center"><?php echo __('Event'); ?></td>
+								<td class="text-center"><?php echo __('Address'); ?></td>
+								<td class="text-center"><?php echo __('Like'); ?></td>
 								<th>&nbsp;</th>
 							</tr>
 						</thead>
+					</table>
+				</div>
+				<div class="col-sm-12" id="eventScroll">
+					<table id="eventsList" class="table table-striped">
 						<tbody>
 							<tr x-ng-repeat="evento in eventos | orderBy:'Event.date_start'">
 								<td x-ng-bind="evento.Event.date_start | isodate | date:'dd/MM/yyyy HH:mm'"></td>

@@ -6,18 +6,18 @@
 
 @font-face { font-family: "greyscale"; src: url('/fonts/Greyscale_Basic_Regular.ttf') format('truetype'); }
 
-/* line 1, /datos/Documentos/Colectivo Libre/radar cultural/workspace/radar/app/webroot/sass/_scroll.sass */
+/* line 1, ../../sass/_scroll.sass */
 ::-webkit-scrollbar { width: 10px; }
 
 /* Track */
-/* line 5, /datos/Documentos/Colectivo Libre/radar cultural/workspace/radar/app/webroot/sass/_scroll.sass */
+/* line 5, ../../sass/_scroll.sass */
 ::-webkit-scrollbar-track { -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3); -webkit-border-radius: 10px; border-radius: 10px; }
 
 /* Handle */
-/* line 11, /datos/Documentos/Colectivo Libre/radar cultural/workspace/radar/app/webroot/sass/_scroll.sass */
+/* line 11, ../../sass/_scroll.sass */
 ::-webkit-scrollbar-thumb { -webkit-border-radius: 10px; border-radius: 10px; background: #6aa3d5; -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5); }
 
-/* line 17, /datos/Documentos/Colectivo Libre/radar cultural/workspace/radar/app/webroot/sass/_scroll.sass */
+/* line 17, ../../sass/_scroll.sass */
 ::-webkit-scrollbar-thumb:window-inactive { background: #b9d4ec; }
 
 /* line 3, ../../sass/places/index.sass */
