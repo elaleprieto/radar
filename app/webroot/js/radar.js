@@ -1,4 +1,4 @@
-/*! radar 2013-11-14 */
+/*! radar 2013-11-16 */
 (function() {
     "use strict";
     var a, b = [].indexOf || function(a) {
@@ -328,7 +328,20 @@
             return null != a && null != a.address_components ? (e = a.address_components, b = m(e, "locality"), 
             d = m(e, "country"), c.user.location = b && d ? b + ", " + d : a.formatted_address, 
             c.locationSearched = c.user.location, c.saveUserLocationString()) : c.user.location = c.user.locationAux;
-        };
+        }, $(".typeahead").typeahead({
+            limit: 10,
+            name: "countries",
+            local: [ "timtrueman", "JakeHarding", "vskarich" ],
+            source: function(a, b) {
+                return $.get("/my_search_url", {
+                    query: a
+                }, function(a) {
+                    return b(a.options);
+                });
+            }
+        }).on("typeahead:selected typeahead:autocompleted", function(a, b) {
+            return console.log("event"), console.log(b.id);
+        });
     } ]);
 }.call(this), function() {
     angular.module("RadarApp").controller("PlacesController", [ "$http", "$location", "$scope", "$timeout", "$compile", "Place", "PlaceView", function(a, b, c, d, e, f, g) {
