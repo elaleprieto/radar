@@ -501,28 +501,52 @@
           return $scope.user.location = $scope.user.locationAux;
         }
       };
-      $scope.countries = ['timtrueman', 'JakeHarding', 'vskarich'];
       $('.typeahead').typeahead({
         limit: 10,
-        name: 'countries',
-        local: $scope.countries,
-        source: function(query, process) {
-          return $.get('/my_search_url', {
-            query: query
-          }, function(data) {
-            return process(data.options);
-          });
+        name: 'Address',
+        remote: {
+          url: 'https://maps.googleapis.com/maps/api/geocode/json?address=%QUERY&sensor=false',
+          cache: true,
+          filter: function(response) {
+            var datums, result, results, status, _i, _len;
+            results = response.results;
+            status = response.status;
+            datums = [];
+            if (!results || results.length === 0) {
+              return items;
+            }
+            for (_i = 0, _len = results.length; _i < _len; _i++) {
+              result = results[_i];
+              datums.push({
+                value: result.formatted_address,
+                location: result.geometry.location
+              });
+            }
+            $scope.setAddressToMap(datums[0]);
+            return datums;
+          }
         }
       }).on('typeahead:selected typeahead:autocompleted', function(e, datum) {
-        console.log('event');
-        return console.log(datum.id);
+        return $scope.setAddressToMap(datum);
       });
-      $('#EventAddress').on('keyup', function() {
-        return console.log('change');
-      });
-      return $scope.setAddressLocal = function() {
-        console.log('setAddressLocal');
-        return $scope.countries = ['timtrueman', 'JakeHarding', 'vskarich', 'Argentina'];
+      return $scope.setAddressToMap = function(datum) {
+        var icon;
+        $scope.evento.address = datum.value;
+        $scope.evento.lat = datum.location.lat;
+        $scope.evento.long = datum.location.lng;
+        console.log($scope.evento);
+        $scope.map.setCenter(datum.location);
+        $scope.map.setZoom(13);
+        icon = new google.maps.MarkerImage("http://gmaps-samples.googlecode.com/svn/trunk/markers/blue/blank.png", new google.maps.Size(20, 34), new google.maps.Point(0, 0), new google.maps.Point(10, 34));
+        if ($scope.marker != null) {
+          $scope.marker.setMap(null);
+        }
+        $scope.marker = new google.maps.Marker({
+          'position': datum.location,
+          'map': $scope.map,
+          'icon': icon
+        });
+        return $scope.marker.setMap($scope.map);
       };
     }
   ]);

@@ -328,23 +328,33 @@
             return null != a && null != a.address_components ? (e = a.address_components, b = m(e, "locality"), 
             d = m(e, "country"), c.user.location = b && d ? b + ", " + d : a.formatted_address, 
             c.locationSearched = c.user.location, c.saveUserLocationString()) : c.user.location = c.user.locationAux;
-        }, c.countries = [ "timtrueman", "JakeHarding", "vskarich" ], $(".typeahead").typeahead({
+        }, $(".typeahead").typeahead({
             limit: 10,
-            name: "countries",
-            local: c.countries,
-            source: function(a, b) {
-                return $.get("/my_search_url", {
-                    query: a
-                }, function(a) {
-                    return b(a.options);
-                });
+            name: "Address",
+            remote: {
+                url: "https://maps.googleapis.com/maps/api/geocode/json?address=%QUERY&sensor=false",
+                cache: !0,
+                filter: function(a) {
+                    var b, d, e, f, g, h;
+                    if (e = a.results, f = a.status, b = [], !e || 0 === e.length) return items;
+                    for (g = 0, h = e.length; h > g; g++) d = e[g], b.push({
+                        value: d.formatted_address,
+                        location: d.geometry.location
+                    });
+                    return c.setAddressToMap(b[0]), b;
+                }
             }
         }).on("typeahead:selected typeahead:autocompleted", function(a, b) {
-            return console.log("event"), console.log(b.id);
-        }), $("#EventAddress").on("keyup", function() {
-            return console.log("change");
-        }), c.setAddressLocal = function() {
-            return console.log("setAddressLocal"), c.countries = [ "timtrueman", "JakeHarding", "vskarich", "Argentina" ];
+            return c.setAddressToMap(b);
+        }), c.setAddressToMap = function(a) {
+            var b;
+            return c.evento.address = a.value, c.evento.lat = a.location.lat, c.evento.long = a.location.lng, 
+            console.log(c.evento), c.map.setCenter(a.location), c.map.setZoom(13), b = new google.maps.MarkerImage("http://gmaps-samples.googlecode.com/svn/trunk/markers/blue/blank.png", new google.maps.Size(20, 34), new google.maps.Point(0, 0), new google.maps.Point(10, 34)), 
+            null != c.marker && c.marker.setMap(null), c.marker = new google.maps.Marker({
+                position: a.location,
+                map: c.map,
+                icon: b
+            }), c.marker.setMap(c.map);
         };
     } ]);
 }.call(this), function() {
@@ -593,6 +603,33 @@
             return null != a && null != a.address_components ? (e = a.address_components, b = i(e, "locality"), 
             d = i(e, "country"), c.user.location = b && d ? b + ", " + d : a.formatted_address, 
             c.saveUserLocationString()) : c.user.location = c.user.locationAux;
+        }, $(".typeahead").typeahead({
+            limit: 10,
+            name: "Address",
+            remote: {
+                url: "https://maps.googleapis.com/maps/api/geocode/json?address=%QUERY&sensor=false",
+                cache: !0,
+                filter: function(a) {
+                    var b, d, e, f, g, h;
+                    if (e = a.results, f = a.status, b = [], !e || 0 === e.length) return items;
+                    for (g = 0, h = e.length; h > g; g++) d = e[g], b.push({
+                        value: d.formatted_address,
+                        location: d.geometry.location
+                    });
+                    return c.setAddressToMap(b[0]), b;
+                }
+            }
+        }).on("typeahead:selected typeahead:autocompleted", function(a, b) {
+            return c.setAddressToMap(b);
+        }), c.setAddressToMap = function(a) {
+            var b;
+            return c.place.address = a.value, c.place.lat = a.location.lat, c.place.long = a.location.lng, 
+            console.log(c.evento), c.map.setCenter(a.location), c.map.setZoom(13), b = new google.maps.MarkerImage("http://gmaps-samples.googlecode.com/svn/trunk/markers/blue/blank.png", new google.maps.Size(20, 34), new google.maps.Point(0, 0), new google.maps.Point(10, 34)), 
+            null != c.marker && c.marker.setMap(null), c.marker = new google.maps.Marker({
+                position: a.location,
+                map: c.map,
+                icon: b
+            }), c.marker.setMap(c.map);
         };
     } ]);
 }.call(this), function() {}.call(this), function() {

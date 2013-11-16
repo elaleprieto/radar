@@ -3,6 +3,7 @@
 <?php
 	echo $this->Html->css(array(
 		'//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css',
+		'vendors/typeahead.js-bootstrap',
 		'places/add'
 	), '', array('inline' => false));
 
@@ -76,9 +77,8 @@
 								</div>
 
 								<!-- Address -->
-								<div class="row">
+								<!-- <div class="row">
 									<div class="form-group">
-										<!-- <input class="span2" id="appendedInputButton" type="text"> -->
 										<label for="PlaceAddress"><?php echo __('Address'); ?></label>
 										<div class="input-group input-group-sm">
 											<input class="capitalize col-sm-11 form-control textbox" id="PlaceAddress" 
@@ -91,7 +91,16 @@
 											</span>
 										</div>
 									</div>
-								</div>
+								</div> -->
+								<div class="row form-group">
+                                    <label for="PlaceAddress"><?php echo __('Address'); ?></label>
+                                    <div>
+	                        			<input class="capitalize col-sm-11 form-control textbox typeahead" 
+	                        				id="PlaceAddress" 
+	                        				maxlength="255" required="required" type="text" 
+	                        				ui-keypress="{13:'$event.preventDefault()'}" x-ng-model="place.address"/>
+                                    </div>
+        						</div>
 
 								<!-- Description -->
 								<div class="row form-group">

@@ -561,45 +561,72 @@ angular.module('RadarApp').controller 'EventsController'
 		else
 			$scope.user.location = $scope.user.locationAux
 	
-	$scope.countries = ['timtrueman', 'JakeHarding', 'vskarich']
-
+	#####################################################################################################################
+	#
+	# 		AUTOCOMPLETE
+	#
+	#####################################################################################################################
+	
 	$('.typeahead').typeahead({
 		limit: 10,
-		name: 'countries',
-		# local: $scope.locationsSearched($('.typeahead').val()) 
-		local: $scope.countries
-		source: (query, process) ->
-        return $.get('/my_search_url', { query: query }, (data) ->
-            return process(data.options);
-        );
+		name: 'Address',
+		remote: {
+			# url: 'https://maps.googleapis.com/maps/api/geocode/json?parameters'
+			url: 'https://maps.googleapis.com/maps/api/geocode/json?address=%QUERY&sensor=false'
+			cache: true,
+			filter: (response) ->
+				results = response.results
+				status = response.status
+				
+				datums = []
+				
+				# si la respuesta es nula
+				if not results or results.length is 0 then return items
+				
+				for result in results
+					datums.push {
+						value: result.formatted_address
+						location: result.geometry.location
+					}
+				
+				# $scope.evento.address = results[0].formatted_address
+				# $scope.evento.lat = results[0].geometry.location.lat
+				# $scope.evento.long = results[0].geometry.location.lng
+				
+				$scope.setAddressToMap(datums[0])
+				
+				return datums		
+		} 
 	})
 	.on('typeahead:selected typeahead:autocompleted', (e, datum) ->
-		console.log('event');
-		console.log(datum.id);
+		$scope.setAddressToMap(datum)
 	)
 	
-	
-	$('#EventAddress').on 'keyup', ->
-		console.log 'change'
-	
-	$scope.setAddressLocal = ->
-		console.log 'setAddressLocal'
-		$scope.countries = ['timtrueman', 'JakeHarding', 'vskarich', 'Argentina']
-	
-	# $('.typeahead').on 'typeahead:selected', (evt, item) ->
-		# event.preventDefault() if event?
-		# request = new Object() # se crea un objeto request
-		# request.address = $scope.evento.address
-		# # se comenta para que busque en todo el país y no solo en el mapa que se ve
-		# # request.bounds = $scope.map.getBounds()
-		# # request.region = 'AR'
-		# # geocode hace la conversión a un punto, y su segundo parámetro es una función de callback
-		# $scope.geocoder.geocode(request, $scope.addAddressToMap)
-# 		
-	# $('.typeahead').on 'typeahead:selected', (evt, item) ->
-    # console.log item
-    # $scope.evento.address = item.value
-    # $scope.setAddress()
-	
+	$scope.setAddressToMap = (datum) ->
+		$scope.evento.address = datum.value
+		$scope.evento.lat = datum.location.lat
+		$scope.evento.long = datum.location.lng
+		console.log($scope.evento);
+		
+		# Center Map
+		$scope.map.setCenter(datum.location)
+		$scope.map.setZoom(13)
+		
+		# blankicono que voy a usar para mostrar el punto en el mapa
+		icon = new google.maps.MarkerImage("http://gmaps-samples.googlecode.com/svn/trunk/markers/blue/blank.png"
+			, new google.maps.Size(20, 34)
+			, new google.maps.Point(0, 0)
+			, new google.maps.Point(10, 34)
+		)
+		
+		if $scope.marker? then $scope.marker.setMap(null)
+		
+		# creo el marcador con la posición, el mapa, y el icono
+		$scope.marker = new google.maps.Marker 
+			'position': datum.location
+			, 'map': $scope.map
+			, 'icon': icon
+		
+		$scope.marker.setMap($scope.map) # inserto el marcador en el mapa
 	
 	]

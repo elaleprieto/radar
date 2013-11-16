@@ -534,5 +534,73 @@ angular.module('RadarApp').controller 'PlacesController'
 			$scope.saveUserLocationString()
 		else
 			$scope.user.location = $scope.user.locationAux
-			
+	
+	#####################################################################################################################
+	#
+	# 		AUTOCOMPLETE
+	#
+	#####################################################################################################################
+	
+	$('.typeahead').typeahead({
+		limit: 10,
+		name: 'Address',
+		remote: {
+			# url: 'https://maps.googleapis.com/maps/api/geocode/json?parameters'
+			url: 'https://maps.googleapis.com/maps/api/geocode/json?address=%QUERY&sensor=false'
+			cache: true,
+			filter: (response) ->
+				results = response.results
+				status = response.status
+				
+				datums = []
+				
+				# si la respuesta es nula
+				if not results or results.length is 0 then return items
+				
+				for result in results
+					datums.push {
+						value: result.formatted_address
+						location: result.geometry.location
+					}
+				
+				# $scope.evento.address = results[0].formatted_address
+				# $scope.evento.lat = results[0].geometry.location.lat
+				# $scope.evento.long = results[0].geometry.location.lng
+				
+				$scope.setAddressToMap(datums[0])
+				
+				return datums		
+		} 
+	})
+	.on('typeahead:selected typeahead:autocompleted', (e, datum) ->
+		$scope.setAddressToMap(datum)
+	)
+	
+	$scope.setAddressToMap = (datum) ->
+		$scope.place.address = datum.value
+		$scope.place.lat = datum.location.lat
+		$scope.place.long = datum.location.lng
+		console.log($scope.evento);
+		
+		# Center Map
+		$scope.map.setCenter(datum.location)
+		$scope.map.setZoom(13)
+		
+		# blankicono que voy a usar para mostrar el punto en el mapa
+		icon = new google.maps.MarkerImage("http://gmaps-samples.googlecode.com/svn/trunk/markers/blue/blank.png"
+			, new google.maps.Size(20, 34)
+			, new google.maps.Point(0, 0)
+			, new google.maps.Point(10, 34)
+		)
+		
+		if $scope.marker? then $scope.marker.setMap(null)
+		
+		# creo el marcador con la posición, el mapa, y el icono
+		$scope.marker = new google.maps.Marker 
+			'position': datum.location
+			, 'map': $scope.map
+			, 'icon': icon
+		
+		$scope.marker.setMap($scope.map) # inserto el marcador en el mapa
+		
 	]

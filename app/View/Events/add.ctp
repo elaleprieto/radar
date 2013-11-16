@@ -75,35 +75,27 @@ if (AuthComponent::user('location')) {
         							
         						<!-- Title -->
         						<div class="row form-group">
-                                	<label for="EventTitle"><?php echo __('Title');?></label>
+                                	<label for="EventTitle"><?php echo __('Title'); ?></label>
                                     <input autofocus="true" class="capitalize form-control textbox" id="EventTitle" 
                                     	maxlength="255" required="required" type="text"
                                     	x-ng-model="evento.title" />
         						</div>
         							
         						<!-- Address -->
-        						<div class="row">
-        							<div class="form-group">
-	                                    <label for="EventAddress"><?php echo __('Address');?></label>
-	                            		<div class="input-group input-group-sm">
-	                            			<input class="capitalize col-sm-11 form-control textbox typeahead" id="EventAddress" 
-	                            				maxlength="255" required="required" type="text" 
-	                            				ui-keypress="{13:'setAddress($event)'}" 
-	                            				x-ng-change="setAddressLocal()"
-	                            				x-ng-model="evento.address" />
-											<span class="input-group-btn">
-												<button class="btn btn-default" x-ng-click="setAddress()" type="button">
-													 <span class="glyphicon glyphicon-map-marker"></span>
-												</button>
-											</span>
-	                            		</div>
-									</div>
+        						<div class="row form-group">
+                                    <label for="EventAddress"><?php echo __('Address'); ?></label>
+                                    <div>
+	                        			<input class="capitalize col-sm-11 form-control textbox typeahead" 
+	                        				id="EventAddress" 
+	                        				maxlength="255" required="required" type="text" 
+	                        				ui-keypress="{13:'$event.preventDefault()'}" />
+                                    </div>
         						</div>
         							
         						<!-- Description -->
         						<div class="row form-group">
                                 	<label for="EventDescription">
-                                		<?php echo __('Description');?> 
+                                		<?php echo __('Description'); ?> 
                                 		<span x-ng-cloak>
                                 			<small>({{descriptionSize - evento.description.length}} <?php echo __('characters')?>)</small>
                                 		</span>
