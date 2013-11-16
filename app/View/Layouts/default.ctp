@@ -24,7 +24,7 @@
 	<body ng-app="RadarApp">
 		<?php echo $this->element('navbar'); ?>
 		<div id="container">
-			<div class="container">
+			<div class="container principal">
 				<?php echo $this->Session->flash(); ?>
 				<?php echo $this->fetch('content'); ?>
 			</div>
