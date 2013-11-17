@@ -10,7 +10,7 @@
 	<!-- Menú Superior -->
 	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 
-		<div class="navbar-collapse collapse navbar-radar-collapse ">
+		<div class="navbar-collapse collapse navbar-radar-collapse">
 			<ul class="nav navbar-nav menu-centro">
 				<li class="<?php echo ($this->request->controller == 'events' && $this->request->action == 'index') ? 'active' : '' ?>">
 					<!-- Botón con texto para vista lg y md -->
