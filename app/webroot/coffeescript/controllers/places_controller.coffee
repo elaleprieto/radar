@@ -3,8 +3,8 @@
 ******************************************************************************************************************* ###
 
 angular.module('RadarApp').controller 'PlacesController'
-	, ['$http', '$location', '$scope', '$timeout', '$compile', 'Place', 'PlaceView'
-		, ($http, $location, $scope, $timeout, $compile, Place, PlaceView) ->
+	, ['$http', '$location', '$scope', '$timeout', '$compile', 'Place', 'PlaceView', 'User'
+		, ($http, $location, $scope, $timeout, $compile, Place, PlaceView, User) ->
 
 	### ***************************************************************************************************************
 			Inicialización de Objetos
@@ -330,6 +330,20 @@ angular.module('RadarApp').controller 'PlacesController'
 		
 		$location.path('/')
 
+	# Save Location Preferences
+	$scope.saveUserLocationPreferences = ->
+		$scope.saveUserLocationString()
+		$scope.saveUserMapCenter()
+		$scope.saveUserMapTypeId()
+		$scope.saveUserMapZoom()
+		
+		if $scope.user.id?
+			$scope.user.map_lat = $scope.map.getCenter().lat()
+			$scope.user.map_lng = $scope.map.getCenter().lng()
+			$scope.user.map_type = $scope.map.getMapTypeId()
+			$scope.user.map_zoom = $scope.map.getZoom()
+			User.update {id: $scope.user.id}, $scope.user
+
 	# Save as cookie, the user map desired center
 	$scope.saveUserLocationString = ->
 		$.cookie.json = true
@@ -551,7 +565,6 @@ angular.module('RadarApp').controller 'PlacesController'
 			filter: (response) ->
 				results = response.results
 				status = response.status
-				
 				datums = []
 				
 				# si la respuesta es nula
@@ -563,12 +576,7 @@ angular.module('RadarApp').controller 'PlacesController'
 						location: result.geometry.location
 					}
 				
-				# $scope.evento.address = results[0].formatted_address
-				# $scope.evento.lat = results[0].geometry.location.lat
-				# $scope.evento.long = results[0].geometry.location.lng
-				
 				$scope.setAddressToMap(datums[0])
-				
 				return datums		
 		} 
 	})
@@ -580,7 +588,7 @@ angular.module('RadarApp').controller 'PlacesController'
 		$scope.place.address = datum.value
 		$scope.place.lat = datum.location.lat
 		$scope.place.long = datum.location.lng
-		console.log($scope.evento);
+		$scope.user.location = datum.value
 		
 		# Center Map
 		$scope.map.setCenter(datum.location)

@@ -20,6 +20,13 @@ a
 		size: 16px
 		weight: bold
 
+button.close.sponsor
+	float: left
+
+html, body
+	height: 100%
+	overflow: hidden
+
 input
 	// Enable selection
 	-webkit-touch-callout: text
@@ -28,6 +35,14 @@ input
 	-moz-user-select: text
 	-ms-user-select: text
 	user-select: text
+
+nav
+	position: absolute
+	top: 0
+	z-index: 4999
+
+ul.rating
+	display: inline-block
 
 .nav > li > a
 	display: block
@@ -39,20 +54,6 @@ input
 .navbar-inverse .navbar-nav > li > a
 	color: #CCCCCC
 	
-button.close.sponsor
-	float: left
-
-html, body
-	height: 100%
-	overflow: hidden
-
-nav
-	position: absolute
-	top: 0
-	z-index: 4999
-
-ul.rating
-	display: inline-block
 
 .arrow, .arrow:hover
 	// background-color: $background-black
@@ -129,6 +130,7 @@ ul.rating
 	min-width: 285px
 	padding: 5px
 	width: 285px
+	
 
 .menu
 	font:
@@ -200,7 +202,10 @@ ul.rating
  
 .table-striped > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(2n+1) > th
 	background-color: rgba(0 ,0 ,0, 0.7)
-        
+
+.textbox
+	height: 30px
+
 .username
 	font:
 		family: 'isocpe'

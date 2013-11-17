@@ -1,39 +1,39 @@
 <?php
-echo $this->Html->css(array(
-	'vendors/bootstrap-datepicker',
-	'vendors/bootstrap-timepicker',
-	'vendors/typeahead.js-bootstrap',
-	'inicio',
-	'events/add'
-), '', array('inline' => false));
-
-# User Location
-if (AuthComponent::user('location')) {
-	$userLocation = AuthComponent::user('location');
-} else {
-	$userLocation = null;
-}
-
-# Se elimina la consulta por la IP porque no funciona bien
-// else {
-	// $ip = $this->request->clientIp();
-	// if ($ip == '127.0.0.1')
-		// $ip = '190.183.62.72';
-	// $ipData = @json_decode(file_get_contents("http://www.geoplugin.net/json.gp?ip=" . $ip));
-	// if ($ipData && $ipData->geoplugin_countryName != null) {
-		// // $userLocation = $ipData->geoplugin_city . ', ' . $ipData->geoplugin_countryName;
-		// $userLocation = $ipData->geoplugin_countryName;
-		// $userLocationZoom = 4;
-// 
-		// # No se guardar el userLocation, a menos que se haga clic en el botón explícitamente
-		// // # Se guarda el userLocation
-		// // if ($userId = AuthComponent::user('id')) {
-			// // $this->requestAction("/users/setLocation/$userId/$userLocation");
-		// // }
-	// } else {
-		// $userLocation = null;
+	echo $this->Html->css(array(
+		'vendors/bootstrap-datepicker',
+		'vendors/bootstrap-timepicker',
+		'vendors/typeahead.js-bootstrap',
+		'inicio',
+		'events/add'
+	), '', array('inline' => false));
+	
+	# User Location
+	if ($userData['User']['location']) {
+			$userLocation = $userData['User']['location'];
+	} else {
+		$userLocation = null;
+	}
+	
+	# Se elimina la consulta por la IP porque no funciona bien
+	// else {
+		// $ip = $this->request->clientIp();
+		// if ($ip == '127.0.0.1')
+			// $ip = '190.183.62.72';
+		// $ipData = @json_decode(file_get_contents("http://www.geoplugin.net/json.gp?ip=" . $ip));
+		// if ($ipData && $ipData->geoplugin_countryName != null) {
+			// // $userLocation = $ipData->geoplugin_city . ', ' . $ipData->geoplugin_countryName;
+			// $userLocation = $ipData->geoplugin_countryName;
+			// $userLocationZoom = 4;
+	// 
+			// # No se guardar el userLocation, a menos que se haga clic en el botón explícitamente
+			// // # Se guarda el userLocation
+			// // if ($userId = AuthComponent::user('id')) {
+				// // $this->requestAction("/users/setLocation/$userId/$userLocation");
+			// // }
+		// } else {
+			// $userLocation = null;
+		// }
 	// }
-// }
 ?>
 
 <div x-ng-controller="EventsController" 
@@ -64,7 +64,8 @@ if (AuthComponent::user('location')) {
     <div class="row">
     	<div class="col-sm-12">
     		<div class="row">
-    		    <!-- FORMULARIO BÁSICO -->
+    		   
+    		   <!-- FORMULARIO BÁSICO -->
     	       <form name="eventForm" x-ng-submit="submit()">
         			<div class="col-sm-4">
         				<div class="row">

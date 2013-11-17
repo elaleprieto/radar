@@ -577,7 +577,6 @@ angular.module('RadarApp').controller 'EventsController'
 			filter: (response) ->
 				results = response.results
 				status = response.status
-				
 				datums = []
 				
 				# si la respuesta es nula
@@ -589,12 +588,7 @@ angular.module('RadarApp').controller 'EventsController'
 						location: result.geometry.location
 					}
 				
-				# $scope.evento.address = results[0].formatted_address
-				# $scope.evento.lat = results[0].geometry.location.lat
-				# $scope.evento.long = results[0].geometry.location.lng
-				
 				$scope.setAddressToMap(datums[0])
-				
 				return datums		
 		} 
 	})
@@ -606,7 +600,7 @@ angular.module('RadarApp').controller 'EventsController'
 		$scope.evento.address = datum.value
 		$scope.evento.lat = datum.location.lat
 		$scope.evento.long = datum.location.lng
-		console.log($scope.evento);
+		$scope.locationSearched = datum.value
 		
 		# Center Map
 		$scope.map.setCenter(datum.location)

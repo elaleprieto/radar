@@ -6,7 +6,7 @@
 
 (function() {
   angular.module('RadarApp').controller('PlacesController', [
-    '$http', '$location', '$scope', '$timeout', '$compile', 'Place', 'PlaceView', function($http, $location, $scope, $timeout, $compile, Place, PlaceView) {
+    '$http', '$location', '$scope', '$timeout', '$compile', 'Place', 'PlaceView', 'User', function($http, $location, $scope, $timeout, $compile, Place, PlaceView, User) {
       /* ***************************************************************************************************************
       			Inicialización de Objetos
       	***************************************************************************************************************
@@ -285,6 +285,21 @@
         console.log($('ng-view').innerHtml);
         return $location.path('/');
       };
+      $scope.saveUserLocationPreferences = function() {
+        $scope.saveUserLocationString();
+        $scope.saveUserMapCenter();
+        $scope.saveUserMapTypeId();
+        $scope.saveUserMapZoom();
+        if ($scope.user.id != null) {
+          $scope.user.map_lat = $scope.map.getCenter().lat();
+          $scope.user.map_lng = $scope.map.getCenter().lng();
+          $scope.user.map_type = $scope.map.getMapTypeId();
+          $scope.user.map_zoom = $scope.map.getZoom();
+          return User.update({
+            id: $scope.user.id
+          }, $scope.user);
+        }
+      };
       $scope.saveUserLocationString = function() {
         $.cookie.json = true;
         return $.cookie("userLastLocationString", $scope.user.location, {
@@ -503,7 +518,7 @@
         $scope.place.address = datum.value;
         $scope.place.lat = datum.location.lat;
         $scope.place.long = datum.location.lng;
-        console.log($scope.evento);
+        $scope.user.location = datum.value;
         $scope.map.setCenter(datum.location);
         $scope.map.setZoom(13);
         icon = new google.maps.MarkerImage("http://gmaps-samples.googlecode.com/svn/trunk/markers/blue/blank.png", new google.maps.Size(20, 34), new google.maps.Point(0, 0), new google.maps.Point(10, 34));
