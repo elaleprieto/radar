@@ -1,4 +1,13 @@
-/* line 1, ../../sass/_text.sass */
+/* line 3, /datos/Documentos/Colectivo Libre/radar cultural/workspace/radar/app/webroot/sass/_autocomplete.sass */
+.tt-hint { display: none; }
+
+/* line 6, /datos/Documentos/Colectivo Libre/radar cultural/workspace/radar/app/webroot/sass/_autocomplete.sass */
+.tt-query { background-color: white !important; }
+
+/* line 9, /datos/Documentos/Colectivo Libre/radar cultural/workspace/radar/app/webroot/sass/_autocomplete.sass */
+.twitter-typeahead { vertical-align: middle; width: 100%; }
+
+/* line 1, /datos/Documentos/Colectivo Libre/radar cultural/workspace/radar/app/webroot/sass/_text.sass */
 .capitalize { text-transform: capitalize; }
 
 /* line 3, ../../sass/places/add.sass */

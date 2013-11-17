@@ -3,8 +3,8 @@
 ******************************************************************************************************************* ###
 
 angular.module('RadarApp').controller 'PlacesController'
-	, ['$http', '$location', '$scope', '$timeout', '$compile', 'Place', 'PlaceView'
-		, ($http, $location, $scope, $timeout, $compile, Place, PlaceView) ->
+	, ['$http', '$location', '$scope', '$timeout', '$compile', 'Place', 'PlaceView', 'User'
+		, ($http, $location, $scope, $timeout, $compile, Place, PlaceView, User) ->
 
 	### ***************************************************************************************************************
 			Inicialización de Objetos
@@ -330,6 +330,20 @@ angular.module('RadarApp').controller 'PlacesController'
 		
 		$location.path('/')
 
+	# Save Location Preferences
+	$scope.saveUserLocationPreferences = ->
+		$scope.saveUserLocationString()
+		$scope.saveUserMapCenter()
+		$scope.saveUserMapTypeId()
+		$scope.saveUserMapZoom()
+		
+		if $scope.user.id?
+			$scope.user.map_lat = $scope.map.getCenter().lat()
+			$scope.user.map_lng = $scope.map.getCenter().lng()
+			$scope.user.map_type = $scope.map.getMapTypeId()
+			$scope.user.map_zoom = $scope.map.getZoom()
+			User.update {id: $scope.user.id}, $scope.user
+
 	# Save as cookie, the user map desired center
 	$scope.saveUserLocationString = ->
 		$.cookie.json = true
@@ -534,5 +548,67 @@ angular.module('RadarApp').controller 'PlacesController'
 			$scope.saveUserLocationString()
 		else
 			$scope.user.location = $scope.user.locationAux
-			
+	
+	#####################################################################################################################
+	#
+	# 		AUTOCOMPLETE
+	#
+	#####################################################################################################################
+	
+	$('.typeahead').typeahead({
+		limit: 10,
+		name: 'Address',
+		remote: {
+			# url: 'https://maps.googleapis.com/maps/api/geocode/json?parameters'
+			url: 'https://maps.googleapis.com/maps/api/geocode/json?address=%QUERY&sensor=false'
+			cache: true,
+			filter: (response) ->
+				results = response.results
+				status = response.status
+				datums = []
+				
+				# si la respuesta es nula
+				if not results or results.length is 0 then return items
+				
+				for result in results
+					datums.push {
+						value: result.formatted_address
+						location: result.geometry.location
+					}
+				
+				$scope.setAddressToMap(datums[0])
+				return datums		
+		} 
+	})
+	.on('typeahead:selected typeahead:autocompleted', (e, datum) ->
+		$scope.setAddressToMap(datum)
+	)
+	
+	$scope.setAddressToMap = (datum) ->
+		$scope.place.address = datum.value
+		$scope.place.lat = datum.location.lat
+		$scope.place.long = datum.location.lng
+		$scope.user.location = datum.value
+		
+		# Center Map
+		$scope.map.setCenter(datum.location)
+		$scope.map.setZoom(13)
+		
+		# blankicono que voy a usar para mostrar el punto en el mapa
+		icon = new google.maps.MarkerImage("http://gmaps-samples.googlecode.com/svn/trunk/markers/blue/blank.png"
+			, new google.maps.Size(20, 34)
+			, new google.maps.Point(0, 0)
+			, new google.maps.Point(10, 34)
+		)
+		
+		if $scope.marker? then $scope.marker.setMap(null)
+		
+		# creo el marcador con la posición, el mapa, y el icono
+		$scope.marker = new google.maps.Marker 
+			'position': datum.location
+			, 'map': $scope.map
+			, 'icon': icon
+		
+		$scope.marker.setMap($scope.map) # inserto el marcador en el mapa
+		
 	]

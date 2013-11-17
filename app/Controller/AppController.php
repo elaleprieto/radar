@@ -62,12 +62,21 @@
         );
 		
 		public $helpers = array('Facebook.Facebook');
+		public $uses = array('User');
 
         public function beforeFilter() {
-            if (AuthComponent::user('role') === 'admin') {
-                $this -> layout = 'admin';
-            }
+        	# Using the session's user id is fine because it doesn't change/update
+        	$id = $this->Auth->user('id');
+    		$userData = $this->User->findById($id);
+			
+            // if ($userData['User']['role'] === 'admin') {
+                // $this -> layout = 'admin';
+            // } else {
+	            // $this -> layout = 'default';
+            // }
+            
             $this -> layout = 'default';
+    		$this->set('userData', $userData);
         }
 
         public function isAuthorized($user = null) {

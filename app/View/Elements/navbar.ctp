@@ -5,7 +5,7 @@
 
 <div x-ng-cloak>
 	<!-- Rampa irregular del logo -->
-	<div id="rampa"></div>
+	<div id="rampa" class="navbar-fixed-top"></div>
 	
 	<!-- Menú Superior -->
 	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">

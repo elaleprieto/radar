@@ -1,38 +1,39 @@
 <?php
-echo $this->Html->css(array(
-	'vendors/bootstrap-datepicker',
-	'vendors/bootstrap-timepicker',
-	'inicio',
-	'events/add'
-), '', array('inline' => false));
-
-# User Location
-if (AuthComponent::user('location')) {
-	$userLocation = AuthComponent::user('location');
-} else {
-	$userLocation = null;
-}
-
-# Se elimina la consulta por la IP porque no funciona bien
-// else {
-	// $ip = $this->request->clientIp();
-	// if ($ip == '127.0.0.1')
-		// $ip = '190.183.62.72';
-	// $ipData = @json_decode(file_get_contents("http://www.geoplugin.net/json.gp?ip=" . $ip));
-	// if ($ipData && $ipData->geoplugin_countryName != null) {
-		// // $userLocation = $ipData->geoplugin_city . ', ' . $ipData->geoplugin_countryName;
-		// $userLocation = $ipData->geoplugin_countryName;
-		// $userLocationZoom = 4;
-// 
-		// # No se guardar el userLocation, a menos que se haga clic en el botón explícitamente
-		// // # Se guarda el userLocation
-		// // if ($userId = AuthComponent::user('id')) {
-			// // $this->requestAction("/users/setLocation/$userId/$userLocation");
-		// // }
-	// } else {
-		// $userLocation = null;
+	echo $this->Html->css(array(
+		'vendors/bootstrap-datepicker',
+		'vendors/bootstrap-timepicker',
+		'vendors/typeahead.js-bootstrap',
+		'inicio',
+		'events/add'
+	), '', array('inline' => false));
+	
+	# User Location
+	if ($userData['User']['location']) {
+			$userLocation = $userData['User']['location'];
+	} else {
+		$userLocation = null;
+	}
+	
+	# Se elimina la consulta por la IP porque no funciona bien
+	// else {
+		// $ip = $this->request->clientIp();
+		// if ($ip == '127.0.0.1')
+			// $ip = '190.183.62.72';
+		// $ipData = @json_decode(file_get_contents("http://www.geoplugin.net/json.gp?ip=" . $ip));
+		// if ($ipData && $ipData->geoplugin_countryName != null) {
+			// // $userLocation = $ipData->geoplugin_city . ', ' . $ipData->geoplugin_countryName;
+			// $userLocation = $ipData->geoplugin_countryName;
+			// $userLocationZoom = 4;
+	// 
+			// # No se guardar el userLocation, a menos que se haga clic en el botón explícitamente
+			// // # Se guarda el userLocation
+			// // if ($userId = AuthComponent::user('id')) {
+				// // $this->requestAction("/users/setLocation/$userId/$userLocation");
+			// // }
+		// } else {
+			// $userLocation = null;
+		// }
 	// }
-// }
 ?>
 
 <div x-ng-controller="EventsController" 
@@ -63,7 +64,8 @@ if (AuthComponent::user('location')) {
     <div class="row">
     	<div class="col-sm-12">
     		<div class="row">
-    		    <!-- FORMULARIO BÁSICO -->
+    		   
+    		   <!-- FORMULARIO BÁSICO -->
     	       <form name="eventForm" x-ng-submit="submit()">
         			<div class="col-sm-4">
         				<div class="row">
@@ -74,33 +76,27 @@ if (AuthComponent::user('location')) {
         							
         						<!-- Title -->
         						<div class="row form-group">
-                                	<label for="EventTitle"><?php echo __('Title');?></label>
+                                	<label for="EventTitle"><?php echo __('Title'); ?></label>
                                     <input autofocus="true" class="capitalize form-control textbox" id="EventTitle" 
                                     	maxlength="255" required="required" type="text"
                                     	x-ng-model="evento.title" />
         						</div>
         							
         						<!-- Address -->
-        						<div class="row">
-        							<div class="form-group">
-	                                    <label for="EventAddress"><?php echo __('Address');?></label>
-	                            		<div class="input-group input-group-sm">
-	                            			<input class="capitalize col-sm-11 form-control textbox" id="EventAddress" 
-	                            				maxlength="255" required="required" type="text" 
-	                            				ui-keypress="{13:'setAddress($event)'}" x-ng-model="evento.address" />
-											<span class="input-group-btn">
-												<button class="btn btn-default" x-ng-click="setAddress()" type="button">
-													 <span class="glyphicon glyphicon-map-marker"></span>
-												</button>
-											</span>
-	                            		</div>
-									</div>
+        						<div class="row form-group">
+                                    <label for="EventAddress"><?php echo __('Address'); ?></label>
+                                    <div>
+	                        			<input class="capitalize col-sm-11 form-control textbox typeahead" 
+	                        				id="EventAddress" 
+	                        				maxlength="255" required="required" type="text" 
+	                        				ui-keypress="{13:'$event.preventDefault()'}" />
+                                    </div>
         						</div>
         							
         						<!-- Description -->
         						<div class="row form-group">
                                 	<label for="EventDescription">
-                                		<?php echo __('Description');?> 
+                                		<?php echo __('Description'); ?> 
                                 		<span x-ng-cloak>
                                 			<small>({{descriptionSize - evento.description.length}} <?php echo __('characters')?>)</small>
                                 		</span>

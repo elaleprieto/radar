@@ -8,7 +8,7 @@
 		<?php
 		echo $this->Html->meta('icon');
 		echo $this->fetch('meta');
-		echo $this->Html->css('bootstrap.min');
+		echo $this->Html->css(array('bootstrap.min', 'layouts/index'));
 		echo $this->fetch('css');
 		?>
 		<!--[if lt IE 9]>

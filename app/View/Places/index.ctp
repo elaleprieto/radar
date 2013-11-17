@@ -1,33 +1,40 @@
 <?php
 	# Styles
 	echo $this->Html->css(array(
+		'//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css',
+		'vendors/typeahead.js-bootstrap',
 		'inicio',
 		'places/index',
-		'//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css'
 	), '', array('inline' => false));
 
 	# User Location
-	if (AuthComponent::user('location')) {
-		$userLocation = AuthComponent::user('location');
+	if ($userData['User']['location']) {
+		$userLocation = $userData['User']['location'];
 	} else {
-		$ip = $this->request->clientIp();
-		if ($ip == '127.0.0.1')
-			$ip = '190.183.62.72';
-		$ipData = @json_decode(file_get_contents("http://www.geoplugin.net/json.gp?ip=" . $ip));
-		if ($ipData && $ipData->geoplugin_countryName != null) {
-			$userLocation = $ipData->geoplugin_city . ', ' . $ipData->geoplugin_countryName;
-
-			# Se guarda el userLocation
-			if ($userId = AuthComponent::user('id')) {
-				$this->requestAction("/users/setLocation/$userId/$userLocation");
-			}
-		} else {
-			$userLocation = null;
-		}
+		$userLocation = null;
 	}
+	// # User Location
+	// if ($userData['User']['location']) {
+		// $userLocation = $userData['User']['location'];
+	// } else {
+		// $ip = $this->request->clientIp();
+		// if ($ip == '127.0.0.1')
+			// $ip = '190.183.62.72';
+		// $ipData = @json_decode(file_get_contents("http://www.geoplugin.net/json.gp?ip=" . $ip));
+		// if ($ipData && $ipData->geoplugin_countryName != null) {
+			// $userLocation = $ipData->geoplugin_city . ', ' . $ipData->geoplugin_countryName;
+// 
+			// # Se guarda el userLocation
+			// if ($userId = AuthComponent::user('id')) {
+				// $this->requestAction("/users/setLocation/$userId/$userLocation");
+			// }
+		// } else {
+			// $userLocation = null;
+		// }
+	// }
 ?>
 
-<div ng-controller="PlacesController" ng-init="user.locationAux='<?php echo $userLocation; ?>'">
+<div ng-controller="PlacesController" ng-init="user.locationAux='<?php echo $userLocation; ?>'; user.id='<?php echo AuthComponent::user('id'); ?>'">
 
 	<!-- NORTH -->
 	<?php echo $this->element('navbar'); ?>
@@ -107,14 +114,45 @@
 			
 			</div>
 			
-			<div class="background-black locationBar input-group">
-				<input class="form-control" ng-model="locationSearched" ng-init="locationSearched=user.location"
+			<!-- Address -->
+			<div class="background-black locationBar input-group input-group-sm">
+				<!-- <input class="form-control" ng-model="locationSearched" ng-init="locationSearched=user.location"
 					placeholder="<?php echo __('City: Rome, Italy'); ?>" type="text" 
 					ui-keypress="{13:'searchLocation(locationSearched)'}" />
+				 -->
+				 
+				<input autocomplete="off" 
+					class="capitalize col-sm-11 form-control textbox typeahead" 
+					placeholder="<?php echo __('Search Your City'); ?>" 
+					type="text" 
+					ui-keypress="{13:'searchLocation(locationSearched)'}"
+					<?php echo $userLocation ? 'value="'.$userLocation.'"' : ''; ?>
+					x-ng-model="locationSearched" 
+					x-ng-init="locationSearched=user.location" />
+				
+				<!-- 
 				<span class="input-group-addon" ng-click="searchLocation(locationSearched)"
 					title="<?php echo __('Search'); ?>">
 					<i class="glyphicon glyphicon-search"></i>
-				</span>
+				</span> -->
+				
+				<div class="input-group-btn">
+					<button class="btn btn-default" tabindex="-1" title="<?php echo __('Search'); ?>" type="button" 
+						x-ng-click="searchLocation(locationSearched)">
+							<i class="glyphicon glyphicon-search"></i>
+					</button>
+					<button tabindex="-1" data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button">
+						<span class="caret"></span>
+						<span class="sr-only">Toggle Dropdown</span>
+					</button>
+					<ul role="menu" class="dropdown-menu pull-right">
+						<li>
+							<a href="#" x-ng-click="saveUserLocationPreferences()">
+								<?php echo __('Save Location Preferences'); ?>
+							</a>
+						</li>
+					</ul>
+				</div>
 			</div>
 		</div>
 

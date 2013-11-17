@@ -1,6 +1,5 @@
 @import colors, cursor, fonts, scroll
 
-
 *
 	// Disable selection
 	-webkit-touch-callout: none
@@ -20,6 +19,13 @@ a
 		size: 16px
 		weight: bold
 
+button.close.sponsor
+	float: left
+
+html, body
+	height: 100%
+	overflow: hidden
+
 input
 	// Enable selection
 	-webkit-touch-callout: text
@@ -28,6 +34,14 @@ input
 	-moz-user-select: text
 	-ms-user-select: text
 	user-select: text
+
+nav
+	position: absolute
+	top: 0
+	z-index: 4999
+
+ul.rating
+	display: inline-block
 
 .nav > li > a
 	display: block
@@ -39,20 +53,6 @@ input
 .navbar-inverse .navbar-nav > li > a
 	color: #CCCCCC
 	
-button.close.sponsor
-	float: left
-
-html, body
-	height: 100%
-	overflow: hidden
-
-nav
-	position: absolute
-	top: 0
-	z-index: 1
-
-ul.rating
-	display: inline-block
 
 .arrow, .arrow:hover
 	// background-color: $background-black
@@ -172,7 +172,7 @@ ul.rating
 	border: none
 	border-bottom-right-radius: 0px
 	border-top-right-radius: 0px
-	z-index: 1
+	z-index: 4999
 
 .navbar-inverse .navbar-nav > .active > a, .navbar-inverse .navbar-nav > .active > a:hover, .navbar-inverse .navbar-nav > .active > a:focus
 	background-color: $background-black-hover
@@ -203,7 +203,10 @@ ul.rating
  
 .table-striped > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(2n+1) > th
 	background-color: rgba(0 ,0 ,0, 0.7)
-        
+
+.textbox
+	height: 30px
+
 .username
 	font:
 		family: 'isocpe'
@@ -237,7 +240,7 @@ ul.rating
 
 #categoriesContainer
 	display: inline-block
-	//min-width: 255px
+	min-width: 240px
 	padding-top: 5px
 	padding-right: 5px
 	// width: 90%
@@ -282,8 +285,8 @@ ul.rating
 #logo
 	background-color: $gris_oscuro
 	padding: 15px
-	top: 0px
-	z-index: 3
+	top: 0
+	z-index: 5000
 
 #map
 	height: 104%
@@ -351,7 +354,7 @@ ul.rating
 	position: absolute
 	top: 0px
 	width: 10px
-	z-index: 2
+	z-index: 5000
 	//margin-top: -75px //bottom
 
 #rampa-east

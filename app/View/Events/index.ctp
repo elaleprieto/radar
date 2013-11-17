@@ -1,15 +1,15 @@
 <?php
 	# Styles
 	echo $this->Html->css(array(
+		'//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css',
+		'vendors/typeahead.js-bootstrap',
 		'inicio',
 		'events/index',
-		'//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css',
-		// '//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css'
 	), '', array('inline' => false));
 
 	# User Location
-	if (AuthComponent::user('location')) {
-		$userLocation = AuthComponent::user('location');
+	if ($userData['User']['location']) {
+		$userLocation = $userData['User']['location'];
 	} else {
 		$userLocation = null;
 	}
@@ -80,9 +80,21 @@
 			
 			<div class="background-black locationBar input-group input-group-sm">
 				
-				<input class="form-control" x-ng-model="locationSearched" x-ng-init="locationSearched=user.location"
-					placeholder="<?php echo __('City: Rome, Italy'); ?>" type="text" 
-					ui-keypress="{13:'searchLocation(locationSearched)'}" />
+				<!-- <input class="form-control" 
+					placeholder="<?php echo __('City: Rome, Italy'); ?>" 
+					type="text" 
+					ui-keypress="{13:'searchLocation(locationSearched)'}" 
+					x-ng-init="locationSearched=user.location"
+					x-ng-model="locationSearched" /> -->
+				
+				<input autocomplete="off" 
+					class="capitalize col-sm-11 form-control textbox typeahead" 
+					placeholder="<?php echo __('Search Your City'); ?>" 
+					type="text" 
+					ui-keypress="{13:'searchLocation(locationSearched)'}"
+					<?php echo $userLocation ? 'value="'.$userLocation.'"' : ''; ?>
+					x-ng-model="locationSearched" 
+					x-ng-init="locationSearched=user.location" />
 				
 				<div class="input-group-btn">
 					<button class="btn btn-default" tabindex="-1" title="<?php echo __('Search'); ?>" type="button" 
@@ -94,7 +106,11 @@
 						<span class="sr-only">Toggle Dropdown</span>
 					</button>
 					<ul role="menu" class="dropdown-menu pull-right">
-						<li><a href="#" x-ng-click="saveUserLocationPreferences()"><?php echo __('Save Location Preferences'); ?></a></li>
+						<li>
+							<a href="#" x-ng-click="saveUserLocationPreferences()">
+								<?php echo __('Save Location Preferences'); ?>
+							</a>
+						</li>
 					</ul>
 				</div>
 				
