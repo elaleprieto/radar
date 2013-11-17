@@ -69,11 +69,13 @@
         	$id = $this->Auth->user('id');
     		$userData = $this->User->findById($id);
 			
-            if ($userData['User']['role'] === 'admin') {
-                $this -> layout = 'admin';
-            } else {
-	            $this -> layout = 'default';
-            }
+            // if ($userData['User']['role'] === 'admin') {
+                // $this -> layout = 'admin';
+            // } else {
+	            // $this -> layout = 'default';
+            // }
+            
+            $this -> layout = 'default';
     		$this->set('userData', $userData);
         }
 
