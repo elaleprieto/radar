@@ -534,7 +534,7 @@
         $scope.evento.address = datum.value;
         $scope.evento.lat = datum.location.lat;
         $scope.evento.long = datum.location.lng;
-        $scope.locationSearched = datum.value;
+        $scope.user.location = datum.value;
         $scope.map.setCenter(datum.location);
         $scope.map.setZoom(13);
         icon = new google.maps.MarkerImage("http://gmaps-samples.googlecode.com/svn/trunk/markers/blue/blank.png", new google.maps.Size(20, 34), new google.maps.Point(0, 0), new google.maps.Point(10, 34));

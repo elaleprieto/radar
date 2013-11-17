@@ -600,7 +600,7 @@ angular.module('RadarApp').controller 'EventsController'
 		$scope.evento.address = datum.value
 		$scope.evento.lat = datum.location.lat
 		$scope.evento.long = datum.location.lng
-		$scope.locationSearched = datum.value
+		$scope.user.location = datum.value
 		
 		# Center Map
 		$scope.map.setCenter(datum.location)

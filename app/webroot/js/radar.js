@@ -349,7 +349,7 @@
         }), c.setAddressToMap = function(a) {
             var b;
             return c.evento.address = a.value, c.evento.lat = a.location.lat, c.evento.long = a.location.lng, 
-            c.locationSearched = a.value, c.map.setCenter(a.location), c.map.setZoom(13), b = new google.maps.MarkerImage("http://gmaps-samples.googlecode.com/svn/trunk/markers/blue/blank.png", new google.maps.Size(20, 34), new google.maps.Point(0, 0), new google.maps.Point(10, 34)), 
+            c.user.location = a.value, c.map.setCenter(a.location), c.map.setZoom(13), b = new google.maps.MarkerImage("http://gmaps-samples.googlecode.com/svn/trunk/markers/blue/blank.png", new google.maps.Size(20, 34), new google.maps.Point(0, 0), new google.maps.Point(10, 34)), 
             null != c.marker && c.marker.setMap(null), c.marker = new google.maps.Marker({
                 position: a.location,
                 map: c.map,
