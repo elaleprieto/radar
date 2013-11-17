@@ -1,6 +1,5 @@
 @import colors, cursor, fonts, scroll
 
-
 *
 	// Disable selection
 	-webkit-touch-callout: none
@@ -91,9 +90,6 @@ ul.rating
 .background-black
 	background-color: $background-black
 
-.color-white
-	color: $blanco
-
 .beta
 	border: 0
 	color: $verde_beta
@@ -106,6 +102,9 @@ ul.rating
 .checkbox.inline
 	margin-left: 0 !important
 	margin-right: 10px
+
+.color-white
+	color: $blanco
 
 .display-inline
 	display: inline-block
@@ -200,6 +199,9 @@ ul.rating
 	&.not-allowed
 		cursor: not-allowed !important
  
+.table
+	margin-bottom: 0px
+ 
 .table-striped > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(2n+1) > th
 	background-color: rgba(0 ,0 ,0, 0.7)
 
@@ -215,6 +217,24 @@ ul.rating
 		right: 20px
 	padding:
 		top: 10px
+
+.zoom-mas
+	color: #CCCCCC
+	margin-left: 2px
+	padding-top: 10px
+	
+.zoom-menos
+	color: #CCCCCC
+	margin-left: -10px
+	padding-top: 10px
+	
+.zoom-list
+	left: 285px
+	margin:
+		bottom: 0px
+		top: 5px
+	position: absolute 
+	top: -72px
 
 #btn-south
 	height: 37px
@@ -235,6 +255,10 @@ ul.rating
 	& > div
 		margin: 0
 		width: 100%
+
+#eventScroll
+	max-height: 200px
+	overflow-y: auto
 
 #contactAndAbout, #social
 	margin-left: 40px
@@ -322,7 +346,7 @@ ul.rating
 #rampa
 	+opacity(1)
 	border-top: 80px solid $gris_oscuro //top
-	border-left: 2px solid $gris_oscuro
+	border-left: 14px solid $gris_oscuro
 	border-right: 20px solid transparent
 	height: 80px
 	margin-left: 305px
@@ -344,6 +368,32 @@ ul.rating
 	padding-right: 20px
 	position: absolute
 	width: 300px
+	z-index: 0
+
+#rampa-east-mas
+	+opacity(0.8)
+	border-top: 33px solid $gris_oscuro //top
+	border-left: 10px solid $gris_oscuro
+	border-right: 8px solid transparent
+	height: 20px
+	margin-left: 275px
+	margin-top: -66px //bottom
+	padding-right: 24px
+	position: absolute
+	//width: 42px
+	z-index: 0
+
+#rampa-east-menos
+	+opacity(0.8)
+	border-top: 32px solid $gris_oscuro //top
+	border-left: 3px solid $gris_oscuro
+	border-right: 6px solid transparent
+	height: 20px
+	margin-left: 275px
+	margin-top: -32px //bottom
+	padding-right: 24px
+	position: absolute
+	//width: 42px
 	z-index: 0
 
 #rampa-south

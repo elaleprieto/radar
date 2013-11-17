@@ -30,7 +30,7 @@ hr { margin-bottom: 10px; margin-top: 10px; }
 .img-responsive { padding-top: 20px; }
 
 /* line 19, ../../sass/events/view.sass */
-p { font-family: "greyscale"; font-size: 16px; margin-bottom: 0px; }
+p { margin-bottom: 0px; }
 
-/* line 25, ../../sass/events/view.sass */
+/* line 22, ../../sass/events/view.sass */
 .icon-verde { color: #abd402; }

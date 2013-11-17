@@ -81,6 +81,7 @@
 			<ul class="nav navbar-nav navbar-right">
 				
 				<!-- Zoom -->
+<!--
 				<?php
 				# Si el usuario se encuenta en events/index ó en places/index se habilitan los botones de zoom 
 				if(($this->request->controller == 'events' && $this->request->action == 'index') 
@@ -100,7 +101,7 @@
 							<a href="#" class="visible-md visible-lg hidden-sm hidden-xs">|</a>
 						</li>
 				<?php endif; ?>				
-				
+-->
 				<li><a href="/about"><i class="fa fa-info-circle fa-lg"></i></a></li>
 				<li><a href="/contacto"><i class="fa fa-envelope fa-lg"></i></a></li>
 				<li><a class="visible-md visible-lg hidden-sm hidden-xs">|</a></li>

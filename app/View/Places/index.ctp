@@ -88,7 +88,31 @@
 		-->
 		<div ng-cloak>
 			<!-- Rama east. No está visible para dispositivos xs -->
-			<div id="rampa-east" class="hidden-xs"> </div>
+			<div id="rampa-east" class="hidden-xs"> 
+				<div id="rampa-east-menos" class="hidden-xs"></div>
+				<div id="rampa-east-mas" class="hidden-xs"></div>
+				<div class="text-center">
+					<?php
+					# Si el usuario se encuenta en events/index ó en places/index se habilitan los botones de zoom 
+					if(($this->request->controller == 'events' && $this->request->action == 'index') 
+						|| ($this->request->controller == 'places' && $this->request->action == 'index')):
+					?>
+						<ul class="list-inline zoom-list">
+							<li class="zoom-button">
+								<a href="#" x-ng-click="map.setZoom(map.getZoom() + 1)">
+									<span class="fa fa-search-plus fa zoom-mas"></span>
+								</a>
+							</li>
+							<li class="zoom-button">
+								<a href="#" x-ng-click="map.setZoom(map.getZoom() - 1)">
+									<span class="fa fa-search-minus zoom-menos"></span>
+								</a>
+							</li>
+						</ul>
+					<?php endif; ?>			
+				</div>	
+			
+			</div>
 			
 			<!-- Address -->
 			<div class="background-black locationBar input-group input-group-sm">
@@ -210,6 +234,7 @@
 					</div>
 				</div>
 				<div class="col-sm-1 hidden-xs" id="rampa-south"> </div>
+				
 			</div>
 	
 		    <!-- Places List -->
