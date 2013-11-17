@@ -37,16 +37,13 @@ input, textarea { -webkit-touch-callout: text; -webkit-user-select: text; -khtml
 .nav > li > a:hover, .nav > li > a:focus { background-color: rgba(0, 0, 0, 0.5); }
 
 /* line 54, ../../sass/layouts/default.sass */
-.principal { padding-top: 80px; }
-
-/* line 57, ../../sass/layouts/default.sass */
 .username { font-family: "isocpe"; font-size: 18px; font-weight: bold; margin-right: 20px; padding-top: 10px; }
 
-/* line 67, ../../sass/layouts/default.sass */
+/* line 64, ../../sass/layouts/default.sass */
 #menu_superior { margin-left: 20px; background-color: rgba(255, 255, 255, 0.9); height: 50px; }
 
-/* line 72, ../../sass/layouts/default.sass */
+/* line 69, ../../sass/layouts/default.sass */
 #menu_superior_derecha { background-color: rgba(255, 255, 255, 0.9); height: 50px; }
 
-/* line 76, ../../sass/layouts/default.sass */
+/* line 73, ../../sass/layouts/default.sass */
 #menu_superior_derecha_verde { color: #7a9900; font-size: 14px; }
