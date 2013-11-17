@@ -312,7 +312,7 @@ if (AuthComponent::user('location')) {
                                     <?php //echo $this->Form->input('website', array('class'=>'textbox', 'label'=>__('web'))) ?>
                                     <div class="input text">
                                     	<label for="web"><?php echo __('Website') ?></label>
-                                    	<input class="textbox form-control" x-ng-model="evento.website" type="text" />
+                                    	<input class="textbox form-control" x-ng-model="evento.website" type="text" placeholder="www.radarcultural.org"/>
                                     </div>
                                 </div>
                                 <div class="row form-group">
