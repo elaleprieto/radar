@@ -99,133 +99,133 @@ ul.rating { display: inline-block; }
 /* line 128, ../../sass/events/index.sass */
 .locationBar { min-width: 285px; padding: 5px; width: 285px; }
 
-/* line 134, ../../sass/events/index.sass */
+/* line 133, ../../sass/events/index.sass */
 .menu { font-family: "isocpe"; font-weight: bold; font-size: 18px; padding-left: 4px; padding-right: 4px; padding-top: 2px; }
 
-/* line 144, ../../sass/events/index.sass */
+/* line 143, ../../sass/events/index.sass */
 .menu_icono { padding-top: 10px; background-color: rgba(0, 0, 0, 0.6); }
 
-/* line 148, ../../sass/events/index.sass */
+/* line 147, ../../sass/events/index.sass */
 .menu-centro { padding-left: 350px; }
 
-/* line 151, ../../sass/events/index.sass */
+/* line 150, ../../sass/events/index.sass */
 .menu-centro-sm { padding-left: 240px; }
 
-/* line 154, ../../sass/events/index.sass */
+/* line 153, ../../sass/events/index.sass */
 .menu-south { border-bottom-color: rgba(0, 0, 0, 0.6); border-bottom-style: solid; border-bottom-width: 8px; }
 
-/* line 160, ../../sass/events/index.sass */
+/* line 159, ../../sass/events/index.sass */
 .modal-body { overflow-y: auto; padding-top: 0; }
 
-/* line 164, ../../sass/events/index.sass */
+/* line 163, ../../sass/events/index.sass */
 .modal-header { border-bottom: none; }
 
-/* line 167, ../../sass/events/index.sass */
+/* line 166, ../../sass/events/index.sass */
 .nav > li > a:hover, .nav > li > a:focus { background-color: rgba(0, 0, 0, 0.5); }
 
-/* line 171, ../../sass/events/index.sass */
+/* line 170, ../../sass/events/index.sass */
 .navbar { background-color: rgba(0, 0, 0, 0.6); border: none; border-bottom-right-radius: 0px; border-top-right-radius: 0px; z-index: 4999; }
 
-/* line 178, ../../sass/events/index.sass */
+/* line 177, ../../sass/events/index.sass */
 .navbar-inverse .navbar-nav > .active > a, .navbar-inverse .navbar-nav > .active > a:hover, .navbar-inverse .navbar-nav > .active > a:focus { background-color: rgba(0, 0, 0, 0.5); color: #abd402; }
 
-/* line 181, ../../sass/events/index.sass */
+/* line 180, ../../sass/events/index.sass */
 .rating { color: darkgrey; margin: 0; padding: 0; }
 
-/* line 186, ../../sass/events/index.sass */
+/* line 185, ../../sass/events/index.sass */
 .rating li { list-style-type: none; display: inline-block; padding: 1px; text-align: center; font-weight: bold; }
 
-/* line 193, ../../sass/events/index.sass */
+/* line 192, ../../sass/events/index.sass */
 .rating .filled { color: #21568b; }
 
-/* line 196, ../../sass/events/index.sass */
+/* line 195, ../../sass/events/index.sass */
 .star { cursor: pointer; }
-/* line 199, ../../sass/events/index.sass */
+/* line 198, ../../sass/events/index.sass */
 .star.not-allowed { cursor: not-allowed !important; }
 
-/* line 202, ../../sass/events/index.sass */
+/* line 201, ../../sass/events/index.sass */
 .table { margin-bottom: 0px; }
 
-/* line 205, ../../sass/events/index.sass */
+/* line 204, ../../sass/events/index.sass */
 .table-striped > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(2n+1) > th { background-color: rgba(0, 0, 0, 0.7); }
 
-/* line 208, ../../sass/events/index.sass */
+/* line 207, ../../sass/events/index.sass */
 .textbox { height: 30px; }
 
-/* line 211, ../../sass/events/index.sass */
+/* line 210, ../../sass/events/index.sass */
 .username { font-family: "isocpe"; font-size: 18px; font-weight: bold; margin-right: 20px; padding-top: 10px; }
 
-/* line 221, ../../sass/events/index.sass */
+/* line 220, ../../sass/events/index.sass */
 .zoom-mas { color: #cccccc; margin-left: 2px; padding-top: 10px; }
 
-/* line 226, ../../sass/events/index.sass */
+/* line 225, ../../sass/events/index.sass */
 .zoom-menos { color: #cccccc; margin-left: -10px; padding-top: 10px; }
 
-/* line 231, ../../sass/events/index.sass */
+/* line 230, ../../sass/events/index.sass */
 .zoom-list { left: 285px; margin-bottom: 0px; margin-top: 5px; position: absolute; top: -72px; }
 
-/* line 239, ../../sass/events/index.sass */
+/* line 238, ../../sass/events/index.sass */
 #btn-south { height: 37px; }
 
-/* line 242, ../../sass/events/index.sass */
+/* line 241, ../../sass/events/index.sass */
 #categoriesContainer { display: inline-block; min-width: 240px; padding-top: 5px; padding-right: 5px; }
 
-/* line 249, ../../sass/events/index.sass */
+/* line 248, ../../sass/events/index.sass */
 #categoryScroll { overflow-y: auto; overflow-x: hidden; }
-/* line 255, ../../sass/events/index.sass */
+/* line 254, ../../sass/events/index.sass */
 #categoryScroll > div { margin: 0; width: 100%; }
 
-/* line 259, ../../sass/events/index.sass */
+/* line 258, ../../sass/events/index.sass */
 #eventScroll { max-height: 200px; overflow-y: auto; }
 
-/* line 263, ../../sass/events/index.sass */
+/* line 262, ../../sass/events/index.sass */
 #contactAndAbout, #social { margin-left: 40px; }
 
-/* line 266, ../../sass/events/index.sass */
+/* line 265, ../../sass/events/index.sass */
 #eventViewModal { overflow: hidden; }
 
-/* line 269, ../../sass/events/index.sass */
+/* line 268, ../../sass/events/index.sass */
 #east, #logo, #north, #south, #west { position: absolute; z-index: 1; }
 
-/* line 273, ../../sass/events/index.sass */
+/* line 272, ../../sass/events/index.sass */
 #east { left: 0; top: 90px; }
-/* line 280, ../../sass/events/index.sass */
+/* line 279, ../../sass/events/index.sass */
 #east div[class="input-group"] { max-width: 350px; }
-/* line 283, ../../sass/events/index.sass */
+/* line 282, ../../sass/events/index.sass */
 #east input { text-transform: capitalize; }
 
-/* line 286, ../../sass/events/index.sass */
+/* line 285, ../../sass/events/index.sass */
 #logo { background-color: #333333; padding: 15px; top: 0; z-index: 5000; }
 
-/* line 292, ../../sass/events/index.sass */
+/* line 291, ../../sass/events/index.sass */
 #map { height: 104%; left: 0; top: 0; position: absolute; width: 100%; z-index: 0; }
 
-/* line 300, ../../sass/events/index.sass */
+/* line 299, ../../sass/events/index.sass */
 #menu_superior { margin-left: 20px; background-color: rgba(255, 255, 255, 0.9); height: 50px; }
 
-/* line 305, ../../sass/events/index.sass */
+/* line 304, ../../sass/events/index.sass */
 #menu_superior_derecha { background-color: rgba(255, 255, 255, 0.9); height: 50px; }
 
-/* line 309, ../../sass/events/index.sass */
+/* line 308, ../../sass/events/index.sass */
 #menu_superior_derecha_verde { color: #abd402; font-size: 14px; }
 
-/* line 315, ../../sass/events/index.sass */
+/* line 314, ../../sass/events/index.sass */
 #nav-large .icon-minus { color: #428bca; cursor: pointer; }
 
-/* line 319, ../../sass/events/index.sass */
+/* line 318, ../../sass/events/index.sass */
 #nav-small { min-height: 20px; filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=80); opacity: 0.8; }
-/* line 323, ../../sass/events/index.sass */
+/* line 322, ../../sass/events/index.sass */
 #nav-small .icon-plus { font-size: 12px; cursor: pointer; }
-/* line 327, ../../sass/events/index.sass */
+/* line 326, ../../sass/events/index.sass */
 #nav-small a { padding: 10px; }
 
-/* line 330, ../../sass/events/index.sass */
+/* line 329, ../../sass/events/index.sass */
 #north { background-color: rgba(0, 0, 0, 0.6); color: white; padding-left: 12px; padding-right: 12px; padding-bottom: 8px; width: 100%; }
-/* line 342, ../../sass/events/index.sass */
+/* line 341, ../../sass/events/index.sass */
 #north a { color: white; text-decoration: none; }
 
-/* line 346, ../../sass/events/index.sass */
-#rampa { filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100); opacity: 1; border-top: 80px solid #333333; border-left: 14px solid #333333; border-right: 20px solid transparent; height: 80px; margin-left: 305px; margin-top: 0px; padding-right: 20px; position: absolute; width: 10px; z-index: 5000; }
+/* line 345, ../../sass/events/index.sass */
+#rampa { filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100); opacity: 1; border-top: 80px solid #333333; border-left: 14px solid #333333; border-right: 20px solid transparent; height: 80px; margin-left: 305px; margin-top: 0px; padding-right: 20px; position: absolute; top: 0px; width: 10px; z-index: 5000; }
 
 /* line 360, ../../sass/events/index.sass */
 #rampa-east { filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=80); opacity: 0.8; border-top: 65px solid #333333; border-left: 10px solid #333333; border-right: 12px solid transparent; height: 20px; margin-left: 0px; margin-top: -10px; padding-right: 20px; position: absolute; width: 300px; z-index: 0; }

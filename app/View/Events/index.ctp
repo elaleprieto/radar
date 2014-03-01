@@ -289,19 +289,21 @@
 					<table class="table">
 						<thead>
 							<tr>
-								<th><?php echo __('Category'); ?></th>
+							<!--	<td class="text-center"><?php echo __('Category'); ?></td>-->
 							<!--	<th><?php echo __('Date Start'); ?></th>
 								<th><?php echo __('Date End'); ?></th>
 								<th><?php echo __('Event'); ?></th>
 								<th><?php echo __('Address'); ?></th>
 								<th class="text-center"><?php echo __('Like'); ?></th>-->
 								<!-- <th><?php echo __('Rate'); ?></th> -->
+								<td>&nbsp;</td>
 								<td class="text-center"><?php echo __('Start'); ?></td>
 								<td class="text-center"><?php echo __('End'); ?></td>
 								<td class="text-center"><?php echo __('Event'); ?></td>
 								<td class="text-center"><?php echo __('Address'); ?></td>
-								<td class="text-center"><?php echo __('Like'); ?></td>
-								<th>&nbsp;</th>
+								<!--<td class="text-center"><?php echo __('Like'); ?></td>-->
+								<td>&nbsp;</td>
+								<td>&nbsp;</td>
 							</tr>
 						</thead>
 					</table>

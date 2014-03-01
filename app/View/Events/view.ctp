@@ -28,7 +28,9 @@ echo $this -> Html -> css(array('events/view'));
 		<hr>
 		<div class="row">
 			<div class="col-sm-12">
-				<p><span class="glyphicon glyphicon-map-marker" style="color:#ABD402"></span>&nbsp;&nbsp;<?php echo h($event['Event']['address']); ?></p>
+				<p>	<span class="glyphicon glyphicon-map-marker" style="color:#ABD402"></span>
+					&nbsp;&nbsp;<?php echo h($event['Event']['address']); ?>
+				</p>
 			</div>
 		</div>
 		<hr>
@@ -37,12 +39,19 @@ echo $this -> Html -> css(array('events/view'));
 				<p><?php echo __('From')?></p>
 			</div>
 			<div class="col-sm-4">
-				<p><span class="glyphicon glyphicon-calendar" style="color:#ABD402"></span>&nbsp;&nbsp;<?php echo CakeTime::format($event['Event']['date_start'], '%d/%m/%Y'); ?></p>
+				<p>
+					<span class="glyphicon glyphicon-calendar" style="color:#ABD402"></span>
+					&nbsp;&nbsp;<?php echo CakeTime::format($event['Event']['date_start'], '%d/%m/%Y'); ?>
+				</p>
 			</div>
 			<div class="col-sm-4">
-				<p><span class="glyphicon glyphicon-time" style="color:#ABD402"></span>&nbsp;&nbsp;<?php echo CakeTime::format($event['Event']['date_start'], '%H:%M'); ?></p>
+				<p>
+					<span class="glyphicon glyphicon-time" style="color:#ABD402"></span>
+					&nbsp;&nbsp;<?php echo CakeTime::format($event['Event']['date_start'], '%H:%M'); ?>
+				</p>
 			</div>
-		</div>	<hr>
+		</div>
+		<hr>
 		<div class="row">
 			<div class="col-sm-2 col-offset-2">
 				<p><?php echo __('To')?></p>
@@ -57,16 +66,72 @@ echo $this -> Html -> css(array('events/view'));
 		<hr>
 		<div class="row">
 			<div class="col-sm-12">
-				<p><?php echo __('Accessibility'); ?></p>
-				<p></p>
+				<h3><?php echo __('Accessibility'); ?></h3>
+<!--				<?php
+				if($event['Event']['accessibility_parking'] == 1):
+				?>
+					<p>
+						<span class="glyphicon glyphicon-warning-sign" style="color:#ABD402"></span>&nbsp;&nbsp;
+						<?php echo __('Parking spaces reserved for people with disabilities')?>
+					</p>
+				<?php
+				endif;
+				if($event['Event']['accessibility_ramp'] == 1):
+				?>
+					<p>
+						<span class="glyphicon glyphicon-road" style="color:#ABD402"></span>&nbsp;&nbsp;
+						<?php echo __('Stairs, ramps or elevators accessible wheelchair')?>
+					</p>
+				<?php
+				endif;
+				if($event['Event']['accessibility_equipment'] == 1):
+				?>
+					<p>
+						<span class="glyphicon glyphicon-headphones" style="color:#ABD402"></span>&nbsp;&nbsp;
+						<?php echo __('Electronic equipment and audiovisual adapted')?>
+					</p>
+				<?php
+				endif;
+				if($event['Event']['accessibility_signage'] == 1):
+				?>
+					<p>
+						<span class="glyphicon glyphicon-eye-open" style="color:#ABD402"></span>&nbsp;&nbsp;
+						<?php echo __('Signs and information boards clearly perceived and understood')?>
+					</p>
+				<?php
+				endif;
+				if($event['Event']['accessibility_braille'] == 1):
+				?>
+					<p>
+						<span class="glyphicon glyphicon-hand-up" style="color:#ABD402"></span>&nbsp;&nbsp;
+						<?php echo __('Tactile information: Braille')?>
+					</p>
+				<?php
+				endif;
+				?>-->
 			</div>
 		</div>
 		<hr>
 		<div class="row">
 			<div class="col-sm-12">
-				<p><?php echo __('Additional information'); ?></p>
-				<p><?php echo __('Ticket sales').' :'.$event['Event']['cost']; ?></p>
-				<p><?php echo $event['Event']['website']; ?></p>
+				<h3><?php echo __('Additional information'); ?></h3>
+				<p>
+					<span class="glyphicon glyphicon-tag" style="color:#ABD402"></span>&nbsp;&nbsp;
+					&nbsp;&nbsp;<?php echo __('Ticket sales').' :'.$event['Event']['cost']; ?>
+				</p>
+							
+				<br>
+				<?php
+				if($event['Event']['website'] != NULL):
+				?>
+					<p>
+						<span class="glyphicon glyphicon-globe" style="color:#ABD402"></span>&nbsp;&nbsp;
+						&nbsp;&nbsp;<a <?php echo 'href="http://'.$event['Event']['website'].'" target="_blank"'?> ><?php echo h($event['Event']['website']); ?></a>
+					</p>
+				<?php
+				endif;
+				?>
+				
 			</div>
 		</div>
 	
