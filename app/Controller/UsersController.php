@@ -22,8 +22,10 @@ class UsersController extends AppController {
 	 */
 	public function add() {
 		if ($this->request->is('post')) {
+			$user = $this->request->data;
+
 			$this->User->create();
-			if ($this->User->save($this->request->data)) {
+			if ($this->User->save($user)) {
 				$to = $user['User']['email'];
 				$subject = 'Radar Cultural :: Confirma tu correo';
 				$message = 'Confirma tu correo haciendo clic en el siguiente enlace: ' . Router::fullBaseUrl() . '/confirm/' . $this->User->id;
