@@ -16,6 +16,67 @@ class UsersController extends AppController {
 	}
 
 	/**
+	 * add method
+	 *
+	 * @return void
+	 */
+	public function add() {
+		if ($this->request->is('post')) {
+			$this->User->create();
+			if ($this->User->save($this->request->data)) {
+				$to = $user['User']['email'];
+				$subject = 'Radar Cultural :: Confirma tu correo';
+				$message = 'Confirma tu correo haciendo clic en el siguiente enlace: ' . Router::fullBaseUrl() . '/confirm/' . $this->User->id;
+				$additional_headers = '';
+				$additional_parameters = '';
+
+				# Se envía el correo de confirmación
+				mail($to, $subject, $message, $additional_headers, $additional_parameters);
+
+				# Se envía al usuario a un mensaje de confirmación
+				return $this->redirect('/radariza');
+
+				// $id = $this->User->id;
+				// $this->request->data['User'] = array_merge($this->request->data['User'], array('id' => $id));
+				// $this->Auth->login($this->request->data['User']);
+				// $this->redirect(array(
+				// 	'controller' => 'events',
+				// 	'action' => 'index'
+				// ));
+			} else {
+				$this->Session->setFlash(__('The user could not be saved. Please, try again.'));
+			}
+		}
+	}
+
+
+/**
+ * confirm method
+ *
+ * @throws NotFoundException
+ * @param string $id
+ * @return void
+ */
+	public function confirm($id = null) {
+		if (!$this->User->exists($id)) {
+			throw new NotFoundException(__('Invalid user'));
+		}
+		$user = $this->User->read(null, $id);
+
+		# Se verifica que el usuario no haya sido confirmado previamente,
+		# es una especie de medida de seguridad para que no se loguee cualquiera
+		# con cualquier ID
+		if(!$user['User']['confirmed']) {
+			$this->User->id = $id;
+			$this->User->saveField('confirmed', TRUE);
+			
+			$this->Auth->login($user['User']);
+			return $this->redirect('/');
+		}
+		$this->redirect('/logout');
+	}
+
+	/**
 	 * contactar method
 	 * Se utiliza por el formulario de contacto para enviar el mensaje.
 	 * @return void
@@ -55,12 +116,27 @@ class UsersController extends AppController {
 		// $this -> layout = 'login';
 
 		if ($this->request->is('post')) {
-			if ($this->Auth->login()) {
-				$this->redirect($this->Auth->redirect());
-			} else {
-				$this->Session->setFlash(__('Invalid username or password, try again'));
+			if (isset($this->request->data['User'])) {
+				$user = $this->request->data['User'];
+				$confirmed = $this->User->field('confirmed', array('username' => $user['username']));
+
+				if($confirmed) {
+					if ($this->Auth->login()) {
+						$this->redirect($this->Auth->redirect());
+					}
+				}
 			}
+			$this->Session->setFlash(__('Invalid username or password, try again'));
+			$this->redirect('/');
 		}
+
+		// if ($this->request->is('post')) {
+		// 	if ($this->Auth->login()) {
+		// 		$this->redirect($this->Auth->redirect());
+		// 	} else {
+		// 		$this->Session->setFlash(__('Invalid username or password, try again'));
+		// 	}
+		// }
 	}
 
 	public function logout() {
@@ -131,27 +207,6 @@ class UsersController extends AppController {
 	// }
 	//
 
-	/**
-	 * add method
-	 *
-	 * @return void
-	 */
-	public function add() {
-		if ($this->request->is('post')) {
-			$this->User->create();
-			if ($this->User->save($this->request->data)) {
-				$id = $this->User->id;
-				$this->request->data['User'] = array_merge($this->request->data['User'], array('id' => $id));
-				$this->Auth->login($this->request->data['User']);
-				$this->redirect(array(
-					'controller' => 'events',
-					'action' => 'index'
-				));
-			} else {
-				$this->Session->setFlash(__('The user could not be saved. Please, try again.'));
-			}
-		}
-	}
 
 	/**
 	 * edit method

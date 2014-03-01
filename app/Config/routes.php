@@ -41,6 +41,8 @@
 	Router::connect('/espacios', array('controller'=>'places', 'action'=>'index'));
 	Router::connect('/eventos', array('controller'=>'events', 'action'=>'index'));
 	Router::connect('/login', array('controller'=>'users', 'action'=>'login'));
+	Router::connect('/confirm', array('controller'=>'users', 'action'=>'confirm'));
+	Router::connect('/radariza', array('controller'=>'pages', 'action'=>'display', 'radariza'));
 	Router::connect('/registrate', array('controller'=>'users', 'action'=>'add'));
     
 /**
