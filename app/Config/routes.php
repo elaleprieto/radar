@@ -38,18 +38,19 @@
 	Router::connect('/', array('controller' => 'events', 'action' => 'index'));
 	Router::connect('/about', array('controller'=>'pages', 'action'=>'display', 'about'));
 	Router::connect('/contacto', array('controller'=>'pages', 'action'=>'display', 'contacto'));
-	Router::connect('/espacios', array('controller'=>'places', 'action'=>'index'));
+	// Router::connect('/espacios', array('controller'=>'places', 'action'=>'index'));
+	Router::connect(__('/places'), array('controller'=>'places', 'action'=>'index'));
 	Router::connect('/eventos', array('controller'=>'events', 'action'=>'index'));
 	Router::connect('/login', array('controller'=>'users', 'action'=>'login'));
 	Router::connect('/confirm', array('controller'=>'users', 'action'=>'confirm'));
 	Router::connect('/radariza', array('controller'=>'pages', 'action'=>'display', 'radariza'));
 	Router::connect('/registrate', array('controller'=>'users', 'action'=>'add'));
     
-	# Locale routing for Places
-	$places = array('en' => 'places', 'de' => 'schlagzeilen', 'es'=>'lugares');
-	foreach ($places as $lang => $place) {
-		Router::connect("/$place", array('controller' => 'places', 'lang' => $lang));
-	}
+	// # Locale routing for Places
+	// $places = array('en' => 'places', 'de' => 'schlagzeilen', 'es'=>'espacios');
+	// foreach ($places as $lang => $place) {
+	// 	Router::connect("/$place", array('controller' => 'places', 'lang' => $lang));
+	// }
 
 /**
  * ...and connect the rest of 'Pages' controller's urls.
