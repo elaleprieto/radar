@@ -12,7 +12,7 @@ class UsersController extends AppController {
 
 	public function beforeFilter() {
 		parent::beforeFilter();
-		$this->Auth->allow('add', 'callbackTwitter', 'loginTwitter', 'edit', 'logout');
+		$this->Auth->allow('add', 'callbackTwitter', 'confirm', 'edit', 'loginTwitter', 'logout');
 	}
 
 	/**
@@ -29,7 +29,9 @@ class UsersController extends AppController {
 				$to = $user['User']['email'];
 				$subject = 'Radar Cultural :: Confirma tu correo';
 				$message = 'Confirma tu correo haciendo clic en el siguiente enlace: ' . Router::fullBaseUrl() . '/confirm/' . $this->User->id;
-				$additional_headers = '';
+				$additional_headers = 'From: Radar Cultural <contacto@colectivolibre.com.ar>' . "\r\n" .
+					'Reply-To: contacto@colectivolibre.com.ar' . "\r\n" .
+					'X-Mailer: PHP/' . phpversion();
 				$additional_parameters = '';
 
 				# Se envía el correo de confirmación
