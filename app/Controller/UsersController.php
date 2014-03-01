@@ -22,6 +22,30 @@ class UsersController extends AppController {
 	 */
 	public function add() {
 		if ($this->request->is('post')) {
+
+			# Se carga la librería del catpcha
+			// require_once('recaptchalib.php');
+			App::import('Vendor', 'extras', array('file' => 'extras.php'));
+			App::import('Vendor', 'recaptchalib', array('file' => 'recaptchalib.php'));
+
+			$privatekey = PRIVATE_KEY;
+			$recaptcha_challenge_field = $this->request->data['recaptcha_challenge_field'];
+			$recaptcha_response_field = $this->request->data['recaptcha_response_field'];
+			
+			$resp = recaptcha_check_answer($privatekey
+				, $_SERVER["REMOTE_ADDR"]
+				, $recaptcha_challenge_field
+				, $recaptcha_response_field
+			);
+
+			if (!$resp->is_valid) {
+				// What happens when the CAPTCHA was entered incorrectly
+				// die ("The reCAPTCHA wasn't entered correctly. Go back and try it again." .
+				// 	 "(reCAPTCHA said: " . $resp->error . ")");
+				$this->Session->setFlash(__('The reCAPTCHA wasn\'t entered correctly. Go back and try it again.'));
+				$this->redirect('/');
+			}
+
 			$user = $this->request->data;
 
 			$this->User->create();
@@ -38,7 +62,7 @@ class UsersController extends AppController {
 				mail($to, $subject, $message, $additional_headers, $additional_parameters);
 
 				# Se envía al usuario a un mensaje de confirmación
-				return $this->redirect('/radariza');
+				return $this->redirect(__('/emailconfirm'));
 
 				// $id = $this->User->id;
 				// $this->request->data['User'] = array_merge($this->request->data['User'], array('id' => $id));
