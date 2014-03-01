@@ -1,5 +1,8 @@
-/* line 1, ../../sass/_cursor.sass */
+/* line 1, /datos/Documentos/Colectivo Libre/radar cultural/workspace/radar/app/webroot/sass/_cursor.sass */
 .pointer { cursor: pointer; }
+
+/* line 1, /datos/Documentos/Colectivo Libre/radar cultural/workspace/radar/app/webroot/sass/_flashmessage.sass */
+.flash-failure { position: fixed; right: 0; top: 75px; z-index: 2000; }
 
 @font-face { font-family: "isocpe"; src: url('/fonts/Isocpeur-Regular.ttf') format('truetype'); }
 
