@@ -8,7 +8,6 @@
   *******************************************************************************************************************
   */
 
-
   rutes.config([
     '$routeProvider', function($routeProvider) {
       return $routeProvider.when('/events/add', {

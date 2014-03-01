@@ -1,4 +1,5 @@
 (function() {
+
   angular.module('services', []).service('CompliantView', function() {
     var modalElement;
     modalElement = angular.element('#compliantViewModal');

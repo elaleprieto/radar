@@ -1,4 +1,5 @@
 (function() {
+
   angular.module('models', ['ngResource']).factory('Category', [
     '$resource', function($resource) {
       return $resource('/categories.json', {
