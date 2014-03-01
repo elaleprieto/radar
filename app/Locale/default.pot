@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2014-03-01 18:48-0300\n"
+"POT-Creation-Date: 2014-03-01 19:19-0300\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -14,8 +14,29 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: Config/routes.php:42
+#: Config/routes.php:42;43
+#: View/Elements/navbar.ctp:28;33;49
 msgid "/places"
+msgstr ""
+
+#: Config/routes.php:43;46
+#: View/Elements/navbar.ctp:49;63
+msgid "/add"
+msgstr ""
+
+#: Config/routes.php:45;46
+#: View/Elements/navbar.ctp:63
+msgid "/events"
+msgstr ""
+
+#: Config/routes.php:50
+#: Controller/UsersController.php:41
+msgid "/emailconfirm"
+msgstr ""
+
+#: Config/routes.php:52
+#: View/Elements/navbar.ctp:151
+msgid "/singup"
 msgstr ""
 
 #: Controller/CategoriesController.php:67;88
@@ -182,19 +203,19 @@ msgstr ""
 msgid "Rate was not deleted"
 msgstr ""
 
-#: Controller/UsersController.php:47;232
+#: Controller/UsersController.php:51;236
 msgid "The user could not be saved. Please, try again."
 msgstr ""
 
-#: Controller/UsersController.php:62;222
+#: Controller/UsersController.php:66;226
 msgid "Invalid user"
 msgstr ""
 
-#: Controller/UsersController.php:129
+#: Controller/UsersController.php:133
 msgid "Invalid username or password, try again"
 msgstr ""
 
-#: Controller/UsersController.php:226
+#: Controller/UsersController.php:230
 msgid "The user has been saved"
 msgstr ""
 
@@ -1188,7 +1209,7 @@ msgstr ""
 msgid "Message"
 msgstr ""
 
-#: View/Pages/radariza.ctp:2
+#: View/Pages/emailconfirm.ctp:2
 msgid "Check your mail inbox"
 msgstr ""
 

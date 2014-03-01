@@ -40,11 +40,16 @@
 	Router::connect('/contacto', array('controller'=>'pages', 'action'=>'display', 'contacto'));
 	// Router::connect('/espacios', array('controller'=>'places', 'action'=>'index'));
 	Router::connect(__('/places'), array('controller'=>'places', 'action'=>'index'));
-	Router::connect('/eventos', array('controller'=>'events', 'action'=>'index'));
+	Router::connect(__('/places') . __('/add'), array('controller'=>'places', 'action'=>'add'));
+	// Router::connect('/eventos', array('controller'=>'events', 'action'=>'index'));
+	Router::connect(__('/events'), array('controller'=>'events', 'action'=>'index'));
+	Router::connect(__('/events') . __('/add'), array('controller'=>'events', 'action'=>'add'));
 	Router::connect('/login', array('controller'=>'users', 'action'=>'login'));
-	Router::connect('/confirm', array('controller'=>'users', 'action'=>'confirm'));
-	Router::connect('/radariza', array('controller'=>'pages', 'action'=>'display', 'radariza'));
-	Router::connect('/registrate', array('controller'=>'users', 'action'=>'add'));
+	Router::connect('/confirm/*', array('controller'=>'users', 'action'=>'confirm'));
+	// Router::connect('/radariza', array('controller'=>'pages', 'action'=>'display', 'radariza'));
+	Router::connect(__('/emailconfirm'), array('controller'=>'pages', 'action'=>'display', 'emailconfirm'));
+	// Router::connect('/registrate', array('controller'=>'users', 'action'=>'add'));
+	Router::connect(__('/singup'), array('controller'=>'users', 'action'=>'add'));
     
 	// # Locale routing for Places
 	// $places = array('en' => 'places', 'de' => 'schlagzeilen', 'es'=>'espacios');
