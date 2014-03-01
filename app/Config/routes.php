@@ -45,6 +45,12 @@
 	Router::connect('/radariza', array('controller'=>'pages', 'action'=>'display', 'radariza'));
 	Router::connect('/registrate', array('controller'=>'users', 'action'=>'add'));
     
+	# Locale routing for Places
+	$places = array('en' => 'places', 'de' => 'schlagzeilen', 'es'=>'lugares');
+	foreach ($places as $lang => $place) {
+		Router::connect("/$place", array('controller' => 'places', 'lang' => $lang));
+	}
+
 /**
  * ...and connect the rest of 'Pages' controller's urls.
  */
