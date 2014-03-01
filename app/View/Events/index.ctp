@@ -8,7 +8,7 @@
 	), '', array('inline' => false));
 
 	# User Location
-	if ($userData['User']['location']) {
+	if (isset($userData['User']['location'])) {
 		$userLocation = $userData['User']['location'];
 	} else {
 		$userLocation = null;
