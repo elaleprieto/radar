@@ -141,11 +141,11 @@
 						x-ng-model="categoria" 
 						x-ng-repeat="categoria in categorias | orderBy:'Category.name'" >
 							
-							<div class="col-sm-3 category-icon">
+							<div class="col-sm-3 col-xs-2 category-icon">
 								<img class="icono-categoria" 
 									x-ng-src="/img/categorias/{{categoria.Category.icon}}" />
 							</div>
-							<div class="col-sm-9 item-categoria" x-ng-bind="categoria.Category.name"></div>
+							<div class="col-sm-9 col-xs-10 item-categoria" x-ng-bind="categoria.Category.name"></div>
 					</div>
 				</div>
 			</div>
@@ -163,7 +163,7 @@
 	</div>
 	
 	<!-- WEAST -->
-	<div id="west" x-ng-cloak>
+	<div id="west" x-ng-cloak class="hidden-xs">
 		
 		<!-- SPONSOR -->
 		<!-- Button to Display or Hide Sponsors -->
@@ -183,7 +183,7 @@
 	</div>
 
 	<!-- SOUTH -->
-	<div id="south" x-ng-cloak>
+	<div id="south" x-ng-cloak class="hidden-xs">
 		
 		<!-- Button to Display or Hide South Menu -->
 		<!--
@@ -344,6 +344,28 @@
 			</div>
 		</div>
 	</div>
+	
+	<!-- Zoom vista-xs -->
+	<div class="zoom-xs visible-xs">
+		<?php
+			# Si el usuario se encuenta en events/index ó en places/index se habilitan los botones de zoom 
+			if(($this->request->controller == 'events' && $this->request->action == 'index') 
+				|| ($this->request->controller == 'places' && $this->request->action == 'index')):
+		?>
+		<ul class="list-inline">
+			<li>
+				<a href="#" x-ng-click="map.setZoom(map.getZoom() + 1)">
+					<span class="fa fa-search-plus fa"></span>
+				</a>
+			</li>
+			<li>
+				<a href="#" x-ng-click="map.setZoom(map.getZoom() - 1)">
+					<span class="fa fa-search-minus"></span>
+				</a>
+			</li>
+		</ul>
+		<?php endif; ?>			
+	</div>	
 	
 	<div class="modal fade" id="compliantViewModal" tabindex="-1" role="dialog" aria-labelledby="compliant" aria-hidden="true">
 		<div class="modal-dialog">
