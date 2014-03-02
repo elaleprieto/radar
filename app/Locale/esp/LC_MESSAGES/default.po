@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Radar 0.2\n"
-"POT-Creation-Date: 2013-11-15 00:38-0300\n"
+"POT-Creation-Date: 2014-03-01 19:19-0300\n"
 "PO-Revision-Date: \n"
-"Last-Translator: cele <celeweidmann@gmail.com>\n"
+"Last-Translator: Ale Prieto <aleprieto@gmail.com>\n"
 "Language-Team: Radar Cultural <contacto@colectivolibre.com.ar>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -12,6 +12,31 @@ msgstr ""
 "X-Poedit-Language: Spanish\n"
 "X-Poedit-Country: ARGENTINA\n"
 "X-Poedit-SourceCharset: utf-8\n"
+
+#: Config/routes.php:42;43
+#: View/Elements/navbar.ctp:28;33;49
+msgid "/places"
+msgstr "/espacios"
+
+#: Config/routes.php:43;46
+#: View/Elements/navbar.ctp:49;63
+msgid "/add"
+msgstr "/agregar"
+
+#: Config/routes.php:45;46
+#: View/Elements/navbar.ctp:63
+msgid "/events"
+msgstr "/eventos"
+
+#: Config/routes.php:50
+#: Controller/UsersController.php:41
+msgid "/emailconfirm"
+msgstr "/confirmarcorreo"
+
+#: Config/routes.php:52
+#: View/Elements/navbar.ctp:151
+msgid "/singup"
+msgstr "/registrate"
 
 #: Controller/CategoriesController.php:67;88
 msgid "The category has been saved"
@@ -54,26 +79,6 @@ msgstr "Categoría borrada"
 #: Controller/CategoriesEventsController.php:100
 msgid "Categories event was not deleted"
 msgstr "La categoría no ha sido borrada"
-
-#: Controller/CategoriesPlacesController.php:29;64;93
-msgid "Invalid categories place"
-msgstr "Categoría de Lugar Inválida"
-
-#: Controller/CategoriesPlacesController.php:44;68
-msgid "The categories place has been saved"
-msgstr "La Categoría de Lugar ha sido guardada"
-
-#: Controller/CategoriesPlacesController.php:47;71
-msgid "The categories place could not be saved. Please, try again."
-msgstr "La categoría de Lugar no se ha guardado. Por favor, intente nuevamente."
-
-#: Controller/CategoriesPlacesController.php:97
-msgid "Categories place deleted"
-msgstr "Categoría de Lugar borrada"
-
-#: Controller/CategoriesPlacesController.php:100
-msgid "Categories place was not deleted"
-msgstr "La categoría de Lugar no ha sido borrada"
 
 # LANGUAGE translation of CakePHP Application
 # Copyright YEAR NAME <EMAIL@ADDRESS>
@@ -145,43 +150,43 @@ msgstr "Evento borrado"
 msgid "Compliant was not deleted"
 msgstr "El evento no ha sido borrado"
 
-#: Controller/EventsController.php:102;118;147
+#: Controller/EventsController.php:98;114;143
 msgid "Invalid event"
 msgstr "Evento inválido"
 
-#: Controller/EventsController.php:122
+#: Controller/EventsController.php:118
 msgid "The event has been saved"
 msgstr "El evento ha sido guardado"
 
-#: Controller/EventsController.php:125
+#: Controller/EventsController.php:121
 msgid "The event could not be saved. Please, try again."
 msgstr "El evento no ha sido guardado. Por favor, intente nuevamente."
 
-#: Controller/EventsController.php:151
+#: Controller/EventsController.php:147
 msgid "Event deleted"
 msgstr "Evento borrado"
 
-#: Controller/EventsController.php:154
+#: Controller/EventsController.php:150
 msgid "Event was not deleted"
 msgstr "El evento no ha sido borrado"
 
-#: Controller/PlacesController.php:64
+#: Controller/PlacesController.php:76
 msgid "Place saved."
 msgstr "Lugar Id"
 
-#: Controller/PlacesController.php:154;169;193;222;237;261
+#: Controller/PlacesController.php:166;181;205;252;267;298
 msgid "Invalid place"
 msgstr "Evento inválido"
 
-#: Controller/PlacesController.php:173;241
+#: Controller/PlacesController.php:185;272
 msgid "The place has been saved."
 msgstr "El usuario ha sido guardado"
 
-#: Controller/PlacesController.php:197;265
+#: Controller/PlacesController.php:209;302
 msgid "Place deleted"
 msgstr "Evento borrado"
 
-#: Controller/PlacesController.php:199;267
+#: Controller/PlacesController.php:211;304
 msgid "Place was not deleted"
 msgstr "El evento no ha sido borrado"
 
@@ -207,43 +212,38 @@ msgstr "Categoría eliminada"
 msgid "Rate was not deleted"
 msgstr "La categoría no ha sido eliminada"
 
-#: Controller/UsersController.php:61
-msgid "Invalid username or password, try again"
-msgstr "Usuario o contraseña inválida, intente nuevamente"
-
-#: Controller/UsersController.php:151;177
+#: Controller/UsersController.php:51;236
 msgid "The user could not be saved. Please, try again."
 msgstr "El usuario no ha sido guardado. Por favor, intente nuevamente."
 
-#: Controller/UsersController.php:167
+#: Controller/UsersController.php:66;226
 msgid "Invalid user"
 msgstr "Evento inválido"
 
-#: Controller/UsersController.php:171
+#: Controller/UsersController.php:133
+msgid "Invalid username or password, try again"
+msgstr "Usuario o contraseña inválida, intente nuevamente"
+
+#: Controller/UsersController.php:230
 msgid "The user has been saved"
 msgstr "El usuario ha sido guardado"
 
-#: View/Categories/add.ctp:4
 #: View/Categories/admin_add.ctp:4
 msgid "Add Category"
 msgstr "Agregar Categoría"
 
-#: View/Categories/add.ctp:10
 #: View/Categories/admin_add.ctp:11
 #: View/Categories/admin_edit.ctp:11
-#: View/Categories/edit.ctp:11
 #: View/CategoriesEvents/add.ctp:10
 #: View/CategoriesEvents/edit.ctp:11
-#: View/CategoriesPlaces/add.ctp:10
-#: View/CategoriesPlaces/edit.ctp:11
 #: View/Classifications/admin_add.ctp:10
 #: View/Classifications/admin_edit.ctp:13
 #: View/ClassificationsPlaces/add.ctp:10
 #: View/ClassificationsPlaces/edit.ctp:11
 #: View/Compliants/admin_add.ctp:12
 #: View/Compliants/admin_edit.ctp:13
-#: View/Events/agregar.ctp:90;195
 #: View/Events/edit.ctp:17
+#: View/Places/admin_edit.ctp:26
 #: View/Places/edit.ctp:13
 #: View/Rates/admin_add.ctp:11
 #: View/Rates/admin_edit.ctp:12
@@ -252,21 +252,14 @@ msgstr "Agregar Categoría"
 msgid "Submit"
 msgstr "Enviar"
 
-#: View/Categories/add.ctp:13
 #: View/Categories/admin_add.ctp:14
 #: View/Categories/admin_edit.ctp:14
 #: View/Categories/admin_index.ctp:12;60
-#: View/Categories/edit.ctp:14
-#: View/Categories/index.ctp:11;47
 #: View/Categories/view.ctp:32;58
 #: View/CategoriesEvents/add.ctp:13
 #: View/CategoriesEvents/edit.ctp:14
 #: View/CategoriesEvents/index.ctp:10;46
 #: View/CategoriesEvents/view.ctp:32
-#: View/CategoriesPlaces/add.ctp:13
-#: View/CategoriesPlaces/edit.ctp:14
-#: View/CategoriesPlaces/index.ctp:10;46
-#: View/CategoriesPlaces/view.ctp:32
 #: View/Classifications/admin_add.ctp:13
 #: View/Classifications/admin_edit.ctp:16
 #: View/Classifications/admin_index.ctp:11;44
@@ -279,9 +272,11 @@ msgstr "Enviar"
 #: View/Compliants/admin_edit.ctp:16
 #: View/Compliants/admin_index.ctp:12;50
 #: View/Compliants/admin_view.ctp:42
-#: View/Events/agregar.ctp:204
 #: View/Events/edit.ctp:20
-#: View/Events/view.ctp:154
+#: View/Events/view.ctp:219
+#: View/Places/admin_edit.ctp:29
+#: View/Places/admin_index.ctp:35
+#: View/Places/admin_view.ctp:102;138;190
 #: View/Places/edit.ctp:16
 #: View/Places/view.ctp:135;177
 #: View/Rates/admin_add.ctp:14
@@ -294,31 +289,21 @@ msgstr "Enviar"
 msgid "Actions"
 msgstr "Acciones"
 
-#: View/Categories/add.ctp:16
 #: View/Categories/admin_add.ctp:17
 #: View/Categories/admin_edit.ctp:18
-#: View/Categories/edit.ctp:18
 #: View/Categories/view.ctp:36
 #: View/CategoriesEvents/add.ctp:17
 #: View/CategoriesEvents/edit.ctp:19
 #: View/CategoriesEvents/index.ctp:49
 #: View/CategoriesEvents/view.ctp:38
-#: View/CategoriesPlaces/add.ctp:17
-#: View/CategoriesPlaces/edit.ctp:19
-#: View/CategoriesPlaces/index.ctp:49
-#: View/CategoriesPlaces/view.ctp:38
-#: View/Events/agregar.ctp:207
 #: View/Events/edit.ctp:25
-#: View/Events/view.ctp:160
+#: View/Events/view.ctp:225
 msgid "List Categories"
 msgstr "Listar Categorías"
 
-#: View/Categories/add.ctp:17
 #: View/Categories/admin_add.ctp:18
 #: View/Categories/admin_edit.ctp:19
 #: View/Categories/admin_index.ctp:63
-#: View/Categories/edit.ctp:19
-#: View/Categories/index.ctp:50
 #: View/Categories/view.ctp:38
 #: View/CategoriesEvents/add.ctp:19
 #: View/CategoriesEvents/edit.ctp:21
@@ -328,9 +313,10 @@ msgstr "Listar Categorías"
 #: View/Compliants/admin_edit.ctp:21
 #: View/Compliants/admin_index.ctp:53
 #: View/Compliants/admin_view.ctp:48
-#: View/Events/agregar.ctp:206
 #: View/Events/edit.ctp:24
-#: View/Events/view.ctp:158
+#: View/Events/view.ctp:223
+#: View/Places/admin_edit.ctp:34
+#: View/Places/admin_view.ctp:108
 #: View/Places/edit.ctp:21
 #: View/Rates/admin_add.ctp:18
 #: View/Rates/admin_edit.ctp:20
@@ -339,12 +325,9 @@ msgstr "Listar Categorías"
 msgid "List Events"
 msgstr "Listar Eventos"
 
-#: View/Categories/add.ctp:18
 #: View/Categories/admin_add.ctp:19
 #: View/Categories/admin_edit.ctp:20
 #: View/Categories/admin_index.ctp:68
-#: View/Categories/edit.ctp:20
-#: View/Categories/index.ctp:51
 #: View/Categories/view.ctp:39;87
 #: View/CategoriesEvents/add.ctp:20
 #: View/CategoriesEvents/edit.ctp:22
@@ -354,7 +337,9 @@ msgstr "Listar Eventos"
 #: View/Compliants/admin_edit.ctp:22
 #: View/Compliants/admin_index.ctp:54
 #: View/Compliants/admin_view.ctp:49
-#: View/Events/view.ctp:159
+#: View/Events/view.ctp:224
+#: View/Places/admin_edit.ctp:35
+#: View/Places/admin_view.ctp:109;175
 #: View/Places/edit.ctp:22
 #: View/Rates/admin_add.ctp:19
 #: View/Rates/admin_edit.ctp:21
@@ -364,20 +349,15 @@ msgid "New Event"
 msgstr "Nuevo Evento"
 
 #: View/Categories/admin_edit.ctp:4
-#: View/Categories/edit.ctp:4
 #: View/Categories/view.ctp:34
 msgid "Edit Category"
 msgstr "Editar Categoría"
 
 #: View/Categories/admin_edit.ctp:17
 #: View/Categories/admin_index.ctp:38
-#: View/Categories/edit.ctp:17
-#: View/Categories/index.ctp:27
 #: View/Categories/view.ctp:78
 #: View/CategoriesEvents/edit.ctp:17
 #: View/CategoriesEvents/index.ctp:26
-#: View/CategoriesPlaces/edit.ctp:17
-#: View/CategoriesPlaces/index.ctp:26
 #: View/Classifications/admin_edit.ctp:19
 #: View/Classifications/admin_index.ctp:24
 #: View/Classifications/admin_view.ctp:99
@@ -386,6 +366,9 @@ msgstr "Editar Categoría"
 #: View/Compliants/admin_edit.ctp:19
 #: View/Compliants/admin_index.ctp:30
 #: View/Events/edit.ctp:23
+#: View/Places/admin_edit.ctp:32
+#: View/Places/admin_index.ctp:85
+#: View/Places/admin_view.ctp:166;205
 #: View/Places/edit.ctp:19
 #: View/Places/view.ctp:207
 #: View/Rates/admin_edit.ctp:18
@@ -398,15 +381,10 @@ msgstr "Eliminar"
 
 #: View/Categories/admin_edit.ctp:17
 #: View/Categories/admin_index.ctp:41
-#: View/Categories/edit.ctp:17
-#: View/Categories/index.ctp:27
 #: View/Categories/view.ctp:35;78
 #: View/CategoriesEvents/edit.ctp:17
 #: View/CategoriesEvents/index.ctp:26
 #: View/CategoriesEvents/view.ctp:35
-#: View/CategoriesPlaces/edit.ctp:17
-#: View/CategoriesPlaces/index.ctp:26
-#: View/CategoriesPlaces/view.ctp:35
 #: View/Classifications/admin_edit.ctp:19
 #: View/Classifications/admin_index.ctp:24
 #: View/Classifications/admin_view.ctp:40;99
@@ -417,7 +395,10 @@ msgstr "Eliminar"
 #: View/Compliants/admin_index.ctp:30
 #: View/Compliants/admin_view.ctp:45
 #: View/Events/edit.ctp:23
-#: View/Events/view.ctp:157
+#: View/Events/view.ctp:222
+#: View/Places/admin_edit.ctp:32
+#: View/Places/admin_index.ctp:88
+#: View/Places/admin_view.ctp:105;166;205
 #: View/Places/edit.ctp:19
 #: View/Places/view.ctp:145;211
 #: View/Rates/admin_edit.ctp:18
@@ -430,22 +411,19 @@ msgid "Are you sure you want to delete # %s?"
 msgstr "¿Está seguro que desea eliminar # %s?"
 
 #: View/Categories/admin_index.ctp:2
-#: View/Categories/index.ctp:2
-#: View/Events/agregar.ctp:60;66
-#: View/Events/index.ctp:118
-#: View/Places/index.ctp:101
+#: View/Events/index.ctp:128
+#: View/Places/index.ctp:164
 msgid "Categories"
 msgstr "Categorías"
 
 #: View/Categories/admin_index.ctp:28
-#: View/Categories/index.ctp:25
 #: View/Categories/view.ctp:76
 #: View/CategoriesEvents/index.ctp:24
-#: View/CategoriesPlaces/index.ctp:24
 #: View/Classifications/admin_index.ctp:22
 #: View/Classifications/admin_view.ctp:97
 #: View/ClassificationsPlaces/index.ctp:24
 #: View/Compliants/admin_index.ctp:28
+#: View/Places/admin_view.ctp:164;203
 #: View/Places/view.ctp:195
 #: View/Rates/admin_index.ctp:26
 #: View/Users/index.ctp:22
@@ -454,14 +432,14 @@ msgid "View"
 msgstr "Ver"
 
 #: View/Categories/admin_index.ctp:33
-#: View/Categories/index.ctp:26
 #: View/Categories/view.ctp:77
 #: View/CategoriesEvents/index.ctp:25
-#: View/CategoriesPlaces/index.ctp:25
 #: View/Classifications/admin_index.ctp:23
 #: View/Classifications/admin_view.ctp:98
 #: View/ClassificationsPlaces/index.ctp:25
 #: View/Compliants/admin_index.ctp:29
+#: View/Places/admin_index.ctp:80
+#: View/Places/admin_view.ctp:165;204
 #: View/Places/view.ctp:201
 #: View/Rates/admin_index.ctp:27
 #: View/Users/index.ctp:23
@@ -470,72 +448,64 @@ msgid "Edit"
 msgstr "Editar"
 
 #: View/Categories/admin_index.ctp:49
-#: View/Categories/index.ctp:35
 #: View/CategoriesEvents/index.ctp:34
-#: View/CategoriesPlaces/index.ctp:34
 #: View/Classifications/admin_index.ctp:32
 #: View/ClassificationsPlaces/index.ctp:34
 #: View/Compliants/admin_index.ctp:38
+#: View/Places/admin_index.ctp:98
 #: View/Rates/admin_index.ctp:36
 #: View/Users/index.ctp:32
 msgid "Page {:page} of {:pages}, showing {:current} records out of {:count} total, starting on record {:start}, ending on {:end}"
 msgstr "Página {:page} de {:pages}, mostrando el registro {:current} de un total de {:count}, empezando en el registro {:start} y terminando en {:end}"
 
 #: View/Categories/admin_index.ctp:53
-#: View/Categories/index.ctp:40
 #: View/CategoriesEvents/index.ctp:39
-#: View/CategoriesPlaces/index.ctp:39
 #: View/Classifications/admin_index.ctp:37
 #: View/ClassificationsPlaces/index.ctp:39
 #: View/Compliants/admin_index.ctp:43
+#: View/Places/admin_index.ctp:103
 #: View/Rates/admin_index.ctp:41
 #: View/Users/index.ctp:37
 msgid "previous"
 msgstr "anterior"
 
 #: View/Categories/admin_index.ctp:55
-#: View/Categories/index.ctp:42
 #: View/CategoriesEvents/index.ctp:41
-#: View/CategoriesPlaces/index.ctp:41
 #: View/Classifications/admin_index.ctp:39
 #: View/ClassificationsPlaces/index.ctp:41
 #: View/Compliants/admin_index.ctp:45
+#: View/Places/admin_index.ctp:105
 #: View/Rates/admin_index.ctp:43
 #: View/Users/index.ctp:39
 msgid "next"
 msgstr "siguiente"
 
 #: View/Categories/admin_index.ctp:62
-#: View/Categories/index.ctp:49
 #: View/Categories/view.ctp:37
 #: View/CategoriesEvents/add.ctp:18
 #: View/CategoriesEvents/edit.ctp:20
 #: View/CategoriesEvents/index.ctp:50
 #: View/CategoriesEvents/view.ctp:39
-#: View/CategoriesPlaces/add.ctp:18
-#: View/CategoriesPlaces/edit.ctp:20
-#: View/CategoriesPlaces/index.ctp:50
-#: View/CategoriesPlaces/view.ctp:39
-#: View/Events/agregar.ctp:208
 #: View/Events/edit.ctp:26
-#: View/Events/view.ctp:161
+#: View/Events/view.ctp:226
 msgid "New Category"
 msgstr "Nueva Categoría"
 
 #: View/Categories/view.ctp:2
 #: View/CategoriesEvents/view.ctp:9
-#: View/CategoriesPlaces/view.ctp:9
-#: View/Events/view.ctp:141
+#: View/Events/index.ctp:292
+#: View/Events/view.ctp:206
+#: View/Places/index.ctp:246
 msgid "Category"
 msgstr "Categoría"
 
 #: View/Categories/view.ctp:4;47
 #: View/CategoriesEvents/view.ctp:4
-#: View/CategoriesPlaces/view.ctp:4
 #: View/Classifications/admin_view.ctp:4;52
 #: View/ClassificationsPlaces/view.ctp:4
 #: View/Compliants/admin_view.ctp:4
-#: View/Events/view.ctp:96
+#: View/Events/view.ctp:161
+#: View/Places/admin_view.ctp:4;119;184
 #: View/Places/view.ctp:97;166
 #: View/Rates/admin_view.ctp:4
 #: View/Users/view.ctp:4;52
@@ -545,9 +515,10 @@ msgstr "Id"
 #: View/Categories/view.ctp:9
 #: View/Classifications/admin_view.ctp:9;53
 #: View/Pages/contacto.ctp:12
-#: View/Places/add.ctp:65
-#: View/Places/admin_add.ctp:66
-#: View/Places/index.ctp:181
+#: View/Places/admin_add.ctp:67
+#: View/Places/admin_editar.ctp:73
+#: View/Places/admin_view.ctp:9;185
+#: View/Places/index.ctp:247
 #: View/Places/view.ctp:102
 #: View/Users/add.ctp:19
 #: View/Users/edit.ctp:22
@@ -557,17 +528,18 @@ msgstr "Nombre"
 
 #: View/Categories/view.ctp:14
 #: View/Classifications/admin_view.ctp:19;54
+#: View/Places/admin_view.ctp:14;187
 #: View/Places/view.ctp:107
 msgid "Sort"
 msgstr "Ordenar"
 
 #: View/Categories/view.ctp:19;54
 #: View/CategoriesEvents/view.ctp:19
-#: View/CategoriesPlaces/view.ctp:19
 #: View/Classifications/admin_view.ctp:24;57
 #: View/ClassificationsPlaces/view.ctp:19
 #: View/Compliants/admin_view.ctp:19
-#: View/Events/view.ctp:131
+#: View/Events/view.ctp:196
+#: View/Places/admin_view.ctp:29;134;188
 #: View/Places/view.ctp:122;173
 #: View/Rates/admin_view.ctp:14
 #: View/Users/view.ctp:24;55
@@ -576,11 +548,11 @@ msgstr "Creado"
 
 #: View/Categories/view.ctp:24;55
 #: View/CategoriesEvents/view.ctp:24
-#: View/CategoriesPlaces/view.ctp:24
 #: View/Classifications/admin_view.ctp:29;58
 #: View/ClassificationsPlaces/view.ctp:24
 #: View/Compliants/admin_view.ctp:24
-#: View/Events/view.ctp:136
+#: View/Events/view.ctp:201
+#: View/Places/admin_view.ctp:34;135;189
 #: View/Places/view.ctp:127;174
 #: View/Rates/admin_view.ctp:19
 #: View/Users/view.ctp:29;56
@@ -592,15 +564,16 @@ msgid "Delete Category"
 msgstr "Eliminar Categoría"
 
 #: View/Categories/view.ctp:43
+#: View/Places/admin_view.ctp:115
 msgid "Related Events"
 msgstr "Eventos relacionados"
 
 #: View/Categories/view.ctp:48
 #: View/Compliants/admin_view.ctp:9
-#: View/Events/add.ctp:77
-#: View/Events/agregar.ctp:35
-#: View/Events/index.ctp:315;319
-#: View/Events/view.ctp:101
+#: View/Events/add.ctp:79
+#: View/Events/index.ctp:361;365
+#: View/Events/view.ctp:166
+#: View/Places/admin_view.ctp:120
 #: View/Places/view.ctp:167
 #: View/Users/view.ctp:53
 msgid "Title"
@@ -608,44 +581,51 @@ msgstr "Título"
 
 #: View/Categories/view.ctp:49
 #: View/Classifications/admin_view.ctp:55
-#: View/Events/view.ctp:106
+#: View/Events/view.ctp:171
+#: View/Places/admin_view.ctp:19;123
 #: View/Places/view.ctp:112;168
 msgid "Lat"
 msgstr "Latitud"
 
 #: View/Categories/view.ctp:50
 #: View/Classifications/admin_view.ctp:56
-#: View/Events/view.ctp:111
+#: View/Events/view.ctp:176
+#: View/Places/admin_view.ctp:24;124
 #: View/Places/view.ctp:117;169
 msgid "Long"
 msgstr "Longitud"
 
 #: View/Categories/view.ctp:51
-#: View/Events/view.ctp:116
+#: View/Events/view.ctp:181
+#: View/Places/admin_view.ctp:125
 #: View/Places/view.ctp:170
 msgid "Status"
 msgstr "Estado"
 
 #: View/Categories/view.ctp:52
-#: View/Events/index.ctp:259
-#: View/Events/view.ctp:76;121
+#: View/Events/index.ctp:293
+#: View/Events/view.ctp:141;186
+#: View/Places/admin_view.ctp:126
 #: View/Places/view.ctp:171
 msgid "Date Start"
 msgstr "Fecha de Inicio"
 
 #: View/Categories/view.ctp:53
-#: View/Events/index.ctp:260
-#: View/Events/view.ctp:82;126
+#: View/Events/index.ctp:294
+#: View/Events/view.ctp:147;191
+#: View/Places/admin_view.ctp:127
 #: View/Places/view.ctp:172
 msgid "Date End"
 msgstr "Fecha de Finalización"
 
 #: View/Categories/view.ctp:56
+#: View/Places/admin_view.ctp:136
 #: View/Places/view.ctp:175
 msgid "Category Id"
 msgstr "Categoría Id"
 
 #: View/Categories/view.ctp:57
+#: View/Places/admin_view.ctp:137
 #: View/Places/view.ctp:176
 msgid "Place Id"
 msgstr "Lugar Id"
@@ -680,8 +660,8 @@ msgstr "Categoría"
 
 #: View/CategoriesEvents/view.ctp:14
 #: View/Compliants/admin_view.ctp:29
-#: View/Events/index.ctp:261;267
-#: View/Events/view.ctp:94
+#: View/Events/index.ctp:295;302
+#: View/Events/view.ctp:159
 #: View/Rates/admin_view.ctp:24
 msgid "Event"
 msgstr "Evento"
@@ -689,84 +669,6 @@ msgstr "Evento"
 #: View/CategoriesEvents/view.ctp:35
 msgid "Delete Categories Event"
 msgstr "Borrar Categoría"
-
-#: View/CategoriesPlaces/add.ctp:4
-msgid "Add Categories Place"
-msgstr "Agregar Categoría de Lugar"
-
-#: View/CategoriesPlaces/add.ctp:16
-#: View/CategoriesPlaces/edit.ctp:18
-#: View/CategoriesPlaces/view.ctp:36
-msgid "List Categories Places"
-msgstr "Listar Categoría de Lugar"
-
-#: View/CategoriesPlaces/add.ctp:19
-#: View/CategoriesPlaces/edit.ctp:21
-#: View/CategoriesPlaces/index.ctp:51
-#: View/CategoriesPlaces/view.ctp:40
-#: View/Classifications/admin_add.ctp:17
-#: View/Classifications/admin_edit.ctp:21
-#: View/Classifications/admin_index.ctp:47
-#: View/Classifications/admin_view.ctp:43
-#: View/ClassificationsPlaces/add.ctp:19
-#: View/ClassificationsPlaces/edit.ctp:21
-#: View/ClassificationsPlaces/index.ctp:51
-#: View/ClassificationsPlaces/view.ctp:40
-#: View/Events/agregar.ctp:209
-#: View/Events/edit.ctp:27
-#: View/Events/view.ctp:162
-#: View/Places/edit.ctp:20
-#: View/Places/view.ctp:147;149
-msgid "List Places"
-msgstr "Listar Lugares"
-
-#: View/CategoriesPlaces/add.ctp:20
-#: View/CategoriesPlaces/edit.ctp:22
-#: View/CategoriesPlaces/index.ctp:52
-#: View/CategoriesPlaces/view.ctp:41
-#: View/Classifications/admin_add.ctp:18
-#: View/Classifications/admin_edit.ctp:22
-#: View/Classifications/admin_index.ctp:48
-#: View/Classifications/admin_view.ctp:44;108
-#: View/ClassificationsPlaces/add.ctp:20
-#: View/ClassificationsPlaces/edit.ctp:22
-#: View/ClassificationsPlaces/index.ctp:52
-#: View/ClassificationsPlaces/view.ctp:41
-#: View/Events/agregar.ctp:210
-#: View/Events/edit.ctp:28
-#: View/Events/view.ctp:163
-#: View/Places/view.ctp:148;154;221
-msgid "New Place"
-msgstr "Nuevo Lugar"
-
-#: View/CategoriesPlaces/edit.ctp:4
-#: View/CategoriesPlaces/view.ctp:34
-msgid "Edit Categories Place"
-msgstr "Editar Categoría de Lugar"
-
-#: View/CategoriesPlaces/index.ctp:2
-msgid "Categories Places"
-msgstr "Categorías de Lugar"
-
-#: View/CategoriesPlaces/index.ctp:48
-#: View/CategoriesPlaces/view.ctp:37
-msgid "New Categories Place"
-msgstr "Nueva Categoría de Lugar"
-
-#: View/CategoriesPlaces/view.ctp:2
-msgid "Categories Place"
-msgstr "Categorías"
-
-#: View/CategoriesPlaces/view.ctp:14
-#: View/ClassificationsPlaces/view.ctp:14
-#: View/Events/view.ctp:146
-#: View/Places/view.ctp:94
-msgid "Place"
-msgstr "Lugar"
-
-#: View/CategoriesPlaces/view.ctp:35
-msgid "Delete Categories Place"
-msgstr "Borrar Categoría de Lugar"
 
 #: View/Classifications/admin_add.ctp:4
 msgid "Add Classification"
@@ -779,8 +681,44 @@ msgstr "Agregar Clasificación"
 #: View/ClassificationsPlaces/edit.ctp:19
 #: View/ClassificationsPlaces/index.ctp:49
 #: View/ClassificationsPlaces/view.ctp:38
+#: View/Places/admin_edit.ctp:36
+#: View/Places/admin_view.ctp:110
 msgid "List Classifications"
 msgstr "Listar Noticias"
+
+#: View/Classifications/admin_add.ctp:17
+#: View/Classifications/admin_edit.ctp:21
+#: View/Classifications/admin_index.ctp:47
+#: View/Classifications/admin_view.ctp:43
+#: View/ClassificationsPlaces/add.ctp:19
+#: View/ClassificationsPlaces/edit.ctp:21
+#: View/ClassificationsPlaces/index.ctp:51
+#: View/ClassificationsPlaces/view.ctp:40
+#: View/Elements/navbar.ctp:55
+#: View/Events/edit.ctp:27
+#: View/Events/view.ctp:227
+#: View/Places/admin_edit.ctp:33
+#: View/Places/admin_view.ctp:106
+#: View/Places/edit.ctp:20
+#: View/Places/view.ctp:147;149
+msgid "List Places"
+msgstr "Listar Lugares"
+
+#: View/Classifications/admin_add.ctp:18
+#: View/Classifications/admin_edit.ctp:22
+#: View/Classifications/admin_index.ctp:48
+#: View/Classifications/admin_view.ctp:44;108
+#: View/ClassificationsPlaces/add.ctp:20
+#: View/ClassificationsPlaces/edit.ctp:22
+#: View/ClassificationsPlaces/index.ctp:52
+#: View/ClassificationsPlaces/view.ctp:41
+#: View/Events/edit.ctp:28
+#: View/Events/view.ctp:228
+#: View/Places/admin_index.ctp:8
+#: View/Places/admin_view.ctp:107
+#: View/Places/view.ctp:148;154;221
+msgid "New Place"
+msgstr "Nuevo Lugar"
 
 #: View/Classifications/admin_edit.ctp:4
 #: View/Classifications/admin_view.ctp:39
@@ -794,6 +732,8 @@ msgstr "Acciones"
 
 #: View/Classifications/admin_index.ctp:46
 #: View/Classifications/admin_view.ctp:42
+#: View/Places/admin_edit.ctp:37
+#: View/Places/admin_view.ctp:111;214
 msgid "New Classification"
 msgstr "Nueva Clasificación"
 
@@ -802,6 +742,7 @@ msgid "Classification"
 msgstr "Clasificación"
 
 #: View/Classifications/admin_view.ctp:14
+#: View/Places/admin_view.ctp:186
 msgid "Color"
 msgstr "Color"
 
@@ -816,70 +757,81 @@ msgstr "Eliminar Lugar"
 
 #: View/Classifications/admin_view.ctp:59
 #: View/Compliants/admin_view.ctp:14
-#: View/Events/add.ctp:103
-#: View/Events/agregar.ctp:38
-#: View/Events/index.ctp:325;328
-#: View/Places/add.ctp:89
-#: View/Places/admin_add.ctp:91
+#: View/Events/add.ctp:99
+#: View/Events/index.ctp:371;374
+#: View/Places/admin_add.ctp:100
+#: View/Places/admin_editar.ctp:107
+#: View/Places/admin_view.ctp:39;122
 msgid "Description"
 msgstr "Descripción"
 
 #: View/Classifications/admin_view.ctp:60
-#: View/Events/add.ctp:86
-#: View/Events/index.ctp:262;268
-#: View/Places/add.ctp:74
-#: View/Places/admin_add.ctp:75
-#: View/Places/index.ctp:182
+#: View/Events/add.ctp:87
+#: View/Events/index.ctp:296;303
+#: View/Places/admin_add.ctp:75;89
+#: View/Places/admin_editar.ctp:82;96
+#: View/Places/admin_view.ctp:44;121
+#: View/Places/index.ctp:248
 msgid "Address"
 msgstr "Dirección"
 
 #: View/Classifications/admin_view.ctp:61
-#: View/Places/add.ctp:97
-#: View/Places/admin_add.ctp:99
+#: View/Places/admin_add.ctp:108
+#: View/Places/admin_editar.ctp:115
+#: View/Places/admin_view.ctp:49
 msgid "Phone"
 msgstr "Teléfono"
 
 #: View/Classifications/admin_view.ctp:62
 #: View/Pages/contacto.ctp:20
-#: View/Places/add.ctp:104
-#: View/Places/admin_add.ctp:106
+#: View/Places/admin_add.ctp:115
+#: View/Places/admin_editar.ctp:122
+#: View/Places/admin_view.ctp:54
 #: View/Users/add.ctp:24
 #: View/Users/edit.ctp:27
 msgid "Email"
 msgstr "Correo Electrónico"
 
 #: View/Classifications/admin_view.ctp:63
-#: View/Events/add.ctp:314
-#: View/Places/add.ctp:111
-#: View/Places/admin_add.ctp:113
+#: View/Events/add.ctp:310
+#: View/Places/admin_add.ctp:122
+#: View/Places/admin_editar.ctp:129
+#: View/Places/admin_view.ctp:59;128
 msgid "Website"
 msgstr "Sitio Web"
 
 #: View/Classifications/admin_view.ctp:64
+#: View/Places/admin_view.ctp:64
 msgid "Image"
 msgstr "Imagen"
 
 #: View/Classifications/admin_view.ctp:65
+#: View/Places/admin_view.ctp:69
 msgid "Accessibility Parking"
 msgstr "Accesibilidad"
 
 #: View/Classifications/admin_view.ctp:66
+#: View/Places/admin_view.ctp:74
 msgid "Accessibility Ramp"
 msgstr "Accesibilidad"
 
 #: View/Classifications/admin_view.ctp:67
+#: View/Places/admin_view.ctp:79
 msgid "Accessibility Equipment"
 msgstr "Accesibilidad"
 
 #: View/Classifications/admin_view.ctp:68
+#: View/Places/admin_view.ctp:84
 msgid "Accessibility Signage"
 msgstr "Accesibilidad"
 
 #: View/Classifications/admin_view.ctp:69
+#: View/Places/admin_view.ctp:89
 msgid "Accessibility Braille"
 msgstr "Accesibilidad"
 
 #: View/Classifications/admin_view.ctp:70
+#: View/Places/admin_view.ctp:94
 #: View/Users/view.ctp:57
 msgid "User Id"
 msgstr "Usuario Id"
@@ -918,6 +870,13 @@ msgstr "Nueva Categoría"
 #: View/ClassificationsPlaces/view.ctp:2
 msgid "Classifications Place"
 msgstr "Clasificación de Espacio"
+
+#: View/ClassificationsPlaces/view.ctp:14
+#: View/Events/view.ctp:211
+#: View/Places/admin_view.ctp:2
+#: View/Places/view.ctp:94
+msgid "Place"
+msgstr "Lugar"
 
 #: View/ClassificationsPlaces/view.ctp:35
 msgid "Delete Classifications Place"
@@ -988,41 +947,42 @@ msgstr "Usuario"
 msgid "Delete Compliant"
 msgstr "Eliminar Categoría"
 
-#: View/Elements/navbar.ctp:36;151
-#: View/Places/add.ctp:49
-#: View/Places/admin_add.ctp:50
+#: View/Elements/navbar.ctp:19
+msgid "Events"
+msgstr "Evento"
+
+#: View/Elements/navbar.ctp:30
+#: View/Places/admin_index.ctp:7
+#: View/Places/index.ctp:232
+msgid "Places"
+msgstr "Lugares"
+
+#: View/Elements/navbar.ctp:50
+#: View/Places/admin_add.ctp:51
+#: View/Places/admin_editar.ctp:54
 msgid "Add Place"
 msgstr "Agregar Lugar"
 
-#: View/Elements/navbar.ctp:45
+#: View/Elements/navbar.ctp:66;74
+msgid "RADEAR MY EVENTS!"
+msgstr "¡RADEAR MIS EVENTOS!"
+
+#: View/Elements/navbar.ctp:70
 msgid "RADEA!"
 msgstr "¡RADEÁ!"
 
-#: View/Elements/navbar.ctp:98;222
+#: View/Elements/navbar.ctp:133
 msgid "Logout"
 msgstr "Salir"
 
-#: View/Elements/navbar.ctp:109;233
+#: View/Elements/navbar.ctp:144
 #: View/Users/login.ctp:48
 msgid "Login"
 msgstr "Ingresar"
 
-#: View/Elements/navbar.ctp:116;240
+#: View/Elements/navbar.ctp:151
 msgid "Sign up!"
 msgstr "¡Registrate!"
-
-#: View/Elements/navbar.ctp:130
-msgid "Events"
-msgstr "Evento"
-
-#: View/Elements/navbar.ctp:135
-#: View/Places/index.ctp:168
-msgid "Places"
-msgstr "Lugares"
-
-#: View/Elements/navbar.ctp:161;164
-msgid "RADEAR MY EVENTS!"
-msgstr "¡RADEAR MIS EVENTOS!"
 
 #: View/Elements/sponsors.ctp:4
 msgid "Advertise here!"
@@ -1032,233 +992,213 @@ msgstr "¡Quiero anunciarme aquí!"
 msgid "Sponsors"
 msgstr "Publicidades"
 
-#: View/Events/add.ctp:45;72
+#: View/Events/add.ctp:46;74
 msgid "Basic information"
 msgstr "Información básica"
 
-#: View/Events/add.ctp:46
+#: View/Events/add.ctp:47
 msgid "Location"
 msgstr "Ubicación"
 
-#: View/Events/add.ctp:47;257
-#: View/Events/view.ctp:60
-#: View/Places/admin_add.ctp:129
+#: View/Events/add.ctp:48;253
+#: View/Events/view.ctp:69
+#: View/Places/admin_add.ctp:138
+#: View/Places/admin_editar.ctp:145
 #: View/Places/view.ctp:45
 msgid "Accessibility"
 msgstr "Accesibilidad"
 
-#: View/Events/add.ctp:61
-#: View/Events/agregar.ctp:19
+#: View/Events/add.ctp:62
 msgid "Add Event"
 msgstr "Agregar Evento"
 
-#: View/Events/add.ctp:105
+#: View/Events/add.ctp:101
 msgid "characters"
 msgstr "caracteres"
 
-#: View/Events/add.ctp:116
+#: View/Events/add.ctp:112
 msgid "What is it?"
 msgstr "¿De qué se trata?"
 
-#: View/Events/add.ctp:145
+#: View/Events/add.ctp:141
 msgid "Date"
 msgstr "Fecha"
 
-#: View/Events/add.ctp:151
+#: View/Events/add.ctp:147
 msgid "Start Date and Time"
 msgstr "Fecha y hora de inicio"
 
-#: View/Events/add.ctp:200
+#: View/Events/add.ctp:196
 msgid "End Date and Time"
 msgstr "Fecha y hora de fin"
 
-#: View/Events/add.ctp:260
+#: View/Events/add.ctp:256
 msgid "Is space adapted for people with physical or sensory disabilities?"
 msgstr "¿El espacio donde se desarrolla la actividad está adaptado para personas con alguna discapacidad física o sensorial?"
 
-#: View/Events/add.ctp:263
+#: View/Events/add.ctp:259
+#: View/Events/view.ctp:75
 #: View/Places/view.ctp:51
 msgid "Parking spaces reserved for people with disabilities"
 msgstr "Plazas de aparcamiento reservadas para personas con discapacidad"
 
-#: View/Events/add.ctp:267
+#: View/Events/add.ctp:263
+#: View/Events/view.ctp:83
 #: View/Places/view.ctp:59
 msgid "Stairs, ramps or elevators accessible wheelchair"
 msgstr "Escaleras, rampas o ascensores accesibles para vehículos de personas con movilidad reducida"
 
-#: View/Events/add.ctp:271
+#: View/Events/add.ctp:267
+#: View/Events/view.ctp:91
 #: View/Places/view.ctp:67
 msgid "Electronic equipment and audiovisual adapted"
 msgstr "Equipos electrónicos, informáticos y audiovisuales adaptados"
 
-#: View/Events/add.ctp:275
+#: View/Events/add.ctp:271
+#: View/Events/view.ctp:99
 #: View/Places/view.ctp:75
 msgid "Signs and information boards clearly perceived and understood"
 msgstr "Señales y paneles informativos claramente perceptibles y comprensibles"
 
-#: View/Events/add.ctp:279
+#: View/Events/add.ctp:275
+#: View/Events/view.ctp:107
 #: View/Places/view.ctp:83
 msgid "Tactile information: Braille"
 msgstr "Información táctil: Braille"
 
-#: View/Events/add.ctp:285
-#: View/Events/view.ctp:67
+#: View/Events/add.ctp:281
+#: View/Events/view.ctp:117
 msgid "Additional information"
 msgstr "Información adicional"
 
-#: View/Events/add.ctp:289
-#: View/Events/view.ctp:68
+#: View/Events/add.ctp:285
+#: View/Events/view.ctp:120
 msgid "Ticket sales"
 msgstr "Venta de entradas"
 
-#: View/Events/add.ctp:295
+#: View/Events/add.ctp:291
 msgid "yes"
 msgstr "si"
 
-#: View/Events/add.ctp:300
+#: View/Events/add.ctp:296
 msgid "no"
 msgstr "no"
 
-#: View/Events/add.ctp:305
+#: View/Events/add.ctp:301
+#: View/Places/admin_view.ctp:129
 msgid "Cost"
 msgstr "Costo"
 
-#: View/Events/add.ctp:307
+#: View/Events/add.ctp:303
 msgid "invalid"
 msgstr "Evento inválido"
 
-#: View/Events/add.ctp:319
+#: View/Events/add.ctp:315
 msgid "Video"
 msgstr "Video"
 
-#: View/Events/add.ctp:324
+#: View/Events/add.ctp:320
 msgid "News source"
 msgstr "Fuente de Noticias"
 
-#: View/Events/add.ctp:330
-#: View/Places/add.ctp:118
-#: View/Places/admin_add.ctp:120
+#: View/Events/add.ctp:326
+#: View/Places/admin_add.ctp:129
+#: View/Places/admin_editar.ctp:136
 msgid "Photo"
 msgstr "Foto"
 
-#: View/Events/agregar.ctp:181
-msgid "web"
-msgstr ""
-
-#: View/Events/agregar.ctp:184
-#, fuzzy
-msgid "video"
-msgstr "Video"
-
-#: View/Events/agregar.ctp:187
-#, fuzzy
-msgid "fuente de noticias"
-msgstr "Noticias relacionadas"
-
-#: View/Events/agregar.ctp:190
-msgid "foto"
-msgstr ""
-
 #: View/Events/edit.ctp:4
-#: View/Events/view.ctp:156
+#: View/Events/view.ctp:221
 msgid "Edit Event"
 msgstr "Editar Evento"
 
-#: View/Events/index.ctp:58
-#: View/Places/index.ctp:60
-msgid "Is not your current location?"
-msgstr "¿No es tu ubicación actual?"
-
-#: View/Events/index.ctp:60
-#: View/Places/index.ctp:62
-msgid "Change"
-msgstr "Cambiar"
-
-#: View/Events/index.ctp:66;86
-#: View/Places/index.ctp:68;88
+#: View/Events/index.ctp:84
+#: View/Places/index.ctp:75;120
 msgid "City: Rome, Italy"
 msgstr "Ciudad: Roma, Italia"
 
-#: View/Events/index.ctp:69;90;95
-#: View/Places/index.ctp:71;91
+#: View/Events/index.ctp:92
+#: View/Places/index.ctp:126
+msgid "Search Your City"
+msgstr "Busca tu ciudad"
+
+#: View/Events/index.ctp:100
+#: View/Places/index.ctp:78;135;140
 msgid "Search"
 msgstr "Buscar"
 
-#: View/Events/index.ctp:74
-#: View/Places/index.ctp:75
-msgid "Hide"
-msgstr "Ocultar"
-
-#: View/Events/index.ctp:104
+#: View/Events/index.ctp:111
+#: View/Places/index.ctp:151
 msgid "Save Location Preferences"
 msgstr "Guardar Preferencias de Localización"
 
-#: View/Events/index.ctp:122
+#: View/Events/index.ctp:132
 msgid "All Categories"
 msgstr "Todas las Categorías"
 
-#: View/Events/index.ctp:201
+#: View/Events/index.ctp:211
 msgid "What to do?"
 msgstr "¿Qué hacer?"
 
-#: View/Events/index.ctp:204;236
+#: View/Events/index.ctp:214;246
 msgid "Today"
 msgstr "Hoy"
 
-#: View/Events/index.ctp:207;240
+#: View/Events/index.ctp:217;250
 msgid "Tomorrow"
 msgstr "Mañana"
 
-#: View/Events/index.ctp:210;244
+#: View/Events/index.ctp:220;254
 msgid "This Week"
 msgstr "Esta semana"
 
-#: View/Events/index.ctp:226
+#: View/Events/index.ctp:236
 msgid "Map"
 msgstr "Mapa"
 
-#: View/Events/index.ctp:227
+#: View/Events/index.ctp:237
 msgid "Satellite"
 msgstr "Satélite"
 
-#: View/Events/index.ctp:263;269
+#: View/Events/index.ctp:297;304
 msgid "Like"
 msgstr "Me gusta"
 
-#: View/Events/index.ctp:264
+#: View/Events/index.ctp:298
+#: View/Places/admin_view.ctp:132
 #: View/Rates/admin_view.ctp:2;9
 msgid "Rate"
 msgstr "Votar"
 
-#: View/Events/index.ctp:265
+#: View/Events/index.ctp:300
 msgid "Start"
 msgstr "Inicio"
 
-#: View/Events/index.ctp:266
+#: View/Events/index.ctp:301
 msgid "End"
 msgstr "Fin"
 
-#: View/Events/index.ctp:291;309
+#: View/Events/index.ctp:337;355
 msgid "Denounce"
 msgstr "Denunciar"
 
-#: View/Events/index.ctp:337
+#: View/Events/index.ctp:383
 msgid "Close"
 msgstr "Cerrar"
 
-#: View/Events/index.ctp:340
+#: View/Events/index.ctp:386
 msgid "Denounce!"
 msgstr "¡Denunciar!"
 
-#: View/Events/view.ctp:37
+#: View/Events/view.ctp:39
 msgid "From"
 msgstr "De"
 
-#: View/Events/view.ctp:48
+#: View/Events/view.ctp:57
 msgid "To"
 msgstr "Hasta"
 
-#: View/Events/view.ctp:157
+#: View/Events/view.ctp:222
 msgid "Delete Event"
 msgstr "Borrar Evento"
 
@@ -1278,27 +1218,70 @@ msgstr "Motivo"
 msgid "Message"
 msgstr "Mensaje"
 
-#: View/Places/add.ctp:127
-#, fuzzy
-msgid "Accesibility"
-msgstr "Accesibilidad"
+#: View/Pages/emailconfirm.ctp:2
+msgid "Check your mail inbox"
+msgstr "Verifica tu bandeja de entrada :)"
 
+#: View/Places/admin_edit.ctp:4
+#, fuzzy
+msgid "Admin Edit Place"
+msgstr "Editar Lugar"
+
+#: View/Places/admin_index.ctp:34
+#, fuzzy
+msgid "Created by"
+msgstr "Creado"
+
+#: View/Places/admin_view.ctp:104
 #: View/Places/edit.ctp:4
 #: View/Places/view.ctp:137
 msgid "Edit Place"
 msgstr "Editar Lugar"
 
-#: View/Places/index.ctp:42
-msgid "Region"
-msgstr "Región"
-
-#: View/Places/index.ctp:47
-msgid "My Location"
-msgstr "Mi Ubicación"
-
+#: View/Places/admin_view.ctp:105
 #: View/Places/view.ctp:142
 msgid "Delete Place"
 msgstr "Eliminar Lugar"
+
+#: View/Places/admin_view.ctp:130
+#, fuzzy
+msgid "Active"
+msgstr "Acciones"
+
+#: View/Places/admin_view.ctp:131
+#, fuzzy
+msgid "Verified"
+msgstr "Modificado"
+
+#: View/Places/admin_view.ctp:133
+#, fuzzy
+msgid "Complaint"
+msgstr "Denuncia"
+
+#: View/Places/admin_view.ctp:180
+#, fuzzy
+msgid "Related Classifications"
+msgstr "Eliminar Categoría"
+
+#: View/Places/index.ctp:49
+msgid "Region"
+msgstr "Región"
+
+#: View/Places/index.ctp:54
+msgid "My Location"
+msgstr "Mi Ubicación"
+
+#: View/Places/index.ctp:67
+msgid "Is not your current location?"
+msgstr "¿No es tu ubicación actual?"
+
+#: View/Places/index.ctp:69
+msgid "Change"
+msgstr "Cambiar"
+
+#: View/Places/index.ctp:82
+msgid "Hide"
+msgstr "Ocultar"
 
 #: View/Rates/admin_add.ctp:4
 msgid "Add Rate"
@@ -1422,6 +1405,181 @@ msgstr "Noticias relacionadas"
 msgid "Body"
 msgstr "Cuerpo"
 
+#: Model/CategoriesEvent.php:validation
+#: for field category_id;validation
+#: event_id Model/Category.php:validation
+#: sort
+#: Model/ClassificationsPlace.php:validation
+#: classifications_id
+#: Model/Event.php:validation
+#: status Model/Place.php:validation
+#: Model/Rate.php:validation
+#: rate
+msgid "numeric"
+msgstr "numérico"
+
+#: Model/Category.php:validation
+#: for field name;validation icon
+#: Model/Classification.php:validation
+#: color Model/Compliant.php:validation
+#: title Model/Event.php:validation
+#: title;validation address;validation
+#: description Model/Place.php:validation
+#: name Model/User.php:validation
+#: username;validation password;validation
+#, fuzzy
+msgid "notempty"
+msgstr "no vacío"
+
+#: Model/Category.php:validation
+#: for field name
+msgid "unique"
+msgstr ""
+
+#: Model/ClassificationsPlace.php:validation
+#: for field place_id
+#: Model/Compliant.php:validation
+#: event_id;validation user_id
+#: Model/Rate.php:validation
+msgid "uuid"
+msgstr ""
+
+#: Model/Event.php:validation
+#: for field lat
+msgid "El campo latitud no puede ser vacío."
+msgstr ""
+
+#: Model/Event.php:validation
+#: for field lat
+msgid "El campo latitud debe ser un valor numérico."
+msgstr ""
+
+#: Model/Event.php:validation
+#: for field long
+msgid "El campo longitud no puede ser vacío."
+msgstr ""
+
+#: Model/Event.php:validation
+#: for field long
+msgid "El campo longitud debe ser un valor numérico."
+msgstr ""
+
+#: Model/Event.php:validation
+#: for field date_start
+msgid "El evento debe tener una fecha de inicio."
+msgstr ""
+
+#: Model/Event.php:validation
+#: for field date_start
+msgid "El evento debe tener una fecha de inicio válida."
+msgstr ""
+
+#: Model/Event.php:validation
+#: for field date_end
+msgid "El evento debe tener una fecha de fin."
+msgstr ""
+
+#: Model/Event.php:validation
+#: for field date_end
+msgid "El evento debe tener una fecha de fin válida."
+msgstr ""
+
+#: Model/Event.php:validation
+#: for field date_end
+msgid "La Fecha de fin del evento debe ser superior a la fecha de inicio"
+msgstr ""
+
+#: Model/Event.php:validation
+#: for field website Model/Place.php:validation
+#, fuzzy
+msgid "website"
+msgstr "Sitio Web"
+
+#: Model/Event.php:validation
+#: for field rate
+msgid "El campo rate no puede ser vacío."
+msgstr ""
+
+#: Model/Event.php:validation
+#: for field rate
+msgid "El campo rate debe ser un valor númerico."
+msgstr ""
+
+#: Model/Event.php:validation
+#: for field rate
+msgid "El campo rate debe tener un valor entre 0 y 5"
+msgstr ""
+
+#: Model/Event.php:validation
+#: for field complaint
+msgid "El campo complaint debe ser un valor numérico."
+msgstr ""
+
+#: Model/Event.php:validation
+#: for field Category
+msgid "Es necesario seleccionar al menos una categoría. Máximo 3."
+msgstr ""
+
+#: Model/Place.php:validation
+#: for field email
+#, fuzzy
+msgid "email"
+msgstr "Correo Electrónico"
+
+#: Model/User.php:validation
+#: for field username
+msgid "This username has already been taken."
+msgstr "El usuario ya existe pero puede elegir otro :)"
+
+#~ msgid "Invalid categories place"
+#~ msgstr "Categoría de Lugar Inválida"
+
+#~ msgid "The categories place has been saved"
+#~ msgstr "La Categoría de Lugar ha sido guardada"
+
+#~ msgid "The categories place could not be saved. Please, try again."
+#~ msgstr ""
+#~ "La categoría de Lugar no se ha guardado. Por favor, intente nuevamente."
+
+#~ msgid "Categories place deleted"
+#~ msgstr "Categoría de Lugar borrada"
+
+#~ msgid "Categories place was not deleted"
+#~ msgstr "La categoría de Lugar no ha sido borrada"
+
+#~ msgid "Add Categories Place"
+#~ msgstr "Agregar Categoría de Lugar"
+
+#~ msgid "List Categories Places"
+#~ msgstr "Listar Categoría de Lugar"
+
+#~ msgid "Edit Categories Place"
+#~ msgstr "Editar Categoría de Lugar"
+
+#~ msgid "Categories Places"
+#~ msgstr "Categorías de Lugar"
+
+#~ msgid "New Categories Place"
+#~ msgstr "Nueva Categoría de Lugar"
+
+#~ msgid "Categories Place"
+#~ msgstr "Categorías"
+
+#~ msgid "Delete Categories Place"
+#~ msgstr "Borrar Categoría de Lugar"
+
+#, fuzzy
+#~ msgid "video"
+#~ msgstr "Video"
+
+#, fuzzy
+#~ msgid "fuente de noticias"
+#~ msgstr "Noticias relacionadas"
+
+#, fuzzy
+#~ msgid "Accesibility"
+#~ msgstr "Accesibilidad"
+
 #~ msgid "More"
 #~ msgstr "Más"
 
@@ -1516,10 +1674,6 @@ msgstr "Cuerpo"
 #, fuzzy
 #~ msgid "Edit %s"
 #~ msgstr "Editar Usuario"
-
-#, fuzzy
-#~ msgid "empty"
-#~ msgstr "no vacío"
 
 #, fuzzy
 #~ msgid "List %s"
@@ -1639,14 +1793,8 @@ msgstr "Cuerpo"
 #~ msgid "The action name you supplied was empty. Please try again."
 #~ msgstr "El usuario no ha sido guardado. Por favor, intente nuevamente."
 
-#~ msgid "numeric"
-#~ msgstr "numérico"
-
 #~ msgid "datetime"
 #~ msgstr "fecha"
-
-#~ msgid "This username has already been taken."
-#~ msgstr "El usuario ya existe pero puede elegir otro :)"
 
 #~ msgid "Add User"
 #~ msgstr "Nuevo usuario"

@@ -17,6 +17,8 @@
 	</head>
 	<body ng-app="RadarApp">
 
+		<?php echo $this->Session->flash('flash', array('element' => 'failure')); ?>
+
 		<?php echo $this->fetch('content'); ?>
 		
 		<!-- Scripts -->

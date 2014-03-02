@@ -1,4 +1,5 @@
 (function() {
+
   angular.module('fechaFilters', []).filter('isodate', function() {
     return function(datetime) {
       var n;

@@ -25,12 +25,12 @@
 				</li>
 				<li class="<?php echo ($this->request->controller == 'places' && $this->request->action == 'index') ? 'active' : '' ?>">
 					<!-- Botón con texto para vista lg y md -->
-					<a href="/places" class="visible-md visible-lg hidden-xs hidden-sm">
+					<a href="<?php echo __('/places'); ?>" class="visible-md visible-lg hidden-xs hidden-sm">
 						<span class="glyphicon glyphicon-map-marker"></span>
 						<?php echo __('Places'); ?>	
 					</a>
 					<!-- Botón sin texto para vista sm y xs -->
-					<a href="/places" class="hidden-md hidden-lg visible-xs visible-sm">
+					<a href="<?php echo __('/places'); ?>" class="hidden-md hidden-lg visible-xs visible-sm">
 						<span class="glyphicon glyphicon-map-marker"></span>	
 					</a>
 				</li>
@@ -46,7 +46,7 @@
 						</a>
 						<ul class="dropdown-menu pull-right" role="menu">
 							<li>
-								<a href="/admin/places/add">
+								<a href="/admin<?php echo __('/places').__('/add'); ?>">
 									<?php echo __('Add Place'); ?>
 								</a>
 							</li>
@@ -60,7 +60,7 @@
 				<?php endif; ?>
 				
 				<li>	
-					<a href="/events/add" id="btn-radea">
+					<a href="<?php echo __('/events').__('/add'); ?>" id="btn-radea">
 						<!-- Botón para vista lg y md -->
 						<button class="btn btn-warning pull-right visible-md visible-lg hidden-xs hidden-sm">
 							<?php echo __('RADEAR MY EVENTS!'); ?>
@@ -148,7 +148,7 @@
 						?>
 					</li>
 					<li>
-						<?php echo $this->Html->link(__('Sign up!'), '/registrate', array('class' => 'menu_superior_derecha')); ?>
+						<?php echo $this->Html->link(__('Sign up!'), __('/singup'), array('class' => 'menu_superior_derecha')); ?>
 					</li>
 				<?php endif; ?>
 			</ul>

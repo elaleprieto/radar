@@ -5,7 +5,6 @@
     /*
     	Variables Globales
     */
-
     var opciones;
     window.capital = new google.maps.LatLng(-34.603, -58.382);
     window.santafe = new google.maps.LatLng(-31.625906, -60.696774);
@@ -13,7 +12,6 @@
     /*
     	Inicialización de Objetos
     */
-
     window.eventCategory = [];
     window.eventInterval = 1;
     opciones = {
@@ -27,7 +25,6 @@
     	Eventos
     	Aquí se registran los eventos para los objetos de la vista
     */
-
     inicializar();
     $('#eventInterval > button').on('click', function() {
       window.eventInterval = $(this).val();
@@ -60,7 +57,6 @@
   Funciones
   Aquí se escriben las funciones
   */
-
 
   inicializar = function() {
     if (navigator.geolocation) {
@@ -100,18 +96,16 @@
       "swLong": sw.lng()
     };
     return $.getJSON(WEBROOT + 'events/get', options, function(data) {
-      var event, exist, marker, _i, _j, _len, _len1, _ref, _results;
+      var event, exist, marker, _i, _j, _len, _len2, _ref, _results;
       clearEventsList();
       _results = [];
       for (_i = 0, _len = data.length; _i < _len; _i++) {
         event = data[_i];
         exist = false;
         _ref = window.markers;
-        for (_j = 0, _len1 = _ref.length; _j < _len1; _j++) {
+        for (_j = 0, _len2 = _ref.length; _j < _len2; _j++) {
           marker = _ref[_j];
-          if (marker.eventId === event.Event.id) {
-            exist = true;
-          }
+          if (marker.eventId === event.Event.id) exist = true;
         }
         if (!exist) {
           createMarker(event.Event.id, event.Event.title, new google.maps.LatLng(event.Event.lat, event.Event.long));

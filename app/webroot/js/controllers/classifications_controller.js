@@ -1,10 +1,11 @@
+
 /* *******************************************************************************************************************
 								CATEGORIAS
 *******************************************************************************************************************
 */
 
-
 (function() {
+
   angular.module('RadarApp').controller('ClassificationsController', [
     '$http', '$location', '$scope', '$timeout', 'Classification', function($http, $location, $scope, $timeout, Classification) {
       var location;

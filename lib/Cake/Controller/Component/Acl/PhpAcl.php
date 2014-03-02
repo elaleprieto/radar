@@ -2,19 +2,18 @@
 /**
  * PHP configuration based AclInterface implementation
  *
- * PHP 5
- *
  * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
- * Copyright 2005-2012, Cake Software Foundation, Inc. (http://cakefoundation.org)
+ * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
  * Licensed under The MIT License
+ * For full copyright and license information, please see the LICENSE.txt
  * Redistributions of files must retain the above copyright notice.
  *
- * @copyright     Copyright 2005-2012, Cake Software Foundation, Inc. (http://cakefoundation.org)
+ * @copyright     Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
  * @link          http://cakephp.org CakePHP(tm) Project
  * @package       Cake.Controller.Component.Acl
  * @since         CakePHP(tm) v 2.1
- * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
+ * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
 /**
@@ -98,11 +97,11 @@ class PhpAcl extends Object implements AclInterface {
  */
 	public function build(array $config) {
 		if (empty($config['roles'])) {
-			throw new AclException(__d('cake_dev','"roles" section not found in configuration.'));
+			throw new AclException(__d('cake_dev', '"roles" section not found in configuration.'));
 		}
 
 		if (empty($config['rules']['allow']) && empty($config['rules']['deny'])) {
-			throw new AclException(__d('cake_dev','Neither "allow" nor "deny" rules were provided in configuration.'));
+			throw new AclException(__d('cake_dev', 'Neither "allow" nor "deny" rules were provided in configuration.'));
 		}
 
 		$rules['allow'] = !empty($config['rules']['allow']) ? $config['rules']['allow'] : array();
@@ -320,7 +319,7 @@ class PhpAco {
 			return array_map('strtolower', $aco);
 		}
 
-		// strip multiple occurences of '/'
+		// strip multiple occurrences of '/'
 		$aco = preg_replace('#/+#', '/', $aco);
 		// make case insensitive
 		$aco = ltrim(strtolower($aco), '/');

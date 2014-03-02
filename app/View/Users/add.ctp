@@ -39,6 +39,20 @@
 		                   	?>
 		                </div>
 					</div>
+					<div class="row-fluid">
+		            	<div class="col-sm-12 form-group">
+		                	<?php
+							# Se carga la librería del catpcha
+							// require_once('recaptchalib.php');
+							App::import('Vendor', 'recaptchalib', array('file' => 'recaptchalib.php'));
+							
+							// $publickey = "your_public_key"; // you got this from the signup page
+							$publickey = "6LeWP-8SAAAAAMIaV0hZZai_g88inVru8I9wDQTf"; // you got this from the signup page
+							
+							echo recaptcha_get_html($publickey);
+							?>
+		                </div>
+					</div>
 					<br>
 		        	<div class="row">
 		        		<?php 
