@@ -53,6 +53,9 @@ ul.rating
 .navbar-inverse .navbar-nav > li > a
 	color: #CCCCCC
 	
+.navbar-toggle-radar
+	background-color: rgba(0,0,0,0.5)
+	margin-top: 2px
 
 .arrow, .arrow:hover
 	// background-color: $background-black
@@ -145,7 +148,9 @@ ul.rating
 	background-color: $background-black
 
 .menu-centro
-	padding-left: 350px
+	padding-left: 30px
+	text-align: right
+	color: rgba(0,0,0,0.6)
 	
 .menu-centro-sm
 	padding-left: 240px
@@ -168,15 +173,28 @@ ul.rating
 	background-color: $background-black-hover
 
 .navbar
-	background-color: $background-black
+	background-color: $background-nav
+	//background-color: $background-black
 	border: none
 	border-bottom-right-radius: 0px
 	border-top-right-radius: 0px
+	height: 55px
 	z-index: 4999
 
 .navbar-inverse .navbar-nav > .active > a, .navbar-inverse .navbar-nav > .active > a:hover, .navbar-inverse .navbar-nav > .active > a:focus
 	background-color: $background-black-hover
 	color: $verde_fluo
+
+.navbar-radar-collapse
+	background-color: rgba(0,0,0,0.5)
+	overflow-x: hidden
+
+.radar-xs
+	left: 5px
+	position: absolute
+	top: 10px
+	z-index: 5000
+
 .rating
 	color: #a9a9a9
 	margin: 0
@@ -234,6 +252,12 @@ ul.rating
 		top: 5px
 	position: absolute 
 	top: -72px
+
+.zoom-xs
+	bottom: 0
+	position: absolute
+	right: 0
+	z-index: 3
 
 #btn-south
 	height: 37px
@@ -447,7 +471,7 @@ ul.rating
 	//background-color: $background-black
 	padding: 5px 0
 	right: 0
-	top: 60px
+	top: 65px
 	// min-width: 255px
 	// top: 10%
 	// width: 20%
