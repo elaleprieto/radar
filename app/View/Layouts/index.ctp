@@ -16,6 +16,15 @@
 		<![endif]-->
 	</head>
 	<body ng-app="RadarApp">
+		<!-- Navbar -->
+		<?php 
+		if (AuthComponent::user('role') == 'admin'):
+			echo $this->element('navbar_admin'); 
+		else:
+			echo $this->element('navbar');
+		endif;
+		?>
+
 
 		<?php echo $this->Session->flash('flash', array('element' => 'failure')); ?>
 

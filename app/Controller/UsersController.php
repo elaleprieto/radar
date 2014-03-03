@@ -10,10 +10,40 @@ class UsersController extends AppController {
 	
 	public $components = array('RequestHandler');
 
+	/**************************************************************************************************************
+	 *  Authentication
+	**************************************************************************************************************/
 	public function beforeFilter() {
 		parent::beforeFilter();
-		$this->Auth->allow('add', 'callbackTwitter', 'confirm', 'edit', 'loginTwitter', 'logout');
+		$this->Auth->allow('add', 'callbackTwitter', 'confirm', 'loginTwitter', 'logout');
 	}
+	
+	public function isAuthorized($user = null) {
+		$owner_allowed = array('edit', 'setLocation');
+		$user_allowed = array();
+		$admin_allowed = array_merge($owner_allowed, $user_allowed, array('delete', 'index', 'view'));
+
+		# All registered users can:
+		if (in_array($this->action, $user_allowed))
+			return true;
+
+		# Admin users can:
+		if ($user['role'] === 'admin')
+			if (in_array($this->action, $admin_allowed))
+				return true;
+	
+		# The owner of an user can:
+		if (in_array($this->action, $owner_allowed)) {
+			$userId = $this->request->params['pass'][0];
+			if ($this->Event->isOwnedBy($userId, $user['id']))
+				return true;
+		}
+	
+		return parent::isAuthorized($user);
+	}
+	/**************************************************************************************************************
+	 *  /authentication
+	**************************************************************************************************************/
 
 	/**
 	 * add method
@@ -146,9 +176,10 @@ class UsersController extends AppController {
 		if ($this->request->is('post')) {
 			if (isset($this->request->data['User'])) {
 				$user = $this->request->data['User'];
+				$active = $this->User->field('active', array('username' => $user['username']));
 				$confirmed = $this->User->field('confirmed', array('username' => $user['username']));
 
-				if($confirmed) {
+				if($active && $confirmed) {
 					if ($this->Auth->login()) {
 						$this->redirect($this->Auth->redirect());
 					}
@@ -184,57 +215,30 @@ class UsersController extends AppController {
 		}
 	}
 
-	public function isAuthorized($user = null) {
-		// All registered users can add posts
-		// if ($this -> action === 'add') {
-		// return true;
-		// }
-
-		// Todos los usuarios registrados podrán cambiar su location
-		if ($this->action === 'setLocation') {
-			return true;
-		}
-
-		// The owner of a post can edit and delete it
-		// if (in_array($this -> action, array(
-		// 'edit',
-		// 'delete'
-		// ))) {
-		// $postId = $this -> request -> params['pass'][0];
-		// if ($this -> Post -> isOwnedBy($postId, $user['id'])) {
-		// return true;
-		// }
-		// }
-
-		return parent::isAuthorized($user);
+	/**
+	* index method
+	*
+	* @return void
+	*/
+	public function index() {
+		$this -> User -> recursive = 0;
+		$this -> set('users', $this -> paginate());
 	}
-
-	// /**
-	// * index method
-	// *
-	// * @return void
-	// */
-	// public function _index() {
-	// $this -> User -> recursive = 0;
-	// $this -> set('users', $this -> paginate());
-	// }
-	//
-	// /**
-	// * view method
-	// *
-	// * @throws NotFoundException
-	// * @param string $id
-	// * @return void
-	// */
-	// public function _view($id = null) {
-	// $this -> User -> id = $id;
-	// if (!$this -> User -> exists()) {
-	// throw new NotFoundException(__('Invalid user'));
-	// }
-	// $this -> set('user', $this -> User -> read(null, $id));
-	// }
-	//
-
+	
+	/**
+	* view method
+	*
+	* @throws NotFoundException
+	* @param string $id
+	* @return void
+	*/
+	public function view($id = null) {
+		$this -> User -> id = $id;
+		if (!$this -> User -> exists()) {
+			throw new NotFoundException(__('Invalid user'));
+		}
+		$this -> set('user', $this -> User -> read(null, $id));
+	}
 
 	/**
 	 * edit method
@@ -331,6 +335,13 @@ class UsersController extends AppController {
 					)));
 				}
 			} else {
+				$active = $existentUser['User']['active'];
+
+				if(!$active) {
+					$this->flash(__('User inactive'), array('controller' => 'events', 'action' => 'index'));
+				}
+
+
 				$this->Auth->login($existentUser['User']);
 			}
 

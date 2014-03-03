@@ -27,11 +27,9 @@
 				return true;
 
 			# Admin users can:
-			if ($user['role'] === 'admin') {
-				if (in_array($this->action, $admin_allowed)){
+			if ($user['role'] === 'admin')
+				if (in_array($this->action, $admin_allowed))
 					return true;
-				}
-			}
 		
 			# The owner of an event can:
 			if (in_array($this->action, $owner_allowed)) {

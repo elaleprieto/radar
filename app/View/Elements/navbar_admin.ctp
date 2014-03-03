@@ -20,29 +20,24 @@
 						<?php echo __('Events'); ?>
 					</a>
 
-					<?php
-					# Si el usuario está logueado se habilita el menú de Eventos
-					if (AuthComponent::user('id')):
-					?>
-						<li>
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-								<i class="fa fa-caret-down"></i>
-								<span class="sr-only">Menú</span>
-							</a>
-							<ul class="dropdown-menu pull-right" role="menu">
-								<li>
-									<a href="<?php echo __('/events').__('/add'); ?>">
-										<?php echo __('Add Event'); ?>
-									</a>
-								</li>
-								<li>
-									<a href="<?php echo __('/events').__('/resume'); ?>">
-										<?php echo __('List Events'); ?>
-									</a>
-								</li>
-							</ul>
-						</li>
-					<?php endif; ?>
+					<li>
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+							<i class="fa fa-caret-down"></i>
+							<span class="sr-only">Menú</span>
+						</a>
+						<ul class="dropdown-menu pull-right" role="menu">
+							<li>
+								<a href="<?php echo __('/events').__('/add'); ?>">
+									<?php echo __('Add Event'); ?>
+								</a>
+							</li>
+							<li>
+								<a href="<?php echo __('/admin').__('/events').__('/resume'); ?>">
+									<?php echo __('List Events'); ?>
+								</a>
+							</li>
+						</ul>
+					</li>
 
 					
 					<!-- Botón sin texto para vista sm y xs -->
@@ -61,20 +56,70 @@
 						<span class="glyphicon glyphicon-map-marker"></span>	
 					</a>
 				</li>
+				
+				<li>
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+						<i class="fa fa-caret-down"></i>
+						<span class="sr-only">Menú</span>
+					</a>
+					<ul class="dropdown-menu pull-right" role="menu">
+						<li>
+							<a href="/admin<?php echo __('/places').__('/add'); ?>">
+								<?php echo __('Add Place'); ?>
+							</a>
+						</li>
+						<li>
+							<a href="/admin/places/index">
+								<?php echo __('List Places'); ?>
+							</a>
+						</li>
+					</ul>
+				</li>
+
+				<!-- Gestión de Usuarios -->
+				<li class="<?php echo ($this->request->controller == 'users' && $this->request->action == 'index') ? 'active' : '' ?>">
+					<!-- Botón con texto para vista lg y md -->
+					<a href="<?php echo __('/users'); ?>" class="visible-md visible-lg hidden-xs hidden-sm">
+						<span class="glyphicon glyphicon-map-marker"></span>
+						<?php echo __('Users'); ?>	
+					</a>
+					<!-- Botón sin texto para vista sm y xs -->
+					<a href="<?php echo __('/users'); ?>" class="hidden-md hidden-lg visible-xs visible-sm">
+						<span class="glyphicon glyphicon-map-marker"></span>	
+					</a>
+				</li>
+				<li>
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+						<i class="fa fa-caret-down"></i>
+						<span class="sr-only">Menú</span>
+					</a>
+					<ul class="dropdown-menu pull-right" role="menu">
+						<li>
+							<a href="<?php echo __('/users').__('/add'); ?>">
+								<?php echo __('Add User'); ?>
+							</a>
+						</li>
+						<li>
+							<a href="<?php echo __('/users'); ?>">
+								<?php echo __('List Users'); ?>
+							</a>
+						</li>
+					</ul>
+				</li>
+				
+				<!-- Botón Radear -->
 				<li>	
 					<a href="<?php echo __('/events').__('/add'); ?>" id="btn-radea">
+						
 						<!-- Botón para vista lg y md -->
 						<button class="btn btn-warning pull-right visible-md visible-lg hidden-xs hidden-sm">
 							<?php echo __('RADEAR MY EVENTS!'); ?>
 						</button>
+						
 						<!-- Botón para vista sm y xs -->
 						<button class="btn btn-warning btn-xs pull-right visible-sm visible-xs hidden-md hidden-lg">
 							<?php echo __('RADEA!'); ?>
 						</button>
-
-						<!-- <span class="btn btn-warning label">
-							<?php echo __('RADEAR MY EVENTS!'); ?>
-						</span> -->
 					</a>
 				</li>
 			</ul>

@@ -53,6 +53,10 @@
 	Router::connect(__('/places'), array('controller'=>'places', 'action'=>'index'));
 	Router::connect(__('/places') . __('/add'), array('controller'=>'places', 'action'=>'add'));
 	
+	# Users
+	Router::connect(__('/users'), array('controller'=>'users', 'action'=>'index'));
+	Router::connect(__('/users') . __('/add'), array('controller'=>'users', 'action'=>'add'));
+	
 	Router::connect('/login', array('controller'=>'users', 'action'=>'login'));
 	Router::connect('/confirm/*', array('controller'=>'users', 'action'=>'confirm'));
 	// Router::connect('/radariza', array('controller'=>'pages', 'action'=>'display', 'radariza'));
