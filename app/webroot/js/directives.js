@@ -1,5 +1,4 @@
 (function() {
-
   angular.module('RadarApp').directive('loading', [
     '$rootScope', function($rootScope) {
       return {
@@ -46,10 +45,10 @@
       link: function(scope, elem, attrs) {
         var updateStars;
         updateStars = function() {
-          var i, _ref, _results;
+          var i, _i, _ref, _results;
           scope.stars = [];
           _results = [];
-          for (i = 1, _ref = scope.max; 1 <= _ref ? i <= _ref : i >= _ref; 1 <= _ref ? i++ : i--) {
+          for (i = _i = 1, _ref = scope.max; 1 <= _ref ? _i <= _ref : _i >= _ref; i = 1 <= _ref ? ++_i : --_i) {
             _results.push(scope.stars.push({
               filled: i <= scope.ratingValue
             }));
@@ -57,9 +56,15 @@
           return _results;
         };
         scope.toggle = function(index) {
-          if (scope.readonly && scope.readonly === 'true') return;
-          if (scope.userId === '') return;
-          if (scope.userVoted) return;
+          if (scope.readonly && scope.readonly === 'true') {
+            return;
+          }
+          if (scope.userId === '') {
+            return;
+          }
+          if (scope.userVoted) {
+            return;
+          }
           scope.readonly = 'true';
           scope.ratingValue = index + 1;
           return scope.onRatingSelected({
@@ -67,7 +72,9 @@
           });
         };
         return scope.$watch('ratingValue', function(oldVal, newVal) {
-          if (newVal) return updateStars();
+          if (newVal) {
+            return updateStars();
+          }
         });
       }
     };

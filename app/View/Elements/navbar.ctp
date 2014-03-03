@@ -13,11 +13,62 @@
 		<div class="navbar-collapse collapse navbar-radar-collapse">
 			<ul class="nav navbar-nav menu-centro">
 				<li class="<?php echo ($this->request->controller == 'events' && $this->request->action == 'index') ? 'active' : '' ?>">
+					
 					<!-- Botón con texto para vista lg y md -->
 					<a href="/" class="visible-md visible-lg hidden-xs hidden-sm">
 						<span class="glyphicon glyphicon-calendar"></span>
 						<?php echo __('Events'); ?>
 					</a>
+
+					<?php
+					# Si el usuario está logeado y es admin se habilita el menú de Eventos Admin
+					if (AuthComponent::user('id')):
+						if (AuthComponent::user('role') == 'admin'):
+					?>
+							<li>
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+									<i class="fa fa-caret-down"></i>
+									<span class="sr-only">Menú</span>
+								</a>
+								<ul class="dropdown-menu pull-right" role="menu">
+									<li>
+										<a href="<?php echo __('/events').__('/add'); ?>">
+											<?php echo __('Add Event'); ?>
+										</a>
+									</li>
+									<li>
+										<a href="<?php echo __('/admin').__('/events').__('/resume'); ?>">
+											<?php echo __('List Events'); ?>
+										</a>
+									</li>
+								</ul>
+							</li>
+						<?php 
+						else: 
+							# Si el usuario está logueado se habilita el menú de Eventos
+						?>
+							<li>
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+									<i class="fa fa-caret-down"></i>
+									<span class="sr-only">Menú</span>
+								</a>
+								<ul class="dropdown-menu pull-right" role="menu">
+									<li>
+										<a href="<?php echo __('/events').__('/add'); ?>">
+											<?php echo __('Add Event'); ?>
+										</a>
+									</li>
+									<li>
+										<a href="<?php echo __('/events').__('/resume'); ?>">
+											<?php echo __('List Events'); ?>
+										</a>
+									</li>
+								</ul>
+							</li>
+						<?php endif; ?>
+					<?php endif; ?>
+
+					
 					<!-- Botón sin texto para vista sm y xs -->
 					<a href="/" class="hidden-md hidden-lg visible-xs visible-sm">
 						<span class="glyphicon glyphicon-calendar"></span>
@@ -42,7 +93,7 @@
 					<li>
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 							<i class="fa fa-caret-down"></i>
-							<span class="sr-only">Toggle Dropdown</span>
+							<span class="sr-only">Menú</span>
 						</a>
 						<ul class="dropdown-menu pull-right" role="menu">
 							<li>

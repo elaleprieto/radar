@@ -1,4 +1,4 @@
-/*! radar 2013-11-17 */
+/*! radar 2014-03-02 */
 (function() {
     "use strict";
     var a, b = [].indexOf || function(a) {
@@ -21,7 +21,7 @@
         return f = b.absUrl(), e.get({}, function(a) {
             return c.categorias = a.categories;
         }), c.categoryToogle = function(a) {
-            return a.highlight ? c.$parent.categoriesDelete(a) : c.$parent.categoriesAdd(a);
+            return console.log(a), a.highlight ? c.$parent.categoriesDelete(a) : c.$parent.categoriesAdd(a);
         }, c.searchById = function(a) {
             var b;
             return null != c.categorias ? (b = c.categorias.filter(function(b) {

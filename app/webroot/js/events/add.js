@@ -5,6 +5,7 @@
     /*
     	Variables Globales
     */
+
     var categoriesCheckbox, diaEnMilisegundos, oldTime, opciones;
     diaEnMilisegundos = 24 * 60 * 60 * 1000;
     window.alertMessageDisplayed = false;
@@ -13,6 +14,7 @@
     /*
     	Inicialización de Objetos
     */
+
     opciones = {
       zoom: 13,
       center: window.santafe,
@@ -23,6 +25,7 @@
     	Eventos
     	Aquí se registran los eventos para los objetos de la vista
     */
+
     inicializar();
     google.maps.event.addListener(window.map, 'click', function(event) {
       $('#EventLat').val(event.latLng.lat());
@@ -36,6 +39,7 @@
     /*
     		date pickers
     */
+
     $.datepicker.setDefaults($.datepicker.regional["es"]);
     $("#from").datepicker({
       defaultDate: null,
@@ -55,6 +59,7 @@
     /*
     	 time pickers
     */
+
     $("#time3, #time4").timePicker();
     oldTime = $.timePicker("#time3").getTime();
     $("#time3").on('change', function() {
@@ -81,6 +86,7 @@
     /*
     		Categories
     */
+
     categoriesCheckbox = $('#categoriesSelect').find('input[type="checkbox"]');
     $(categoriesCheckbox).on('click', function(event) {
       if (categoriesCheckedCount() > 3) {
@@ -92,6 +98,7 @@
     /*
     		Form submit
     */
+
     return $('form').on('submit', function(event) {
       if ($('#EventLat').val() === '' || $('#EventLong').val() === '') {
         event.preventDefault();
@@ -110,6 +117,7 @@
   Funciones
   Aquí se escriben las funciones
   */
+
 
   inicializar = function() {
     if (navigator.geolocation) {
