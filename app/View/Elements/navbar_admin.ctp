@@ -80,12 +80,12 @@
 				<li class="<?php echo ($this->request->controller == 'users' && $this->request->action == 'index') ? 'active' : '' ?>">
 					<!-- Botón con texto para vista lg y md -->
 					<a href="<?php echo __('/users'); ?>" class="visible-md visible-lg hidden-xs hidden-sm">
-						<span class="glyphicon glyphicon-map-marker"></span>
+						<span class="glyphicon glyphicon-user"></span>
 						<?php echo __('Users'); ?>	
 					</a>
 					<!-- Botón sin texto para vista sm y xs -->
 					<a href="<?php echo __('/users'); ?>" class="hidden-md hidden-lg visible-xs visible-sm">
-						<span class="glyphicon glyphicon-map-marker"></span>	
+						<span class="glyphicon glyphicon-user"></span>	
 					</a>
 				</li>
 				<li>
