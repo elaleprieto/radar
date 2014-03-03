@@ -184,6 +184,8 @@ class UsersController extends AppController {
 						$this->redirect($this->Auth->redirect());
 					}
 				}
+				$this->Session->setFlash(__('User inactive or unconfirmed, verify and try again'));
+				$this->redirect('/');
 			}
 			$this->Session->setFlash(__('Invalid username or password, try again'));
 			$this->redirect('/');
@@ -338,7 +340,9 @@ class UsersController extends AppController {
 				$active = $existentUser['User']['active'];
 
 				if(!$active) {
-					$this->flash(__('User inactive'), array('controller' => 'events', 'action' => 'index'));
+					$this->Session->setFlash(__('User inactive'));
+					# Se redirige al inicio.
+					$this->redirect(array('controller' => 'events', 'action' => 'index'));
 				}
 
 
