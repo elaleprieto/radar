@@ -160,19 +160,19 @@ msgstr "Categoría inválida"
 
 #: Controller/CompliantsController.php:67;91
 msgid "The compliant has been saved"
-msgstr "El evento ha sido guardado"
+msgstr "La denuncia ha sido guardada"
 
 #: Controller/CompliantsController.php:70;94
 msgid "The compliant could not be saved. Please, try again."
-msgstr "El evento no ha sido guardado. Por favor, intente nuevamente."
+msgstr "La denuncia no ha sido guardada. Por favor, intente nuevamente."
 
 #: Controller/CompliantsController.php:120
 msgid "Compliant deleted"
-msgstr "Evento borrado"
+msgstr "Denuncia eliminada"
 
 #: Controller/CompliantsController.php:123
 msgid "Compliant was not deleted"
-msgstr "El evento no ha sido borrado"
+msgstr "La denuncia no ha sido borrado"
 
 #: Controller/EventsController.php:122
 msgid "You must be logged in to access :/"
@@ -204,25 +204,25 @@ msgstr "Espacio guardado"
 
 #: Controller/PlacesController.php:166;181;205;252;267;298
 msgid "Invalid place"
-msgstr "Evento inválido"
+msgstr "Espacio inválido"
 
 #: Controller/PlacesController.php:185;272
 msgid "The place has been saved."
-msgstr "El usuario ha sido guardado"
+msgstr "El espacio ha sido guardado"
 
 #: Controller/PlacesController.php:209;302
 msgid "Place deleted"
-msgstr "Evento borrado"
+msgstr "Espacio eliminado"
 
 #: Controller/PlacesController.php:211;304
 msgid "Place was not deleted"
-msgstr "El evento no ha sido borrado"
+msgstr "El epacio no ha sido eliminado"
 
 # LANGUAGE translation of CakePHP Application
 # Copyright YEAR NAME <EMAIL@ADDRESS>
 #: Controller/RatesController.php:53;88;117
 msgid "Invalid rate"
-msgstr "Categoría inválida"
+msgstr "Voto inválido"
 
 #: Controller/RatesController.php:68;92
 msgid "The rate has been saved"
@@ -1050,7 +1050,7 @@ msgstr "Usuarios"
 
 #: View/Elements/navbar_admin.ctp:65
 msgid "Add User"
-msgstr "Nuevo usuario"
+msgstr "Nuevo Usuario"
 
 #: View/Elements/navbar_admin.ctp:79;84
 msgid "/compliants"
