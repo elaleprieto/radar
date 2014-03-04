@@ -110,13 +110,13 @@
 				<!-- Gestión de Denuncias -->
 				<li class="<?php echo ($this->request->controller == 'compliants' && $this->request->action == 'index') ? 'active' : '' ?>">
 					<!-- Botón con texto para vista lg y md -->
-					<a href="<?php echo __('/compliants'); ?>" class="visible-md visible-lg hidden-xs hidden-sm">
-						<span class="glyphicon glyphicon-user"></span>
+					<a href="<?php echo __('/admin').__('/compliants'); ?>" class="visible-md visible-lg hidden-xs hidden-sm">
+						<span class="glyphicon glyphicon-bullhorn"></span>
 						<?php echo __('Compliants'); ?>	
 					</a>
 					<!-- Botón sin texto para vista sm y xs -->
-					<a href="<?php echo __('/compliants'); ?>" class="hidden-md hidden-lg visible-xs visible-sm">
-						<span class="glyphicon glyphicon-user"></span>	
+					<a href="<?php echo __('/admin').__('/compliants'); ?>" class="hidden-md hidden-lg visible-xs visible-sm">
+						<span class="glyphicon glyphicon-bullhorn"></span>	
 					</a>
 				</li>
 				<li>
