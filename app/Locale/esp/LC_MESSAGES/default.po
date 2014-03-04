@@ -751,7 +751,7 @@ msgstr "Listar Noticias"
 #: View/Places/edit.ctp:20
 #: View/Places/view.ctp:147;149
 msgid "List Places"
-msgstr "Listar Lugares"
+msgstr "Listar Espacios"
 
 #: View/Classifications/admin_add.ctp:18
 #: View/Classifications/admin_edit.ctp:22
@@ -1011,7 +1011,7 @@ msgstr "Agregar Evento"
 #: View/Places/admin_index.ctp:7
 #: View/Places/index.ctp:232
 msgid "Places"
-msgstr "Lugares"
+msgstr "Espacios"
 
 #: View/Elements/navbar.ctp:68;76
 msgid "RADEAR MY EVENTS!"
