@@ -85,6 +85,12 @@
                 // return true;
             // }
 
+            # Admin users can:
+            if ($user['role'] === 'admin')
+                # Access to actions that start with admin_
+                if (strpos($this->action, 'admin_') === 0)
+                    return true;
+
             // Default deny
             return false;
         }
