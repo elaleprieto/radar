@@ -20,10 +20,37 @@
 						<td><?php echo h($user['User']['name']); ?>&nbsp;</td>
 						<td><?php echo h($user['User']['email']); ?>&nbsp;</td>
 						<td><?php echo h($user['User']['created']); ?>&nbsp;</td>
-						<td><?php echo h($user['User']['active']); ?>&nbsp;</td>
-						<td><?php echo h($user['User']['confirmed']); ?>&nbsp;</td>
+						<td class="text-center">
+							<?php 
+							if($user['User']['active']) echo '<span class="glyphicon glyphicon-ok"></span>';
+							?>
+							&nbsp;
+						</td>
+						<td class="text-center">
+							<?php 
+							if($user['User']['confirmed']) echo '<span class="glyphicon glyphicon-ok"></span>';
+							?>
+							&nbsp;
 						<td class="actions">
 							<?php echo $this->Html->link(__('View'), array('action' => 'view', $user['User']['id'])); ?>
+							
+							<?php
+							if($user['User']['active']):
+								echo $this->Form->postLink(__('Inactive')
+									, array('action' => 'inactive', $user['User']['id'])
+										, null
+										, __('Are you sure you want to inactive the user %s?', $user['User']['username']
+									)
+								);
+							else:
+								echo $this->Form->postLink(__('Active')
+									, array('action' => 'active', $user['User']['id'])
+										, null
+										, __('Are you sure you want to active the user %s?', $user['User']['username']
+									)
+								);
+							endif;
+							?>
 							<?php //echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $user['User']['id']), null, __('Are you sure you want to delete # %s?', $user['User']['id'])); ?>
 						</td>
 					</tr>
