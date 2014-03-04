@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2014-03-02 22:16-0300\n"
+"POT-Creation-Date: 2014-03-04 10:15-0300\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -16,24 +16,24 @@ msgstr ""
 
 #: Config/routes.php:44;45;46;47;48;49
 #: View/Elements/navbar.ctp:34;39;65
-#: View/Elements/navbar_admin.ctp:30;35;112
+#: View/Elements/navbar_admin.ctp:24;29
 msgid "/events"
 msgstr ""
 
 #: Config/routes.php:45;47;54;58
 #: View/Elements/navbar.ctp:34;65
-#: View/Elements/navbar_admin.ctp:30;67;98;112
+#: View/Elements/navbar_admin.ctp:24;44;64
 msgid "/add"
 msgstr ""
 
 #: Config/routes.php:46;48
 #: View/Elements/navbar.ctp:39
-#: View/Elements/navbar_admin.ctp:35
+#: View/Elements/navbar_admin.ctp:29
 msgid "/resume"
 msgstr ""
 
 #: Config/routes.php:47;48;49
-#: View/Elements/navbar_admin.ctp:35
+#: View/Elements/navbar_admin.ctp:29;79;84
 msgid "/admin"
 msgstr ""
 
@@ -43,23 +43,23 @@ msgstr ""
 
 #: Config/routes.php:53;54
 #: View/Elements/navbar.ctp:55;60
-#: View/Elements/navbar_admin.ctp:50;55;67
+#: View/Elements/navbar_admin.ctp:44
 msgid "/places"
 msgstr ""
 
 #: Config/routes.php:57;58
-#: View/Elements/navbar_admin.ctp:82;87;98;103
+#: View/Elements/navbar_admin.ctp:64;69
 msgid "/users"
 msgstr ""
 
 #: Config/routes.php:63
-#: Controller/UsersController.php:95
+#: Controller/UsersController.php:112
 msgid "/emailconfirm"
 msgstr ""
 
 #: Config/routes.php:65
 #: View/Elements/navbar.ctp:153
-#: View/Elements/navbar_admin.ctp:198
+#: View/Elements/navbar_admin.ctp:139
 msgid "/singup"
 msgstr ""
 
@@ -231,32 +231,32 @@ msgstr ""
 msgid "Rate was not deleted"
 msgstr ""
 
-#: Controller/UsersController.php:75
-msgid "The reCAPTCHA wasn't entered correctly. Go back and try it again."
-msgstr ""
-
-#: Controller/UsersController.php:105;266
-msgid "The user could not be saved. Please, try again."
-msgstr ""
-
-#: Controller/UsersController.php:120;240;256
+#: Controller/UsersController.php:59;199;256;289;389
 msgid "Invalid user"
 msgstr ""
 
-#: Controller/UsersController.php:187
-msgid "User inactive or unconfirmed, verify and try again"
+#: Controller/UsersController.php:92
+msgid "The reCAPTCHA wasn't entered correctly. Go back and try it again."
 msgstr ""
 
-#: Controller/UsersController.php:190
-msgid "Invalid username or password, try again"
+#: Controller/UsersController.php:122;266
+msgid "The user could not be saved. Please, try again."
+msgstr ""
+
+#: Controller/UsersController.php:172
+msgid "User inactive"
 msgstr ""
 
 #: Controller/UsersController.php:260
 msgid "The user has been saved"
 msgstr ""
 
-#: Controller/UsersController.php:343
-msgid "User inactive"
+#: Controller/UsersController.php:319
+msgid "User inactive or unconfirmed, verify and try again"
+msgstr ""
+
+#: Controller/UsersController.php:322
+msgid "Invalid username or password, try again"
 msgstr ""
 
 #: View/Categories/admin_add.ctp:4
@@ -301,7 +301,7 @@ msgstr ""
 #: View/ClassificationsPlaces/view.ctp:32
 #: View/Compliants/admin_add.ctp:15
 #: View/Compliants/admin_edit.ctp:16
-#: View/Compliants/admin_index.ctp:12;50
+#: View/Compliants/admin_index.ctp:12
 #: View/Compliants/admin_view.ctp:42
 #: View/Events/admin_resume.ctp:20
 #: View/Events/edit.ctp:20
@@ -344,10 +344,9 @@ msgstr ""
 #: View/CategoriesEvents/view.ctp:40
 #: View/Compliants/admin_add.ctp:19
 #: View/Compliants/admin_edit.ctp:21
-#: View/Compliants/admin_index.ctp:53
 #: View/Compliants/admin_view.ctp:48
 #: View/Elements/navbar.ctp:40
-#: View/Elements/navbar_admin.ctp:36
+#: View/Elements/navbar_admin.ctp:30
 #: View/Events/edit.ctp:24
 #: View/Events/view.ctp:223
 #: View/Places/admin_edit.ctp:34
@@ -370,7 +369,6 @@ msgstr ""
 #: View/CategoriesEvents/view.ctp:41
 #: View/Compliants/admin_add.ctp:20
 #: View/Compliants/admin_edit.ctp:22
-#: View/Compliants/admin_index.ctp:54
 #: View/Compliants/admin_view.ctp:49
 #: View/Events/view.ctp:224
 #: View/Places/admin_edit.ctp:35
@@ -461,7 +459,7 @@ msgstr ""
 #: View/Places/admin_view.ctp:164;203
 #: View/Places/view.ctp:195
 #: View/Rates/admin_index.ctp:26
-#: View/Users/index.ctp:26
+#: View/Users/index.ctp:35
 #: View/Users/view.ctp:43
 msgid "View"
 msgstr ""
@@ -487,10 +485,10 @@ msgstr ""
 #: View/CategoriesEvents/index.ctp:34
 #: View/Classifications/admin_index.ctp:32
 #: View/ClassificationsPlaces/index.ctp:34
-#: View/Compliants/admin_index.ctp:38
+#: View/Compliants/admin_index.ctp:44
 #: View/Places/admin_index.ctp:98
 #: View/Rates/admin_index.ctp:36
-#: View/Users/index.ctp:41
+#: View/Users/index.ctp:68
 msgid "Page {:page} of {:pages}, showing {:current} records out of {:count} total, starting on record {:start}, ending on {:end}"
 msgstr ""
 
@@ -498,10 +496,10 @@ msgstr ""
 #: View/CategoriesEvents/index.ctp:39
 #: View/Classifications/admin_index.ctp:37
 #: View/ClassificationsPlaces/index.ctp:39
-#: View/Compliants/admin_index.ctp:43
+#: View/Compliants/admin_index.ctp:50
 #: View/Places/admin_index.ctp:103
 #: View/Rates/admin_index.ctp:41
-#: View/Users/index.ctp:47
+#: View/Users/index.ctp:74
 msgid "previous"
 msgstr ""
 
@@ -509,10 +507,10 @@ msgstr ""
 #: View/CategoriesEvents/index.ctp:41
 #: View/Classifications/admin_index.ctp:39
 #: View/ClassificationsPlaces/index.ctp:41
-#: View/Compliants/admin_index.ctp:45
+#: View/Compliants/admin_index.ctp:52
 #: View/Places/admin_index.ctp:105
 #: View/Rates/admin_index.ctp:43
-#: View/Users/index.ctp:49
+#: View/Users/index.ctp:76
 msgid "next"
 msgstr ""
 
@@ -736,7 +734,7 @@ msgstr ""
 #: View/ClassificationsPlaces/edit.ctp:21
 #: View/ClassificationsPlaces/index.ctp:51
 #: View/ClassificationsPlaces/view.ctp:40
-#: View/Elements/navbar_admin.ctp:73
+#: View/Elements/navbar_admin.ctp:50
 #: View/Events/edit.ctp:27
 #: View/Events/view.ctp:227
 #: View/Places/admin_edit.ctp:33
@@ -938,9 +936,8 @@ msgstr ""
 
 #: View/Compliants/admin_add.ctp:21
 #: View/Compliants/admin_edit.ctp:23
-#: View/Compliants/admin_index.ctp:55
 #: View/Compliants/admin_view.ctp:50
-#: View/Elements/navbar_admin.ctp:104
+#: View/Elements/navbar_admin.ctp:70
 #: View/Rates/admin_add.ctp:20
 #: View/Rates/admin_edit.ctp:22
 #: View/Rates/admin_index.ctp:53
@@ -951,7 +948,6 @@ msgstr ""
 
 #: View/Compliants/admin_add.ctp:22
 #: View/Compliants/admin_edit.ctp:24
-#: View/Compliants/admin_index.ctp:56
 #: View/Compliants/admin_view.ctp:51
 #: View/Rates/admin_add.ctp:21
 #: View/Rates/admin_edit.ctp:23
@@ -965,13 +961,9 @@ msgstr ""
 msgid "Edit Compliant"
 msgstr ""
 
-#: View/Compliants/admin_index.ctp:2
+#: View/Compliants/admin_index.ctp:3
+#: View/Elements/navbar_admin.ctp:81
 msgid "Compliants"
-msgstr ""
-
-#: View/Compliants/admin_index.ctp:52
-#: View/Compliants/admin_view.ctp:47
-msgid "New Compliant"
 msgstr ""
 
 #: View/Compliants/admin_view.ctp:2
@@ -990,63 +982,69 @@ msgstr ""
 msgid "Delete Compliant"
 msgstr ""
 
+#: View/Compliants/admin_view.ctp:47
+msgid "New Compliant"
+msgstr ""
+
 #: View/Elements/navbar.ctp:20
 #: View/Elements/navbar_admin.ctp:20
 msgid "Events"
 msgstr ""
 
 #: View/Elements/navbar.ctp:35
-#: View/Elements/navbar_admin.ctp:31
+#: View/Elements/navbar_admin.ctp:25
 #: View/Events/add.ctp:62
 msgid "Add Event"
 msgstr ""
 
 #: View/Elements/navbar.ctp:57
-#: View/Elements/navbar_admin.ctp:52
+#: View/Elements/navbar_admin.ctp:40
 #: View/Places/admin_index.ctp:7
 #: View/Places/index.ctp:232
 msgid "Places"
 msgstr ""
 
 #: View/Elements/navbar.ctp:68;76
-#: View/Elements/navbar_admin.ctp:116
 msgid "RADEAR MY EVENTS!"
 msgstr ""
 
 #: View/Elements/navbar.ctp:72
-#: View/Elements/navbar_admin.ctp:121
 msgid "RADEA!"
 msgstr ""
 
 #: View/Elements/navbar.ctp:135
-#: View/Elements/navbar_admin.ctp:180
+#: View/Elements/navbar_admin.ctp:121
 msgid "Logout"
 msgstr ""
 
 #: View/Elements/navbar.ctp:146
-#: View/Elements/navbar_admin.ctp:191
+#: View/Elements/navbar_admin.ctp:132
 #: View/Users/login.ctp:48
 msgid "Login"
 msgstr ""
 
 #: View/Elements/navbar.ctp:153
-#: View/Elements/navbar_admin.ctp:198
+#: View/Elements/navbar_admin.ctp:139
 msgid "Sign up!"
 msgstr ""
 
-#: View/Elements/navbar_admin.ctp:68
+#: View/Elements/navbar_admin.ctp:45
 #: View/Places/admin_add.ctp:51
 #: View/Places/admin_editar.ctp:54
 msgid "Add Place"
 msgstr ""
 
-#: View/Elements/navbar_admin.ctp:84
+#: View/Elements/navbar_admin.ctp:60
 #: View/Users/index.ctp:3
 msgid "Users"
 msgstr ""
 
-#: View/Elements/navbar_admin.ctp:99
+#: View/Elements/navbar_admin.ctp:65
 msgid "Add User"
+msgstr ""
+
+#: View/Elements/navbar_admin.ctp:79;84
+msgid "/compliants"
 msgstr ""
 
 #: View/Elements/sponsors.ctp:4
@@ -1316,6 +1314,7 @@ msgid "Delete Place"
 msgstr ""
 
 #: View/Places/admin_view.ctp:130
+#: View/Users/index.ctp:46
 msgid "Active"
 msgstr ""
 
@@ -1431,6 +1430,18 @@ msgstr ""
 
 #: View/Users/edit.ctp:11;79
 msgid "Edit User"
+msgstr ""
+
+#: View/Users/index.ctp:39
+msgid "Inactive"
+msgstr ""
+
+#: View/Users/index.ctp:42
+msgid "Are you sure you want to inactive the user %s?"
+msgstr ""
+
+#: View/Users/index.ctp:49
+msgid "Are you sure you want to active the user %s?"
 msgstr ""
 
 #: View/Users/login.ctp:11
