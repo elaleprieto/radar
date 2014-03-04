@@ -32,23 +32,23 @@
 			
 				<li class="<?php echo ($this->request->controller == 'events' && $this->request->action == 'index') ? 'active' : '' ?>">
 					<!-- Botón con texto para vista lg y md -->
-					<a href="/" class="visible-md visible-lg hidden-xs hidden-sm">
+					<a href="/" class="visible-md visible-lg visible-xs hidden-sm">
 						<span class="glyphicon glyphicon-calendar"></span>
 						<?php echo __('Events'); ?>
 					</a>
 					<!-- Botón sin texto para vista sm y xs -->
-					<a href="/" class="hidden-md hidden-lg visible-xs visible-sm">
+					<a href="/" class="hidden-md hidden-lg hidden-xs visible-sm">
 						<span class="glyphicon glyphicon-calendar"></span>
 					</a>
 				</li>
 				<li class="<?php echo ($this->request->controller == 'places' && $this->request->action == 'index') ? 'active' : '' ?>">
 					<!-- Botón con texto para vista lg y md -->
-					<a href="<?php echo __('/places'); ?>" class="visible-md visible-lg hidden-xs hidden-sm">
+					<a href="<?php echo __('/places'); ?>" class="visible-md visible-lg visible-xs hidden-sm">
 						<span class="glyphicon glyphicon-map-marker"></span>
 						<?php echo __('Places'); ?>	
 					</a>
 					<!-- Botón sin texto para vista sm y xs -->
-					<a href="<?php echo __('/places'); ?>" class="hidden-md hidden-lg visible-xs visible-sm">
+					<a href="<?php echo __('/places'); ?>" class="hidden-md hidden-lg hidden-xs visible-sm">
 						<span class="glyphicon glyphicon-map-marker"></span>	
 					</a>
 				</li>
@@ -76,22 +76,16 @@
 						</ul>
 					</li>
 				<?php endif; ?>
-				
-				<li>
-					
+				<li>	
 					<a href="<?php echo __('/events').__('/add'); ?>" id="btn-radea">
-				
 					<!-- Botón para vista lg y md -->
-					
 						<button type="button" class="btn btn-warning btn-xs visible-md visible-lg hidden-xs hidden-sm">
 							<?php echo __('RADEAR MY EVENTS!'); ?>
 						</button>
-					
 						<!-- Botón para vista sm y xs -->
 						<button type="button" class="btn btn-warning btn-xs visible-sm visible-xs hidden-md hidden-lg">
 							<?php echo __('RADEA!'); ?>
 						</button>
-					
 						<!-- <span class="btn btn-warning label">
 							<?php echo __('RADEAR MY EVENTS!'); ?>
 						</span> -->
@@ -158,8 +152,8 @@
 				</li>
 				
 				<!-- Menú desplegable de más info. disponible para vista sm -->
-				<li class="dropdown visible-sm visible-xs">
-    				<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+				<li class="dropdown visible-sm visible-xs hidden-md hidden-lg">
+					<a class="dropdown-toggle" data-toggle="dropdown" href="#">
       					<small>más</small> <span class="caret"></span>
     				</a>
     				<ul class="dropdown-menu">
