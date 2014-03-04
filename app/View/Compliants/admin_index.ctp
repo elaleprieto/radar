@@ -4,11 +4,9 @@
 		<table class="table">
 			<thead>
 				<tr>
-					<th><?php echo $this->Paginator->sort('id'); ?></th>
 					<th><?php echo $this->Paginator->sort('title'); ?></th>
 					<th><?php echo $this->Paginator->sort('description'); ?></th>
 					<th><?php echo $this->Paginator->sort('created'); ?></th>
-					<th><?php echo $this->Paginator->sort('modified'); ?></th>
 					<th><?php echo $this->Paginator->sort('event_id'); ?></th>
 					<th><?php echo $this->Paginator->sort('user_id'); ?></th>
 					<th class="actions"><?php echo __('Actions'); ?></th>
@@ -17,11 +15,9 @@
 			<tbody>
 				<?php foreach ($compliants as $compliant): ?>
 					<tr>
-						<td><?php echo h($compliant['Compliant']['id']); ?>&nbsp;</td>
 						<td><?php echo h($compliant['Compliant']['title']); ?>&nbsp;</td>
 						<td><?php echo h($compliant['Compliant']['description']); ?>&nbsp;</td>
 						<td><?php echo h($compliant['Compliant']['created']); ?>&nbsp;</td>
-						<td><?php echo h($compliant['Compliant']['modified']); ?>&nbsp;</td>
 						<td>
 							<?php echo $this->Html->link($compliant['Event']['title'], array('controller' => 'events', 'action' => 'view', $compliant['Event']['id'])); ?>
 						</td>
