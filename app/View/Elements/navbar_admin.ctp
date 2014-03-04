@@ -106,6 +106,37 @@
 						</li>
 					</ul>
 				</li>
+
+				<!-- Gestión de Denuncias -->
+				<li class="<?php echo ($this->request->controller == 'compliants' && $this->request->action == 'index') ? 'active' : '' ?>">
+					<!-- Botón con texto para vista lg y md -->
+					<a href="<?php echo __('/compliants'); ?>" class="visible-md visible-lg hidden-xs hidden-sm">
+						<span class="glyphicon glyphicon-user"></span>
+						<?php echo __('Compliants'); ?>	
+					</a>
+					<!-- Botón sin texto para vista sm y xs -->
+					<a href="<?php echo __('/compliants'); ?>" class="hidden-md hidden-lg visible-xs visible-sm">
+						<span class="glyphicon glyphicon-user"></span>	
+					</a>
+				</li>
+				<li>
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+						<i class="fa fa-caret-down"></i>
+						<span class="sr-only">Menú</span>
+					</a>
+					<ul class="dropdown-menu pull-right" role="menu">
+						<li>
+							<a href="<?php echo __('/compliants').__('/add'); ?>">
+								<?php echo __('Add Compliant'); ?>
+							</a>
+						</li>
+						<li>
+							<a href="<?php echo __('/compliants'); ?>">
+								<?php echo __('List Compliants'); ?>
+							</a>
+						</li>
+					</ul>
+				</li>
 				
 				<!-- Botón Radear -->
 				<li>	
