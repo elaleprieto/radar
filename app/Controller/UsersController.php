@@ -21,7 +21,7 @@ class UsersController extends AppController {
 	public function isAuthorized($user = null) {
 		$owner_allowed = array('edit', 'setLocation');
 		$user_allowed = array();
-		$admin_allowed = array_merge($owner_allowed, $user_allowed, array('delete', 'index', 'view'));
+		$admin_allowed = array_merge($owner_allowed, $user_allowed, array('active', 'delete', 'inactive', 'index', 'view'));
 
 		# All registered users can:
 		if (in_array($this->action, $user_allowed))
@@ -44,6 +44,23 @@ class UsersController extends AppController {
 	/**************************************************************************************************************
 	 *  /authentication
 	**************************************************************************************************************/
+
+	
+	/**
+	* active method
+	*
+	* @throws NotFoundException
+	* @param string $id
+	* @return void
+	*/
+	public function active($id = null) {
+		$this -> User -> id = $id;
+		if (!$this -> User -> exists()) {
+			throw new NotFoundException(__('Invalid user'));
+		}
+		$this -> User -> saveField('active', TRUE);
+		$this -> redirect(array('action' => 'index'));
+	}
 
 	/**
 	 * add method
@@ -105,194 +122,6 @@ class UsersController extends AppController {
 				$this->Session->setFlash(__('The user could not be saved. Please, try again.'));
 			}
 		}
-	}
-
-
-/**
- * confirm method
- *
- * @throws NotFoundException
- * @param string $id
- * @return void
- */
-	public function confirm($id = null) {
-		if (!$this->User->exists($id)) {
-			throw new NotFoundException(__('Invalid user'));
-		}
-		$user = $this->User->read(null, $id);
-
-		# Se verifica que el usuario no haya sido confirmado previamente,
-		# es una especie de medida de seguridad para que no se loguee cualquiera
-		# con cualquier ID
-		if(!$user['User']['confirmed']) {
-			$this->User->id = $id;
-			$this->User->saveField('confirmed', TRUE);
-			
-			$this->Auth->login($user['User']);
-			return $this->redirect('/');
-		}
-		$this->redirect('/logout');
-	}
-
-	/**
-	 * contactar method
-	 * Se utiliza por el formulario de contacto para enviar el mensaje.
-	 * @return void
-	 */
-	public function contactar() {
-		$this->autoRender = FALSE;
-		if ($this->request->isPost() && isset($this->request->data)) {
-			# Validación de Campos
-			$contacto = $this->request->data['Contacto'];
-			if (isset($contacto['nombre']) && $contacto['nombre'] !== '' && isset($contacto['remitente']) && $contacto['remitente'] !== '' && isset($contacto['asunto']) && $contacto['asunto'] !== '' && isset($contacto['mensaje']) && $contacto['mensaje'] !== '') {
-
-				App::import('Vendor', 'contras', array('file' => 'contras.php'));
-
-				# Se crea el mensaje
-				$mensaje = 'Enviado por: ' . $contacto['nombre'] . "\n";
-				$mensaje .= 'Mail de contacto: ' . $contacto['remitente'] . "\n";
-				$mensaje .= 'Asunto del mensaje: ' . $contacto['asunto'] . "\n";
-				$mensaje .= 'Mensaje: ' . $contacto['mensaje'];
-
-				# Se envía el mensaje
-				mail(TO, ASUNTO, $mensaje, 'From: ' . FROM);
-				// $this->redirect('/contacto');
-				return json_encode(true);
-			}
-		}
-		return json_encode(false);
-	}
-
-	# Prueba de correo... Se puede borrar o dejar para pruebas
-	// public function mailup() {
-	// $this->autoRender = FALSE;
-	// App::import('Vendor', 'contras', array('file' => 'contras.php'));
-	// echo mail(TO, ASUNTO, 'Cuerpo del mensaje', 'From: ' . FROM);
-	// }
-
-	public function login() {
-		// $this -> layout = 'login';
-
-		if ($this->request->is('post')) {
-			if (isset($this->request->data['User'])) {
-				$user = $this->request->data['User'];
-				$active = $this->User->field('active', array('username' => $user['username']));
-				$confirmed = $this->User->field('confirmed', array('username' => $user['username']));
-
-				if($active && $confirmed) {
-					if ($this->Auth->login()) {
-						$this->redirect($this->Auth->redirect());
-					}
-				}
-				$this->Session->setFlash(__('User inactive or unconfirmed, verify and try again'));
-				$this->redirect('/');
-			}
-			$this->Session->setFlash(__('Invalid username or password, try again'));
-			$this->redirect('/');
-		}
-
-		// if ($this->request->is('post')) {
-		// 	if ($this->Auth->login()) {
-		// 		$this->redirect($this->Auth->redirect());
-		// 	} else {
-		// 		$this->Session->setFlash(__('Invalid username or password, try again'));
-		// 	}
-		// }
-	}
-
-	public function logout() {
-		//Logout según Cakephp
-		//$this -> redirect($this -> Auth -> logout());
-
-		//Logout a partir de plugin de facebook
-		if ($this->Connect->FB->getUser() == 0) {
-			$this->redirect($this->Auth->logout());
-		} else {
-			//ditch FB data for safety
-			$this->Connect->FB->destroysession();
-			//hope its all gone with this
-			session_destroy();
-			//logout and redirect to the screen that you usually do.
-			$this->redirect($this->Auth->logout());
-		}
-	}
-
-	/**
-	* index method
-	*
-	* @return void
-	*/
-	public function index() {
-		$this -> User -> recursive = 0;
-		$this -> set('users', $this -> paginate());
-	}
-	
-	/**
-	* view method
-	*
-	* @throws NotFoundException
-	* @param string $id
-	* @return void
-	*/
-	public function view($id = null) {
-		$this -> User -> id = $id;
-		if (!$this -> User -> exists()) {
-			throw new NotFoundException(__('Invalid user'));
-		}
-		$this -> set('user', $this -> User -> read(null, $id));
-	}
-
-	/**
-	 * edit method
-	 *
-	 * @throws NotFoundException
-	 * @param string $id
-	 * @return void
-	 */
-	public function edit($id = null) {
-		if ($id == AuthComponent::user('id')) {
-			$this->User->id = $id;
-			if (!$this->User->exists()) {
-				throw new NotFoundException(__('Invalid user'));
-			}
-			if ($this->request->is('post') || $this->request->is('put')) {
-				if ($this->User->save($this->request->data)) {
-					$this->Session->setFlash(__('The user has been saved'));
-					$this->redirect(array(
-						'controller' => 'events',
-						'action' => 'index'
-					));
-				} else {
-					$this->Session->setFlash(__('The user could not be saved. Please, try again.'));
-				}
-			} else {
-				$this->request->data = $this->User->read(null, $id);
-			}
-		} else {
-			$this->redirect(array(
-				'controller' => 'events',
-				'action' => 'index'
-			));
-		}
-	}
-
-	public function loginTwitter() {
-		App::import('Vendor', 'twitteroauth/twitteroauth');
-
-		define('CONSUMER_KEY', 'gJos51nlduv7o47481Mg4A');
-		define('CONSUMER_SECRET', 'rwa1AfOL2vbnPrrHoYcdHaLd4m37x4fDEGc0Pm11Q');
-		define('OAUTH_CALLBACK', Router::url(array(
-			'controller' => 'users',
-			'action' => 'callbackTwitter'
-		), true));
-
-		$twitter = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET);
-		$twitterAux = $twitter->getRequestToken(OAUTH_CALLBACK);
-		CakeSession::write('twitter_token_aux', $twitterAux['oauth_token']);
-		CakeSession::write('twitter_token_secret_aux', $twitterAux['oauth_token_secret']);
-
-		$twitterURL = $twitter->getAuthorizeURL($twitterAux['oauth_token']);
-		$this->redirect($twitterURL);
 	}
 
 	public function callbackTwitter() {
@@ -357,12 +186,209 @@ class UsersController extends AppController {
 		}
 	}
 
+
+/**
+ * confirm method
+ *
+ * @throws NotFoundException
+ * @param string $id
+ * @return void
+ */
+	public function confirm($id = null) {
+		if (!$this->User->exists($id)) {
+			throw new NotFoundException(__('Invalid user'));
+		}
+		$user = $this->User->read(null, $id);
+
+		# Se verifica que el usuario no haya sido confirmado previamente,
+		# es una especie de medida de seguridad para que no se loguee cualquiera
+		# con cualquier ID
+		if(!$user['User']['confirmed']) {
+			$this->User->id = $id;
+			$this->User->saveField('confirmed', TRUE);
+			
+			$this->Auth->login($user['User']);
+			return $this->redirect('/');
+		}
+		$this->redirect('/logout');
+	}
+
+	/**
+	 * contactar method
+	 * Se utiliza por el formulario de contacto para enviar el mensaje.
+	 * @return void
+	 */
+	public function contactar() {
+		$this->autoRender = FALSE;
+		if ($this->request->isPost() && isset($this->request->data)) {
+			# Validación de Campos
+			$contacto = $this->request->data['Contacto'];
+			if (isset($contacto['nombre']) && $contacto['nombre'] !== '' && isset($contacto['remitente']) && $contacto['remitente'] !== '' && isset($contacto['asunto']) && $contacto['asunto'] !== '' && isset($contacto['mensaje']) && $contacto['mensaje'] !== '') {
+
+				App::import('Vendor', 'contras', array('file' => 'contras.php'));
+
+				# Se crea el mensaje
+				$mensaje = 'Enviado por: ' . $contacto['nombre'] . "\n";
+				$mensaje .= 'Mail de contacto: ' . $contacto['remitente'] . "\n";
+				$mensaje .= 'Asunto del mensaje: ' . $contacto['asunto'] . "\n";
+				$mensaje .= 'Mensaje: ' . $contacto['mensaje'];
+
+				# Se envía el mensaje
+				mail(TO, ASUNTO, $mensaje, 'From: ' . FROM);
+				// $this->redirect('/contacto');
+				return json_encode(true);
+			}
+		}
+		return json_encode(false);
+	}
+
+	/**
+	 * edit method
+	 *
+	 * @throws NotFoundException
+	 * @param string $id
+	 * @return void
+	 */
+	public function edit($id = null) {
+		if ($id == AuthComponent::user('id')) {
+			$this->User->id = $id;
+			if (!$this->User->exists()) {
+				throw new NotFoundException(__('Invalid user'));
+			}
+			if ($this->request->is('post') || $this->request->is('put')) {
+				if ($this->User->save($this->request->data)) {
+					$this->Session->setFlash(__('The user has been saved'));
+					$this->redirect(array(
+						'controller' => 'events',
+						'action' => 'index'
+					));
+				} else {
+					$this->Session->setFlash(__('The user could not be saved. Please, try again.'));
+				}
+			} else {
+				$this->request->data = $this->User->read(null, $id);
+			}
+		} else {
+			$this->redirect(array(
+				'controller' => 'events',
+				'action' => 'index'
+			));
+		}
+	}
+
+	/**
+	* inactive method
+	*
+	* @throws NotFoundException
+	* @param string $id
+	* @return void
+	*/
+	public function inactive($id = null) {
+		$this -> User -> id = $id;
+		if (!$this -> User -> exists()) {
+			throw new NotFoundException(__('Invalid user'));
+		}
+		$this -> User -> saveField('active', FALSE);
+		$this -> redirect(array('action' => 'index'));
+	}
+
+	/**
+	* index method
+	*
+	* @return void
+	*/
+	public function index() {
+		$this -> User -> recursive = 0;
+		$this -> set('users', $this -> paginate());
+	}
+	
+	public function login() {
+		// $this -> layout = 'login';
+
+		if ($this->request->is('post')) {
+			if (isset($this->request->data['User'])) {
+				$user = $this->request->data['User'];
+				$active = $this->User->field('active', array('username' => $user['username']));
+				$confirmed = $this->User->field('confirmed', array('username' => $user['username']));
+
+				if($active && $confirmed) {
+					if ($this->Auth->login()) {
+						$this->redirect($this->Auth->redirect());
+					}
+				}
+				$this->Session->setFlash(__('User inactive or unconfirmed, verify and try again'));
+				$this->redirect('/');
+			}
+			$this->Session->setFlash(__('Invalid username or password, try again'));
+			$this->redirect('/');
+		}
+
+		// if ($this->request->is('post')) {
+		// 	if ($this->Auth->login()) {
+		// 		$this->redirect($this->Auth->redirect());
+		// 	} else {
+		// 		$this->Session->setFlash(__('Invalid username or password, try again'));
+		// 	}
+		// }
+	}
+
+	public function loginTwitter() {
+		App::import('Vendor', 'twitteroauth/twitteroauth');
+
+		define('CONSUMER_KEY', 'gJos51nlduv7o47481Mg4A');
+		define('CONSUMER_SECRET', 'rwa1AfOL2vbnPrrHoYcdHaLd4m37x4fDEGc0Pm11Q');
+		define('OAUTH_CALLBACK', Router::url(array(
+			'controller' => 'users',
+			'action' => 'callbackTwitter'
+		), true));
+
+		$twitter = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET);
+		$twitterAux = $twitter->getRequestToken(OAUTH_CALLBACK);
+		CakeSession::write('twitter_token_aux', $twitterAux['oauth_token']);
+		CakeSession::write('twitter_token_secret_aux', $twitterAux['oauth_token_secret']);
+
+		$twitterURL = $twitter->getAuthorizeURL($twitterAux['oauth_token']);
+		$this->redirect($twitterURL);
+	}
+
 	public function setLocation($id = null, $location = null) {
 		$this->autoRender = false;
 		if ($id && $location) {
 			$this->User->id = $id;
 			$this->User->saveField('location', $location);
 		}
+	}
+
+	public function logout() {
+		//Logout según Cakephp
+		//$this -> redirect($this -> Auth -> logout());
+
+		//Logout a partir de plugin de facebook
+		if ($this->Connect->FB->getUser() == 0) {
+			$this->redirect($this->Auth->logout());
+		} else {
+			//ditch FB data for safety
+			$this->Connect->FB->destroysession();
+			//hope its all gone with this
+			session_destroy();
+			//logout and redirect to the screen that you usually do.
+			$this->redirect($this->Auth->logout());
+		}
+	}
+
+	/**
+	* view method
+	*
+	* @throws NotFoundException
+	* @param string $id
+	* @return void
+	*/
+	public function view($id = null) {
+		$this -> User -> id = $id;
+		if (!$this -> User -> exists()) {
+			throw new NotFoundException(__('Invalid user'));
+		}
+		$this -> set('user', $this -> User -> read(null, $id));
 	}
 
 	//
