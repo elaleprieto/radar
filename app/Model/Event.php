@@ -215,6 +215,19 @@ class Event extends AppModel {
 	}
 	
 
+/*
+ * Validación de Fechas. La fecha de fin debe ser superior a la fecha de inicio.
+ * 
+ */
+	public function dateStartSmallThanDateEnd($date_end, $date_start) {
+		return ($this->data[$this->alias]['date_start'] <
+		$this->data[$this->alias]['date_end']) ? true : false;  	
+   }
+
+	public function isOwnedBy($eventId, $userId) {
+		return $this->field('id', array('id' => $eventId, 'user_id' => $userId)) === $eventId;
+	}
+
 	public function rate($id = null, $rate = null) {
 		if($id && $rate && $rate > 0) {
 			// $rateOld = $this->field('rate', array('id' => $id));
@@ -230,14 +243,5 @@ class Event extends AppModel {
 			return $rateSum;
 		}
 	}
-
-/*
- * Validación de Fechas. La fecha de fin debe ser superior a la fecha de inicio.
- * 
- */
-	public function dateStartSmallThanDateEnd($date_end, $date_start) {
-		return ($this->data[$this->alias]['date_start'] <
-		$this->data[$this->alias]['date_end']) ? true : false;  	
-   }
 
 }

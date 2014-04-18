@@ -1,4 +1,4 @@
-/*! radar 2014-03-02 */
+/*! radar 2014-03-04 */
 (function() {
     "use strict";
     var a, b = [].indexOf || function(a) {
@@ -83,7 +83,14 @@
 }.call(this), function() {
     angular.module("RadarApp").controller("EventsController", [ "$http", "$location", "$scope", "$timeout", "$compile", "Compliant", "CompliantView", "Event", "EventView", "Rate", "User", function(a, b, c, d, e, f, g, h, i, j, k) {
         var l, m, n, o, p, q, r, s, t, u, v;
-        return c.eventInterval = 1, c.isReadonly = !1, c.max = 5, c.user = {}, c.categoriesSelected = [], 
+        return b.absUrl().contains("/events/edit/") && (console.log("Ruta: ", b.absUrl()), 
+        c.$watch("evento.id", function(a) {
+            return h.getById({
+                id: a
+            }, function(a) {
+                return c.evento = a.event.Event;
+            });
+        })), c.eventInterval = 1, c.isReadonly = !1, c.max = 5, c.user = {}, c.categoriesSelected = [], 
         l = new Date(), c.minutoEnMilisegundos = 6e4, c.diaEnMilisegundos = 1440 * c.minutoEnMilisegundos, 
         c.evento = {}, c.evento.categories = [], c.descriptionSize = 500, c.capital = new google.maps.LatLng(-34.603, -58.382), 
         c.cordoba = new google.maps.LatLng(-31.388813, -64.179726), c.santafe = new google.maps.LatLng(-31.625906, -60.696774), 
@@ -753,6 +760,11 @@
                 cache: !0,
                 method: "GET",
                 url: "/events/get.json"
+            },
+            getById: {
+                cache: !1,
+                method: "GET",
+                url: "/events/:id.json"
             }
         });
     } ]).factory("Place", [ "$resource", function(a) {

@@ -145,7 +145,8 @@
 				throw new NotFoundException(__('Invalid event'));
 			}
 			$options = array('conditions' => array('Event.' . $this -> Event -> primaryKey => $id));
-			$this -> set('event', $this -> Event -> find('first', $options));
+			$event = $this -> Event -> find('first', $options);
+			$this->set(array('event' => $event, '_serialize' => array('event')));
 		}
 
 
@@ -167,13 +168,25 @@
 				} else {
 					$this -> Session -> setFlash(__('The event could not be saved. Please, try again.'));
 				}
-			} else {
-				$options = array('conditions' => array('Event.' . $this -> Event -> primaryKey => $id));
-				$this -> request -> data = $this -> Event -> find('first', $options);
 			}
+			
+			// $this->Paginator->settings = 
+			// 	array('conditions' => 
+			// 			array('Event.date_end >=' => date('Y-m-d H:i'))
+			// 		, 'contain' => array('User' => array('fields'=>array('User.id', 'User.username')))
+			// 		, 'order' => 'Event.date_start ASC'
+			// );
+
+
+			$this->Event->Behaviors->load('Containable');
+			$options['conditions'] = array('Event.' . $this->Event->primaryKey => $id);
+			$options['contain'] = array('Category');
+			// $options['recursive'] = -1;
+			$event = $this->Event->find('first', $options);
+			
 			$categories = $this -> Event -> Category -> find('list');
 			$places = $this -> Event -> Place -> find('list');
-			$this -> set(compact('categories', 'places'));
+			$this -> set(compact('categories', 'event', 'places'));
 		}
 
 		/**

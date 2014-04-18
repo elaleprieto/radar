@@ -9,6 +9,16 @@ angular.module('RadarApp').controller 'EventsController'
 	### ***************************************************************************************************************
 			Inicialización de Objetos
 	*************************************************************************************************************** ###
+	if $location.absUrl().contains('/events/edit/')
+		console.log 'Ruta: ', $location.absUrl()
+		
+		$scope.$watch 'evento.id', (id) ->
+			Event.getById {id: id}
+				, (data) ->
+					$scope.evento = data.event.Event
+
+
+
 	$scope.eventInterval = 1
 	$scope.isReadonly = false
 	$scope.max = 5

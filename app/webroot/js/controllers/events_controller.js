@@ -13,6 +13,16 @@
       */
 
       var date, findResult, getEventCategoryIcon, getEventDescription, getEventId, getEventTitle, setUserLocationString, userLastLocationString, userMapCenter, userMapTypeId, userMapZoom;
+      if ($location.absUrl().contains('/events/edit/')) {
+        console.log('Ruta: ', $location.absUrl());
+        $scope.$watch('evento.id', function(id) {
+          return Event.getById({
+            id: id
+          }, function(data) {
+            return $scope.evento = data.event.Event;
+          });
+        });
+      }
       $scope.eventInterval = 1;
       $scope.isReadonly = false;
       $scope.max = 5;
