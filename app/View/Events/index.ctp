@@ -146,7 +146,9 @@
 								<img class="icono-categoria" 
 									data-ng-src="/img/categorias/{{categoria.Category.icon}}" />
 							</div>
-							<div class="col-sm-9 item-categoria" data-ng-bind="categoria.Category.name"></div>
+							<div class="col-sm-8 item-categoria" data-ng-bind="categoria.Category.name"></div>
+							<div class="col-sm-1 item-categoria" data-ng-show="categoria.highlight"><i class="fa fa-check-square-o"></i></div>
+							<div class="col-sm-1 item-categoria" data-ng-hide="categoria.highlight"><i class="fa fa-square-o"></i></div>
 					</div>
 				</div>
 			</div>
@@ -421,3 +423,4 @@
 	
 	<div id="map"></div>
 </div>
+

@@ -34,6 +34,7 @@
       $scope.evento = {};
       $scope.evento.categories = [];
       $scope.descriptionSize = 500;
+      $scope.hideSponsors = 1;
       $scope.capital = new google.maps.LatLng(-34.603, -58.382);
       $scope.cordoba = new google.maps.LatLng(-31.388813, -64.179726);
       $scope.santafe = new google.maps.LatLng(-31.625906, -60.696774);

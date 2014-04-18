@@ -1,4 +1,4 @@
-/*! radar 2014-03-04 */
+/*! radar 2014-04-18 */
 (function() {
     "use strict";
     var a, b = [].indexOf || function(a) {
@@ -92,11 +92,12 @@
             });
         })), c.eventInterval = 1, c.isReadonly = !1, c.max = 5, c.user = {}, c.categoriesSelected = [], 
         l = new Date(), c.minutoEnMilisegundos = 6e4, c.diaEnMilisegundos = 1440 * c.minutoEnMilisegundos, 
-        c.evento = {}, c.evento.categories = [], c.descriptionSize = 500, c.capital = new google.maps.LatLng(-34.603, -58.382), 
-        c.cordoba = new google.maps.LatLng(-31.388813, -64.179726), c.santafe = new google.maps.LatLng(-31.625906, -60.696774), 
-        c.cordobaSantafe = new google.maps.LatLng(-31.52081, -62.411469), c.locationDefault = c.cordobaSantafe, 
-        c.zoomDefault = 8, c.zoomSantafe = 12, c.zoomCordoba = 11, c.zoomCity = 15, c.ROADMAP = google.maps.MapTypeId.ROADMAP, 
-        c.SATELLITE = google.maps.MapTypeId.SATELLITE, c.opciones = {
+        c.evento = {}, c.evento.categories = [], c.descriptionSize = 500, c.hideSponsors = 1, 
+        c.capital = new google.maps.LatLng(-34.603, -58.382), c.cordoba = new google.maps.LatLng(-31.388813, -64.179726), 
+        c.santafe = new google.maps.LatLng(-31.625906, -60.696774), c.cordobaSantafe = new google.maps.LatLng(-31.52081, -62.411469), 
+        c.locationDefault = c.cordobaSantafe, c.zoomDefault = 8, c.zoomSantafe = 12, c.zoomCordoba = 11, 
+        c.zoomCity = 15, c.ROADMAP = google.maps.MapTypeId.ROADMAP, c.SATELLITE = google.maps.MapTypeId.SATELLITE, 
+        c.opciones = {
             center: c.locationDefault,
             mapTypeId: c.ROADMAP,
             panControl: !1,

@@ -16,49 +16,49 @@
 #map { height: 470px; }
 
 /* line 18, ../sass/inicio.sass */
-body { font-family: "liberation"; font-size: 14px; }
+body { font-family: "liberation"; font-size: 13px; font-size: 1.3rem; }
 
-/* line 23, ../sass/inicio.sass */
+/* line 24, ../sass/inicio.sass */
 .btn { font-family: "isocpe"; font-size: 16px; font-weight: bold; }
 
-/* line 29, ../sass/inicio.sass */
+/* line 30, ../sass/inicio.sass */
 .btn-warning:hover, .btn-warning:focus, .btn-warning:active, .btn-warning.active { background-color: #fbb829; }
 
-/* line 35, ../sass/inicio.sass */
+/* line 36, ../sass/inicio.sass */
 .btn-verde { color: white; background-color: #bdda4d; border-color: #aacf19; }
 
-/* line 40, ../sass/inicio.sass */
+/* line 41, ../sass/inicio.sass */
 .btn-verde-simple { background: none; color: white; padding-right: 8px; padding-left: 8px; }
 
-/* line 47, ../sass/inicio.sass */
+/* line 48, ../sass/inicio.sass */
 .btn-verde:hover, .btn-verde:focus, .btn-verde:active, .btn-verde.active, .open .dropdown-toggle.btn-verde { color: white; background-color: #aacf19; border-color: #aacf19; }
 
-/* line 56, ../sass/inicio.sass */
+/* line 57, ../sass/inicio.sass */
 .btn-verde-simple:hover, .btn-verde-simple:focus, .btn-verde-simple:active, .btn-verde-simple.active, .open .dropdown-toggle.btn-verde-simple { color: #abd402; text-decoration: underline; }
 
-/* line 64, ../sass/inicio.sass */
+/* line 65, ../sass/inicio.sass */
 .btn-verde:active, .btn-verde.active, .open .dropdown-toggle.btn-verde { background-image: none; }
 
-/* line 69, ../sass/inicio.sass */
+/* line 70, ../sass/inicio.sass */
 .btn-verde-simple:active, .btn-verde-simple.active, .open .dropdown-toggle.btn-verde-simple { color: #abd402; text-decoration: underline; }
 
-/* line 75, ../sass/inicio.sass */
+/* line 76, ../sass/inicio.sass */
 .btn-verde.disabled, .btn-verde[disabled], fieldset[disabled] .btn-verde, .btn-verde.disabled:hover, .btn-verde[disabled]:hover, fieldset[disabled] .btn-verde:hover, .btn-verde.disabled:focus, .btn-verde[disabled]:focus, fieldset[disabled] .btn-verde:focus, .btn-verde.disabled:active, .btn-verde[disabled]:active, fieldset[disabled] .btn-verde:active, .btn-verde.disabled.active, .btn-verde[disabled].active, fieldset[disabled] .btn-verde.active { background-color: #bdda4d; border-color: #bdda4d; }
 
-/* line 93, ../sass/inicio.sass */
+/* line 94, ../sass/inicio.sass */
 .btn-verde-simple.disabled, .btn-verde-simple[disabled], fieldset[disabled] .btn-verde-simple, .btn-verde-simple.disabled:hover, .btn-verde-simple[disabled]:hover, fieldset[disabled] .btn-verde-simple:hover, .btn-verde-simple.disabled:focus, .btn-verde-simple[disabled]:focus, fieldset[disabled] .btn-verde-simple:focus, .btn-verde-simple.disabled:active, .btn-verde-simple[disabled]:active, fieldset[disabled] .btn-verde-simple:active, .btn-verde-simple.disabled.active, .btn-verde-simple[disabled].active, fieldset[disabled] .btn-verde-simple.active { color: #abd402; text-decoration: underline; }
 
-/* line 111, ../sass/inicio.sass */
+/* line 112, ../sass/inicio.sass */
 .icono-categoria { padding: 2px; }
 
-/* line 114, ../sass/inicio.sass */
+/* line 115, ../sass/inicio.sass */
 .label_categoria { background-color: #e7d785; background-image: linear-gradient(to bottom, #fffeb8, #c49c38); background-repeat: repeat-x; border-bottom-color: rgba(0, 0, 0, 0.25); border-left-color-ltr-source: physical; border-left-color-rtl-source: physical; border-left-color-value: rgba(0, 0, 0, 0.1); border-right-color-ltr-source: physical; border-right-color-rtl-source: physical; border-right-color-value: rgba(0, 0, 0, 0.1); border-top-color: rgba(0, 0, 0, 0.1); color: white; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25); }
 
-/* line 129, ../sass/inicio.sass */
+/* line 130, ../sass/inicio.sass */
 .navbar .nav > li > a.menu { height: 33px; padding-bottom: 5px; padding-top: 42px; }
 
-/* line 135, ../sass/inicio.sass */
+/* line 136, ../sass/inicio.sass */
 .navbar .nav > li > a.menu-brand { font-size: 20px; height: 35px; padding-bottom: 5px; padding-top: 5px; }
 
-/* line 143, ../sass/inicio.sass */
+/* line 144, ../sass/inicio.sass */
 .titulo { color: #a1ca00; font-family: "codebold"; padding-top: 15px; }

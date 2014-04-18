@@ -94,7 +94,7 @@ ul.rating { display: inline-block; }
 .category-icon { line-height: 30px; text-align: center; }
 
 /* line 121, ../../sass/events/index.sass */
-.item-categoria { height: 30px; line-height: 30px; display: inline-block; vertical-align: middle; padding-left: 10px; }
+.item-categoria { height: 30px; line-height: 30px; display: inline-block; vertical-align: middle; padding-left: 0px; }
 
 /* line 128, ../../sass/events/index.sass */
 .locationBar { min-width: 285px; padding: 5px; width: 285px; }
@@ -168,89 +168,93 @@ ul.rating { display: inline-block; }
 #btn-south { height: 37px; }
 
 /* line 241, ../../sass/events/index.sass */
-#categoriesContainer { display: inline-block; min-width: 240px; padding-top: 5px; padding-right: 5px; }
+#categoriesContainer { display: inline-block; font-size: 1.3rem; min-width: 280px; min-width: 28rem; padding-top: 5px; padding-right: 5px; width: 280px; width: 28rem; }
 
-/* line 248, ../../sass/events/index.sass */
+/* line 252, ../../sass/events/index.sass */
 #categoryScroll { overflow-y: auto; overflow-x: hidden; }
-/* line 254, ../../sass/events/index.sass */
+/* line 258, ../../sass/events/index.sass */
 #categoryScroll > div { margin: 0; width: 100%; }
 
-/* line 258, ../../sass/events/index.sass */
+/* line 262, ../../sass/events/index.sass */
 #eventScroll { max-height: 200px; overflow-y: auto; }
 
-/* line 262, ../../sass/events/index.sass */
+/* line 266, ../../sass/events/index.sass */
 #contactAndAbout, #social { margin-left: 40px; }
 
-/* line 265, ../../sass/events/index.sass */
+/* line 269, ../../sass/events/index.sass */
 #eventViewModal { overflow: hidden; }
 
-/* line 268, ../../sass/events/index.sass */
+/* line 272, ../../sass/events/index.sass */
 #east, #logo, #north, #south, #west { position: absolute; z-index: 1; }
 
-/* line 272, ../../sass/events/index.sass */
+/* line 276, ../../sass/events/index.sass */
 #east { left: 0; top: 90px; }
-/* line 279, ../../sass/events/index.sass */
+/* line 283, ../../sass/events/index.sass */
 #east div[class="input-group"] { max-width: 350px; }
-/* line 282, ../../sass/events/index.sass */
+/* line 286, ../../sass/events/index.sass */
 #east input { text-transform: capitalize; }
 
-/* line 285, ../../sass/events/index.sass */
+/* line 289, ../../sass/events/index.sass */
 #logo { background-color: #333333; padding: 15px; top: 0; z-index: 5000; }
 
-/* line 291, ../../sass/events/index.sass */
+/* line 295, ../../sass/events/index.sass */
 #map { height: 104%; left: 0; top: 0; position: absolute; width: 100%; z-index: 0; }
 
-/* line 299, ../../sass/events/index.sass */
+/* line 303, ../../sass/events/index.sass */
 #menu_superior { margin-left: 20px; background-color: rgba(255, 255, 255, 0.9); height: 50px; }
 
-/* line 304, ../../sass/events/index.sass */
+/* line 308, ../../sass/events/index.sass */
 #menu_superior_derecha { background-color: rgba(255, 255, 255, 0.9); height: 50px; }
 
-/* line 308, ../../sass/events/index.sass */
-#menu_superior_derecha_verde { color: #abd402; font-size: 14px; }
+/* line 312, ../../sass/events/index.sass */
+#menu_superior_derecha_verde { color: #abd402; }
 
-/* line 314, ../../sass/events/index.sass */
+/* line 316, ../../sass/events/index.sass */
 #nav-large .icon-minus { color: #428bca; cursor: pointer; }
 
-/* line 318, ../../sass/events/index.sass */
+/* line 320, ../../sass/events/index.sass */
 #nav-small { min-height: 20px; filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=80); opacity: 0.8; }
-/* line 322, ../../sass/events/index.sass */
+/* line 324, ../../sass/events/index.sass */
 #nav-small .icon-plus { font-size: 12px; cursor: pointer; }
-/* line 326, ../../sass/events/index.sass */
+/* line 328, ../../sass/events/index.sass */
 #nav-small a { padding: 10px; }
 
-/* line 329, ../../sass/events/index.sass */
+/* line 331, ../../sass/events/index.sass */
 #north { background-color: rgba(0, 0, 0, 0.6); color: white; padding-left: 12px; padding-right: 12px; padding-bottom: 8px; width: 100%; }
-/* line 341, ../../sass/events/index.sass */
+/* line 343, ../../sass/events/index.sass */
 #north a { color: white; text-decoration: none; }
 
-/* line 345, ../../sass/events/index.sass */
+/* line 347, ../../sass/events/index.sass */
 #rampa { filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100); opacity: 1; border-top: 80px solid #333333; border-left: 14px solid #333333; border-right: 20px solid transparent; height: 80px; margin-left: 305px; margin-top: 0px; padding-right: 20px; position: absolute; top: 0px; width: 10px; z-index: 5000; }
 
-/* line 360, ../../sass/events/index.sass */
+/* line 362, ../../sass/events/index.sass */
 #rampa-east { filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=80); opacity: 0.8; border-top: 65px solid #333333; border-left: 10px solid #333333; border-right: 12px solid transparent; height: 20px; margin-left: 0px; margin-top: -10px; padding-right: 20px; position: absolute; width: 300px; z-index: 0; }
 
-/* line 373, ../../sass/events/index.sass */
+/* line 375, ../../sass/events/index.sass */
 #rampa-east-mas { filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=80); opacity: 0.8; border-top: 33px solid #333333; border-left: 10px solid #333333; border-right: 8px solid transparent; height: 20px; margin-left: 275px; margin-top: -66px; padding-right: 24px; position: absolute; z-index: 0; }
 
-/* line 386, ../../sass/events/index.sass */
+/* line 388, ../../sass/events/index.sass */
 #rampa-east-menos { filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=80); opacity: 0.8; border-top: 32px solid #333333; border-left: 3px solid #333333; border-right: 6px solid transparent; height: 20px; margin-left: 275px; margin-top: -32px; padding-right: 24px; position: absolute; z-index: 0; }
 
-/* line 399, ../../sass/events/index.sass */
+/* line 401, ../../sass/events/index.sass */
 #rampa-south { border-bottom: 36px solid rgba(0, 0, 0, 0.6); border-bottom-width: 37px; height: 37px; border-left: 10px solid rgba(0, 0, 0, 0.6); border-right: 12px solid transparent; height: 20px; margin-left: 0px; margin-top: 0px; padding-right: 20px; position: relative; width: 30px; z-index: 0; margin: 0; }
 
-/* line 414, ../../sass/events/index.sass */
-#south { bottom: 0; left: 20%; width: 60%; padding: 0 10px; }
+/* line 416, ../../sass/events/index.sass */
+#south { bottom: 0; left: 20%; left: 28rem; width: 60%; min-width: 43.2rem; padding: 0 2px; padding: 0 0.2rem; }
+/* line 425, ../../sass/events/index.sass */
+#south .row { margin: 0px; }
 
-/* line 420, ../../sass/events/index.sass */
-#sponsorContainer { margin-left: 10%; min-width: 245px; padding-bottom: 10px; padding-top: 5px; padding-left: 5px; width: 90%; }
+@media all and (max-width: 1300px) { /* line 429, ../../sass/events/index.sass */
+  #south { width: 50%; } }
+/* line 432, ../../sass/events/index.sass */
+#sponsorContainer { margin-left: 10%; min-width: 240px; min-width: 24rem; padding-bottom: 10px; padding-top: 5px; padding-left: 5px; width: 90%; }
 
-/* line 428, ../../sass/events/index.sass */
+/* line 441, ../../sass/events/index.sass */
 #view { background: white; height: 50%; left: 25%; position: absolute; top: 20%; width: 50%; z-index: 1; }
-/* line 437, ../../sass/events/index.sass */
+/* line 450, ../../sass/events/index.sass */
 #view ng-view { display: block; height: 90%; overflow-y: auto; }
-/* line 442, ../../sass/events/index.sass */
+/* line 455, ../../sass/events/index.sass */
 #view #viewTitle { height: 10%; }
 
-/* line 446, ../../sass/events/index.sass */
+/* line 459, ../../sass/events/index.sass */
 #west { padding: 5px 0; right: 0; top: 60px; }

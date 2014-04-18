@@ -30,6 +30,7 @@ angular.module('RadarApp').controller 'EventsController'
 	$scope.evento = {}
 	$scope.evento.categories = []
 	$scope.descriptionSize = 500
+	$scope.hideSponsors = 1
 
 	# Cities
 	$scope.capital = new google.maps.LatLng(-34.603, -58.382)

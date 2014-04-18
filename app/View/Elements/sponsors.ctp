@@ -1,9 +1,9 @@
 <!-- Titulo -->
-<p>
+<!-- <p>
 	<?php
-		echo $this->Html->link(__('Advertise here!'), '/contacto', array("class" => "btn btn-default btn-xs"));
+		//echo $this->Html->link(__('Advertise here!'), '/contacto', array("class" => "btn btn-default btn-xs"));
 	?>
-</p>
+</p> -->
 
 <!-- 
 <button type="button" class="close sponsor" x-ng-click="hideSponsors = !hideSponsors" 
@@ -13,14 +13,20 @@
 <p class="text-center"><?php echo __('Sponsors'); ?></p> -->
 
 
-<!-- <div class="col-sm-12">
-	<a href="#"><?=$this->Html->image('sponsor/santafedisenia.jpg'); ?></a>
+<div class="col-sm-12">
+	<a href="http://www.colectivolibre.com.ar" target="_blank">
+		<?php echo $this->Html->image('sponsor/colectivolibre.png'); ?>
+	</a>
 </div>
 <br />
 <div class="col-sm-12">
-	<a href="#"><?=$this->Html->image('sponsor/tallercandombe.jpg'); ?></a>
-</div> -->
+	<a href="/contacto">
+		<?php echo $this->Html->image('sponsor/publicitar.png'); ?>
+	</a>
+</div>
 
+<?php 
+/*	GOOGLE ADWORDS
 <div class="col-sm-12">
 	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 	<!-- Radar Derecho Vertical -->
@@ -32,3 +38,5 @@
 		( adsbygoogle = window.adsbygoogle || []).push({});
 	</script>
 </div>
+*/
+ ?>
