@@ -15,13 +15,13 @@
 
 <div class="col-sm-12">
 	<a href="http://www.colectivolibre.com.ar" target="_blank">
-		<?php echo $this->Html->image('sponsor/colectivolibre.png'); ?>
+		<?php echo $this->Html->image('sponsor/colectivolibre.png', array('class'=>'img-responsive')); ?>
 	</a>
 </div>
 <br />
 <div class="col-sm-12">
 	<a href="/contacto">
-		<?php echo $this->Html->image('sponsor/publicitar.png'); ?>
+		<?php echo $this->Html->image('sponsor/publicitar.png', array('class'=>'img-responsive')); ?>
 	</a>
 </div>
 

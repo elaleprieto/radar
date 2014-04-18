@@ -1,6 +1,6 @@
 <?php echo $this -> Html -> css(array('users/add'), null, array('inline' => FALSE)) ?>
 <div class="row">
-    <div class="col-sm-10">
+    <div class="col-sm-9">
     	<div class="row">
     		<div class="col-sm-7 col-sm-offset-3">
     			<?php echo $this -> Form -> create('User'); ?>
@@ -73,7 +73,7 @@
     	</div>
     </div>
     <!-- SPONSOR -->
-	<div class="col-sm-2">
+	<div class="col-sm-3">
 	    <?php echo $this->element('sponsors'); ?>
 	</div>
 </div>
