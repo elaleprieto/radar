@@ -125,14 +125,23 @@
 			<div id="categoriesContainer" class="background-black color-white" data-ng-hide="hideCategories">
 				
 				<!-- Titulo -->
-				<p class="text-left">
-					<?php echo __('Categories'); ?>
+				<header class="row text-left">
+					<div class="col-sm-5">
+						<?php echo __('Categories'); ?>
+					</div>
+					<div class="col-sm-7">
+						<!-- Todas las categorías -->
+						<span class="col-sm-6 pointer" data-ng-click="showAllCategories()">
+							<?php echo __('All'); ?>
+						</span>
+						
+						<!-- Ninguna -->
+						<span class="col-sm-6 pointer" data-ng-click="hideAllCategories()">
+							<?php echo __('None'); ?>
+						</span>
+					</div>
 					
-					<!-- Todas las categorías -->
-					<span class="label label-primary pointer pull-right" data-ng-click="showAllCategories()">
-						<?php echo __('All Categories'); ?>
-					</span>
-				</p>
+				</header>
 				
 				<!-- Scroll de Categorías -->
 				<div id="categoryScroll">

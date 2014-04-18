@@ -22,27 +22,29 @@
             return c.categorias = a.categories;
         }), c.categoryToogle = function(a) {
             return console.log(a), a.highlight ? c.$parent.categoriesDelete(a) : c.$parent.categoriesAdd(a);
+        }, c.deselectAllCategories = function() {
+            return c.$parent.categoriesSelected = [], c.allCategoriesSelected = !1, angular.forEach(c.categorias, function(a) {
+                return a.highlight = !1;
+            });
+        }, c.hideAllCategories = function() {
+            return c.deselectAllCategories(), c.setCookieCategoriesSelected();
         }, c.searchById = function(a) {
             var b;
             return null != c.categorias ? (b = c.categorias.filter(function(b) {
                 return +b.Category.id === +a;
             }), b[0]) : void 0;
-        }, c.show = function(a) {
-            return a.highlight = !a.highlight, a.highlight ? c.categoriesSelected.push(a.Category.id) : c.categoriesSelected.splice(c.categoriesSelected.indexOf(a.Category.id), 1), 
-            c.setCookieCategoriesSelected();
-        }, c.hideAllCategories = function() {
-            return c.$parent.categoriesSelected = [], c.allCategoriesSelected = !1, angular.forEach(c.categorias, function(a) {
-                return a.highlight = !1;
+        }, c.selectAllCategories = function() {
+            return c.$parent.categoriesSelected = [], c.allCategoriesSelected = !0, angular.forEach(c.categorias, function(a) {
+                return a.highlight = !0, c.categoriesSelected.push(a.Category.id);
             });
         }, c.setCookieCategoriesSelected = function() {
             return $.cookie.json = !0, $.cookie("categoriesSelected", c.categoriesSelected, {
                 expires: 360,
                 path: "/"
             });
-        }, c.selectAllCategories = function() {
-            return c.$parent.categoriesSelected = [], c.allCategoriesSelected = !0, angular.forEach(c.categorias, function(a) {
-                return a.highlight = !0, c.categoriesSelected.push(a.Category.id);
-            });
+        }, c.show = function(a) {
+            return a.highlight = !a.highlight, a.highlight ? c.categoriesSelected.push(a.Category.id) : c.categoriesSelected.splice(c.categoriesSelected.indexOf(a.Category.id), 1), 
+            c.setCookieCategoriesSelected();
         }, c.showAllCategories = function() {
             return c.selectAllCategories(), c.setCookieCategoriesSelected();
         }, c.$watch("categorias.length", function() {
