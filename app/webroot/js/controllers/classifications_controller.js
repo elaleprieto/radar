@@ -15,6 +15,16 @@
           return $scope.classifications.push(element.Classification);
         });
       });
+      $scope.deselectAllClassifications = function() {
+        $scope.$parent.classificationsSelected = [];
+        $scope.allClassificationsSelected = false;
+        return angular.forEach($scope.classifications, function(classification, index) {
+          return classification.highlight = false;
+        });
+      };
+      $scope.hideAllClassifications = function() {
+        return $scope.deselectAllClassifications();
+      };
       $scope.searchById = function(id) {
         var aux;
         if ($scope.classifications != null) {
@@ -23,6 +33,14 @@
           });
           return aux[0];
         }
+      };
+      $scope.selectAllClassifications = function() {
+        $scope.$parent.classificationsSelected = [];
+        $scope.allClassificationsSelected = true;
+        return angular.forEach($scope.classifications, function(classification, index) {
+          classification.highlight = true;
+          return $scope.classificationsSelected.push(classification.id);
+        });
       };
       $scope.show = function(classification) {
         classification.highlight = !classification.highlight;
@@ -37,6 +55,9 @@
           path: '/'
         });
       };
+      $scope.showAllClassifications = function() {
+        return $scope.selectAllClassifications();
+      };
       return $scope.$watch('classifications.length', function() {
         var lastValEventCategory;
         if (!location.contains('events/add')) {
@@ -44,8 +65,8 @@
             $.cookie.json = true;
             lastValEventCategory = $.cookie('classificationsSelected');
             if ((lastValEventCategory != null) && lastValEventCategory.length > 0) {
-              return angular.forEach(lastValEventCategory, function(categoryId, index) {
-                return $scope.show($scope.searchById(categoryId));
+              return angular.forEach(lastValEventCategory, function(classificationId, index) {
+                return $scope.show($scope.searchById(classificationId));
               });
             }
           }

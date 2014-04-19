@@ -3,7 +3,6 @@
 	echo $this->Html->css(array(
 		'//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css',
 		'vendors/typeahead.js-bootstrap',
-		'inicio',
 		'events/index',
 	), '', array('inline' => false));
 
@@ -44,8 +43,6 @@
 	<!-- NORTH -->
 	<!-- Navbar -->
 	
-
-
 	<!-- EAST -->
 	<div id="east" data-ng-cloak>
 			
@@ -151,13 +148,24 @@
 						data-ng-model="categoria" 
 						data-ng-repeat="categoria in categorias | orderBy:'Category.name'" >
 							
+							<!-- Icono de Categoría -->
 							<div class="col-sm-3 category-icon">
 								<img class="icono-categoria" 
 									data-ng-src="/img/categorias/{{categoria.Category.icon}}" />
 							</div>
+
+							<!-- Nombre de Categoría -->
 							<div class="col-sm-8 item-categoria" data-ng-bind="categoria.Category.name"></div>
-							<div class="col-sm-1 item-categoria" data-ng-show="categoria.highlight"><i class="fa fa-check-square-o"></i></div>
-							<div class="col-sm-1 item-categoria" data-ng-hide="categoria.highlight"><i class="fa fa-square-o"></i></div>
+							
+							<!-- Icono Select -->
+							<div class="col-sm-1 item-categoria" data-ng-show="categoria.highlight">
+								<i class="fa fa-check-square-o"></i>
+							</div>
+
+							<!-- Icono Deselect -->
+							<div class="col-sm-1 item-categoria" data-ng-hide="categoria.highlight">
+								<i class="fa fa-square-o"></i>
+							</div>
 					</div>
 				</div>
 			</div>

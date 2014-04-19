@@ -3,7 +3,6 @@
 	echo $this->Html->css(array(
 		'//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css',
 		'vendors/typeahead.js-bootstrap',
-		'inicio',
 		'places/index',
 	), '', array('inline' => false));
 
@@ -37,7 +36,7 @@
 <div ng-controller="PlacesController" ng-init="user.locationAux='<?php echo $userLocation; ?>'; user.id='<?php echo AuthComponent::user('id'); ?>'">
 
 	<!-- NORTH -->
-	<?php echo $this->element('navbar'); ?>
+	<!-- Navbar -->
 
 	<!-- EAST -->
 	<div id="east" ng-cloak>
@@ -99,12 +98,12 @@
 					?>
 						<ul class="list-inline zoom-list">
 							<li class="zoom-button">
-								<a href="#" x-ng-click="map.setZoom(map.getZoom() + 1)">
+								<a href="#" data-ng-click="map.setZoom(map.getZoom() + 1)">
 									<span class="fa fa-search-plus fa zoom-mas"></span>
 								</a>
 							</li>
 							<li class="zoom-button">
-								<a href="#" x-ng-click="map.setZoom(map.getZoom() - 1)">
+								<a href="#" data-ng-click="map.setZoom(map.getZoom() - 1)">
 									<span class="fa fa-search-minus zoom-menos"></span>
 								</a>
 							</li>
@@ -127,8 +126,8 @@
 					type="text" 
 					ui-keypress="{13:'searchLocation(locationSearched)'}"
 					<?php echo $userLocation ? 'value="'.$userLocation.'"' : ''; ?>
-					x-ng-model="locationSearched" 
-					x-ng-init="locationSearched=user.location" />
+					data-ng-model="locationSearched" 
+					data-ng-init="locationSearched=user.location" />
 				
 				<!-- 
 				<span class="input-group-addon" ng-click="searchLocation(locationSearched)"
@@ -138,7 +137,7 @@
 				
 				<div class="input-group-btn">
 					<button class="btn btn-default" tabindex="-1" title="<?php echo __('Search'); ?>" type="button" 
-						x-ng-click="searchLocation(locationSearched)">
+						data-ng-click="searchLocation(locationSearched)">
 							<i class="glyphicon glyphicon-search"></i>
 					</button>
 					<button tabindex="-1" data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button">
@@ -147,7 +146,7 @@
 					</button>
 					<ul role="menu" class="dropdown-menu pull-right">
 						<li>
-							<a href="#" x-ng-click="saveUserLocationPreferences()">
+							<a href="#" data-ng-click="saveUserLocationPreferences()">
 								<?php echo __('Save Location Preferences'); ?>
 							</a>
 						</li>
@@ -161,17 +160,55 @@
 		<!-- CATEGORIES -->
 		<div ng-controller="ClassificationsController">
 			<div id="categoriesContainer" class="background-black color-white" ng-hide="hideCategories">
-				<p class="text-center"><?php echo __('Categories'); ?></p>
+				
+				<!-- <p class="text-center"><?php echo __('Categories'); ?></p> -->
+
+				<!-- Titulo -->
+				<header class="row text-left">
+					<div class="col-sm-5">
+						<?php echo __('Categories'); ?>
+					</div>
+					<div class="col-sm-7">
+						<!-- Todas las categorías -->
+						<span class="col-sm-6 pointer" data-ng-click="showAllClassifications()">
+							<?php echo __('All'); ?>
+						</span>
+						
+						<!-- Ninguna -->
+						<span class="col-sm-6 pointer" data-ng-click="hideAllClassifications()">
+							<?php echo __('None'); ?>
+						</span>
+					</div>
+					
+				</header>
+
+				<!-- Scroll de Categorías -->
 				<div id="categoryScroll">
-					<div class="row categoriaLink" x-ng-class="{highlight:classification.highlight}" 
-						x-ng-click="show(classification)" x-ng-model="classification" 
-						x-ng-repeat="classification in classifications | orderBy:'name'">
+					<div class="row categoriaLink" 
+						data-ng-class="{highlight:classification.highlight}" 
+						data-ng-click="show(classification)" 
+						data-ng-model="classification" 
+						data-ng-repeat="classification in classifications | orderBy:'name'">
+							
+							<!-- Icono de Categoría -->
 							<div class="col-sm-3 category-icon">
 								<div class="classification" 
-									x-ng-style="{'background-color':classification.color}">
+									data-ng-style="{'background-color':classification.color}">
 								</div>
 							</div>
-							<div class="col-sm-9 item-categoria" ng-bind="classification.name"></div>
+
+							<!-- Nombre de Categoría -->
+							<div class="col-sm-8 item-categoria" ng-bind="classification.name"></div>
+
+							<!-- Icono Select -->
+							<div class="col-sm-1 item-categoria" data-ng-show="classification.highlight">
+								<i class="fa fa-check-square-o"></i>
+							</div>
+
+							<!-- Icono Deselect -->
+							<div class="col-sm-1 item-categoria" data-ng-hide="classification.highlight">
+								<i class="fa fa-square-o"></i>
+							</div>
 					</div>
 				</div>
 			</div>
@@ -252,7 +289,7 @@
 		    			    <tr ng-repeat="place in places | orderBy:'Place.name'">
 		    			        <td>
 		    			        	<div class="classification" 
-										x-ng-style="{'background-color':place.Classification.color}">
+										data-ng-style="{'background-color':place.Classification.color}">
 									</div>
 		    			        </td>
 		    			        <td ng-bind="place.Place.name"></td>

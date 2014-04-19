@@ -18,17 +18,44 @@ angular.module('RadarApp').controller 'ClassificationsController'
 			# $scope.$parent.classificationsAdd(classification)
 		# else
 			# $scope.$parent.classificationsDelete(classification)
+		
+	# deselectAllClassifications: resetea el array classificationsSelected,
+	# elimina todas las categorías seleccionadas del array classificationsSelected
+	# y resetea el highlight en todas las categorías
+	$scope.deselectAllClassifications = ->
+		$scope.$parent.classificationsSelected = []
+		$scope.allClassificationsSelected = off
+		angular.forEach $scope.classifications, (classification, index) ->
+			classification.highlight = off
 	
+	# hideAllClassifications: borra todas las categorías seleccionadas del array classificationsSelected
+	# y elimina el highlight de todas las categorías
+	$scope.hideAllClassifications = ->
+		$scope.deselectAllClassifications()
+		# $scope.setCookieClassificationsSelected()
+
+
 	$scope.searchById = (id) ->
 		if $scope.classifications?
 			aux = $scope.classifications.filter (classification) ->
 				+classification.Classification.id is +id
 			aux[0]
 	
+
+	# selectAllClassifications: resetea el array classificationsSelected,
+	# agrega todas las categorías seleccionadas al array classificationsSelected
+	# y setea el highlight en todas las categorías
+	$scope.selectAllClassifications = ->
+		$scope.$parent.classificationsSelected = []
+		$scope.allClassificationsSelected = on
+		angular.forEach $scope.classifications, (classification, index) ->
+			classification.highlight = on
+			$scope.classificationsSelected.push classification.id	
+
 	$scope.show = (classification) ->
 		classification.highlight = !classification.highlight
 		if classification.highlight
-			$scope.classificationsSelected.push(classification.id)
+			$scope.classificationsSelected.push classification.id
 		else
 			$scope.classificationsSelected.splice($scope.classificationsSelected.indexOf(classification.id), 1)
 				
@@ -54,14 +81,18 @@ angular.module('RadarApp').controller 'ClassificationsController'
 			}
 		);
 	
+	$scope.showAllClassifications = ->
+		$scope.selectAllClassifications()
+		# $scope.setCookieClassificationsSelected()
+
 	$scope.$watch 'classifications.length', ->
 		if not location.contains('events/add')
 			if $scope.classifications? and $.cookie? and $scope.classifications.length > 0
 				$.cookie.json = true
 				lastValEventCategory = $.cookie('classificationsSelected')
 				if lastValEventCategory? and lastValEventCategory.length > 0
-					angular.forEach lastValEventCategory, (categoryId, index) ->
-						$scope.show($scope.searchById(categoryId))
+					angular.forEach lastValEventCategory, (classificationId, index) ->
+						$scope.show($scope.searchById(classificationId))
 
 	]
 	
