@@ -12,17 +12,38 @@
 </button>
 <p class="text-center"><?php echo __('Sponsors'); ?></p> -->
 
-
-<div class="col-sm-12">
-	<a href="http://www.colectivolibre.com.ar" target="_blank">
-		<?php echo $this->Html->image('sponsor/colectivolibre.png', array('class'=>'img-responsive')); ?>
-	</a>
+<div class="row">
+	<div class="col-sm-12">
+		<a href="http://www.colectivolibre.com.ar" target="_blank">
+			<?php echo $this->Html->image('sponsor/colectivolibre.png', array('class'=>'img-responsive')); ?>
+		</a>
+	</div>
 </div>
-<br />
-<div class="col-sm-12">
-	<a href="/contacto">
-		<?php echo $this->Html->image('sponsor/publicitar.png', array('class'=>'img-responsive')); ?>
-	</a>
+<div class="row">
+	<div class="col-sm-12">
+		<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+		<!-- Radar Horizontal Medio Banner -->
+		<ins class="adsbygoogle"
+			style="display:inline-block;width:234px;height:60px"
+			data-ad-client="ca-pub-1237436927136399"
+			data-ad-slot="6504420610"></ins>
+		<script>
+			(adsbygoogle = window.adsbygoogle || []).push({});
+		</script>
+	</div>
+</div>
+<div class="row">
+	<div class="col-sm-12">
+		<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+		<!-- Radar Horizontal Medio Banner -->
+		<ins class="adsbygoogle"
+			style="display:inline-block;width:234px;height:60px"
+			data-ad-client="ca-pub-1237436927136399"
+			data-ad-slot="6504420610"></ins>
+		<script>
+			(adsbygoogle = window.adsbygoogle || []).push({});
+		</script>
+	</div>
 </div>
 
 <?php 
