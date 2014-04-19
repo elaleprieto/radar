@@ -91,7 +91,31 @@
 	</div>
 	<!-- SPONSOR -->
 	<div class="col-sm-2">
-	    <?php echo $this->element('sponsors'); ?>
+	    <div class="row">
+	    	<div class="col-sm-12">
+	    		<h5 class="resaltado">Auspiciantes</h5>
+	    	</div>
+	    </div>
+	    <div class="row sponsor">
+	    	<div class="col-sm-12">
+	    		<a href="http://www.espaciosantafesino.gob.ar" target="_blank">
+	    			<?php echo $this->Html->image('sponsor/espacioSantafesino.png', array('class'=>'img-responsive')) ?>
+	    		</a>
+	    	</div>
+	    </div>
+	    <div class="row sponsor">
+	    	<div class="col-sm-12">
+	    		<a href="http://www.santafe.gov.ar/" target="_blank">
+		    		<?php echo $this->Html->image('sponsor/gobiernoSantaFe.jpg', array('class'=>'img-responsive')) ?>
+		    	</a>
+	    	</div>
+	    </div>
+	    <!-- <div class="row">
+	    	<div class="col-sm-12">
+	    		<?php //	echo $this->element('sponsors'); ?>
+	    	</div>
+	    </div> -->
+
 	</div>
 
 </div>

@@ -124,7 +124,7 @@
 				<!-- Titulo -->
 				<header class="row text-left">
 					<div class="col-sm-5">
-						<?php echo __('Categories'); ?>
+						<?php echo __('Categories'); ?>:
 					</div>
 					<div class="col-sm-7">
 						<!-- Todas las categorías -->
