@@ -1,8 +1,7 @@
 <!-- LOGO -->
 <div id="logo" class="hidden-xs">
 	<?php echo $this->Html->link($this->Html->image("logo_blanco.png", array('alt' => 'logo', 'class'=>'hidden-xs')), '/', array('escape' => false)); ?>
-	<!--<?php echo $this->Html->link($this->Html->image("radar_xs.png", array('alt' => 'logo', 'class'=>'visible-xs')), '/', array('escape' => false)); ?>-->
-	
+	<!--<?php echo $this->Html->link($this->Html->image("radar_xs.png", array('alt' => 'logo', 'class'=>'visible-xs')), '/', array('escape' => false)); ?>-->	
 </div>
 <!--<h2 class="visible-xs radar-xs">RADAR cultural</h2>-->
 <?php echo $this->Html->link($this->Html->image("logo_horizontal.png", array('alt' => 'logo', 'class'=>'visible-xs img-responsive radar-xs')), '/', array('escape' => false)); ?>
@@ -14,24 +13,13 @@
 	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 		<div class="navbar-header">
 			<button type="button" class="navbar-toggle navbar-toggle-radar" data-toggle="collapse" data-target="#navbar-collapse-radar">
-				<!--
-				<span class="sr-only">Toggle navigation</span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-		    	<span class="icon-bar"></span>-->
 	    		<?php echo $this->Html->link($this->Html->image("logo_xs.png", array('alt' => 'logo', 'class'=>'visible-xs')), '/', array('escape' => false)); ?>
-
 			</button>
 			<?php echo $this->Html->link($this->Html->image("logo_sin.png", array('alt' => 'logo', 'class'=>'hidden-xs')), '/', array('escape' => false, 'class' =>'navbar-brand')); ?>
-
-	</div>
-
+		</div>
 		<div class="navbar-collapse collapse navbar-radar-collapse"  id="navbar-collapse-radar">
-			
 			<ul class="nav navbar-nav menu-center">
-			
 				<li class="<?php echo ($this->request->controller == 'events' && $this->request->action == 'index') ? 'active' : '' ?>">
-					
 					<!-- Botón con texto para vista lg y md -->
 					<a href="/" class="visible-md visible-lg visible-xs hidden-sm">
 						<span class="glyphicon glyphicon-calendar"></span>
@@ -155,7 +143,7 @@
 				</li>
 				
 				<!-- Menú desplegable de más info. disponible para vista sm -->
-				<li class="dropdown visible-sm visible-xs hidden-md hidden-lg">
+				<li class="dropdown visible-sm hidden-xs hidden-md hidden-lg">
 					<a class="dropdown-toggle" data-toggle="dropdown" href="#">
       					<small>más</small> <span class="caret"></span>
     				</a>
