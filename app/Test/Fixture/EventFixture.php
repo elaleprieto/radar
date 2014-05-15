@@ -47,6 +47,7 @@ class EventFixture extends CakeTestFixture {
 		//'category_id' => array('type' => 'integer'),
 		'place_id' => array('type' => 'string', 'null' => true, 'default' => null, 'length' => 36),
 		//'place_id' => array('type' => 'string'),
+		'user_id' => array('type' => 'string', 'null' => true, 'default' => null, 'length' => 36),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1)
 		),
@@ -60,7 +61,8 @@ class EventFixture extends CakeTestFixture {
  */
 	public $records = array(
 		array(
-			'id' => '1',
+			//'id' => '1',
+			'id' => '527592a7-b718-41f9-a140-0fe8d18c1824',
 			'title' => 'Fiesta Electrónica',
 			'address' => 'Francia 3380, Santa Fe, Argentina',
 			'description' => 'Lotus Club Rosario, como todos los años,  tiene bien acostumbrada a la ciudad en lo que 
