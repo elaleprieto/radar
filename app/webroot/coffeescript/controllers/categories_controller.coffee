@@ -12,6 +12,8 @@ angular.module('RadarApp').controller 'CategoriesController'
 	
 	# categoryToogle(category): agrega o elimina la categoria al padre.
 	$scope.categoryToogle = (category) ->
+		console.log category
+		
 		if not category.highlight
 			$scope.$parent.categoriesAdd(category)
 		else

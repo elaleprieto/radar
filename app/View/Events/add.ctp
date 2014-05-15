@@ -36,8 +36,8 @@
 	// }
 ?>
 
-<div x-ng-controller="EventsController" 
-	x-ng-init="user.locationAux='<?php echo $userLocation; ?>'
+<div data-ng-controller="EventsController" 
+	data-ng-init="user.locationAux='<?php echo $userLocation; ?>'
 		; user.id='<?php echo AuthComponent::user('id'); ?>'">
 
     <!-- BARRA PROGRESO -->
@@ -66,7 +66,7 @@
     		<div class="row">
     		   
     		   <!-- FORMULARIO BÁSICO -->
-    	       <form name="eventForm" x-ng-submit="submit()">
+    	       <form name="eventForm" data-ng-submit="submit()">
         			<div class="col-sm-4">
         				<div class="row">
         					<div class="col-sm-12">
@@ -79,7 +79,7 @@
                                 	<label for="EventTitle"><?php echo __('Title'); ?></label>
                                     <input autofocus="true" class="capitalize form-control textbox" id="EventTitle" 
                                     	maxlength="255" required="required" type="text"
-                                    	x-ng-model="evento.title" />
+                                    	data-ng-model="evento.title" />
         						</div>
         							
         						<!-- Address -->
@@ -97,33 +97,33 @@
         						<div class="row form-group">
                                 	<label for="EventDescription">
                                 		<?php echo __('Description'); ?> 
-                                		<span x-ng-cloak>
+                                		<span data-ng-cloak>
                                 			<small>({{descriptionSize - evento.description.length}} <?php echo __('characters')?>)</small>
                                 		</span>
                                 	</label>
                                     <textarea class="textarea col-sm-12 form-control" cols="30" id="EventDescription" 
-                                        x-ng-model="evento.description" required="required" rows="4" 
-                                        x-ng-change="checkDescriptionSize($event, evento)">
+                                        data-ng-model="evento.description" required="required" rows="4" 
+                                        data-ng-change="checkDescriptionSize($event, evento)">
                                     </textarea>
         						</div>
     
     							<!-- Categorías -->
         						<div class="row">
         							<p><?php echo __('What is it?') ?></p>
-                                    <div x-ng-controller="CategoriesController">
+                                    <div data-ng-controller="CategoriesController">
                                         <div class="row form-group">
                                             <div class="col-sm-12">
                                                 <div 
-                                                    	class="row categoriaLink"
-                                                    	x-ng-class="{highlight:categoria.highlight}"
-                                                    	x-ng-model="categoria"
-                                                    	x-ng-repeat="categoria in categorias | orderBy:'Category.name'"
-                                                    	x-ng-click="categoryToogle(categoria)">
+                                                	class="row categoriaLink"
+                                                	data-ng-class="{highlight:categoria.highlight}"
+                                                	data-ng-model="categoria"
+                                                	data-ng-repeat="categoria in categorias | orderBy:'Category.name'"
+                                                	data-ng-click="categoryToogle(categoria)">
                                                         <div class="col-sm-1">
                                                             <img class="icono-categoria" 
-                                                            	x-ng-src="/img/categorias/{{categoria.Category.icon}}" />
+                                                            	data-ng-src="/img/categorias/{{categoria.Category.icon}}" />
                                                         </div>
-                                                        <div class="col-sm-10" x-ng-bind="categoria.Category.name"></div>
+                                                        <div class="col-sm-10" data-ng-bind="categoria.Category.name"></div>
                                                 </div>
                                             </div>
                                         </div>
@@ -155,7 +155,7 @@
                                                	data-date-format="dd/mm/yyyy"
                                                	data-start-date="-0d"
                                                 id="date_from" 
-                                                x-ng-model="evento.date_from" 
+                                                data-ng-model="evento.date_from" 
                                                 required="required" 
                                               	today-btn="true" 
                                                 type="text" 
@@ -176,8 +176,8 @@
                                                	class="col-sm-10 form-control" 
                                                	data-show-meridian="false"
                                                 id="time_from" 
-                                              	x-ng-disabled="!evento.date_from" 
-                                                x-ng-model="evento.time_from" 
+                                              	data-ng-disabled="!evento.date_from" 
+                                                data-ng-model="evento.time_from" 
                                                 required="required" 
                                                 type="text" 
                                             />
@@ -204,8 +204,8 @@
                                                	data-end-date="12/07/2013" 
                                                	id="date_to" 
                                                	data-date-format="dd/mm/yyyy" 
-                                               	x-ng-disabled="!evento.date_from" 
-                                               	x-ng-model="evento.date_to" 
+                                               	data-ng-disabled="!evento.date_from" 
+                                               	data-ng-model="evento.date_to" 
                                                	required="required" 
                                                	today-btn="true" 
                                                	type="text" 
@@ -225,8 +225,8 @@
                                               	bs-timepicker 
                                                	class="col-sm-9 form-control" 
                                                	data-show-meridian="false"
-                                               	x-ng-disabled="!evento.date_from && !evento.time_from" 
-                                                x-ng-model="evento.time_to" 
+                                               	data-ng-disabled="!evento.date_from && !evento.time_from" 
+                                                data-ng-model="evento.time_to" 
                                                 required="required" 
                                                 type="text" 
                                             />
@@ -284,22 +284,22 @@
                                     <div class="col-sm-12">
                                         <p><?php echo __('Ticket sales')?></p>
                                     </div>
-                                    <div class="col-sm-4" x-ng-init="hasCost=0">
+                                    <div class="col-sm-4" data-ng-init="hasCost=0">
                                         <label class="radio-inline">
-                                            <input x-ng-checked="hasCost" x-ng-click="hasCost=1" x-ng-model="evento.hasCost" 
+                                            <input data-ng-checked="hasCost" data-ng-click="hasCost=1" data-ng-model="evento.hasCost" 
                                             	type="radio" />
                                             <?php echo __('yes')?>
                                         </label>
                                         <label class="radio-inline">
-                                            <input x-ng-checked="!hasCost" x-ng-click="hasCost=0; evento.cost=null" 
-                                            	x-ng-model="evento.hasCost" type="radio" />
+                                            <input data-ng-checked="!hasCost" data-ng-click="hasCost=0; evento.cost=null" 
+                                            	data-ng-model="evento.hasCost" type="radio" />
                                             <?php echo __('no')?>
                                         </label>
                                     </div>   
-									<div class="input text form-control" x-ng-show="hasCost" x-ng-cloak>
-										<input class="textbox col-sm-4 inline" name="cost" x-ng-disabled="!hasCost" x-ng-model="evento.cost" 
+									<div class="input text form-control" data-ng-show="hasCost" data-ng-cloak>
+										<input class="textbox col-sm-4 inline" name="cost" data-ng-disabled="!hasCost" data-ng-model="evento.cost" 
 											placeholder="<?php __('Cost') ?>" type="number" />
-										<span class="alert-danger" x-ng-show="!eventForm.cost.$valid">
+										<span class="alert-danger" data-ng-show="!eventForm.cost.$valid">
         									<?php echo __('invalid') ?>
         								</span>
 									</div>
@@ -308,7 +308,7 @@
                                     <?php //echo $this->Form->input('website', array('class'=>'textbox', 'label'=>__('web'))) ?>
                                     <div class="input text">
                                     	<label for="web"><?php echo __('Website') ?></label>
-                                    	<input class="textbox form-control" x-ng-model="evento.website" type="text" placeholder="www.radarcultural.org"/>
+                                    	<input class="textbox form-control" data-ng-model="evento.website" type="text" placeholder="www.radarcultural.org"/>
                                     </div>
                                 </div>
                                 <div class="row form-group">
@@ -330,9 +330,9 @@
                         <div class="row">
 							<input type="submit" value="Enviar" class="btn btn-verde pull-right">
 						</div>
-                        <div class="row" x-ng-show='cargando'>
+                        <div class="row" data-ng-show='cargando'>
                         	<div class="alert alert-info span12">
-								<span x-ng-bind='cargando'></span>
+								<span data-ng-bind='cargando'></span>
                         	</div>
 						</div>
         			</div>

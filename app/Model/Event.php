@@ -160,6 +160,13 @@ class Event extends AppModel {
 			'conditions' => '',
 			'fields' => '',
 			'order' => ''
+		),
+		'User' => array(
+			'className' => 'User',
+			'foreignKey' => 'user_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
 		)
 	);
 	
@@ -211,7 +218,8 @@ class Event extends AppModel {
 	public function rate($id = null, $rate = null) {
 		if($id && $rate && $rate > 0) {
 			// $rateOld = $this->field('rate', array('id' => $id));
-			$rateSum = $this->query("SELECT SUM(rate) as rateOld FROM rates WHERE event_id = '$id' GROUP BY event_id");			$rateSum = (Integer) $rateSum[0][0]['rateOld'];
+			$rateSum = $this->query("SELECT SUM(rate) as rateOld FROM rates WHERE event_id = '$id' GROUP BY event_id");
+			$rateSum = (Integer) $rateSum[0][0]['rateOld'];
 			
 			// $count = $this->Rate->find('count', array('conditions' => array('Rate.event_id' => $id)));
 // 			

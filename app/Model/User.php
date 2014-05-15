@@ -57,25 +57,25 @@ class User extends AppModel {
 		return true;
 	}
 
-// /**
- // * hasMany associations
- // *
- // * @var array
- // */
-	// public $hasMany = array(
-		// 'Noticia' => array(
-			// 'className' => 'Noticia',
-			// 'foreignKey' => 'user_id',
-			// 'dependent' => false,
-			// 'conditions' => '',
-			// 'fields' => '',
-			// 'order' => '',
-			// 'limit' => '',
-			// 'offset' => '',
-			// 'exclusive' => '',
-			// 'finderQuery' => '',
-			// 'counterQuery' => ''
-		// )
-	// );
+/**
+ * hasMany associations
+ *
+ * @var array
+ */
+	public $hasMany = array(
+		'Event' => array(
+			'className' => 'Event',
+			'foreignKey' => 'user_id',
+			'dependent' => false,
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'exclusive' => '',
+			'finderQuery' => '',
+			'counterQuery' => ''
+		)
+	);
 
 }

@@ -31,11 +31,38 @@
 			<ul class="nav navbar-nav menu-center">
 			
 				<li class="<?php echo ($this->request->controller == 'events' && $this->request->action == 'index') ? 'active' : '' ?>">
+					
 					<!-- Botón con texto para vista lg y md -->
 					<a href="/" class="visible-md visible-lg visible-xs hidden-sm">
 						<span class="glyphicon glyphicon-calendar"></span>
 						<?php echo __('Events'); ?>
 					</a>
+
+					<?php
+					# Si el usuario está logueado se habilita el menú de Eventos
+					if (AuthComponent::user('id')):
+					?>
+						<li>
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+								<i class="fa fa-caret-down"></i>
+								<span class="sr-only">Menú</span>
+							</a>
+							<ul class="dropdown-menu pull-right" role="menu">
+								<li>
+									<a href="<?php echo __('/events').__('/add'); ?>">
+										<?php echo __('Add Event'); ?>
+									</a>
+								</li>
+								<li>
+									<a href="<?php echo __('/events').__('/resume'); ?>">
+										<?php echo __('List Events'); ?>
+									</a>
+								</li>
+							</ul>
+						</li>
+					<?php endif; ?>
+
+					
 					<!-- Botón sin texto para vista sm y xs -->
 					<a href="/" class="hidden-md hidden-lg hidden-xs visible-sm">
 						<span class="glyphicon glyphicon-calendar"></span>
@@ -52,30 +79,6 @@
 						<span class="glyphicon glyphicon-map-marker"></span>	
 					</a>
 				</li>
-				
-				<?php
-				# Si el usuario es administrador se habilita el menú. 
-				if ($this->Session->read('Auth.User.role') == 'admin'): 
-				?>
-					<li>
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-							<i class="fa fa-caret-down"></i>
-							<span class="sr-only">Toggle Dropdown</span>
-						</a>
-						<ul class="dropdown-menu pull-right" role="menu">
-							<li>
-								<a href="/admin<?php echo __('/places').__('/add'); ?>">
-									<?php echo __('Add Place'); ?>
-								</a>
-							</li>
-							<li>
-								<a href="/admin/places/index">
-									<?php echo __('List Places'); ?>
-								</a>
-							</li>
-						</ul>
-					</li>
-				<?php endif; ?>
 				<li>	
 					<a href="<?php echo __('/events').__('/add'); ?>" id="btn-radea">
 					<!-- Botón para vista lg y md -->

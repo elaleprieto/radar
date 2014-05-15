@@ -38,12 +38,25 @@
 	Router::connect('/', array('controller' => 'events', 'action' => 'index'));
 	Router::connect('/about', array('controller'=>'pages', 'action'=>'display', 'about'));
 	Router::connect('/contacto', array('controller'=>'pages', 'action'=>'display', 'contacto'));
-	// Router::connect('/espacios', array('controller'=>'places', 'action'=>'index'));
-	Router::connect(__('/places'), array('controller'=>'places', 'action'=>'index'));
-	Router::connect(__('/places') . __('/add'), array('controller'=>'places', 'action'=>'add'));
+	
+	# Events
 	// Router::connect('/eventos', array('controller'=>'events', 'action'=>'index'));
 	Router::connect(__('/events'), array('controller'=>'events', 'action'=>'index'));
 	Router::connect(__('/events') . __('/add'), array('controller'=>'events', 'action'=>'add'));
+	Router::connect(__('/events') . __('/resume'), array('controller'=>'events', 'action'=>'resume'));
+	Router::connect(__('/admin') . __('/events') . __('/add'), array('admin'=>TRUE, 'controller'=>'events', 'action'=>'resume'));
+	Router::connect(__('/admin') . __('/events') . __('/resume'), array('admin'=>TRUE, 'controller'=>'events', 'action'=>'resume'));
+	Router::connect(__('/admin') . __('/events') . __('/index'), array('admin'=>TRUE, 'controller'=>'events', 'action'=>'resume'));
+
+	# Places
+	// Router::connect('/espacios', array('controller'=>'places', 'action'=>'index'));
+	Router::connect(__('/places'), array('controller'=>'places', 'action'=>'index'));
+	Router::connect(__('/places') . __('/add'), array('controller'=>'places', 'action'=>'add'));
+	
+	# Users
+	Router::connect(__('/users'), array('controller'=>'users', 'action'=>'index'));
+	Router::connect(__('/users') . __('/add'), array('controller'=>'users', 'action'=>'add'));
+	
 	Router::connect('/login', array('controller'=>'users', 'action'=>'login'));
 	Router::connect('/confirm/*', array('controller'=>'users', 'action'=>'confirm'));
 	// Router::connect('/radariza', array('controller'=>'pages', 'action'=>'display', 'radariza'));

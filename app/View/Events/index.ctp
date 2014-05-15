@@ -42,7 +42,8 @@
 <div x-ng-controller="EventsController" x-ng-init="user.locationAux='<?php echo $userLocation; ?>'; user.id='<?php echo AuthComponent::user('id'); ?>'">
 
 	<!-- NORTH -->
-	<?php echo $this->element('navbar'); ?>
+	<!-- Navbar -->
+	
 
 
 	<!-- EAST -->

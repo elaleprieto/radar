@@ -88,6 +88,7 @@
 		 */
 		public function userHasCompliant($evento = null) {
 			if ($evento && AuthComponent::user('id')) {
+				$options['recursive'] = -1;
 				$options['conditions'] = array(
 					'event_id' => $evento -> Event -> id,
 					'user_id' => AuthComponent::user('id')

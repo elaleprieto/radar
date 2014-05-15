@@ -1,11 +1,10 @@
-
 /* *******************************************************************************************************************
 								CATEGORIAS
 *******************************************************************************************************************
 */
 
-(function() {
 
+(function() {
   angular.module('RadarApp').controller('CategoriesController', [
     '$http', '$location', '$scope', '$timeout', 'Category', function($http, $location, $scope, $timeout, Category) {
       var location;
@@ -14,6 +13,7 @@
         return $scope.categorias = response.categories;
       });
       $scope.categoryToogle = function(category) {
+        console.log(category);
         if (!category.highlight) {
           return $scope.$parent.categoriesAdd(category);
         } else {
@@ -67,7 +67,9 @@
       return $scope.$watch('categorias.length', function() {
         var lastValEventCategory;
         if (!location.contains('events/add') && ($scope.categorias != null) && $scope.categorias.length > 0) {
-          if ($scope.categoriesSelected.length === 0) $scope.selectAllCategories();
+          if ($scope.categoriesSelected.length === 0) {
+            $scope.selectAllCategories();
+          }
           if ($.cookie != null) {
             $.cookie.json = true;
             lastValEventCategory = $.cookie('categoriesSelected');

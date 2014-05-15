@@ -10,9 +10,56 @@ class UsersController extends AppController {
 	
 	public $components = array('RequestHandler');
 
+	/**************************************************************************************************************
+	 *  Authentication
+	**************************************************************************************************************/
 	public function beforeFilter() {
 		parent::beforeFilter();
-		$this->Auth->allow('add', 'callbackTwitter', 'confirm', 'edit', 'loginTwitter', 'logout');
+		$this->Auth->allow('add', 'callbackTwitter', 'confirm', 'loginTwitter', 'logout');
+	}
+	
+	public function isAuthorized($user = null) {
+		$owner_allowed = array('edit', 'setLocation');
+		$user_allowed = array();
+		$admin_allowed = array_merge($owner_allowed, $user_allowed, array('active', 'delete', 'inactive', 'index', 'view'));
+
+		# All registered users can:
+		if (in_array($this->action, $user_allowed))
+			return true;
+
+		# Admin users can:
+		if ($user['role'] === 'admin')
+			if (in_array($this->action, $admin_allowed))
+				return true;
+	
+		# The owner of an user can:
+		if (in_array($this->action, $owner_allowed)) {
+			$userId = $this->request->params['pass'][0];
+			if ($this->Event->isOwnedBy($userId, $user['id']))
+				return true;
+		}
+	
+		return parent::isAuthorized($user);
+	}
+	/**************************************************************************************************************
+	 *  /authentication
+	**************************************************************************************************************/
+
+	
+	/**
+	* active method
+	*
+	* @throws NotFoundException
+	* @param string $id
+	* @return void
+	*/
+	public function active($id = null) {
+		$this -> User -> id = $id;
+		if (!$this -> User -> exists()) {
+			throw new NotFoundException(__('Invalid user'));
+		}
+		$this -> User -> saveField('active', TRUE);
+		$this -> redirect(array('action' => 'index'));
 	}
 
 	/**
@@ -77,6 +124,68 @@ class UsersController extends AppController {
 		}
 	}
 
+	public function callbackTwitter() {
+		App::import('Vendor', 'twitteroauth/twitteroauth');
+
+		define('CONSUMER_KEY', 'gJos51nlduv7o47481Mg4A');
+		define('CONSUMER_SECRET', 'rwa1AfOL2vbnPrrHoYcdHaLd4m37x4fDEGc0Pm11Q');
+		define('OAUTH_CALLBACK', '/users/callbackTwitter');
+
+		$twitter = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET, CakeSession::read('twitter_token_aux'), CakeSession::read('twitter_token_secret_aux'));
+		$twitterToken = $twitter->getAccessToken($this->request->query['oauth_verifier']);
+
+		if ($twitter->http_code == 200) {
+			CakeSession::write('twitter_token', $twitterToken['oauth_token']);
+			CakeSession::write('twitter_token_secret', $twitterToken['oauth_token_secret']);
+			CakeSession::write('twitter_status', true);
+
+			$twitter = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET, $twitterToken['oauth_token'], $twitterToken['oauth_token_secret']);
+
+			# Se obtienen los datos de twitter
+			$twitterData = $twitter->get('account/verify_credentials');
+
+			# Se busca el usuario a través del id de twitter
+			$existentUser = $this->User->find('first', array('conditions' => array('User.twitter_id' => $twitterData->id)));
+
+			# Si no existe, se crea y se logea con él. Si existe, sólo se logea.
+			if (sizeof($existentUser) == 0) {
+				$user['User']['username'] = 'tw_' . $twitterData->screen_name;
+				$user['User']['password'] = $twitterToken['oauth_token'];
+				$user['User']['name'] = $twitterData->name;
+				$user['User']['location'] = $twitterData->location;
+				$user['User']['twitter_id'] = $twitterData->id;
+
+				$this->User->create();
+				if ($this->User->save($user)) {
+					$user = $this->User->read(null, $this->User->id);
+					$this->Auth->login($user['User']);
+				} else {
+					$this->redirect(Router::url(array(
+						'controller' => 'users',
+						'action' => 'login'
+					)));
+				}
+			} else {
+				$active = $existentUser['User']['active'];
+
+				if(!$active) {
+					$this->Session->setFlash(__('User inactive'));
+					# Se redirige al inicio.
+					$this->redirect(array('controller' => 'events', 'action' => 'index'));
+				}
+
+
+				$this->Auth->login($existentUser['User']);
+			}
+
+			# Se redirige al inicio.
+			$this->redirect(array(
+				'controller' => 'events',
+				'action' => 'index'
+			));
+		}
+	}
+
 
 /**
  * confirm method
@@ -133,109 +242,6 @@ class UsersController extends AppController {
 		return json_encode(false);
 	}
 
-	# Prueba de correo... Se puede borrar o dejar para pruebas
-	// public function mailup() {
-	// $this->autoRender = FALSE;
-	// App::import('Vendor', 'contras', array('file' => 'contras.php'));
-	// echo mail(TO, ASUNTO, 'Cuerpo del mensaje', 'From: ' . FROM);
-	// }
-
-	public function login() {
-		// $this -> layout = 'login';
-
-		if ($this->request->is('post')) {
-			if (isset($this->request->data['User'])) {
-				$user = $this->request->data['User'];
-				$confirmed = $this->User->field('confirmed', array('username' => $user['username']));
-
-				if($confirmed) {
-					if ($this->Auth->login()) {
-						$this->redirect($this->Auth->redirect());
-					}
-				}
-			}
-			$this->Session->setFlash(__('Invalid username or password, try again'));
-			$this->redirect('/');
-		}
-
-		// if ($this->request->is('post')) {
-		// 	if ($this->Auth->login()) {
-		// 		$this->redirect($this->Auth->redirect());
-		// 	} else {
-		// 		$this->Session->setFlash(__('Invalid username or password, try again'));
-		// 	}
-		// }
-	}
-
-	public function logout() {
-		//Logout según Cakephp
-		//$this -> redirect($this -> Auth -> logout());
-
-		//Logout a partir de plugin de facebook
-		if ($this->Connect->FB->getUser() == 0) {
-			$this->redirect($this->Auth->logout());
-		} else {
-			//ditch FB data for safety
-			$this->Connect->FB->destroysession();
-			//hope its all gone with this
-			session_destroy();
-			//logout and redirect to the screen that you usually do.
-			$this->redirect($this->Auth->logout());
-		}
-	}
-
-	public function isAuthorized($user = null) {
-		// All registered users can add posts
-		// if ($this -> action === 'add') {
-		// return true;
-		// }
-
-		// Todos los usuarios registrados podrán cambiar su location
-		if ($this->action === 'setLocation') {
-			return true;
-		}
-
-		// The owner of a post can edit and delete it
-		// if (in_array($this -> action, array(
-		// 'edit',
-		// 'delete'
-		// ))) {
-		// $postId = $this -> request -> params['pass'][0];
-		// if ($this -> Post -> isOwnedBy($postId, $user['id'])) {
-		// return true;
-		// }
-		// }
-
-		return parent::isAuthorized($user);
-	}
-
-	// /**
-	// * index method
-	// *
-	// * @return void
-	// */
-	// public function _index() {
-	// $this -> User -> recursive = 0;
-	// $this -> set('users', $this -> paginate());
-	// }
-	//
-	// /**
-	// * view method
-	// *
-	// * @throws NotFoundException
-	// * @param string $id
-	// * @return void
-	// */
-	// public function _view($id = null) {
-	// $this -> User -> id = $id;
-	// if (!$this -> User -> exists()) {
-	// throw new NotFoundException(__('Invalid user'));
-	// }
-	// $this -> set('user', $this -> User -> read(null, $id));
-	// }
-	//
-
-
 	/**
 	 * edit method
 	 *
@@ -270,6 +276,62 @@ class UsersController extends AppController {
 		}
 	}
 
+	/**
+	* inactive method
+	*
+	* @throws NotFoundException
+	* @param string $id
+	* @return void
+	*/
+	public function inactive($id = null) {
+		$this -> User -> id = $id;
+		if (!$this -> User -> exists()) {
+			throw new NotFoundException(__('Invalid user'));
+		}
+		$this -> User -> saveField('active', FALSE);
+		$this -> redirect(array('action' => 'index'));
+	}
+
+	/**
+	* index method
+	*
+	* @return void
+	*/
+	public function index() {
+		$this -> User -> recursive = 0;
+		$this -> set('users', $this -> paginate());
+	}
+	
+	public function login() {
+		// $this -> layout = 'login';
+
+		if ($this->request->is('post')) {
+			if (isset($this->request->data['User'])) {
+				$user = $this->request->data['User'];
+				$active = $this->User->field('active', array('username' => $user['username']));
+				$confirmed = $this->User->field('confirmed', array('username' => $user['username']));
+
+				if($active && $confirmed) {
+					if ($this->Auth->login()) {
+						$this->redirect($this->Auth->redirect());
+					}
+				}
+				$this->Session->setFlash(__('User inactive or unconfirmed, verify and try again'));
+				$this->redirect('/');
+			}
+			$this->Session->setFlash(__('Invalid username or password, try again'));
+			$this->redirect('/');
+		}
+
+		// if ($this->request->is('post')) {
+		// 	if ($this->Auth->login()) {
+		// 		$this->redirect($this->Auth->redirect());
+		// 	} else {
+		// 		$this->Session->setFlash(__('Invalid username or password, try again'));
+		// 	}
+		// }
+	}
+
 	public function loginTwitter() {
 		App::import('Vendor', 'twitteroauth/twitteroauth');
 
@@ -289,65 +351,44 @@ class UsersController extends AppController {
 		$this->redirect($twitterURL);
 	}
 
-	public function callbackTwitter() {
-		App::import('Vendor', 'twitteroauth/twitteroauth');
-
-		define('CONSUMER_KEY', 'gJos51nlduv7o47481Mg4A');
-		define('CONSUMER_SECRET', 'rwa1AfOL2vbnPrrHoYcdHaLd4m37x4fDEGc0Pm11Q');
-		define('OAUTH_CALLBACK', '/users/callbackTwitter');
-
-		$twitter = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET, CakeSession::read('twitter_token_aux'), CakeSession::read('twitter_token_secret_aux'));
-		$twitterToken = $twitter->getAccessToken($this->request->query['oauth_verifier']);
-
-		if ($twitter->http_code == 200) {
-			CakeSession::write('twitter_token', $twitterToken['oauth_token']);
-			CakeSession::write('twitter_token_secret', $twitterToken['oauth_token_secret']);
-			CakeSession::write('twitter_status', true);
-
-			$twitter = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET, $twitterToken['oauth_token'], $twitterToken['oauth_token_secret']);
-
-			# Se obtienen los datos de twitter
-			$twitterData = $twitter->get('account/verify_credentials');
-
-			# Se busca el usuario a través del id de twitter
-			$existentUser = $this->User->find('first', array('conditions' => array('User.twitter_id' => $twitterData->id)));
-
-			# Si no existe, se crea y se logea con él. Si existe, sólo se logea.
-			if (sizeof($existentUser) == 0) {
-				$user['User']['username'] = 'tw_' . $twitterData->screen_name;
-				$user['User']['password'] = $twitterToken['oauth_token'];
-				$user['User']['name'] = $twitterData->name;
-				$user['User']['location'] = $twitterData->location;
-				$user['User']['twitter_id'] = $twitterData->id;
-
-				$this->User->create();
-				if ($this->User->save($user)) {
-					$user = $this->User->read(null, $this->User->id);
-					$this->Auth->login($user['User']);
-				} else {
-					$this->redirect(Router::url(array(
-						'controller' => 'users',
-						'action' => 'login'
-					)));
-				}
-			} else {
-				$this->Auth->login($existentUser['User']);
-			}
-
-			# Se redirige al inicio.
-			$this->redirect(array(
-				'controller' => 'events',
-				'action' => 'index'
-			));
-		}
-	}
-
 	public function setLocation($id = null, $location = null) {
 		$this->autoRender = false;
 		if ($id && $location) {
 			$this->User->id = $id;
 			$this->User->saveField('location', $location);
 		}
+	}
+
+	public function logout() {
+		//Logout según Cakephp
+		//$this -> redirect($this -> Auth -> logout());
+
+		//Logout a partir de plugin de facebook
+		if ($this->Connect->FB->getUser() == 0) {
+			$this->redirect($this->Auth->logout());
+		} else {
+			//ditch FB data for safety
+			$this->Connect->FB->destroysession();
+			//hope its all gone with this
+			session_destroy();
+			//logout and redirect to the screen that you usually do.
+			$this->redirect($this->Auth->logout());
+		}
+	}
+
+	/**
+	* view method
+	*
+	* @throws NotFoundException
+	* @param string $id
+	* @return void
+	*/
+	public function view($id = null) {
+		$this -> User -> id = $id;
+		if (!$this -> User -> exists()) {
+			throw new NotFoundException(__('Invalid user'));
+		}
+		$this -> set('user', $this -> User -> read(null, $id));
 	}
 
 	//
