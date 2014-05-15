@@ -15,11 +15,6 @@ class CompliantsControllerTest extends ControllerTestCase {
 	public $fixtures = array(
 		'app.compliant',
 		'app.event',
-		'app.place',
-		'app.category',
-		'app.categories_event',
-		'app.classifications_places',
-		'app.rate',
 		'app.user'
 	);
 

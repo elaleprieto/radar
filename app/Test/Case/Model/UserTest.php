@@ -1,7 +1,6 @@
 <?php
 App::uses('User', 'Model');
 App::uses('AppController', 'Controller');
-
 /**
  * User Test Case
  *
@@ -15,6 +14,7 @@ class UserTest extends CakeTestCase {
  */
 	public $fixtures = array(
 		'app.user',
+		'app.event',
 	);
 
 /**
@@ -34,10 +34,9 @@ class UserTest extends CakeTestCase {
  */
 	public function tearDown() {
 		unset($this->User);
-
 		parent::tearDown();
 	}
-    
+  
 	public function testUserExists(){
 		$resultado = $this->User->find('count', array(
 										'conditions' => array(
@@ -46,16 +45,23 @@ class UserTest extends CakeTestCase {
 		$this->assertEquals($resultado, 1);
 	}
 
-
-	public function testNewUserOk(){
-		$datos = array(
+	public function testUserExistsFb(){
+		$resultado = $this->User->find('count', array(
+										'conditions' => array(
+											'facebook_id' => '548985783',
+											)));
+		$this->assertEquals($resultado, 1);
+	}
+/*
+	public function testUserNewOk(){
+		$data = array(
 			'User' => array(
-				'id' => '1',
+				'id' => '8889939a-bdd8-42ff-917d-065cc0a80a79',
 				'username' => 'pedro',
 				'password' => 'pedro',
-				'role' => 'admin',
+				'role' => '',
 				'name' => 'pedro',
-				'email' => 'pedro@nita',
+				'email' => 'pedro@gmail.com',
 				'active' => '1',
 				'gender' => '1',
 				'birthday' => '1990-12-30',
@@ -66,12 +72,15 @@ class UserTest extends CakeTestCase {
 				'modified' => '2013-10-30 10:03:22',
 			));
 		
-		$result = $this->User->save($datos);
+		$this->User->create();
+		$result = $this->User->save($data);
+		//debug($this->User->validationErrors);
+		
 		$resultado = $this->User->find('count', array(
 										'conditions' => array(
-											'name' => 'pedro',
+											'id' => '8889939a-bdd8-42ff-917d-065cc0a80a79',
 										)));
 		$this->assertEquals($resultado, 1);
 	}	
-	
+	*/
 }
