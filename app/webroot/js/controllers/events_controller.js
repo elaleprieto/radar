@@ -13,6 +13,16 @@
       */
 
       var date, findResult, getEventCategoryIcon, getEventDescription, getEventId, getEventTitle, setUserLocationString, userLastLocationString, userMapCenter, userMapTypeId, userMapZoom;
+      if ($location.absUrl().contains('/events/edit/')) {
+        console.log('Ruta: ', $location.absUrl());
+        $scope.$watch('evento.id', function(id) {
+          return Event.getById({
+            id: id
+          }, function(data) {
+            return $scope.evento = data.event.Event;
+          });
+        });
+      }
       $scope.eventInterval = 1;
       $scope.isReadonly = false;
       $scope.max = 5;
@@ -24,6 +34,7 @@
       $scope.evento = {};
       $scope.evento.categories = [];
       $scope.descriptionSize = 500;
+      $scope.hideSponsors = 1;
       $scope.capital = new google.maps.LatLng(-34.603, -58.382);
       $scope.cordoba = new google.maps.LatLng(-31.388813, -64.179726);
       $scope.santafe = new google.maps.LatLng(-31.625906, -60.696774);

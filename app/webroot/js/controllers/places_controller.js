@@ -12,7 +12,7 @@
       	***************************************************************************************************************
       */
 
-      var date, findResult, getPlaceColor, getPlaceDescription, getPlaceId, getPlaceName, setUserLocationString, userLastLocationString, userMapCenter, userMapTypeId, userMapZoom;
+      var date, findResult, getPlaceColor, getPlaceDescription, getPlaceId, getPlaceName, setUserLocationString, userLastLocationString, userMapCenter, userMapTypeId, userMapZoom, _ref;
       $scope.placeInterval = 1;
       $scope.user = {};
       $scope.classificationsSelected = [];
@@ -26,6 +26,7 @@
       $scope.place.accessibility_signage = 0;
       $scope.place.accessibility_braille = 0;
       $scope.place.classifications = [];
+      $scope.hideSponsors = 1;
       $scope.capital = new google.maps.LatLng(-34.603, -58.382);
       $scope.cordoba = new google.maps.LatLng(-31.388813, -64.179726);
       $scope.santafe = new google.maps.LatLng(-31.625906, -60.696774);
@@ -38,7 +39,7 @@
       $scope.ROADMAP = google.maps.MapTypeId.ROADMAP;
       $scope.SATELLITE = google.maps.MapTypeId.SATELLITE;
       $scope.opciones = {
-        center: $scope.locationAux,
+        center: (_ref = $scope.locationAux) != null ? _ref : $scope.locationDefault,
         mapTypeId: $scope.ROADMAP,
         panControl: false,
         zoomControl: false,
@@ -331,11 +332,11 @@
         return $scope.setLocationByUserLocation(location);
       };
       $scope.setAllMap = function(map) {
-        var marker, _i, _len, _ref, _results;
-        _ref = $scope.markers;
+        var marker, _i, _len, _ref1, _results;
+        _ref1 = $scope.markers;
         _results = [];
-        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-          marker = _ref[_i];
+        for (_i = 0, _len = _ref1.length; _i < _len; _i++) {
+          marker = _ref1[_i];
           _results.push(marker.setMap(map));
         }
         return _results;

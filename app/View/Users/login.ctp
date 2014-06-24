@@ -5,9 +5,9 @@ echo $this -> Html -> css(array('users/login'), null, array('inline' => FALSE));
 //echo $this -> Html -> script(array('login'), array('inline' => FALSE));
 ?>
 <div class="row">
-	<div class="col-sm-10">
+	<div class="col-sm-9">
 		<div class="row">
-    		<div class="col-sm-7 col-sm-offset-3" >
+    		<div class="col-sm-8 col-sm-offset-2" >
     			<h1 class="titulo"><?php echo __('Welcome')?></h1>
 				<?php echo $this->Form->create('User') ?>
 					<div class="form-group">
@@ -79,8 +79,10 @@ echo $this -> Html -> css(array('users/login'), null, array('inline' => FALSE));
 			</div>
 		</div>
 	</div>
+	
 	<!-- SPONSOR -->
-	<div class="col-sm-2">
+	<div class="col-sm-3">
 	    <?php echo $this->element('sponsors'); ?>
 	</div>
+	
 </div>

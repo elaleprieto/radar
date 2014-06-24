@@ -22,6 +22,7 @@ angular.module('RadarApp').controller 'PlacesController'
 	$scope.place.accessibility_signage = 0
 	$scope.place.accessibility_braille = 0
 	$scope.place.classifications = []
+	$scope.hideSponsors = 1
 
 	# Cities
 	$scope.capital = new google.maps.LatLng(-34.603, -58.382)
@@ -39,7 +40,7 @@ angular.module('RadarApp').controller 'PlacesController'
 	$scope.SATELLITE = google.maps.MapTypeId.SATELLITE
 	
 	# Map defaults
-	$scope.opciones = center: $scope.locationAux
+	$scope.opciones = center: $scope.locationAux ? $scope.locationDefault
 		, mapTypeId: $scope.ROADMAP
 		, panControl: false
 		, zoomControl: false
@@ -48,7 +49,6 @@ angular.module('RadarApp').controller 'PlacesController'
 		, streetViewControl: false
 		, overviewMapControl: false
 		, zoom: $scope.zoomDefault
-	
 	
 	# User defaults
 	if $.cookie?

@@ -9,6 +9,16 @@ angular.module('RadarApp').controller 'EventsController'
 	### ***************************************************************************************************************
 			Inicialización de Objetos
 	*************************************************************************************************************** ###
+	if $location.absUrl().contains('/events/edit/')
+		console.log 'Ruta: ', $location.absUrl()
+		
+		$scope.$watch 'evento.id', (id) ->
+			Event.getById {id: id}
+				, (data) ->
+					$scope.evento = data.event.Event
+
+
+
 	$scope.eventInterval = 1
 	$scope.isReadonly = false
 	$scope.max = 5
@@ -20,6 +30,7 @@ angular.module('RadarApp').controller 'EventsController'
 	$scope.evento = {}
 	$scope.evento.categories = []
 	$scope.descriptionSize = 500
+	$scope.hideSponsors = 1
 
 	# Cities
 	$scope.capital = new google.maps.LatLng(-34.603, -58.382)

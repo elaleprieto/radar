@@ -19,29 +19,38 @@ angular.module('RadarApp').controller 'CategoriesController'
 		else
 			$scope.$parent.categoriesDelete(category)
 	
+	# deselectAllCategories: resetea el array categoriesSelected,
+	# elimina todas las categorías seleccionadas del array categoriesSelected
+	# y resetea el highlight en todas las categorías
+	$scope.deselectAllCategories = ->
+		$scope.$parent.categoriesSelected = []
+		$scope.allCategoriesSelected = off
+		angular.forEach $scope.categorias, (category, index) ->
+			category.highlight = off
+	
+	# hideAllCategories: borra todas las categorías seleccionadas del array categoriesSelected
+	# y elimina el highlight de todas las categorías
+	$scope.hideAllCategories = ->
+		$scope.deselectAllCategories()
+		$scope.setCookieCategoriesSelected()
+
 	$scope.searchById = (id) ->
 		if $scope.categorias?
 			aux = $scope.categorias.filter (category) ->
 				+category.Category.id is +id
 			aux[0]
 	
-	$scope.show = (categoria) ->
-		categoria.highlight = !categoria.highlight
-		if categoria.highlight
-			$scope.categoriesSelected.push(categoria.Category.id)
-		else
-			$scope.categoriesSelected.splice($scope.categoriesSelected.indexOf(categoria.Category.id), 1)
-		
-		$scope.setCookieCategoriesSelected()
-	
-	# hideAllCategories: borra todas las categorías seleccionadas del array categoriesSelected
-	# y elimina el highlight de todas las categorías
-	$scope.hideAllCategories = ->
+
+	# selectAllCategories: resetea el array categoriesSelected,
+	# agrega todas las categorías seleccionadas al array categoriesSelected
+	# y setea el highlight en todas las categorías
+	$scope.selectAllCategories = ->
 		$scope.$parent.categoriesSelected = []
-		$scope.allCategoriesSelected = off
+		$scope.allCategoriesSelected = on
 		angular.forEach $scope.categorias, (category, index) ->
-			category.highlight = off
-	
+			category.highlight = on
+			$scope.categoriesSelected.push category.Category.id	
+
 	$scope.setCookieCategoriesSelected = ->
 		$.cookie.json = true
 		$.cookie("categoriesSelected"
@@ -64,20 +73,20 @@ angular.module('RadarApp').controller 'CategoriesController'
 				# secure  : true
 			}
 		);
-	
-	# selectAllCategories: resetea el array categoriesSelected,
-	# agrega todas las categorías seleccionadas al array categoriesSelected
-	# y setea el highlight en todas las categorías
-	$scope.selectAllCategories = ->
-		$scope.$parent.categoriesSelected = []
-		$scope.allCategoriesSelected = on
-		angular.forEach $scope.categorias, (category, index) ->
-			category.highlight = on
-			$scope.categoriesSelected.push category.Category.id
-	
+
+	$scope.show = (categoria) ->
+		categoria.highlight = !categoria.highlight
+		if categoria.highlight
+			$scope.categoriesSelected.push(categoria.Category.id)
+		else
+			$scope.categoriesSelected.splice($scope.categoriesSelected.indexOf(categoria.Category.id), 1)
+		
+		$scope.setCookieCategoriesSelected()
+
 	$scope.showAllCategories = ->
 		$scope.selectAllCategories()
-		$scope.setCookieCategoriesSelected()
+		$scope.setCookieCategoriesSelected()	
+	
 
 	$scope.$watch 'categorias.length', ->
 		if not location.contains('events/add') and $scope.categorias? and $scope.categorias.length > 0

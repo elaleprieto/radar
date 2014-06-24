@@ -1,4 +1,4 @@
-/*! radar 2014-03-02 */
+/*! radar 2014-04-19 */
 (function() {
     "use strict";
     var a, b = [].indexOf || function(a) {
@@ -22,27 +22,29 @@
             return c.categorias = a.categories;
         }), c.categoryToogle = function(a) {
             return console.log(a), a.highlight ? c.$parent.categoriesDelete(a) : c.$parent.categoriesAdd(a);
+        }, c.deselectAllCategories = function() {
+            return c.$parent.categoriesSelected = [], c.allCategoriesSelected = !1, angular.forEach(c.categorias, function(a) {
+                return a.highlight = !1;
+            });
+        }, c.hideAllCategories = function() {
+            return c.deselectAllCategories(), c.setCookieCategoriesSelected();
         }, c.searchById = function(a) {
             var b;
             return null != c.categorias ? (b = c.categorias.filter(function(b) {
                 return +b.Category.id === +a;
             }), b[0]) : void 0;
-        }, c.show = function(a) {
-            return a.highlight = !a.highlight, a.highlight ? c.categoriesSelected.push(a.Category.id) : c.categoriesSelected.splice(c.categoriesSelected.indexOf(a.Category.id), 1), 
-            c.setCookieCategoriesSelected();
-        }, c.hideAllCategories = function() {
-            return c.$parent.categoriesSelected = [], c.allCategoriesSelected = !1, angular.forEach(c.categorias, function(a) {
-                return a.highlight = !1;
+        }, c.selectAllCategories = function() {
+            return c.$parent.categoriesSelected = [], c.allCategoriesSelected = !0, angular.forEach(c.categorias, function(a) {
+                return a.highlight = !0, c.categoriesSelected.push(a.Category.id);
             });
         }, c.setCookieCategoriesSelected = function() {
             return $.cookie.json = !0, $.cookie("categoriesSelected", c.categoriesSelected, {
                 expires: 360,
                 path: "/"
             });
-        }, c.selectAllCategories = function() {
-            return c.$parent.categoriesSelected = [], c.allCategoriesSelected = !0, angular.forEach(c.categorias, function(a) {
-                return a.highlight = !0, c.categoriesSelected.push(a.Category.id);
-            });
+        }, c.show = function(a) {
+            return a.highlight = !a.highlight, a.highlight ? c.categoriesSelected.push(a.Category.id) : c.categoriesSelected.splice(c.categoriesSelected.indexOf(a.Category.id), 1), 
+            c.setCookieCategoriesSelected();
         }, c.showAllCategories = function() {
             return c.selectAllCategories(), c.setCookieCategoriesSelected();
         }, c.$watch("categorias.length", function() {
@@ -61,17 +63,31 @@
             return c.classifications = [], angular.forEach(a.classifications, function(a) {
                 return c.classifications.push(a.Classification);
             });
-        }), c.searchById = function(a) {
+        }), c.deselectAllClassifications = function() {
+            return c.$parent.classificationsSelected = [], c.allClassificationsSelected = !1, 
+            angular.forEach(c.classifications, function(a) {
+                return a.highlight = !1;
+            });
+        }, c.hideAllClassifications = function() {
+            return c.deselectAllClassifications();
+        }, c.searchById = function(a) {
             var b;
             return null != c.classifications ? (b = c.classifications.filter(function(b) {
                 return +b.Classification.id === +a;
             }), b[0]) : void 0;
+        }, c.selectAllClassifications = function() {
+            return c.$parent.classificationsSelected = [], c.allClassificationsSelected = !0, 
+            angular.forEach(c.classifications, function(a) {
+                return a.highlight = !0, c.classificationsSelected.push(a.id);
+            });
         }, c.show = function(a) {
             return a.highlight = !a.highlight, a.highlight ? c.classificationsSelected.push(a.id) : c.classificationsSelected.splice(c.classificationsSelected.indexOf(a.id), 1), 
             $.cookie.json = !0, $.cookie("classificationsSelected", c.classificationsSelected, {
                 expires: 360,
                 path: "/"
             });
+        }, c.showAllClassifications = function() {
+            return c.selectAllClassifications();
         }, c.$watch("classifications.length", function() {
             var a;
             return !f.contains("events/add") && null != c.classifications && null != $.cookie && c.classifications.length > 0 && ($.cookie.json = !0, 
@@ -83,13 +99,21 @@
 }.call(this), function() {
     angular.module("RadarApp").controller("EventsController", [ "$http", "$location", "$scope", "$timeout", "$compile", "Compliant", "CompliantView", "Event", "EventView", "Rate", "User", function(a, b, c, d, e, f, g, h, i, j, k) {
         var l, m, n, o, p, q, r, s, t, u, v;
-        return c.eventInterval = 1, c.isReadonly = !1, c.max = 5, c.user = {}, c.categoriesSelected = [], 
+        return b.absUrl().contains("/events/edit/") && (console.log("Ruta: ", b.absUrl()), 
+        c.$watch("evento.id", function(a) {
+            return h.getById({
+                id: a
+            }, function(a) {
+                return c.evento = a.event.Event;
+            });
+        })), c.eventInterval = 1, c.isReadonly = !1, c.max = 5, c.user = {}, c.categoriesSelected = [], 
         l = new Date(), c.minutoEnMilisegundos = 6e4, c.diaEnMilisegundos = 1440 * c.minutoEnMilisegundos, 
-        c.evento = {}, c.evento.categories = [], c.descriptionSize = 500, c.capital = new google.maps.LatLng(-34.603, -58.382), 
-        c.cordoba = new google.maps.LatLng(-31.388813, -64.179726), c.santafe = new google.maps.LatLng(-31.625906, -60.696774), 
-        c.cordobaSantafe = new google.maps.LatLng(-31.52081, -62.411469), c.locationDefault = c.cordobaSantafe, 
-        c.zoomDefault = 8, c.zoomSantafe = 12, c.zoomCordoba = 11, c.zoomCity = 15, c.ROADMAP = google.maps.MapTypeId.ROADMAP, 
-        c.SATELLITE = google.maps.MapTypeId.SATELLITE, c.opciones = {
+        c.evento = {}, c.evento.categories = [], c.descriptionSize = 500, c.hideSponsors = 1, 
+        c.capital = new google.maps.LatLng(-34.603, -58.382), c.cordoba = new google.maps.LatLng(-31.388813, -64.179726), 
+        c.santafe = new google.maps.LatLng(-31.625906, -60.696774), c.cordobaSantafe = new google.maps.LatLng(-31.52081, -62.411469), 
+        c.locationDefault = c.cordobaSantafe, c.zoomDefault = 8, c.zoomSantafe = 12, c.zoomCordoba = 11, 
+        c.zoomCity = 15, c.ROADMAP = google.maps.MapTypeId.ROADMAP, c.SATELLITE = google.maps.MapTypeId.SATELLITE, 
+        c.opciones = {
             center: c.locationDefault,
             mapTypeId: c.ROADMAP,
             panControl: !1,
@@ -359,17 +383,17 @@
     } ]);
 }.call(this), function() {
     angular.module("RadarApp").controller("PlacesController", [ "$http", "$location", "$scope", "$timeout", "$compile", "Place", "PlaceView", "User", function(a, b, c, d, e, f, g, h) {
-        var i, j, k, l, m, n, o, p, q, r, s;
+        var i, j, k, l, m, n, o, p, q, r, s, t;
         return c.placeInterval = 1, c.user = {}, c.classificationsSelected = [], i = new Date(), 
         c.minutoEnMilisegundos = 6e4, c.diaEnMilisegundos = 1440 * c.minutoEnMilisegundos, 
         c.place = {}, c.place.accessibility_parking = 0, c.place.accessibility_ramp = 0, 
         c.place.accessibility_equipment = 0, c.place.accessibility_signage = 0, c.place.accessibility_braille = 0, 
-        c.place.classifications = [], c.capital = new google.maps.LatLng(-34.603, -58.382), 
+        c.place.classifications = [], c.hideSponsors = 1, c.capital = new google.maps.LatLng(-34.603, -58.382), 
         c.cordoba = new google.maps.LatLng(-31.388813, -64.179726), c.santafe = new google.maps.LatLng(-31.625906, -60.696774), 
         c.cordobaSantafe = new google.maps.LatLng(-31.52081, -62.411469), c.locationDefault = c.cordobaSantafe, 
         c.zoomDefault = 8, c.zoomSantafe = 12, c.zoomCordoba = 11, c.zoomCity = 15, c.ROADMAP = google.maps.MapTypeId.ROADMAP, 
         c.SATELLITE = google.maps.MapTypeId.SATELLITE, c.opciones = {
-            center: c.locationAux,
+            center: null != (t = c.locationAux) ? t : c.locationDefault,
             mapTypeId: c.ROADMAP,
             panControl: !1,
             zoomControl: !1,
@@ -753,6 +777,11 @@
                 cache: !0,
                 method: "GET",
                 url: "/events/get.json"
+            },
+            getById: {
+                cache: !1,
+                method: "GET",
+                url: "/events/:id.json"
             }
         });
     } ]).factory("Place", [ "$resource", function(a) {

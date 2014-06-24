@@ -20,6 +20,17 @@
           return $scope.$parent.categoriesDelete(category);
         }
       };
+      $scope.deselectAllCategories = function() {
+        $scope.$parent.categoriesSelected = [];
+        $scope.allCategoriesSelected = false;
+        return angular.forEach($scope.categorias, function(category, index) {
+          return category.highlight = false;
+        });
+      };
+      $scope.hideAllCategories = function() {
+        $scope.deselectAllCategories();
+        return $scope.setCookieCategoriesSelected();
+      };
       $scope.searchById = function(id) {
         var aux;
         if ($scope.categorias != null) {
@@ -29,20 +40,12 @@
           return aux[0];
         }
       };
-      $scope.show = function(categoria) {
-        categoria.highlight = !categoria.highlight;
-        if (categoria.highlight) {
-          $scope.categoriesSelected.push(categoria.Category.id);
-        } else {
-          $scope.categoriesSelected.splice($scope.categoriesSelected.indexOf(categoria.Category.id), 1);
-        }
-        return $scope.setCookieCategoriesSelected();
-      };
-      $scope.hideAllCategories = function() {
+      $scope.selectAllCategories = function() {
         $scope.$parent.categoriesSelected = [];
-        $scope.allCategoriesSelected = false;
+        $scope.allCategoriesSelected = true;
         return angular.forEach($scope.categorias, function(category, index) {
-          return category.highlight = false;
+          category.highlight = true;
+          return $scope.categoriesSelected.push(category.Category.id);
         });
       };
       $scope.setCookieCategoriesSelected = function() {
@@ -52,13 +55,14 @@
           path: '/'
         });
       };
-      $scope.selectAllCategories = function() {
-        $scope.$parent.categoriesSelected = [];
-        $scope.allCategoriesSelected = true;
-        return angular.forEach($scope.categorias, function(category, index) {
-          category.highlight = true;
-          return $scope.categoriesSelected.push(category.Category.id);
-        });
+      $scope.show = function(categoria) {
+        categoria.highlight = !categoria.highlight;
+        if (categoria.highlight) {
+          $scope.categoriesSelected.push(categoria.Category.id);
+        } else {
+          $scope.categoriesSelected.splice($scope.categoriesSelected.indexOf(categoria.Category.id), 1);
+        }
+        return $scope.setCookieCategoriesSelected();
       };
       $scope.showAllCategories = function() {
         $scope.selectAllCategories();

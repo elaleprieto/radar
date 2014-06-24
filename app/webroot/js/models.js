@@ -55,6 +55,11 @@
           cache: true,
           method: 'GET',
           url: '/events/get.json'
+        },
+        getById: {
+          cache: false,
+          method: 'GET',
+          url: '/events/:id.json'
         }
       });
     }
