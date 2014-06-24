@@ -147,7 +147,8 @@
 						data-ng-click="show(categoria)" 
 						data-ng-model="categoria" 
 						data-ng-repeat="categoria in categorias | orderBy:'Category.name'" >
-			
+	
+							<!-- Icono de Categoría -->
 							<div class="col-sm-3 col-xs-2 category-icon">
 								<img class="icono-categoria" 
 									data-ng-src="/img/categorias/{{categoria.Category.icon}}" />
@@ -182,7 +183,7 @@
 	</div>
 	
 	<!-- WEAST -->
-	<div id="west" x-ng-cloak class="hidden-xs">
+	<div id="west" data-ng-cloak>
 		
 		<!-- SPONSOR -->
 		<!-- Button to Display or Hide Sponsors -->
@@ -202,7 +203,7 @@
 	</div>
 
 	<!-- SOUTH -->
-	<div id="south" x-ng-cloak class="hidden-xs">
+	<div id="south" data-ng-cloak>
 		
 		<!-- Button to Display or Hide South Menu -->
 		<!--
