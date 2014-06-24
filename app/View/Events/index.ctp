@@ -165,9 +165,6 @@
 							<div class="col-sm-1 item-categoria" data-ng-hide="categoria.highlight">
 								<i class="fa fa-square-o"></i>
 							</div>
-							<!-- ver -->
-							<div class="col-sm-9 col-xs-10 item-categoria" x-ng-bind="categoria.Category.name"></div>
-
 					</div>
 				</div>
 			</div>
