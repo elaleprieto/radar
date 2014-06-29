@@ -1,4 +1,4 @@
-/*! radar 2014-04-19 */
+/*! radar 2014-06-28 */
 (function() {
     "use strict";
     var a, b = [].indexOf || function(a) {
@@ -21,7 +21,7 @@
         return f = b.absUrl(), e.get({}, function(a) {
             return c.categorias = a.categories;
         }), c.categoryToogle = function(a) {
-            return console.log(a), a.highlight ? c.$parent.categoriesDelete(a) : c.$parent.categoriesAdd(a);
+            return a.highlight ? c.$parent.categoriesDelete(a) : c.$parent.categoriesAdd(a);
         }, c.deselectAllCategories = function() {
             return c.$parent.categoriesSelected = [], c.allCategoriesSelected = !1, angular.forEach(c.categorias, function(a) {
                 return a.highlight = !1;
@@ -49,7 +49,7 @@
             return c.selectAllCategories(), c.setCookieCategoriesSelected();
         }, c.$watch("categorias.length", function() {
             var a;
-            return !f.contains("events/add") && null != c.categorias && c.categorias.length > 0 && (0 === c.categoriesSelected.length && c.selectAllCategories(), 
+            return !f.contains("events/add") && !f.contains("eventos/agregar") && null != c.categorias && c.categorias.length > 0 && (0 === c.categoriesSelected.length && c.selectAllCategories(), 
             null != $.cookie && ($.cookie.json = !0, a = $.cookie("categoriesSelected"), null != a && a.length > 0)) ? (c.hideAllCategories(), 
             angular.forEach(a, function(a) {
                 return c.show(c.searchById(a));
