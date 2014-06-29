@@ -12,8 +12,6 @@ angular.module('RadarApp').controller 'CategoriesController'
 	
 	# categoryToogle(category): agrega o elimina la categoria al padre.
 	$scope.categoryToogle = (category) ->
-		console.log category
-		
 		if not category.highlight
 			$scope.$parent.categoriesAdd(category)
 		else
@@ -89,7 +87,7 @@ angular.module('RadarApp').controller 'CategoriesController'
 	
 
 	$scope.$watch 'categorias.length', ->
-		if not location.contains('events/add') and $scope.categorias? and $scope.categorias.length > 0
+		if not location.contains('events/add') and not location.contains('eventos/agregar') and $scope.categorias? and $scope.categorias.length > 0
 			# Al inicio, se seleccionan todas las categorías
 			# si hay cookie, se sobreescriben después.
 			if $scope.categoriesSelected.length is 0
@@ -103,6 +101,7 @@ angular.module('RadarApp').controller 'CategoriesController'
 					angular.forEach lastValEventCategory, (categoryId, index) ->
 						$scope.show($scope.searchById(categoryId))
 			
+
 
 ]
 	
