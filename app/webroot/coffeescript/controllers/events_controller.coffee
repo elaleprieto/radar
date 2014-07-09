@@ -79,6 +79,7 @@ angular.module('RadarApp').controller 'EventsController'
 	
 	$scope.map = new google.maps.Map(document.getElementById("map"), $scope.opciones)
 	$scope.markers = []
+	$scope.infowindows = []
 	$scope.geocoder = new google.maps.Geocoder()
 	
 
@@ -257,8 +258,10 @@ angular.module('RadarApp').controller 'EventsController'
 		
 		# Se agrega el listener del marker sobre el evento click 
 		google.maps.event.addListener marker, 'click', ->
+			$scope.closeAllInfowindows()
 			infowindow.open($scope.map, marker)
 		
+		$scope.infowindows.push(infowindow)
 		$scope.markers.push(marker)
 
 
@@ -300,6 +303,11 @@ angular.module('RadarApp').controller 'EventsController'
 	# Removes the overlays from the map, but keeps them in the array.
 	$scope.clearOverlays = ->
 		$scope.setAllMap(null)
+
+	# Cierra todas las infowindows que están en el array $scope.infowindows
+	$scope.closeAllInfowindows = ->
+		angular.forEach $scope.infowindows, (infowindow, index) ->
+			infowindow.close()
 	
 	# Deletes all markers in the array by removing references to them.
 	$scope.deleteOverlays = ->
@@ -326,6 +334,10 @@ angular.module('RadarApp').controller 'EventsController'
 	# Se consulta al servidor por los eventos dentro de los límites del mapa y que cumplen las condiciones
 	# de categoría e intervalo seleccionadas.
 	$scope.eventsUpdate = ->
+		# Se verifica si hay alguna categoría seleccionada
+		if $scope.categoriesSelected.length is 0
+			$scope.eventos = []
+			return
 		# Se verifica que no se obtengan los eventos en la pantalla de agregar evento.
 		if not $location.absUrl().contains('events/add') and $scope.map.getBounds()?
 			bounds = $scope.map.getBounds()

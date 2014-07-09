@@ -12,7 +12,7 @@
       	***************************************************************************************************************
       */
 
-      var date, findResult, getPlaceColor, getPlaceDescription, getPlaceId, getPlaceName, setUserLocationString, userLastLocationString, userMapCenter, userMapTypeId, userMapZoom, _ref;
+      var date, findResult, getPlaceColor, getPlaceDescription, getPlaceIcon, getPlaceId, getPlaceName, setUserLocationString, userLastLocationString, userMapCenter, userMapTypeId, userMapZoom, _ref;
       $scope.placeInterval = 1;
       $scope.user = {};
       $scope.classificationsSelected = [];
@@ -73,6 +73,7 @@
       }
       $scope.map = new google.maps.Map(document.getElementById("map"), $scope.opciones);
       $scope.markers = [];
+      $scope.infowindows = [];
       $scope.geocoder = new google.maps.Geocoder();
       /* ***************************************************************************************************************
       			Places
@@ -185,14 +186,7 @@
       };
       $scope.createMarker = function(place, latlng) {
         var contenido, icon, infowindow, marker;
-        icon = {
-          path: google.maps.SymbolPath.CIRCLE,
-          fillColor: getPlaceColor(place),
-          fillOpacity: 0.8,
-          scale: 1,
-          strokeColor: getPlaceColor(place),
-          strokeWeight: 14
-        };
+        icon = new google.maps.MarkerImage('/img/map-marker/' + getPlaceIcon(place), new google.maps.Size(30, 40), new google.maps.Point(0, 0), new google.maps.Point(10, 34));
         marker = new google.maps.Marker({
           placeId: getPlaceId(place),
           map: $scope.map,
@@ -212,8 +206,10 @@
           content: contenido[0]
         });
         google.maps.event.addListener(marker, 'click', function() {
+          $scope.closeAllInfowindows();
           return infowindow.open($scope.map, marker);
         });
+        $scope.infowindows.push(infowindow);
         return $scope.markers.push(marker);
       };
       $scope.classificationsAdd = function(classification) {
@@ -237,6 +233,11 @@
       };
       $scope.clearOverlays = function() {
         return $scope.setAllMap(null);
+      };
+      $scope.closeAllInfowindows = function() {
+        return angular.forEach($scope.infowindows, function(infowindow, index) {
+          return infowindow.close();
+        });
       };
       $scope.deleteOverlays = function() {
         $scope.clearOverlays();
@@ -263,6 +264,10 @@
       };
       $scope.placesUpdate = function() {
         var bounds, ne, options, sw;
+        if ($scope.classificationsSelected.length === 0) {
+          $scope.places = [];
+          return;
+        }
         if ($scope.map.getBounds() != null) {
           bounds = $scope.map.getBounds();
           ne = bounds.getNorthEast();
@@ -460,6 +465,9 @@
       };
       getPlaceColor = function(place) {
         return place.Classification.color;
+      };
+      getPlaceIcon = function(place) {
+        return place.Classification.icon;
       };
       getPlaceId = function(place) {
         return place.Place.id;

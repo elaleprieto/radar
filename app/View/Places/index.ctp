@@ -192,9 +192,11 @@
 							
 							<!-- Icono de Categoría -->
 							<div class="col-sm-3 category-icon">
-								<div class="classification" 
+								<!-- <div class="classification" 
 									data-ng-style="{'background-color':classification.color}">
-								</div>
+								</div> -->
+								<img class="icono-categoria" 
+									data-ng-src="/img/classifications/{{classification.icon}}" />
 							</div>
 
 							<!-- Nombre de Categoría -->
@@ -279,8 +281,16 @@
 				data-ng-class="{'southListEmpty': places.length == 0}"
 				data-ng-hide="hideSouthMenu || !places">
 				<div class="col-sm-12">
-					<p data-ng-hide="places.length > 0 || !places">
-						<?php echo __('There is no Places for this category. Please contact us to add yours.') ?>
+					<!-- Mensaje para cuando no hay categoría seleccionada -->
+					<p data-ng-show="classificationsSelected.length == 0">
+						<?php echo __('There is no Category selected.') ?>
+					</p>
+					<!-- Mensaje para cuando no hay espacios en la categoría -->
+					<p data-ng-show="places && places.length == 0 && classificationsSelected.length > 0">
+						<?php echo __('There is no Places for this category. ') ?>
+						<a href="<?php echo __('/contact'); ?>">
+							<?php echo __('Please contact us to add yours.') ?>
+						</a>
 					</p>
 					<table id="eventsList" class="table table-striped" data-ng-show="places.length > 0">
 						<thead>
@@ -293,8 +303,9 @@
 						<tbody>
 							<tr data-ng-repeat="place in places | orderBy:'Place.name'">
 								<td>
-									<div class="classification" 
-										data-ng-style="{'background-color':place.Classification.color}">
+									<div class="col-sm-3 category-icon">
+										<img class="icono-categoria" 
+											data-ng-src="/img/classifications/{{place.Classification.icon}}" />
 									</div>
 								</td>
 								<td data-ng-bind="place.Place.name"></td>
