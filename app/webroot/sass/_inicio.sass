@@ -24,7 +24,7 @@ body
 		size: 1.3rem
 
 
-[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .data-ng-cloak, .x-ng-cloak
 	display: none !important
 
 
@@ -584,6 +584,14 @@ fieldset[disabled] .btn-verde-simple.active
 
 	.row
 		margin: 0px
+
+#southList
+	height: 165px
+	overflow-y: auto
+
+	&.southListEmpty
+		height: 40px
+		overflow-y: none
 	
 #sponsorContainer
 	margin-left: 10%

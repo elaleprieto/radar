@@ -85,7 +85,7 @@
 						<?php echo $this->Form->postLink(__('Delete'), array(
 								'action' => 'delete',
 								$place['Place']['id']
-							), null, __('Are you sure you want to delete # %s?', $place['Place']['id']));
+							), null, __('Are you sure you want to delete %s?', $place['Place']['name']));
 						?>
 					</td>
 				</tr>

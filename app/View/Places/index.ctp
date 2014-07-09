@@ -33,23 +33,23 @@
 	// }
 ?>
 
-<div ng-controller="PlacesController" ng-init="user.locationAux='<?php echo $userLocation; ?>'; user.id='<?php echo AuthComponent::user('id'); ?>'">
+<div data-ng-controller="PlacesController" data-ng-init="user.locationAux='<?php echo $userLocation; ?>'; user.id='<?php echo AuthComponent::user('id'); ?>'">
 
 	<!-- NORTH -->
 	<!-- Navbar -->
 
 	<!-- EAST -->
-	<div id="east" ng-cloak>
+	<div id="east" data-ng-cloak>
 		<!-- Location Shortcuts -->
 		<!-- 
 		<div>
 			<div id="locationShortcuts" class="btn-group" data-toggle="buttons-radio">
-				<button class="btn btn-verde" data-toggle="button" ng-click="centerMap()">
+				<button class="btn btn-verde" data-toggle="button" data-ng-click="centerMap()">
 					<?php echo __('Region'); ?>
 				</button>
-				<button class="btn btn-verde" data-toggle="button" ng-click="centerMap('cordoba')">Córdoba</button>
-				<button class="btn btn-verde" data-toggle="button" ng-click="centerMap('santafe')">Santa Fe</button>
-				<button class="btn btn-warning" data-toggle="button" ng-click="setLocation()">
+				<button class="btn btn-verde" data-toggle="button" data-ng-click="centerMap('cordoba')">Córdoba</button>
+				<button class="btn btn-verde" data-toggle="button" data-ng-click="centerMap('santafe')">Santa Fe</button>
+				<button class="btn btn-warning" data-toggle="button" data-ng-click="setLocation()">
 					<?php echo __('My Location'); ?>
 				</button>
 			</div>
@@ -58,26 +58,26 @@
 			
 		<!-- Location Advertise -->
 		<!--	
-		<div ng-hide="hideLocationAdvertise" ng-show="!!user.location" ng-cloak>
-			<div class="background-white alert alert-dismissable" ng-hide="showSearchLocationBar">
+		<div data-ng-hide="hideLocationAdvertise" data-ng-show="!!user.location" data-ng-cloak>
+			<div class="background-white alert alert-dismissable" data-ng-hide="showSearchLocationBar">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-				<strong ng-bind='user.location'></strong>
+				<strong data-ng-bind='user.location'></strong>
 				<br />
 				<?php echo __('Is not your current location?'); ?>
-				<a href="#" ng-click="showSearchLocationBar = !showSearchLocationBar">
+				<a href="#" data-ng-click="showSearchLocationBar = !showSearchLocationBar">
 					<?php echo __('Change'); ?>
 				</a> 
 			</div>
-			<div ng-show="showSearchLocationBar">
+			<div data-ng-show="showSearchLocationBar">
 				<div class="input-group">
-					<input class="form-control" ng-model="locationSearched" 
+					<input class="form-control" data-ng-model="locationSearched" 
 						placeholder="<?php echo __('City: Rome, Italy'); ?>" type="text" 
 						ui-keypress="{13:'searchLocation(locationSearched)'}" />
-					<span class="input-group-addon" ng-click="searchLocation(locationSearched)"
+					<span class="input-group-addon" data-ng-click="searchLocation(locationSearched)"
 						title="<?php echo __('Search'); ?>">
 						<i class="glyphicon glyphicon-search"></i>
 					</span>
-					<span class="input-group-addon" ng-click="showSearchLocationBar = !showSearchLocationBar" 
+					<span class="input-group-addon" data-ng-click="showSearchLocationBar = !showSearchLocationBar" 
 							title="<?php echo __('Hide'); ?>">
 						<i class="glyphicon glyphicon-eye-close"></i>
 					</span>
@@ -85,7 +85,7 @@
 			</div>
 		</div>
 		-->
-		<div ng-cloak>
+		<div data-ng-cloak>
 			<!-- Rama east. No está visible para dispositivos xs -->
 			<div id="rampa-east" class="hidden-xs"> 
 				<div id="rampa-east-menos" class="hidden-xs"></div>
@@ -115,7 +115,7 @@
 			
 			<!-- Address -->
 			<div class="background-black locationBar input-group input-group-sm">
-				<!-- <input class="form-control" ng-model="locationSearched" ng-init="locationSearched=user.location"
+				<!-- <input class="form-control" data-ng-model="locationSearched" data-ng-init="locationSearched=user.location"
 					placeholder="<?php echo __('City: Rome, Italy'); ?>" type="text" 
 					ui-keypress="{13:'searchLocation(locationSearched)'}" />
 				 -->
@@ -130,7 +130,7 @@
 					data-ng-init="locationSearched=user.location" />
 				
 				<!-- 
-				<span class="input-group-addon" ng-click="searchLocation(locationSearched)"
+				<span class="input-group-addon" data-ng-click="searchLocation(locationSearched)"
 					title="<?php echo __('Search'); ?>">
 					<i class="glyphicon glyphicon-search"></i>
 				</span> -->
@@ -158,8 +158,8 @@
 		<br />
 		
 		<!-- CATEGORIES -->
-		<div ng-controller="ClassificationsController">
-			<div id="categoriesContainer" class="background-black color-white" ng-hide="hideCategories">
+		<div data-ng-controller="ClassificationsController">
+			<div id="categoriesContainer" class="background-black color-white" data-ng-hide="hideCategories">
 				
 				<!-- <p class="text-center"><?php echo __('Categories'); ?></p> -->
 
@@ -198,7 +198,7 @@
 							</div>
 
 							<!-- Nombre de Categoría -->
-							<div class="col-sm-8 item-categoria" ng-bind="classification.name"></div>
+							<div class="col-sm-8 item-categoria" data-ng-bind="classification.name"></div>
 
 							<!-- Icono Select -->
 							<div class="col-sm-1 item-categoria" data-ng-show="classification.highlight">
@@ -213,11 +213,11 @@
 				</div>
 			</div>
 			<!-- Button to Display or Hide Categories -->
-			<div class="arrow-category" ng-click="hideCategories = !hideCategories">
-				<span class="arrow btn btn-xs" ng-hide="hideCategories">
+			<div class="arrow-category" data-ng-click="hideCategories = !hideCategories">
+				<span class="arrow btn btn-xs" data-ng-hide="hideCategories">
 					<i class="glyphicon glyphicon-chevron-left"></i>
 				</span>
-				<span class="arrow btn btn-xs" ng-show="hideCategories">
+				<span class="arrow btn btn-xs" data-ng-show="hideCategories">
 					<i class="glyphicon glyphicon-chevron-right"></i>
 				</span>
 			</div>
@@ -226,35 +226,35 @@
 	</div>
 	
 	<!-- WEAST -->
-	<div id="west" ng-cloak>
+	<div id="west" data-ng-cloak>
 		
 		<!-- SPONSOR -->
 		
 		<!-- Button to Display or Hide Sponsors -->
- 		<div class="arrow-sponsor background-black" ng-click="hideSponsors = !hideSponsors">
-			<span class="arrow btn btn-xs" ng-show="hideSponsors">
+		<div class="arrow-sponsor background-black" data-ng-click="hideSponsors = !hideSponsors">
+			<span class="arrow btn btn-xs" data-ng-show="hideSponsors">
 				<i class="glyphicon glyphicon-chevron-left"></i>
 			</span>
-			<span class="arrow btn btn-xs" ng-hide="hideSponsors">
+			<span class="arrow btn btn-xs" data-ng-hide="hideSponsors">
 				<i class="glyphicon glyphicon-chevron-right"></i>
 			</span>
 		</div>
 
 		<!-- Sponsors	 -->
-		<div id="sponsorContainer" class="background-black text-center"  ng-hide="hideSponsors">
+		<div id="sponsorContainer" class="background-black text-center"  data-ng-hide="hideSponsors">
 			<?php echo $this->element('sponsors'); ?>
 		</div>
 	</div>
 
 	<!-- SOUTH -->
-	<div id="south" ng-cloak>
+	<div id="south" data-ng-cloak>
 		
 		<!-- Button to Display or Hide South Menu -->
-		<div class="row arrow-south pull-right" ng-click="hideSouthMenu = !hideSouthMenu">
-			<span class="arrow btn btn-xs" ng-hide="hideSouthMenu">
+		<div class="row arrow-south pull-right" data-ng-click="hideSouthMenu = !hideSouthMenu">
+			<span class="arrow btn btn-xs" data-ng-hide="hideSouthMenu">
 				<i class="glyphicon glyphicon-chevron-down"></i>
 			</span>
-			<span class="arrow btn btn-xs" ng-show="hideSouthMenu">
+			<span class="arrow btn btn-xs" data-ng-show="hideSouthMenu">
 				<i class="glyphicon glyphicon-chevron-up"></i>
 			</span>
 		</div>
@@ -274,31 +274,36 @@
 				
 			</div>
 	
-		    <!-- Places List -->
-		    <div class="row background-black color-white" ng-hide="hideSouthMenu">
-		    	<div class="col-sm-12">
-		    		<table id="eventsList" class="table table-striped">
-		    			<thead>
-		    				<tr>
-		    					<th><?php echo __('Category'); ?></th>
-		    					<th><?php echo __('Name')?></th>
-		    					<th><?php echo __('Address')?></th>
-		    				</tr>
-		    			</thead>
-		    			<tbody>
-		    			    <tr ng-repeat="place in places | orderBy:'Place.name'">
-		    			        <td>
-		    			        	<div class="classification" 
+			<!-- Places List -->
+			<div id="southList" class="row background-black color-white" 
+				data-ng-class="{'southListEmpty': places.length == 0}"
+				data-ng-hide="hideSouthMenu || !places">
+				<div class="col-sm-12">
+					<p data-ng-hide="places.length > 0 || !places">
+						<?php echo __('There is no Places for this category. Please contact us to add yours.') ?>
+					</p>
+					<table id="eventsList" class="table table-striped" data-ng-show="places.length > 0">
+						<thead>
+							<tr>
+								<th><?php echo __('Category'); ?></th>
+								<th><?php echo __('Name')?></th>
+								<th><?php echo __('Address')?></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr data-ng-repeat="place in places | orderBy:'Place.name'">
+								<td>
+									<div class="classification" 
 										data-ng-style="{'background-color':place.Classification.color}">
 									</div>
-		    			        </td>
-		    			        <td ng-bind="place.Place.name"></td>
-		    			        <td ng-bind="place.Place.address"></td>
-		    			    </tr>
-		    			</tbody>
-		    		</table>
-		    	</div>
-		    </div>
+								</td>
+								<td data-ng-bind="place.Place.name"></td>
+								<td data-ng-bind="place.Place.address"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
 		</div>
 	</div>
 
@@ -314,7 +319,7 @@
 						<h4 class="modal-title">Modal title</h4> 
 						-->
 					</div>
-					<div ng-include src="modalURL" class="modal-body">
+					<div data-ng-include src="modalURL" class="modal-body">
 					</div>
 					<!-- 
 					<div class="modal-footer">
