@@ -6,6 +6,8 @@
 
 @font-face { font-family: "greyscale"; src: url('/fonts/Greyscale_Basic_Regular.ttf') format('truetype'); }
 
+@font-face { font-family: "fredoka"; src: url('/fonts/FredokaOne-Regular.ttf') format('truetype'); }
+
 /* line 5, ../../sass/users/add.sass */
 .gender label { display: inline-block; margin-right: 10px; }
 
