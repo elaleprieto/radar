@@ -27,7 +27,7 @@
 body { font-family: "liberation"; font-size: 13px; font-size: 1.3rem; }
 
 /* line 27, ../../sass/_inicio.sass */
-[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak { display: none !important; }
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .data-ng-cloak, .x-ng-cloak { display: none !important; }
 
 /********************************************************** */
 /*	Fin base 												 */
@@ -299,19 +299,24 @@ ul.rating { display: inline-block; }
 #south .row { margin: 0px; }
 
 /* line 590, ../../sass/_inicio.sass */
+#southList { height: 165px; overflow-y: auto; }
+/* line 594, ../../sass/_inicio.sass */
+#southList.southListEmpty { height: 40px; overflow-y: none; }
+
+/* line 598, ../../sass/_inicio.sass */
 #sponsorContainer { margin-left: 10%; min-width: 240px; min-width: 24rem; padding-bottom: 10px; padding-top: 5px; padding-left: 5px; width: 90%; }
 
-/* line 599, ../../sass/_inicio.sass */
+/* line 607, ../../sass/_inicio.sass */
 #view { background: white; height: 50%; left: 25%; position: absolute; top: 20%; width: 50%; z-index: 1; }
-/* line 608, ../../sass/_inicio.sass */
+/* line 616, ../../sass/_inicio.sass */
 #view ng-view { display: block; height: 90%; overflow-y: auto; }
-/* line 613, ../../sass/_inicio.sass */
+/* line 621, ../../sass/_inicio.sass */
 #view #viewTitle { height: 10%; }
 
-/* line 616, ../../sass/_inicio.sass */
+/* line 624, ../../sass/_inicio.sass */
 #west { padding: 5px 0; right: 0; top: 60px; }
 
-@media all and (max-width: 1300px) { /* line 623, ../../sass/_inicio.sass */
+@media all and (max-width: 1300px) { /* line 631, ../../sass/_inicio.sass */
   #south { width: 50%; } }
 /* line 1, ../../sass/_scroll.sass */
 ::-webkit-scrollbar { width: 10px; }

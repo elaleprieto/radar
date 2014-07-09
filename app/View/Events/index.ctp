@@ -304,9 +304,17 @@
 			</div>
 
 			<!-- Events List -->
-			<div class="row background-black color-white" ng-hide="hideSouthMenu">
+			<div id="southList" class="row background-black color-white" 
+				data-ng-class="{'southListEmpty': eventos.length == 0}"
+				data-ng-hide="hideSouthMenu || !eventos">
 				<div class="col-sm-12">
-					<table class="table">
+					<p data-ng-hide="eventos.length > 0">
+						<?php echo __('There is no Events for this category.') ?>
+						<a href="<?php echo __('/events').__('/add'); ?>">
+							<?php echo __('Radear my events!') ?>
+						</a>
+					</p>
+					<table class="table" data-ng-show="eventos.length > 0">
 						<thead>
 							<tr>
 							<!--	<td class="text-center"><?php echo __('Category'); ?></td>-->
