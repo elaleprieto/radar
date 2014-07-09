@@ -205,21 +205,21 @@ angular.module('RadarApp').controller 'PlacesController'
 	# A function to create the marker and set up the place window function
 	# $scope.createMarker = (placeId, latlng) ->
 	$scope.createMarker = (place, latlng) ->
-		# icon = new google.maps.MarkerImage('/img/map-marker/' + getPlaceColor(place)
-			# #, new google.maps.Size(25, 26)
-			# , new google.maps.Size(30, 40)
-			# , new google.maps.Point(0, 0)
-			# , new google.maps.Point(10, 34)
-		# )
-		icon = {
-			# path: 'M 125,5 155,90 245,90 175,145 200,230 125,180 50,230 75,145 5,90 95,90 z',
-			path: google.maps.SymbolPath.CIRCLE,
-			fillColor: getPlaceColor(place),
-			fillOpacity: 0.8,
-			scale: 1,
-			strokeColor: getPlaceColor(place),
-			strokeWeight: 14
-		}
+		icon = new google.maps.MarkerImage('/img/map-marker/' + getPlaceIcon(place)
+			#, new google.maps.Size(25, 26)
+			, new google.maps.Size(30, 40)
+			, new google.maps.Point(0, 0)
+			, new google.maps.Point(10, 34)
+		)
+		# icon = {
+		# 	# path: 'M 125,5 155,90 245,90 175,145 200,230 125,180 50,230 75,145 5,90 95,90 z',
+		# 	path: google.maps.SymbolPath.CIRCLE,
+		# 	fillColor: getPlaceColor(place),
+		# 	fillOpacity: 0.8,
+		# 	scale: 1,
+		# 	strokeColor: getPlaceColor(place),
+		# 	strokeWeight: 14
+		# }
 
 		
 		marker = new google.maps.Marker placeId: getPlaceId(place)
@@ -319,6 +319,10 @@ angular.module('RadarApp').controller 'PlacesController'
 	# Se consulta al servidor por los places dentro de los límites del mapa y que cumplen las condiciones
 	# de categoría e intervalo seleccionadas.
 	$scope.placesUpdate = ->
+		# Se verifica si hay alguna categoría seleccionada
+		if $scope.classificationsSelected.length is 0
+			$scope.places = []
+			return
 		if $scope.map.getBounds()?
 			bounds = $scope.map.getBounds()
 			ne = bounds.getNorthEast()
@@ -532,7 +536,10 @@ angular.module('RadarApp').controller 'PlacesController'
 	
 	getPlaceColor = (place) ->
 		place.Classification.color
-	
+
+	getPlaceIcon = (place) ->
+		place.Classification.icon
+
 	getPlaceId = (place) ->
 		place.Place.id
 	

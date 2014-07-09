@@ -308,7 +308,15 @@
 				data-ng-class="{'southListEmpty': eventos.length == 0}"
 				data-ng-hide="hideSouthMenu || !eventos">
 				<div class="col-sm-12">
-					<p data-ng-hide="eventos.length > 0">
+					<!-- Mensaje para cuando no hay categoría seleccionada -->
+					<p data-ng-show="categoriesSelected.length == 0">
+						<?php echo __('There is no Category selected.') ?>
+					</p>
+					<!-- Mensaje para cuando no hay espacios en la categoría -->
+					<p data-ng-show="places && places.length == 0 && categoriesSelected.length > 0">
+						<?php echo __('There is no Places for this category. Please contact us to add yours.') ?>
+					</p>
+					<p data-ng-show="eventos && eventos.length == 0 && categoriesSelected.length > 0">
 						<?php echo __('There is no Events for this category.') ?>
 						<a href="<?php echo __('/events').__('/add'); ?>">
 							<?php echo __('Radear my events!') ?>

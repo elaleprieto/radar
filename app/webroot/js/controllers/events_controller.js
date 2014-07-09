@@ -286,6 +286,10 @@
       };
       $scope.eventsUpdate = function() {
         var bounds, ne, options, sw;
+        if ($scope.categoriesSelected.length === 0) {
+          $scope.eventos = [];
+          return;
+        }
         if (!$location.absUrl().contains('events/add') && ($scope.map.getBounds() != null)) {
           bounds = $scope.map.getBounds();
           ne = bounds.getNorthEast();

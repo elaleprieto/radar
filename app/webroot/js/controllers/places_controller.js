@@ -12,7 +12,7 @@
       	***************************************************************************************************************
       */
 
-      var date, findResult, getPlaceColor, getPlaceDescription, getPlaceId, getPlaceName, setUserLocationString, userLastLocationString, userMapCenter, userMapTypeId, userMapZoom, _ref;
+      var date, findResult, getPlaceColor, getPlaceDescription, getPlaceIcon, getPlaceId, getPlaceName, setUserLocationString, userLastLocationString, userMapCenter, userMapTypeId, userMapZoom, _ref;
       $scope.placeInterval = 1;
       $scope.user = {};
       $scope.classificationsSelected = [];
@@ -186,14 +186,7 @@
       };
       $scope.createMarker = function(place, latlng) {
         var contenido, icon, infowindow, marker;
-        icon = {
-          path: google.maps.SymbolPath.CIRCLE,
-          fillColor: getPlaceColor(place),
-          fillOpacity: 0.8,
-          scale: 1,
-          strokeColor: getPlaceColor(place),
-          strokeWeight: 14
-        };
+        icon = new google.maps.MarkerImage('/img/map-marker/' + getPlaceIcon(place), new google.maps.Size(30, 40), new google.maps.Point(0, 0), new google.maps.Point(10, 34));
         marker = new google.maps.Marker({
           placeId: getPlaceId(place),
           map: $scope.map,
@@ -271,6 +264,10 @@
       };
       $scope.placesUpdate = function() {
         var bounds, ne, options, sw;
+        if ($scope.classificationsSelected.length === 0) {
+          $scope.places = [];
+          return;
+        }
         if ($scope.map.getBounds() != null) {
           bounds = $scope.map.getBounds();
           ne = bounds.getNorthEast();
@@ -468,6 +465,9 @@
       };
       getPlaceColor = function(place) {
         return place.Classification.color;
+      };
+      getPlaceIcon = function(place) {
+        return place.Classification.icon;
       };
       getPlaceId = function(place) {
         return place.Place.id;

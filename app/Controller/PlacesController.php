@@ -108,14 +108,14 @@
 						// array_push($conditions, array("OR" => $categoryConditions));
 						array_push($options['conditions'], array("OR" => $classificationConditions));
 					}
-					$options['fields'] = array(
-						'Place.id',
-						'Place.name',
-						'Place.address',
-						'Place.lat',
-						'Place.long',
-						'ClassificationsPlace.classification_id',
-						'Classification.color'
+					$options['fields'] = array('Place.id'
+						, 'Place.name'
+						, 'Place.address'
+						, 'Place.lat'
+						, 'Place.long'
+						, 'ClassificationsPlace.classification_id'
+						, 'Classification.color'
+						, 'Classification.icon'
 					);
 					$options['group'] = array('Place.id');
 					$options['recursive'] = 0;
