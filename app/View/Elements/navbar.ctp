@@ -135,9 +135,11 @@
 							), array('id' => 'menu_superior_derecha_verde'));
 						?>
 					</li>
+					
+					<!--saco el registro
 					<li>
 						<?php echo $this->Html->link(__('Sign up!'), __('/singup'), array('class' => 'menu_superior_derecha')); ?>
-					</li>
+					</li>-->
 				<?php endif; ?>
 				
 				</li>
