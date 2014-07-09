@@ -288,7 +288,7 @@
 					<!-- Mensaje para cuando no hay espacios en la categoría -->
 					<p data-ng-show="places && places.length == 0 && classificationsSelected.length > 0">
 						<?php echo __('There is no Places for this category. ') ?>
-						<a href="<?php echo __('/contact'); ?>">
+						<a href="<?php echo __('/contact'); ?>" class="linkradar">
 							<?php echo __('Please contact us to add yours.') ?>
 						</a>
 					</p>

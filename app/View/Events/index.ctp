@@ -318,7 +318,7 @@
 					</p>
 					<p data-ng-show="eventos && eventos.length == 0 && categoriesSelected.length > 0">
 						<?php echo __('There is no Events for this category.') ?>
-						<a href="<?php echo __('/events').__('/add'); ?>">
+						<a href="<?php echo __('/events').__('/add'); ?>" class="linkradar">
 							<?php echo __('Radear my events!') ?>
 						</a>
 					</p>

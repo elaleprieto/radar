@@ -135,7 +135,7 @@
     			
         			<!-- FECHAS Y MAPA -->
         			<div class="col-sm-4">
-                        <div class="row">
+                        <div class="row-fluid">
                 	       <div class="col-sm-12">
                 	           <div class="row">
                                     <h4><?php echo __('Date')?></h4>
