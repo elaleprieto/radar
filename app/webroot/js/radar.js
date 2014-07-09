@@ -1,4 +1,4 @@
-/*! radar 2014-06-28 */
+/*! radar 2014-07-09 */
 (function() {
     "use strict";
     var a, b = [].indexOf || function(a) {
@@ -127,7 +127,7 @@
         v = $.cookie("userMapZoom"), s = $.cookie("userLastLocationString"), null != t && (c.opciones.center = new google.maps.LatLng(t.lat, t.lng)), 
         null != u && (c.opciones.mapTypeId = u), null != v && (c.opciones.zoom = v), null != s && (c.user.location = s)), 
         c.map = new google.maps.Map(document.getElementById("map"), c.opciones), c.markers = [], 
-        c.geocoder = new google.maps.Geocoder(), c.$watch("categoriesSelected.length", function() {
+        c.infowindows = [], c.geocoder = new google.maps.Geocoder(), c.$watch("categoriesSelected.length", function() {
             return c.eventsUpdate();
         }), c.$watch("eventInterval", function() {
             return c.eventsUpdate();
@@ -196,8 +196,8 @@
             d += "</div>", d = e(d)(c), g = new google.maps.InfoWindow({
                 content: d[0]
             }), google.maps.event.addListener(h, "click", function() {
-                return g.open(c.map, h);
-            }), c.markers.push(h);
+                return c.closeAllInfowindows(), g.open(c.map, h);
+            }), c.infowindows.push(g), c.markers.push(h);
         }, c.checkDescriptionSize = function(a, b) {
             return null != b.description && +c.descriptionSize - b.description.length < 0 ? (b.description = b.description.substr(0, 500), 
             a.preventDefault()) : void 0;
@@ -213,6 +213,10 @@
             }
         }, c.clearOverlays = function() {
             return c.setAllMap(null);
+        }, c.closeAllInfowindows = function() {
+            return angular.forEach(c.infowindows, function(a) {
+                return a.close();
+            });
         }, c.deleteOverlays = function() {
             return c.clearOverlays(), c.markers = [];
         }, c.categoriesAdd = function(a) {
@@ -408,7 +412,7 @@
         d(function() {
             return c.setUserLocationByLatLng(c.opciones.center);
         }, 50)), c.map = new google.maps.Map(document.getElementById("map"), c.opciones), 
-        c.markers = [], c.geocoder = new google.maps.Geocoder(), c.$watch("classificationsSelected.length", function() {
+        c.markers = [], c.infowindows = [], c.geocoder = new google.maps.Geocoder(), c.$watch("classificationsSelected.length", function() {
             return c.placesUpdate();
         }), c.$watch("placeInterval", function() {
             return c.placesUpdate();
@@ -485,8 +489,8 @@
             d += "</div>", d = e(d)(c), g = new google.maps.InfoWindow({
                 content: d[0]
             }), google.maps.event.addListener(h, "click", function() {
-                return g.open(c.map, h);
-            }), c.markers.push(h);
+                return c.closeAllInfowindows(), g.open(c.map, h);
+            }), c.infowindows.push(g), c.markers.push(h);
         }, c.classificationsAdd = function(a) {
             return c.place.classifications.length < 3 ? c.place.classifications.push(a) : void 0;
         }, c.classificationsDelete = function(a) {
@@ -497,6 +501,10 @@
             return c.placeHasClassification(a) ? c.classificationsDelete(a) : c.classificationsAdd(a);
         }, c.clearOverlays = function() {
             return c.setAllMap(null);
+        }, c.closeAllInfowindows = function() {
+            return angular.forEach(c.infowindows, function(a) {
+                return a.close();
+            });
         }, c.deleteOverlays = function() {
             return c.clearOverlays(), c.markers = [];
         }, c.inicializar = function() {

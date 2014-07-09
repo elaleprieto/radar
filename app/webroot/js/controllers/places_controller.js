@@ -73,6 +73,7 @@
       }
       $scope.map = new google.maps.Map(document.getElementById("map"), $scope.opciones);
       $scope.markers = [];
+      $scope.infowindows = [];
       $scope.geocoder = new google.maps.Geocoder();
       /* ***************************************************************************************************************
       			Places
@@ -212,8 +213,10 @@
           content: contenido[0]
         });
         google.maps.event.addListener(marker, 'click', function() {
+          $scope.closeAllInfowindows();
           return infowindow.open($scope.map, marker);
         });
+        $scope.infowindows.push(infowindow);
         return $scope.markers.push(marker);
       };
       $scope.classificationsAdd = function(classification) {
@@ -237,6 +240,11 @@
       };
       $scope.clearOverlays = function() {
         return $scope.setAllMap(null);
+      };
+      $scope.closeAllInfowindows = function() {
+        return angular.forEach($scope.infowindows, function(infowindow, index) {
+          return infowindow.close();
+        });
       };
       $scope.deleteOverlays = function() {
         $scope.clearOverlays();

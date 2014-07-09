@@ -70,6 +70,7 @@ angular.module('RadarApp').controller 'PlacesController'
 	
 	$scope.map = new google.maps.Map(document.getElementById("map"), $scope.opciones)
 	$scope.markers = []
+	$scope.infowindows = []
 	$scope.geocoder = new google.maps.Geocoder()
 	
 
@@ -254,11 +255,13 @@ angular.module('RadarApp').controller 'PlacesController'
 			# content: contenido  
 			content: contenido[0]
 		}
-		
+
 		# Se agrega el listener del marker sobre el place click 
 		google.maps.event.addListener marker, 'click', ->
+			$scope.closeAllInfowindows()
 			infowindow.open($scope.map, marker)
 		
+		$scope.infowindows.push(infowindow)
 		$scope.markers.push(marker)
 
 	$scope.classificationsAdd = (classification) ->
@@ -288,6 +291,11 @@ angular.module('RadarApp').controller 'PlacesController'
 	$scope.clearOverlays = ->
 		$scope.setAllMap(null)
 	
+	# Cierra todas las infowindows que están en el array $scope.infowindows
+	$scope.closeAllInfowindows = ->
+		angular.forEach $scope.infowindows, (infowindow, index) ->
+			infowindow.close()
+
 	# Deletes all markers in the array by removing references to them.
 	$scope.deleteOverlays = ->
 		$scope.clearOverlays()
