@@ -10,7 +10,15 @@
 	<!-- Menú Superior -->
 	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 
-		<div class="navbar-collapse collapse navbar-radar-collapse">
+		<!--Botton radar vista smartphone -->
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle navbar-toggle-radar" data-toggle="collapse" data-target="#navbar-collapse-radar-admin">
+	    		<?php echo $this->Html->link($this->Html->image("logo_xs.png", array('alt' => 'logo', 'class'=>'visible-xs')), '/', array('escape' => false)); ?>
+			</button>
+			<?php echo $this->Html->link($this->Html->image("logo_sin.png", array('alt' => 'logo', 'class'=>'hidden-xs')), '/', array('escape' => false, 'class' =>'navbar-brand')); ?>
+		</div>
+		<!-- -->
+		<div class="navbar-collapse collapse navbar-radar-collapse"  id="navbar-collapse-radar-admin">
 			<ul class="nav navbar-nav menu-centro">
 				
 				<!-- Events -->

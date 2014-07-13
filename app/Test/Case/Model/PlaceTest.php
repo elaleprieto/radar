@@ -16,8 +16,9 @@ class PlaceTest extends CakeTestCase {
 		'app.place',
 		'app.event',		
 		'app.categories_event',
-		'app.categories_place',
-		'app.category',	
+		'app.classification',
+		'app.classifications_place'	
+		
 	);
 
 /**

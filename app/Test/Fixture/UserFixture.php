@@ -11,7 +11,7 @@ class UserFixture extends CakeTestFixture {
  * @var array
  */
  	
- 	public $useDbConfig = 'test';
+ 	//public $useDbConfig = 'test';
 	public $fields = array(
 		'id' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 36, 'key' => 'primary'),
 		'username' => array('type' => 'string', 'null' => false, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
@@ -53,6 +53,22 @@ class UserFixture extends CakeTestFixture {
 			'birthday' => '',
 			'location' => 'Santa Fe, Argentina',
 			'facebook_id' => '',
+			'twitter_id' => '',
+			'created' => '2013-10-30 10:03:22',
+			'modified' => '2013-10-30 10:03:22',
+		),
+		array(
+			'id' => '9999939a-bdd8-42ff-917d-065cc0a80a79',
+			'username' => 'maria',
+			'password' => 'maria',
+			'role' => '',
+			'name' => 'maria',
+			'email' => 'maria@maria',
+			'active' => '1',
+			'gender' => '1',
+			'birthday' => '',
+			'location' => 'Santa Fe, Argentina',
+			'facebook_id' => '548985783',
 			'twitter_id' => '',
 			'created' => '2013-10-30 10:03:22',
 			'modified' => '2013-10-30 10:03:22',

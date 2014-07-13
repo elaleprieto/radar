@@ -34,7 +34,7 @@ class RateFixture extends CakeTestFixture {
 			'rate' => '2',
 			'created' => '2013-10-21 18:16:03',
 			'modified' => '2013-10-21 18:16:03',
-			'event_id' => '1',
+			'event_id' => '527592a7-b718-41f9-a140-0fe8d18c1824',
 			'user_id' => '5271039a-bdd8-42ff-917d-065cc0a80a79',
 		),
 		array(
@@ -42,7 +42,7 @@ class RateFixture extends CakeTestFixture {
 			'rate' => '2',
 			'created' => '2013-10-21 18:16:03',
 			'modified' => '2013-10-21 18:16:03',
-			'event_id' => '2',
+			'event_id' => '527592a7-b718-41f9-a140-0fe8d18c1824',
 			'user_id' => '5271039a-bdd8-42ff-917d-065cc0a80a79',
 		),	
 	);

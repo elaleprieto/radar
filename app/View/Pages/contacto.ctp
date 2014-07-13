@@ -3,7 +3,7 @@
 <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
 <div class="row">
 	<div class="col-sm-10">
-		<div class="row">
+		<div class="row contacto">
 			<div class="col-sm-7 col-sm-offset-3">
 				<form method="post" action="enviar.php" role="form">
 			      	<fieldset>

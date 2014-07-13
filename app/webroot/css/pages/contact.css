@@ -13,4 +13,7 @@ textarea { font-family: "liberation"; font-size: 14px; }
 .boton { margin-left: -14px; }
 
 /* line 26, ../../sass/pages/contact.sass */
+.contacto { padding-bottom: 20px; }
+
+/* line 29, ../../sass/pages/contact.sass */
 .formulario { font-family: "isocpe"; font-size: 18px; }

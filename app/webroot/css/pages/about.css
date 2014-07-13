@@ -1,13 +1,35 @@
-/* line 4, ../../sass/pages/about.sass */
+@font-face { font-family: "isocpe"; src: url('/fonts/Isocpeur-Regular.ttf') format('truetype'); }
+
+@font-face { font-family: "codeBold"; src: url('/fonts/CODE_Bold.otf') format('opentype'); }
+
+@font-face { font-family: "liberation"; src: url('/fonts/LiberationSans-Regular.ttf') format('truetype'); }
+
+@font-face { font-family: "greyscale"; src: url('/fonts/Greyscale_Basic_Regular.ttf') format('truetype'); }
+
+@font-face { font-family: "fredoka"; src: url('/fonts/FredokaOne-Regular.ttf') format('truetype'); }
+
+/* line 5, ../../sass/pages/about.sass */
 li { text-align: justify; }
 
-/* line 7, ../../sass/pages/about.sass */
+/* line 8, ../../sass/pages/about.sass */
 p { text-align: justify; }
 
-/* line 10, ../../sass/pages/about.sass */
+/* line 11, ../../sass/pages/about.sass */
+.panel-group { padding-top: 10px; }
+
+/* line 14, ../../sass/pages/about.sass */
+.panel-group .panel { border: none; box-shadow: none; border-radius: 0; }
+
+/* line 19, ../../sass/pages/about.sass */
+.panel-default > .panel-heading { background-color: #a1ca00; border-radius: 0; color: white; }
+
+/* line 24, ../../sass/pages/about.sass */
+.panel-title > a { font-family: "fredoka"; font-size: 1.5em; }
+
+/* line 28, ../../sass/pages/about.sass */
 .resaltado { background-color: #a1ca00; color: white; font-family: "isocpe"; font-size: 20px; padding: 5px 0 2px 5px; padding: 0.5rem 0 0.2rem 0.5rem; }
 
-/* line 21, ../../sass/pages/about.sass */
+/* line 39, ../../sass/pages/about.sass */
 .sponsor { margin-bottom: 14px; margin-bottom: 1.4rem; }
-/* line 25, ../../sass/pages/about.sass */
+/* line 43, ../../sass/pages/about.sass */
 .sponsor img { padding: 1px; padding: 0.1rem; }

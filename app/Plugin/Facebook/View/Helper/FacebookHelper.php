@@ -117,7 +117,7 @@ class FacebookHelper extends AppHelper {
 	public function login($options = array(), $label = ''){
 		$options = array_merge(
 			array(
-				'label' => 'Entrar con FaceBook',
+				'label' => 'f',
 				'custom' => true,
 			 	'redirect' => false,
 			//	'redirect' => array('controller' => 'events', 'action' => 'view'),

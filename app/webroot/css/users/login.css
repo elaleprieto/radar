@@ -6,16 +6,29 @@
 
 @font-face { font-family: "greyscale"; src: url('/fonts/Greyscale_Basic_Regular.ttf') format('truetype'); }
 
+@font-face { font-family: "fredoka"; src: url('/fonts/FredokaOne-Regular.ttf') format('truetype'); }
+
 /* line 3, ../../sass/users/login.sass */
-.btn-facebook a { color: white; }
-/* line 5, ../../sass/users/login.sass */
+.btn-lg { border-radius: 0; }
+
+/* line 6, ../../sass/users/login.sass */
+.btn-facebook a { color: white; font-family: "fredoka"; font-size: 1em; }
+/* line 10, ../../sass/users/login.sass */
 .btn-facebook a:hover { color: white; text-decoration: none; }
 
-/* line 9, ../../sass/users/login.sass */
+/* line 14, ../../sass/users/login.sass */
 .btn-facebook { color: white; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25); background-color: #275692; *background-color: #4883cc; background-image: -moz-linear-gradient(top, #4883cc, #275692); background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#4883cc), to(#275692)); background-image: -webkit-linear-gradient(top, #4883cc, #275692); background-image: -o-linear-gradient(top, #4883cc, #275692); background-image: linear-gradient(to bottom, #4883cc, #275692); background-repeat: repeat-x; border-color: #275692; border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25); filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$azul_claro', endColorstr='$azul_oscuro', GradientType=0); filter: progid:DXImageTransform.Microsoft.gradient(enabled=false); }
 
-/* line 25, ../../sass/users/login.sass */
+/* line 30, ../../sass/users/login.sass */
 .btn-facebook:hover, .btn-facebook:active, .btn-facebook.active, .btn-facebook.disabled, .btn-facebook[disabled] { color: white; background-color: #275692; *background-color: #4883cc; }
 
-/* line 34, ../../sass/users/login.sass */
+/* line 39, ../../sass/users/login.sass */
+.btn-twitter { background-color: #4099ff; }
+
+/* line 42, ../../sass/users/login.sass */
+.btn-twitter a { color: white; font-family: "fredoka"; font-size: 1em; }
+/* line 46, ../../sass/users/login.sass */
+.btn-twitter a:hover { color: white; text-decoration: none; }
+
+/* line 50, ../../sass/users/login.sass */
 h1 { font-family: "isocpe"; }
