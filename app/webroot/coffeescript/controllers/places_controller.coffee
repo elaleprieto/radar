@@ -120,8 +120,6 @@ angular.module('RadarApp').controller 'PlacesController'
 			$('.typeahead').val($scope.place.address)
 			$scope.addAddressToMap(response)
 
-
-
 	google.maps.event.addListener $scope.map, 'dragend', () ->
 		$scope.placesUpdate()
 		$scope.saveUserMapCenter()
