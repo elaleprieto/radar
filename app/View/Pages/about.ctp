@@ -1,4 +1,4 @@
-<?php echo $this->Html->css(array( 'font-awesome/css/font-awesome.min'), '', array('inline'=>false)) ?>
+<?php //echo $this->Html->css(array( 'font-awesome/css/font-awesome.min'), '', array('inline'=>false)) ?>
 <?php echo $this->Html->css(array('pages/about'), '', array('inline'=>false)) ?>
 <div class="row">
 	<div class="col-sm-7 col-sm-offset-1">
