@@ -60,7 +60,7 @@
       };
       return $scope.$watch('classifications.length', function() {
         var lastValEventCategory;
-        if (!location.contains('events/add')) {
+        if (!location.contains('places/add') && !location.contains('espacios/agregar')) {
           if (($scope.classifications != null) && ($.cookie != null) && $scope.classifications.length > 0) {
             $.cookie.json = true;
             lastValEventCategory = $.cookie('classificationsSelected');

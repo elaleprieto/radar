@@ -101,6 +101,18 @@
           return $scope.setLocationByUserLocation(location);
         }
       });
+      google.maps.event.addListener($scope.map, 'click', function(event) {
+        var request;
+        console.log(event);
+        console.log(event.latLng);
+        console.log(event.latLng.lat());
+        console.log(event.latLng.lng());
+        request = new Object();
+        request.location = new google.maps.LatLng(event.latLng.lat(), event.latLng.lng());
+        return $scope.geocoder.geocode(request, function(response, status) {
+          return console.log(response);
+        });
+      });
       google.maps.event.addListener($scope.map, 'dragend', function() {
         $scope.placesUpdate();
         return $scope.saveUserMapCenter();

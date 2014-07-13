@@ -428,9 +428,11 @@ angular.module('RadarApp').controller 'EventsController'
 		event.preventDefault() if event?
 		request = new Object() # se crea un objeto request
 		request.address = $scope.evento.address
+		
 		# se comenta para que busque en todo el país y no solo en el mapa que se ve
 		# request.bounds = $scope.map.getBounds()
 		# request.region = 'AR'
+		
 		# geocode hace la conversión a un punto, y su segundo parámetro es una función de callback
 		$scope.geocoder.geocode(request, $scope.addAddressToMap)
 

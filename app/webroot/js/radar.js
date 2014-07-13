@@ -90,7 +90,7 @@
             return c.selectAllClassifications();
         }, c.$watch("classifications.length", function() {
             var a;
-            return !f.contains("events/add") && null != c.classifications && null != $.cookie && c.classifications.length > 0 && ($.cookie.json = !0, 
+            return !f.contains("places/add") && !f.contains("espacios/agregar") && null != c.classifications && null != $.cookie && c.classifications.length > 0 && ($.cookie.json = !0, 
             a = $.cookie("classificationsSelected"), null != a && a.length > 0) ? angular.forEach(a, function(a) {
                 return c.show(c.searchById(a));
             }) : void 0;
@@ -423,6 +423,13 @@
             }), c.showOverlays();
         }, !0), c.$watch("user.locationAux", function(a) {
             return null == r && null != a && a.length > 0 ? c.setLocationByUserLocation(a) : void 0;
+        }), google.maps.event.addListener(c.map, "click", function(a) {
+            var b;
+            return console.log(a), console.log(a.latLng), console.log(a.latLng.lat()), console.log(a.latLng.lng()), 
+            b = new Object(), b.location = new google.maps.LatLng(a.latLng.lat(), a.latLng.lng()), 
+            c.geocoder.geocode(b, function(a) {
+                return console.log(a);
+            });
         }), google.maps.event.addListener(c.map, "dragend", function() {
             return c.placesUpdate(), c.saveUserMapCenter();
         }), google.maps.event.addListener(c.map, "tilesloaded", function() {

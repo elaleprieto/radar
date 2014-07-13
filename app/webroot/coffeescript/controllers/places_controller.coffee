@@ -108,6 +108,20 @@ angular.module('RadarApp').controller 'PlacesController'
 			$scope.setLocationByUserLocation(location)
 
 	# google.maps.event.addListener window.map, 'bounds_changed', () ->
+	google.maps.event.addListener $scope.map, 'click', (event) ->
+		console.log event
+		console.log event.latLng
+		console.log event.latLng.lat()
+		console.log event.latLng.lng()
+
+		# se crea un objeto request
+		request = new Object()
+		request.location = new google.maps.LatLng(event.latLng.lat(), event.latLng.lng())
+
+		# geocode hace la conversión a un punto, y su segundo parámetro es una función de callback
+		$scope.geocoder.geocode request, (response, status) ->
+			console.log response
+
 	google.maps.event.addListener $scope.map, 'dragend', () ->
 		$scope.placesUpdate()
 		$scope.saveUserMapCenter()
