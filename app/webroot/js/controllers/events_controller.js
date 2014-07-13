@@ -126,14 +126,16 @@
       });
       google.maps.event.addListener($scope.map, 'click', function(event) {
         var request;
-        request = new Object();
-        request.location = new google.maps.LatLng(event.latLng.lat(), event.latLng.lng());
-        return $scope.geocoder.geocode(request, function(response, status) {
-          $scope.evento.address = response[0].formatted_address;
-          $scope.$apply();
-          $('.typeahead').val($scope.evento.address);
-          return $scope.addAddressToMap(response);
-        });
+        if ($location.absUrl().contains('/events/add') || $location.absUrl().contains('/eventos/agregar')) {
+          request = new Object();
+          request.location = new google.maps.LatLng(event.latLng.lat(), event.latLng.lng());
+          return $scope.geocoder.geocode(request, function(response, status) {
+            $scope.evento.address = response[0].formatted_address;
+            $scope.$apply();
+            $('.typeahead').val($scope.evento.address);
+            return $scope.addAddressToMap(response);
+          });
+        }
       });
       google.maps.event.addListener($scope.map, 'dragend', function() {
         $scope.eventsUpdate();

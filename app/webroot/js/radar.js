@@ -147,12 +147,12 @@
         }), c.$watch("user.locationAux", function(a) {
             return null != a && a.length > 0 ? c.setLocationByUserLocation(a) : void 0;
         }), google.maps.event.addListener(c.map, "click", function(a) {
-            var b;
-            return b = new Object(), b.location = new google.maps.LatLng(a.latLng.lat(), a.latLng.lng()), 
-            c.geocoder.geocode(b, function(a) {
+            var d;
+            return b.absUrl().contains("/events/add") || b.absUrl().contains("/eventos/agregar") ? (d = new Object(), 
+            d.location = new google.maps.LatLng(a.latLng.lat(), a.latLng.lng()), c.geocoder.geocode(d, function(a) {
                 return c.evento.address = a[0].formatted_address, c.$apply(), $(".typeahead").val(c.evento.address), 
                 c.addAddressToMap(a);
-            });
+            })) : void 0;
         }), google.maps.event.addListener(c.map, "dragend", function() {
             return c.eventsUpdate(), c.saveUserMapCenter();
         }), google.maps.event.addListener(c.map, "tilesloaded", function() {
@@ -432,12 +432,12 @@
         }, !0), c.$watch("user.locationAux", function(a) {
             return null == r && null != a && a.length > 0 ? c.setLocationByUserLocation(a) : void 0;
         }), google.maps.event.addListener(c.map, "click", function(a) {
-            var b;
-            return b = new Object(), b.location = new google.maps.LatLng(a.latLng.lat(), a.latLng.lng()), 
-            c.geocoder.geocode(b, function(a) {
+            var d;
+            return b.absUrl().contains("/places/add") || b.absUrl().contains("/espacios/agregar") ? (d = new Object(), 
+            d.location = new google.maps.LatLng(a.latLng.lat(), a.latLng.lng()), c.geocoder.geocode(d, function(a) {
                 return c.place.address = a[0].formatted_address, c.$apply(), $(".typeahead").val(c.place.address), 
                 c.addAddressToMap(a);
-            });
+            })) : void 0;
         }), google.maps.event.addListener(c.map, "dragend", function() {
             return c.placesUpdate(), c.saveUserMapCenter();
         }), google.maps.event.addListener(c.map, "tilesloaded", function() {

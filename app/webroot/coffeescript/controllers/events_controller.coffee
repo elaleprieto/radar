@@ -135,18 +135,19 @@ angular.module('RadarApp').controller 'EventsController'
 		if location? and location.length > 0
 			$scope.setLocationByUserLocation(location)
 
-	# Se crea el Listener para el clic sobre el mapa en la creacion de Places
+	# Se crea el Listener para el clic sobre el mapa en la creacin de Eventos
 	google.maps.event.addListener $scope.map, 'click', (event) ->
-		# se crea un objeto request
-		request = new Object()
-		request.location = new google.maps.LatLng(event.latLng.lat(), event.latLng.lng())
+		if $location.absUrl().contains('/events/add') or $location.absUrl().contains('/eventos/agregar')
+			# se crea un objeto request
+			request = new Object()
+			request.location = new google.maps.LatLng(event.latLng.lat(), event.latLng.lng())
 
-		# geocode hace la conversión a un punto, y su segundo parámetro es una función de callback
-		$scope.geocoder.geocode request, (response, status) ->
-			$scope.evento.address = response[0].formatted_address
-			$scope.$apply()
-			$('.typeahead').val($scope.evento.address)
-			$scope.addAddressToMap(response)
+			# geocode hace la conversión a un punto, y su segundo parámetro es una función de callback
+			$scope.geocoder.geocode request, (response, status) ->
+				$scope.evento.address = response[0].formatted_address
+				$scope.$apply()
+				$('.typeahead').val($scope.evento.address)
+				$scope.addAddressToMap(response)
 
 	# # google.maps.event.addListener window.map, 'bounds_changed', () ->
 	google.maps.event.addListener $scope.map, 'dragend', () ->

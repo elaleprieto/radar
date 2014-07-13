@@ -103,14 +103,16 @@
       });
       google.maps.event.addListener($scope.map, 'click', function(event) {
         var request;
-        request = new Object();
-        request.location = new google.maps.LatLng(event.latLng.lat(), event.latLng.lng());
-        return $scope.geocoder.geocode(request, function(response, status) {
-          $scope.place.address = response[0].formatted_address;
-          $scope.$apply();
-          $('.typeahead').val($scope.place.address);
-          return $scope.addAddressToMap(response);
-        });
+        if ($location.absUrl().contains('/places/add') || $location.absUrl().contains('/espacios/agregar')) {
+          request = new Object();
+          request.location = new google.maps.LatLng(event.latLng.lat(), event.latLng.lng());
+          return $scope.geocoder.geocode(request, function(response, status) {
+            $scope.place.address = response[0].formatted_address;
+            $scope.$apply();
+            $('.typeahead').val($scope.place.address);
+            return $scope.addAddressToMap(response);
+          });
+        }
       });
       google.maps.event.addListener($scope.map, 'dragend', function() {
         $scope.placesUpdate();

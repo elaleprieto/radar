@@ -109,16 +109,17 @@ angular.module('RadarApp').controller 'PlacesController'
 
 	# Se crea el Listener para el clic sobre el mapa en la creacion de Places
 	google.maps.event.addListener $scope.map, 'click', (event) ->
-		# se crea un objeto request
-		request = new Object()
-		request.location = new google.maps.LatLng(event.latLng.lat(), event.latLng.lng())
+		if $location.absUrl().contains('/places/add') or $location.absUrl().contains('/espacios/agregar')
+			# se crea un objeto request
+			request = new Object()
+			request.location = new google.maps.LatLng(event.latLng.lat(), event.latLng.lng())
 
-		# geocode hace la conversión a un punto, y su segundo parámetro es una función de callback
-		$scope.geocoder.geocode request, (response, status) ->
-			$scope.place.address = response[0].formatted_address
-			$scope.$apply()
-			$('.typeahead').val($scope.place.address)
-			$scope.addAddressToMap(response)
+			# geocode hace la conversión a un punto, y su segundo parámetro es una función de callback
+			$scope.geocoder.geocode request, (response, status) ->
+				$scope.place.address = response[0].formatted_address
+				$scope.$apply()
+				$('.typeahead').val($scope.place.address)
+				$scope.addAddressToMap(response)
 
 	google.maps.event.addListener $scope.map, 'dragend', () ->
 		$scope.placesUpdate()
