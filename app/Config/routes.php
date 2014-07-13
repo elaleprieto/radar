@@ -50,9 +50,7 @@
 	Router::connect(__('/admin') . __('/events') . __('/index'), array('admin'=>TRUE, 'controller'=>'events', 'action'=>'resume'));
 
 	# Places
-	// Router::connect('/espacios', array('controller'=>'places', 'action'=>'index'));
 	Router::connect(__('/places'), array('controller'=>'places', 'action'=>'index'));
-	// Router::connect(__('/places') . __('/add'), array('controller'=>'places', 'action'=>'add'));
 	Router::connect(__('/admin') . __('/places') . __('/add'), array('admin'=>TRUE, 'controller'=>'places', 'action'=>'add'));
 	
 	# Users
