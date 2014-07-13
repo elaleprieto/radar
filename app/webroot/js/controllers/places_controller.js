@@ -103,14 +103,13 @@
       });
       google.maps.event.addListener($scope.map, 'click', function(event) {
         var request;
-        console.log(event);
-        console.log(event.latLng);
-        console.log(event.latLng.lat());
-        console.log(event.latLng.lng());
         request = new Object();
         request.location = new google.maps.LatLng(event.latLng.lat(), event.latLng.lng());
         return $scope.geocoder.geocode(request, function(response, status) {
-          return console.log(response);
+          $scope.place.address = response[0].formatted_address;
+          $scope.$apply();
+          $('.typeahead').val($scope.place.address);
+          return $scope.addAddressToMap(response);
         });
       });
       google.maps.event.addListener($scope.map, 'dragend', function() {
@@ -155,8 +154,9 @@
         }
         $scope.place.lat = response[0].geometry.location.lat();
         $scope.place.long = response[0].geometry.location.lng();
-        $scope.map.setCenter(response[0].geometry.location);
-        $scope.map.setZoom(13);
+        if ($scope.map.getZoom() < 13) {
+          $scope.centerMapInLatLng(response[0].geometry.location);
+        }
         icon = new google.maps.MarkerImage("http://gmaps-samples.googlecode.com/svn/trunk/markers/blue/blank.png", new google.maps.Size(20, 34), new google.maps.Point(0, 0), new google.maps.Point(10, 34));
         if ($scope.marker != null) {
           $scope.marker.setMap(null);
@@ -168,33 +168,35 @@
         });
         return $scope.marker.setMap($scope.map);
       };
-      $scope.centerMap = function(city) {
-        var location;
+      $scope.centerMapByUserLocation = function(response, status) {
+        if ((response[0] != null) && (response[0].geometry != null) && (response[0].geometry.location != null)) {
+          $scope.centerMapInLatLng(response[0].geometry.location, $scope.zoomCity);
+          $scope.saveUserMapCenter();
+          return setUserLocationString(response[0]);
+        }
+      };
+      $scope.centerMapInCity = function(city) {
         $scope.map.setZoom($scope.zoomDefault);
         switch (city) {
           case 'cordoba':
-            location = $scope.cordoba;
-            $scope.map.setZoom($scope.zoomCordoba);
+            $scope.centerMapInLatLng($scope.cordoba, $scope.zoomCordoba);
             break;
           case 'santafe':
-            location = $scope.santafe;
-            $scope.map.setZoom($scope.zoomSantafe);
+            $scope.centerMapInLatLng($scope.santafe, $scope.zoomSantafe);
             break;
           default:
-            location = $scope.locationDefault;
+            $scope.centerMapInLatLng($scope.locationDefault);
         }
-        $scope.map.setCenter(location);
         $scope.placesUpdate();
         $scope.saveUserMapCenter();
         return $scope.saveUserMapZoom();
       };
-      $scope.centerMapByUserLocation = function(response, status) {
-        if ((response[0] != null) && (response[0].geometry != null) && (response[0].geometry.location != null)) {
-          $scope.map.setCenter(response[0].geometry.location);
-          $scope.map.setZoom($scope.zoomCity);
-          $scope.saveUserMapCenter();
-          return setUserLocationString(response[0]);
+      $scope.centerMapInLatLng = function(location, zoom) {
+        if (zoom == null) {
+          zoom = 13;
         }
+        $scope.map.setCenter(location);
+        return $scope.map.setZoom(13);
       };
       $scope.createMarker = function(place, latlng) {
         var contenido, icon, infowindow, marker;

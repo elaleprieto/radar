@@ -107,20 +107,20 @@ angular.module('RadarApp').controller 'PlacesController'
 		if not userMapCenter? and location? and location.length > 0
 			$scope.setLocationByUserLocation(location)
 
-	# google.maps.event.addListener window.map, 'bounds_changed', () ->
+	# Se crea el Listener para el clic sobre el mapa en la creacion de Places
 	google.maps.event.addListener $scope.map, 'click', (event) ->
-		console.log event
-		console.log event.latLng
-		console.log event.latLng.lat()
-		console.log event.latLng.lng()
-
 		# se crea un objeto request
 		request = new Object()
 		request.location = new google.maps.LatLng(event.latLng.lat(), event.latLng.lng())
 
 		# geocode hace la conversión a un punto, y su segundo parámetro es una función de callback
 		$scope.geocoder.geocode request, (response, status) ->
-			console.log response
+			$scope.place.address = response[0].formatted_address
+			$scope.$apply()
+			$('.typeahead').val($scope.place.address)
+			$scope.addAddressToMap(response)
+
+
 
 	google.maps.event.addListener $scope.map, 'dragend', () ->
 		$scope.placesUpdate()
@@ -163,9 +163,9 @@ angular.module('RadarApp').controller 'PlacesController'
 		$scope.place.lat = response[0].geometry.location.lat()
 		$scope.place.long = response[0].geometry.location.lng()
 		
-		# Center Map
-		$scope.map.setCenter(response[0].geometry.location)
-		$scope.map.setZoom(13)
+		# Se centra el mapa si el zoom es inferior a 13.
+		# Si no es así, se considera que el usuario buscó la ubicación y el mapa está donde tiene que estar.
+		if $scope.map.getZoom() < 13 then $scope.centerMapInLatLng(response[0].geometry.location)
 		
 		# blankicono que voy a usar para mostrar el punto en el mapa
 		icon = new google.maps.MarkerImage("http://gmaps-samples.googlecode.com/svn/trunk/markers/blue/blank.png"
@@ -184,38 +184,35 @@ angular.module('RadarApp').controller 'PlacesController'
 		
 		$scope.marker.setMap($scope.map) # inserto el marcador en el mapa
 	
-	# # add(): despliega la ventana para agregar un place
-	# $scope.add = ->
-		# console.log 'add'
-	
-	# centerMap: centers map with parameter city
-	$scope.centerMap = (city) ->
+	# centerMapByUserLocation: centers map with parameter location, called by setLocationByUserLocation
+	$scope.centerMapByUserLocation = (response, status) ->
+		if response[0]? and response[0].geometry? and response[0].geometry.location?
+			# Center Map
+			$scope.centerMapInLatLng response[0].geometry.location, $scope.zoomCity
+			$scope.saveUserMapCenter()
+			setUserLocationString(response[0])
+
+	# centerMapInCity: centers map with parameter city
+	$scope.centerMapInCity = (city) ->
 		$scope.map.setZoom($scope.zoomDefault)
 		
 		switch city
 			when 'cordoba' 
-				location = $scope.cordoba
-				$scope.map.setZoom($scope.zoomCordoba)
+				$scope.centerMapInLatLng $scope.cordoba, $scope.zoomCordoba
 			when 'santafe'
-				location = $scope.santafe
-				$scope.map.setZoom($scope.zoomSantafe)
-			else location = $scope.locationDefault
-		$scope.map.setCenter(location)
+				$scope.centerMapInLatLng $scope.santafe, $scope.zoomSantafe
+			else 
+				$scope.centerMapInLatLng $scope.locationDefault
 		$scope.placesUpdate()
 		# Se guardan las preferencias
 		$scope.saveUserMapCenter()
 		$scope.saveUserMapZoom()
 		
-	
-	# centerMap: centers map with parameter location, called by setLocationByUserLocation
-	$scope.centerMapByUserLocation = (response, status) ->
-		if response[0]? and response[0].geometry? and response[0].geometry.location?
-			# Center Map
-			$scope.map.setCenter(response[0].geometry.location)
-			$scope.map.setZoom($scope.zoomCity)
-			$scope.saveUserMapCenter()
-			setUserLocationString(response[0])
+	$scope.centerMapInLatLng = (location, zoom = 13) ->
+		$scope.map.setCenter(location)
+		$scope.map.setZoom(13)
 
+	
 	# A function to create the marker and set up the place window function
 	# $scope.createMarker = (placeId, latlng) ->
 	$scope.createMarker = (place, latlng) ->

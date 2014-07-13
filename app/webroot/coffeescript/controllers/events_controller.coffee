@@ -183,8 +183,8 @@ angular.module('RadarApp').controller 'EventsController'
 		
 		$scope.marker.setMap($scope.map) # inserto el marcador en el mapa
 	
-	# centerMap: centers map with parameter city
-	$scope.centerMap = (city) ->
+	# centerMapInCity: centers map with parameter city
+	$scope.centerMapInCity = (city) ->
 		$scope.map.setZoom($scope.zoomDefault)
 		
 		switch city
@@ -202,7 +202,7 @@ angular.module('RadarApp').controller 'EventsController'
 		$scope.saveUserMapZoom()
 		
 	
-	# centerMap: centers map with parameter location, called by setLocationByUserLocation
+	# centerMapInCity: centers map with parameter location, called by setLocationByUserLocation
 	$scope.centerMapByUserLocation = (response, status) ->
 		if response[0]? and response[0].geometry? and response[0].geometry.location?
 			# Center Map

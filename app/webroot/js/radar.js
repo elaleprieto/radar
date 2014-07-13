@@ -1,4 +1,4 @@
-/*! radar 2014-07-09 */
+/*! radar 2014-07-13 */
 (function() {
     "use strict";
     var a, b = [].indexOf || function(a) {
@@ -163,7 +163,7 @@
                 map: c.map,
                 icon: b
             }), c.marker.setMap(c.map)) : this;
-        }, c.centerMap = function(a) {
+        }, c.centerMapInCity = function(a) {
             var b;
             switch (c.map.setZoom(c.zoomDefault), a) {
               case "cordoba":
@@ -425,10 +425,10 @@
             return null == r && null != a && a.length > 0 ? c.setLocationByUserLocation(a) : void 0;
         }), google.maps.event.addListener(c.map, "click", function(a) {
             var b;
-            return console.log(a), console.log(a.latLng), console.log(a.latLng.lat()), console.log(a.latLng.lng()), 
-            b = new Object(), b.location = new google.maps.LatLng(a.latLng.lat(), a.latLng.lng()), 
+            return b = new Object(), b.location = new google.maps.LatLng(a.latLng.lat(), a.latLng.lng()), 
             c.geocoder.geocode(b, function(a) {
-                return console.log(a);
+                return c.place.address = a[0].formatted_address, c.$apply(), $(".typeahead").val(c.place.address), 
+                c.addAddressToMap(a);
             });
         }), google.maps.event.addListener(c.map, "dragend", function() {
             return c.placesUpdate(), c.saveUserMapCenter();
@@ -451,30 +451,31 @@
         }, c.addAddressToMap = function(a) {
             var b;
             return a && 0 !== a.length ? (c.place.lat = a[0].geometry.location.lat(), c.place.long = a[0].geometry.location.lng(), 
-            c.map.setCenter(a[0].geometry.location), c.map.setZoom(13), b = new google.maps.MarkerImage("http://gmaps-samples.googlecode.com/svn/trunk/markers/blue/blank.png", new google.maps.Size(20, 34), new google.maps.Point(0, 0), new google.maps.Point(10, 34)), 
+            c.map.getZoom() < 13 && c.centerMapInLatLng(a[0].geometry.location), b = new google.maps.MarkerImage("http://gmaps-samples.googlecode.com/svn/trunk/markers/blue/blank.png", new google.maps.Size(20, 34), new google.maps.Point(0, 0), new google.maps.Point(10, 34)), 
             null != c.marker && c.marker.setMap(null), c.marker = new google.maps.Marker({
                 position: a[0].geometry.location,
                 map: c.map,
                 icon: b
             }), c.marker.setMap(c.map)) : this;
-        }, c.centerMap = function(a) {
-            var b;
+        }, c.centerMapByUserLocation = function(a) {
+            return null != a[0] && null != a[0].geometry && null != a[0].geometry.location ? (c.centerMapInLatLng(a[0].geometry.location, c.zoomCity), 
+            c.saveUserMapCenter(), p(a[0])) : void 0;
+        }, c.centerMapInCity = function(a) {
             switch (c.map.setZoom(c.zoomDefault), a) {
               case "cordoba":
-                b = c.cordoba, c.map.setZoom(c.zoomCordoba);
+                c.centerMapInLatLng(c.cordoba, c.zoomCordoba);
                 break;
 
               case "santafe":
-                b = c.santafe, c.map.setZoom(c.zoomSantafe);
+                c.centerMapInLatLng(c.santafe, c.zoomSantafe);
                 break;
 
               default:
-                b = c.locationDefault;
+                c.centerMapInLatLng(c.locationDefault);
             }
-            return c.map.setCenter(b), c.placesUpdate(), c.saveUserMapCenter(), c.saveUserMapZoom();
-        }, c.centerMapByUserLocation = function(a) {
-            return null != a[0] && null != a[0].geometry && null != a[0].geometry.location ? (c.map.setCenter(a[0].geometry.location), 
-            c.map.setZoom(c.zoomCity), c.saveUserMapCenter(), p(a[0])) : void 0;
+            return c.placesUpdate(), c.saveUserMapCenter(), c.saveUserMapZoom();
+        }, c.centerMapInLatLng = function(a, b) {
+            return null == b && (b = 13), c.map.setCenter(a), c.map.setZoom(13);
         }, c.createMarker = function(a, b) {
             var d, f, g, h;
             return f = new google.maps.MarkerImage("/img/map-marker/" + m(a), new google.maps.Size(30, 40), new google.maps.Point(0, 0), new google.maps.Point(10, 34)), 

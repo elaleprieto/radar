@@ -164,7 +164,7 @@
         });
         return $scope.marker.setMap($scope.map);
       };
-      $scope.centerMap = function(city) {
+      $scope.centerMapInCity = function(city) {
         var location;
         $scope.map.setZoom($scope.zoomDefault);
         switch (city) {
