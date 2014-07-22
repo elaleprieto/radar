@@ -12,7 +12,7 @@
       	***************************************************************************************************************
       */
 
-      var date, findResult, getPlaceColor, getPlaceDescription, getPlaceId, getPlaceName, setUserLocationString, userLastLocationString, userMapCenter, userMapTypeId, userMapZoom, _ref;
+      var date, findResult, getPlaceColor, getPlaceDescription, getPlaceIcon, getPlaceId, getPlaceName, setUserLocationString, userLastLocationString, userMapCenter, userMapTypeId, userMapZoom, _ref;
       $scope.placeInterval = 1;
       $scope.user = {};
       $scope.classificationsSelected = [];
@@ -73,6 +73,7 @@
       }
       $scope.map = new google.maps.Map(document.getElementById("map"), $scope.opciones);
       $scope.markers = [];
+      $scope.infowindows = [];
       $scope.geocoder = new google.maps.Geocoder();
       /* ***************************************************************************************************************
       			Places
@@ -98,6 +99,19 @@
       $scope.$watch('user.locationAux', function(location) {
         if ((userMapCenter == null) && (location != null) && location.length > 0) {
           return $scope.setLocationByUserLocation(location);
+        }
+      });
+      google.maps.event.addListener($scope.map, 'click', function(event) {
+        var request;
+        if ($location.absUrl().contains('/places/add') || $location.absUrl().contains('/espacios/agregar')) {
+          request = new Object();
+          request.location = new google.maps.LatLng(event.latLng.lat(), event.latLng.lng());
+          return $scope.geocoder.geocode(request, function(response, status) {
+            $scope.place.address = response[0].formatted_address;
+            $scope.$apply();
+            $('.typeahead').val($scope.place.address);
+            return $scope.addAddressToMap(response);
+          });
         }
       });
       google.maps.event.addListener($scope.map, 'dragend', function() {
@@ -142,8 +156,9 @@
         }
         $scope.place.lat = response[0].geometry.location.lat();
         $scope.place.long = response[0].geometry.location.lng();
-        $scope.map.setCenter(response[0].geometry.location);
-        $scope.map.setZoom(13);
+        if ($scope.map.getZoom() < 13) {
+          $scope.centerMapInLatLng(response[0].geometry.location);
+        }
         icon = new google.maps.MarkerImage("http://gmaps-samples.googlecode.com/svn/trunk/markers/blue/blank.png", new google.maps.Size(20, 34), new google.maps.Point(0, 0), new google.maps.Point(10, 34));
         if ($scope.marker != null) {
           $scope.marker.setMap(null);
@@ -155,44 +170,39 @@
         });
         return $scope.marker.setMap($scope.map);
       };
-      $scope.centerMap = function(city) {
-        var location;
-        $scope.map.setZoom($scope.zoomDefault);
-        switch (city) {
-          case 'cordoba':
-            location = $scope.cordoba;
-            $scope.map.setZoom($scope.zoomCordoba);
-            break;
-          case 'santafe':
-            location = $scope.santafe;
-            $scope.map.setZoom($scope.zoomSantafe);
-            break;
-          default:
-            location = $scope.locationDefault;
-        }
-        $scope.map.setCenter(location);
-        $scope.placesUpdate();
-        $scope.saveUserMapCenter();
-        return $scope.saveUserMapZoom();
-      };
       $scope.centerMapByUserLocation = function(response, status) {
         if ((response[0] != null) && (response[0].geometry != null) && (response[0].geometry.location != null)) {
-          $scope.map.setCenter(response[0].geometry.location);
-          $scope.map.setZoom($scope.zoomCity);
+          $scope.centerMapInLatLng(response[0].geometry.location, $scope.zoomCity);
           $scope.saveUserMapCenter();
           return setUserLocationString(response[0]);
         }
       };
+      $scope.centerMapInCity = function(city) {
+        $scope.map.setZoom($scope.zoomDefault);
+        switch (city) {
+          case 'cordoba':
+            $scope.centerMapInLatLng($scope.cordoba, $scope.zoomCordoba);
+            break;
+          case 'santafe':
+            $scope.centerMapInLatLng($scope.santafe, $scope.zoomSantafe);
+            break;
+          default:
+            $scope.centerMapInLatLng($scope.locationDefault);
+        }
+        $scope.placesUpdate();
+        $scope.saveUserMapCenter();
+        return $scope.saveUserMapZoom();
+      };
+      $scope.centerMapInLatLng = function(location, zoom) {
+        if (zoom == null) {
+          zoom = 13;
+        }
+        $scope.map.setCenter(location);
+        return $scope.map.setZoom(13);
+      };
       $scope.createMarker = function(place, latlng) {
         var contenido, icon, infowindow, marker;
-        icon = {
-          path: google.maps.SymbolPath.CIRCLE,
-          fillColor: getPlaceColor(place),
-          fillOpacity: 0.8,
-          scale: 1,
-          strokeColor: getPlaceColor(place),
-          strokeWeight: 14
-        };
+        icon = new google.maps.MarkerImage('/img/map-marker/' + getPlaceIcon(place), new google.maps.Size(30, 40), new google.maps.Point(0, 0), new google.maps.Point(10, 34));
         marker = new google.maps.Marker({
           placeId: getPlaceId(place),
           map: $scope.map,
@@ -212,8 +222,10 @@
           content: contenido[0]
         });
         google.maps.event.addListener(marker, 'click', function() {
+          $scope.closeAllInfowindows();
           return infowindow.open($scope.map, marker);
         });
+        $scope.infowindows.push(infowindow);
         return $scope.markers.push(marker);
       };
       $scope.classificationsAdd = function(classification) {
@@ -237,6 +249,11 @@
       };
       $scope.clearOverlays = function() {
         return $scope.setAllMap(null);
+      };
+      $scope.closeAllInfowindows = function() {
+        return angular.forEach($scope.infowindows, function(infowindow, index) {
+          return infowindow.close();
+        });
       };
       $scope.deleteOverlays = function() {
         $scope.clearOverlays();
@@ -263,6 +280,10 @@
       };
       $scope.placesUpdate = function() {
         var bounds, ne, options, sw;
+        if ($scope.classificationsSelected.length === 0) {
+          $scope.places = [];
+          return;
+        }
         if ($scope.map.getBounds() != null) {
           bounds = $scope.map.getBounds();
           ne = bounds.getNorthEast();
@@ -460,6 +481,9 @@
       };
       getPlaceColor = function(place) {
         return place.Classification.color;
+      };
+      getPlaceIcon = function(place) {
+        return place.Classification.icon;
       };
       getPlaceId = function(place) {
         return place.Place.id;

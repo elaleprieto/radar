@@ -86,7 +86,7 @@ angular.module('RadarApp').controller 'ClassificationsController'
 		# $scope.setCookieClassificationsSelected()
 
 	$scope.$watch 'classifications.length', ->
-		if not location.contains('events/add')
+		if not location.contains('places/add') and not location.contains('espacios/agregar')
 			if $scope.classifications? and $.cookie? and $scope.classifications.length > 0
 				$.cookie.json = true
 				lastValEventCategory = $.cookie('classificationsSelected')
@@ -96,4 +96,3 @@ angular.module('RadarApp').controller 'ClassificationsController'
 
 	]
 	
-

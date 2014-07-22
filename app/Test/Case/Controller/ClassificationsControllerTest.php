@@ -14,13 +14,7 @@ class ClassificationsControllerTest extends ControllerTestCase {
  */
 	public $fixtures = array(
 		'app.classification',
-		'app.place',
-		'app.event',
-		'app.rate',
-		'app.user',
-		'app.category',
-		'app.categories_event',
-		'app.classifications_place'
+		//'app.classifications_place'
 	);
 
 /**

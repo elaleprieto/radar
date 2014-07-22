@@ -37,7 +37,8 @@
 	// Router::connect('/', array('controller' => 'pages', 'action' => 'display', 'home'));
 	Router::connect('/', array('controller' => 'events', 'action' => 'index'));
 	Router::connect('/about', array('controller'=>'pages', 'action'=>'display', 'about'));
-	Router::connect('/contacto', array('controller'=>'pages', 'action'=>'display', 'contacto'));
+	// Router::connect('/contacto', array('controller'=>'pages', 'action'=>'display', 'contacto'));
+	Router::connect(__('/contact'), array('controller'=>'pages', 'action'=>'display', 'contacto'));
 	
 	# Events
 	// Router::connect('/eventos', array('controller'=>'events', 'action'=>'index'));
@@ -49,9 +50,8 @@
 	Router::connect(__('/admin') . __('/events') . __('/index'), array('admin'=>TRUE, 'controller'=>'events', 'action'=>'resume'));
 
 	# Places
-	// Router::connect('/espacios', array('controller'=>'places', 'action'=>'index'));
 	Router::connect(__('/places'), array('controller'=>'places', 'action'=>'index'));
-	Router::connect(__('/places') . __('/add'), array('controller'=>'places', 'action'=>'add'));
+	Router::connect(__('/admin') . __('/places') . __('/add'), array('admin'=>TRUE, 'controller'=>'places', 'action'=>'add'));
 	
 	# Users
 	Router::connect(__('/users'), array('controller'=>'users', 'action'=>'index'));

@@ -1,4 +1,4 @@
-/*! radar 2014-06-28 */
+/*! radar 2014-07-13 */
 (function() {
     "use strict";
     var a, b = [].indexOf || function(a) {
@@ -90,7 +90,7 @@
             return c.selectAllClassifications();
         }, c.$watch("classifications.length", function() {
             var a;
-            return !f.contains("events/add") && null != c.classifications && null != $.cookie && c.classifications.length > 0 && ($.cookie.json = !0, 
+            return !f.contains("places/add") && !f.contains("espacios/agregar") && null != c.classifications && null != $.cookie && c.classifications.length > 0 && ($.cookie.json = !0, 
             a = $.cookie("classificationsSelected"), null != a && a.length > 0) ? angular.forEach(a, function(a) {
                 return c.show(c.searchById(a));
             }) : void 0;
@@ -127,7 +127,7 @@
         v = $.cookie("userMapZoom"), s = $.cookie("userLastLocationString"), null != t && (c.opciones.center = new google.maps.LatLng(t.lat, t.lng)), 
         null != u && (c.opciones.mapTypeId = u), null != v && (c.opciones.zoom = v), null != s && (c.user.location = s)), 
         c.map = new google.maps.Map(document.getElementById("map"), c.opciones), c.markers = [], 
-        c.geocoder = new google.maps.Geocoder(), c.$watch("categoriesSelected.length", function() {
+        c.infowindows = [], c.geocoder = new google.maps.Geocoder(), c.$watch("categoriesSelected.length", function() {
             return c.eventsUpdate();
         }), c.$watch("eventInterval", function() {
             return c.eventsUpdate();
@@ -146,6 +146,13 @@
             return null != a ? c.checkTimeTo() : void 0;
         }), c.$watch("user.locationAux", function(a) {
             return null != a && a.length > 0 ? c.setLocationByUserLocation(a) : void 0;
+        }), google.maps.event.addListener(c.map, "click", function(a) {
+            var d;
+            return b.absUrl().contains("/events/add") || b.absUrl().contains("/eventos/agregar") ? (d = new Object(), 
+            d.location = new google.maps.LatLng(a.latLng.lat(), a.latLng.lng()), c.geocoder.geocode(d, function(a) {
+                return c.evento.address = a[0].formatted_address, c.$apply(), $(".typeahead").val(c.evento.address), 
+                c.addAddressToMap(a);
+            })) : void 0;
         }), google.maps.event.addListener(c.map, "dragend", function() {
             return c.eventsUpdate(), c.saveUserMapCenter();
         }), google.maps.event.addListener(c.map, "tilesloaded", function() {
@@ -157,30 +164,31 @@
         }), c.addAddressToMap = function(a) {
             var b;
             return a && 0 !== a.length ? (c.evento.lat = a[0].geometry.location.lat(), c.evento.long = a[0].geometry.location.lng(), 
-            c.map.setCenter(a[0].geometry.location), c.map.setZoom(13), b = new google.maps.MarkerImage("http://gmaps-samples.googlecode.com/svn/trunk/markers/blue/blank.png", new google.maps.Size(20, 34), new google.maps.Point(0, 0), new google.maps.Point(10, 34)), 
+            c.map.getZoom() < 13 && c.centerMapInLatLng(a[0].geometry.location), b = new google.maps.MarkerImage("http://gmaps-samples.googlecode.com/svn/trunk/markers/blue/blank.png", new google.maps.Size(20, 34), new google.maps.Point(0, 0), new google.maps.Point(10, 34)), 
             null != c.marker && c.marker.setMap(null), c.marker = new google.maps.Marker({
                 position: a[0].geometry.location,
                 map: c.map,
                 icon: b
             }), c.marker.setMap(c.map)) : this;
-        }, c.centerMap = function(a) {
-            var b;
+        }, c.centerMapByUserLocation = function(a) {
+            return null != a[0] && null != a[0].geometry && null != a[0].geometry.location ? (c.centerMapInLatLng(a[0].geometry.location, c.zoomCity), 
+            c.saveUserMapCenter(), r(a[0])) : void 0;
+        }, c.centerMapInCity = function(a) {
             switch (c.map.setZoom(c.zoomDefault), a) {
               case "cordoba":
-                b = c.cordoba, c.map.setZoom(c.zoomCordoba);
+                c.centerMapInLatLng(c.cordoba, c.zoomCordoba);
                 break;
 
               case "santafe":
-                b = c.santafe, c.map.setZoom(c.zoomSantafe);
+                c.centerMapInLatLng(c.santafe, c.zoomSantafe);
                 break;
 
               default:
-                b = c.locationDefault;
+                c.centerMapInLatLng(c.locationDefault);
             }
-            return c.map.setCenter(b), c.eventsUpdate(), c.saveUserMapCenter(), c.saveUserMapZoom();
-        }, c.centerMapByUserLocation = function(a) {
-            return null != a[0] && null != a[0].geometry && null != a[0].geometry.location ? (c.map.setCenter(a[0].geometry.location), 
-            c.map.setZoom(c.zoomCity), c.saveUserMapCenter(), r(a[0])) : void 0;
+            return c.eventsUpdate(), c.saveUserMapCenter(), c.saveUserMapZoom();
+        }, c.centerMapInLatLng = function(a, b) {
+            return null == b && (b = 13), c.map.setCenter(a), c.map.setZoom(13);
         }, c.createMarker = function(a, b) {
             var d, f, g, h;
             return f = new google.maps.MarkerImage("/img/map-marker/" + n(a), new google.maps.Size(30, 40), new google.maps.Point(0, 0), new google.maps.Point(10, 34)), 
@@ -196,8 +204,8 @@
             d += "</div>", d = e(d)(c), g = new google.maps.InfoWindow({
                 content: d[0]
             }), google.maps.event.addListener(h, "click", function() {
-                return g.open(c.map, h);
-            }), c.markers.push(h);
+                return c.closeAllInfowindows(), g.open(c.map, h);
+            }), c.infowindows.push(g), c.markers.push(h);
         }, c.checkDescriptionSize = function(a, b) {
             return null != b.description && +c.descriptionSize - b.description.length < 0 ? (b.description = b.description.substr(0, 500), 
             a.preventDefault()) : void 0;
@@ -213,6 +221,10 @@
             }
         }, c.clearOverlays = function() {
             return c.setAllMap(null);
+        }, c.closeAllInfowindows = function() {
+            return angular.forEach(c.infowindows, function(a) {
+                return a.close();
+            });
         }, c.deleteOverlays = function() {
             return c.clearOverlays(), c.markers = [];
         }, c.categoriesAdd = function(a) {
@@ -227,7 +239,7 @@
             g.close()) : void 0;
         }, c.eventsUpdate = function() {
             var a, d, e, f;
-            return b.absUrl().contains("events/add") || null == c.map.getBounds() ? void 0 : (a = c.map.getBounds(), 
+            return 0 === c.categoriesSelected.length ? (c.eventos = [], void 0) : b.absUrl().contains("events/add") || null == c.map.getBounds() ? void 0 : (a = c.map.getBounds(), 
             d = a.getNorthEast(), f = a.getSouthWest(), e = {
                 categoriesSelected: c.categoriesSelected,
                 eventInterval: c.eventInterval,
@@ -383,7 +395,7 @@
     } ]);
 }.call(this), function() {
     angular.module("RadarApp").controller("PlacesController", [ "$http", "$location", "$scope", "$timeout", "$compile", "Place", "PlaceView", "User", function(a, b, c, d, e, f, g, h) {
-        var i, j, k, l, m, n, o, p, q, r, s, t;
+        var i, j, k, l, m, n, o, p, q, r, s, t, u;
         return c.placeInterval = 1, c.user = {}, c.classificationsSelected = [], i = new Date(), 
         c.minutoEnMilisegundos = 6e4, c.diaEnMilisegundos = 1440 * c.minutoEnMilisegundos, 
         c.place = {}, c.place.accessibility_parking = 0, c.place.accessibility_ramp = 0, 
@@ -393,7 +405,7 @@
         c.cordobaSantafe = new google.maps.LatLng(-31.52081, -62.411469), c.locationDefault = c.cordobaSantafe, 
         c.zoomDefault = 8, c.zoomSantafe = 12, c.zoomCordoba = 11, c.zoomCity = 15, c.ROADMAP = google.maps.MapTypeId.ROADMAP, 
         c.SATELLITE = google.maps.MapTypeId.SATELLITE, c.opciones = {
-            center: null != (t = c.locationAux) ? t : c.locationDefault,
+            center: null != (u = c.locationAux) ? u : c.locationDefault,
             mapTypeId: c.ROADMAP,
             panControl: !1,
             zoomControl: !1,
@@ -402,13 +414,13 @@
             streetViewControl: !1,
             overviewMapControl: !1,
             zoom: c.zoomDefault
-        }, null != $.cookie && ($.cookie.json = !0, q = $.cookie("userMapCenter"), r = $.cookie("userMapTypeId"), 
-        s = $.cookie("userMapZoom"), p = $.cookie("userLastLocationString"), null != q && (c.opciones.center = new google.maps.LatLng(q.lat, q.lng)), 
-        null != r && (c.opciones.mapTypeId = r), null != s && (c.opciones.zoom = s), null != p && (c.user.location = p), 
+        }, null != $.cookie && ($.cookie.json = !0, r = $.cookie("userMapCenter"), s = $.cookie("userMapTypeId"), 
+        t = $.cookie("userMapZoom"), q = $.cookie("userLastLocationString"), null != r && (c.opciones.center = new google.maps.LatLng(r.lat, r.lng)), 
+        null != s && (c.opciones.mapTypeId = s), null != t && (c.opciones.zoom = t), null != q && (c.user.location = q), 
         d(function() {
             return c.setUserLocationByLatLng(c.opciones.center);
         }, 50)), c.map = new google.maps.Map(document.getElementById("map"), c.opciones), 
-        c.markers = [], c.geocoder = new google.maps.Geocoder(), c.$watch("classificationsSelected.length", function() {
+        c.markers = [], c.infowindows = [], c.geocoder = new google.maps.Geocoder(), c.$watch("classificationsSelected.length", function() {
             return c.placesUpdate();
         }), c.$watch("placeInterval", function() {
             return c.placesUpdate();
@@ -418,7 +430,14 @@
                 return b = new google.maps.LatLng(a.Place.lat, a.Place.long), c.createMarker(a, b);
             }), c.showOverlays();
         }, !0), c.$watch("user.locationAux", function(a) {
-            return null == q && null != a && a.length > 0 ? c.setLocationByUserLocation(a) : void 0;
+            return null == r && null != a && a.length > 0 ? c.setLocationByUserLocation(a) : void 0;
+        }), google.maps.event.addListener(c.map, "click", function(a) {
+            var d;
+            return b.absUrl().contains("/places/add") || b.absUrl().contains("/espacios/agregar") ? (d = new Object(), 
+            d.location = new google.maps.LatLng(a.latLng.lat(), a.latLng.lng()), c.geocoder.geocode(d, function(a) {
+                return c.place.address = a[0].formatted_address, c.$apply(), $(".typeahead").val(c.place.address), 
+                c.addAddressToMap(a);
+            })) : void 0;
         }), google.maps.event.addListener(c.map, "dragend", function() {
             return c.placesUpdate(), c.saveUserMapCenter();
         }), google.maps.event.addListener(c.map, "tilesloaded", function() {
@@ -440,53 +459,48 @@
         }, c.addAddressToMap = function(a) {
             var b;
             return a && 0 !== a.length ? (c.place.lat = a[0].geometry.location.lat(), c.place.long = a[0].geometry.location.lng(), 
-            c.map.setCenter(a[0].geometry.location), c.map.setZoom(13), b = new google.maps.MarkerImage("http://gmaps-samples.googlecode.com/svn/trunk/markers/blue/blank.png", new google.maps.Size(20, 34), new google.maps.Point(0, 0), new google.maps.Point(10, 34)), 
+            c.map.getZoom() < 13 && c.centerMapInLatLng(a[0].geometry.location), b = new google.maps.MarkerImage("http://gmaps-samples.googlecode.com/svn/trunk/markers/blue/blank.png", new google.maps.Size(20, 34), new google.maps.Point(0, 0), new google.maps.Point(10, 34)), 
             null != c.marker && c.marker.setMap(null), c.marker = new google.maps.Marker({
                 position: a[0].geometry.location,
                 map: c.map,
                 icon: b
             }), c.marker.setMap(c.map)) : this;
-        }, c.centerMap = function(a) {
-            var b;
+        }, c.centerMapByUserLocation = function(a) {
+            return null != a[0] && null != a[0].geometry && null != a[0].geometry.location ? (c.centerMapInLatLng(a[0].geometry.location, c.zoomCity), 
+            c.saveUserMapCenter(), p(a[0])) : void 0;
+        }, c.centerMapInCity = function(a) {
             switch (c.map.setZoom(c.zoomDefault), a) {
               case "cordoba":
-                b = c.cordoba, c.map.setZoom(c.zoomCordoba);
+                c.centerMapInLatLng(c.cordoba, c.zoomCordoba);
                 break;
 
               case "santafe":
-                b = c.santafe, c.map.setZoom(c.zoomSantafe);
+                c.centerMapInLatLng(c.santafe, c.zoomSantafe);
                 break;
 
               default:
-                b = c.locationDefault;
+                c.centerMapInLatLng(c.locationDefault);
             }
-            return c.map.setCenter(b), c.placesUpdate(), c.saveUserMapCenter(), c.saveUserMapZoom();
-        }, c.centerMapByUserLocation = function(a) {
-            return null != a[0] && null != a[0].geometry && null != a[0].geometry.location ? (c.map.setCenter(a[0].geometry.location), 
-            c.map.setZoom(c.zoomCity), c.saveUserMapCenter(), o(a[0])) : void 0;
+            return c.placesUpdate(), c.saveUserMapCenter(), c.saveUserMapZoom();
+        }, c.centerMapInLatLng = function(a, b) {
+            return null == b && (b = 13), c.map.setCenter(a), c.map.setZoom(13);
         }, c.createMarker = function(a, b) {
             var d, f, g, h;
-            return f = {
-                path: google.maps.SymbolPath.CIRCLE,
-                fillColor: k(a),
-                fillOpacity: .8,
-                scale: 1,
-                strokeColor: k(a),
-                strokeWeight: 14
-            }, h = new google.maps.Marker({
-                placeId: m(a),
+            return f = new google.maps.MarkerImage("/img/map-marker/" + m(a), new google.maps.Size(30, 40), new google.maps.Point(0, 0), new google.maps.Point(10, 34)), 
+            h = new google.maps.Marker({
+                placeId: n(a),
                 map: c.map,
                 icon: f,
                 position: b,
-                title: n(a),
+                title: o(a),
                 zIndex: Math.round(-1e5 * b.lat()) << 5
-            }), d = "<div>", d += "<p>" + n(a) + "</p>", d += "<a ng-click=\"openModal('places/view/" + m(a) + "')\">", 
+            }), d = "<div>", d += "<p>" + o(a) + "</p>", d += "<a ng-click=\"openModal('places/view/" + n(a) + "')\">", 
             d += '<p class="text-right"><i class="icon-expand-alt"></i> info</p>', d += "</a>", 
             d += "</div>", d = e(d)(c), g = new google.maps.InfoWindow({
                 content: d[0]
             }), google.maps.event.addListener(h, "click", function() {
-                return g.open(c.map, h);
-            }), c.markers.push(h);
+                return c.closeAllInfowindows(), g.open(c.map, h);
+            }), c.infowindows.push(g), c.markers.push(h);
         }, c.classificationsAdd = function(a) {
             return c.place.classifications.length < 3 ? c.place.classifications.push(a) : void 0;
         }, c.classificationsDelete = function(a) {
@@ -497,6 +511,10 @@
             return c.placeHasClassification(a) ? c.classificationsDelete(a) : c.classificationsAdd(a);
         }, c.clearOverlays = function() {
             return c.setAllMap(null);
+        }, c.closeAllInfowindows = function() {
+            return angular.forEach(c.infowindows, function(a) {
+                return a.close();
+            });
         }, c.deleteOverlays = function() {
             return c.clearOverlays(), c.markers = [];
         }, c.inicializar = function() {
@@ -512,8 +530,8 @@
             }) : void 0;
         }, c.placesUpdate = function() {
             var a, b, d, e;
-            return null != c.map.getBounds() ? (a = c.map.getBounds(), b = a.getNorthEast(), 
-            e = a.getSouthWest(), d = {
+            return 0 === c.classificationsSelected.length ? (c.places = [], void 0) : null != c.map.getBounds() ? (a = c.map.getBounds(), 
+            b = a.getNorthEast(), e = a.getSouthWest(), d = {
                 classificationsSelected: c.classificationsSelected,
                 placeInterval: c.placeInterval,
                 neLat: b.lat(),
@@ -585,7 +603,7 @@
         }, c.setUserLocationByLatLng = function(a) {
             var b;
             return b = {}, b.location = a, c.geocoder.geocode(b, function(a) {
-                return o(a[0]);
+                return p(a[0]);
             });
         }, c.setMapType = function(a) {
             return c.map.setMapTypeId(a), c.saveUserMapTypeId();
@@ -624,12 +642,14 @@
         }, k = function(a) {
             return a.Classification.color;
         }, m = function(a) {
-            return a.Place.id;
+            return a.Classification.icon;
         }, n = function(a) {
+            return a.Place.id;
+        }, o = function(a) {
             return a.Place.name;
         }, l = function(a) {
             return a.Place.description;
-        }, o = function(a) {
+        }, p = function(a) {
             var b, d, e;
             return null != a && null != a.address_components ? (e = a.address_components, b = j(e, "locality"), 
             d = j(e, "country"), c.user.location = b && d ? b + ", " + d : a.formatted_address, 

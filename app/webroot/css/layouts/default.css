@@ -1,7 +1,7 @@
-/* line 1, /datos/Documentos/Colectivo Libre/radar cultural/workspace/radar/app/webroot/sass/_cursor.sass */
+/* line 1, ../../sass/_cursor.sass */
 .pointer { cursor: pointer; }
 
-/* line 1, /datos/Documentos/Colectivo Libre/radar cultural/workspace/radar/app/webroot/sass/_flashmessage.sass */
+/* line 1, ../../sass/_flashmessage.sass */
 .flash-failure { position: fixed; right: 0; top: 75px; z-index: 2000; }
 
 @font-face { font-family: "isocpe"; src: url('/fonts/Isocpeur-Regular.ttf') format('truetype'); }
@@ -11,6 +11,8 @@
 @font-face { font-family: "liberation"; src: url('/fonts/LiberationSans-Regular.ttf') format('truetype'); }
 
 @font-face { font-family: "greyscale"; src: url('/fonts/Greyscale_Basic_Regular.ttf') format('truetype'); }
+
+@font-face { font-family: "fredoka"; src: url('/fonts/FredokaOne-Regular.ttf') format('truetype'); }
 
 /* line 3, ../../sass/layouts/default.sass */
 * { -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; }
@@ -28,28 +30,31 @@ input, textarea { -webkit-touch-callout: text; -webkit-user-select: text; -khtml
 .beta { border: 0; color: #bcd35f; position: absolute; top: 46px; }
 
 /* line 34, ../../sass/layouts/default.sass */
+.btn { border-radius: 0; }
+
+/* line 37, ../../sass/layouts/default.sass */
 .checkbox.inline { margin-left: 0 !important; margin-right: 10px; }
 
-/* line 38, ../../sass/layouts/default.sass */
+/* line 41, ../../sass/layouts/default.sass */
 .menu { font-family: "isocpe"; font-weight: bold; font-size: 18px; padding-left: 4px; padding-right: 4px; }
 
-/* line 47, ../../sass/layouts/default.sass */
+/* line 50, ../../sass/layouts/default.sass */
 .menu_icono { padding-top: 10px; background-color: rgba(0, 0, 0, 0.6); }
 
-/* line 51, ../../sass/layouts/default.sass */
+/* line 54, ../../sass/layouts/default.sass */
 .nav > li > a:hover, .nav > li > a:focus { background-color: rgba(0, 0, 0, 0.5); }
 
-/* line 55, ../../sass/layouts/default.sass */
+/* line 58, ../../sass/layouts/default.sass */
 .username { font-family: "isocpe"; font-size: 18px; font-weight: bold; margin-right: 20px; padding-top: 10px; }
 
-/* line 65, ../../sass/layouts/default.sass */
+/* line 68, ../../sass/layouts/default.sass */
 #container { height: 100%; overflow-y: scroll; }
 
-/* line 69, ../../sass/layouts/default.sass */
+/* line 72, ../../sass/layouts/default.sass */
 #menu_superior { margin-left: 20px; background-color: rgba(255, 255, 255, 0.9); height: 50px; }
 
-/* line 74, ../../sass/layouts/default.sass */
+/* line 77, ../../sass/layouts/default.sass */
 #menu_superior_derecha { background-color: rgba(255, 255, 255, 0.9); height: 50px; }
 
-/* line 78, ../../sass/layouts/default.sass */
+/* line 81, ../../sass/layouts/default.sass */
 #menu_superior_derecha_verde { color: #7a9900; font-size: 14px; }

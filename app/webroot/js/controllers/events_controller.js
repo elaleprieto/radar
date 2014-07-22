@@ -78,6 +78,7 @@
       }
       $scope.map = new google.maps.Map(document.getElementById("map"), $scope.opciones);
       $scope.markers = [];
+      $scope.infowindows = [];
       $scope.geocoder = new google.maps.Geocoder();
       /* ***************************************************************************************************************
       			Eventos
@@ -123,6 +124,19 @@
           return $scope.setLocationByUserLocation(location);
         }
       });
+      google.maps.event.addListener($scope.map, 'click', function(event) {
+        var request;
+        if ($location.absUrl().contains('/events/add') || $location.absUrl().contains('/eventos/agregar')) {
+          request = new Object();
+          request.location = new google.maps.LatLng(event.latLng.lat(), event.latLng.lng());
+          return $scope.geocoder.geocode(request, function(response, status) {
+            $scope.evento.address = response[0].formatted_address;
+            $scope.$apply();
+            $('.typeahead').val($scope.evento.address);
+            return $scope.addAddressToMap(response);
+          });
+        }
+      });
       google.maps.event.addListener($scope.map, 'dragend', function() {
         $scope.eventsUpdate();
         return $scope.saveUserMapCenter();
@@ -150,8 +164,9 @@
         }
         $scope.evento.lat = response[0].geometry.location.lat();
         $scope.evento.long = response[0].geometry.location.lng();
-        $scope.map.setCenter(response[0].geometry.location);
-        $scope.map.setZoom(13);
+        if ($scope.map.getZoom() < 13) {
+          $scope.centerMapInLatLng(response[0].geometry.location);
+        }
         icon = new google.maps.MarkerImage("http://gmaps-samples.googlecode.com/svn/trunk/markers/blue/blank.png", new google.maps.Size(20, 34), new google.maps.Point(0, 0), new google.maps.Point(10, 34));
         if ($scope.marker != null) {
           $scope.marker.setMap(null);
@@ -163,33 +178,35 @@
         });
         return $scope.marker.setMap($scope.map);
       };
-      $scope.centerMap = function(city) {
-        var location;
+      $scope.centerMapByUserLocation = function(response, status) {
+        if ((response[0] != null) && (response[0].geometry != null) && (response[0].geometry.location != null)) {
+          $scope.centerMapInLatLng(response[0].geometry.location, $scope.zoomCity);
+          $scope.saveUserMapCenter();
+          return setUserLocationString(response[0]);
+        }
+      };
+      $scope.centerMapInCity = function(city) {
         $scope.map.setZoom($scope.zoomDefault);
         switch (city) {
           case 'cordoba':
-            location = $scope.cordoba;
-            $scope.map.setZoom($scope.zoomCordoba);
+            $scope.centerMapInLatLng($scope.cordoba, $scope.zoomCordoba);
             break;
           case 'santafe':
-            location = $scope.santafe;
-            $scope.map.setZoom($scope.zoomSantafe);
+            $scope.centerMapInLatLng($scope.santafe, $scope.zoomSantafe);
             break;
           default:
-            location = $scope.locationDefault;
+            $scope.centerMapInLatLng($scope.locationDefault);
         }
-        $scope.map.setCenter(location);
         $scope.eventsUpdate();
         $scope.saveUserMapCenter();
         return $scope.saveUserMapZoom();
       };
-      $scope.centerMapByUserLocation = function(response, status) {
-        if ((response[0] != null) && (response[0].geometry != null) && (response[0].geometry.location != null)) {
-          $scope.map.setCenter(response[0].geometry.location);
-          $scope.map.setZoom($scope.zoomCity);
-          $scope.saveUserMapCenter();
-          return setUserLocationString(response[0]);
+      $scope.centerMapInLatLng = function(location, zoom) {
+        if (zoom == null) {
+          zoom = 13;
         }
+        $scope.map.setCenter(location);
+        return $scope.map.setZoom(13);
       };
       $scope.createMarker = function(evento, latlng) {
         var contenido, icon, infowindow, marker;
@@ -213,8 +230,10 @@
           content: contenido[0]
         });
         google.maps.event.addListener(marker, 'click', function() {
+          $scope.closeAllInfowindows();
           return infowindow.open($scope.map, marker);
         });
+        $scope.infowindows.push(infowindow);
         return $scope.markers.push(marker);
       };
       $scope.checkDescriptionSize = function(event, evento) {
@@ -252,6 +271,11 @@
       $scope.clearOverlays = function() {
         return $scope.setAllMap(null);
       };
+      $scope.closeAllInfowindows = function() {
+        return angular.forEach($scope.infowindows, function(infowindow, index) {
+          return infowindow.close();
+        });
+      };
       $scope.deleteOverlays = function() {
         $scope.clearOverlays();
         return $scope.markers = [];
@@ -278,6 +302,10 @@
       };
       $scope.eventsUpdate = function() {
         var bounds, ne, options, sw;
+        if ($scope.categoriesSelected.length === 0) {
+          $scope.eventos = [];
+          return;
+        }
         if (!$location.absUrl().contains('events/add') && ($scope.map.getBounds() != null)) {
           bounds = $scope.map.getBounds();
           ne = bounds.getNorthEast();

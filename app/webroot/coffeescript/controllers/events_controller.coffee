@@ -79,6 +79,7 @@ angular.module('RadarApp').controller 'EventsController'
 	
 	$scope.map = new google.maps.Map(document.getElementById("map"), $scope.opciones)
 	$scope.markers = []
+	$scope.infowindows = []
 	$scope.geocoder = new google.maps.Geocoder()
 	
 
@@ -134,6 +135,20 @@ angular.module('RadarApp').controller 'EventsController'
 		if location? and location.length > 0
 			$scope.setLocationByUserLocation(location)
 
+	# Se crea el Listener para el clic sobre el mapa en la creacin de Eventos
+	google.maps.event.addListener $scope.map, 'click', (event) ->
+		if $location.absUrl().contains('/events/add') or $location.absUrl().contains('/eventos/agregar')
+			# se crea un objeto request
+			request = new Object()
+			request.location = new google.maps.LatLng(event.latLng.lat(), event.latLng.lng())
+
+			# geocode hace la conversión a un punto, y su segundo parámetro es una función de callback
+			$scope.geocoder.geocode request, (response, status) ->
+				$scope.evento.address = response[0].formatted_address
+				$scope.$apply()
+				$('.typeahead').val($scope.evento.address)
+				$scope.addAddressToMap(response)
+
 	# # google.maps.event.addListener window.map, 'bounds_changed', () ->
 	google.maps.event.addListener $scope.map, 'dragend', () ->
 		$scope.eventsUpdate()
@@ -161,10 +176,10 @@ angular.module('RadarApp').controller 'EventsController'
 		$scope.evento.lat = response[0].geometry.location.lat()
 		$scope.evento.long = response[0].geometry.location.lng()
 		
-		# Center Map
-		$scope.map.setCenter(response[0].geometry.location)
-		$scope.map.setZoom(13)
-		
+		# Se centra el mapa si el zoom es inferior a 13.
+		# Si no es así, se considera que el usuario buscó la ubicación y el mapa está donde tiene que estar.
+		if $scope.map.getZoom() < 13 then $scope.centerMapInLatLng(response[0].geometry.location)
+
 		# blankicono que voy a usar para mostrar el punto en el mapa
 		icon = new google.maps.MarkerImage("http://gmaps-samples.googlecode.com/svn/trunk/markers/blue/blank.png"
 			, new google.maps.Size(20, 34)
@@ -182,33 +197,33 @@ angular.module('RadarApp').controller 'EventsController'
 		
 		$scope.marker.setMap($scope.map) # inserto el marcador en el mapa
 	
-	# centerMap: centers map with parameter city
-	$scope.centerMap = (city) ->
+	# centerMapInCity: centers map with parameter location, called by setLocationByUserLocation
+	$scope.centerMapByUserLocation = (response, status) ->
+		if response[0]? and response[0].geometry? and response[0].geometry.location?
+			# Center Map
+			$scope.centerMapInLatLng response[0].geometry.location, $scope.zoomCity
+			$scope.saveUserMapCenter()
+			setUserLocationString(response[0])
+
+	# centerMapInCity: centers map with parameter city
+	$scope.centerMapInCity = (city) ->
 		$scope.map.setZoom($scope.zoomDefault)
 		
 		switch city
 			when 'cordoba' 
-				location = $scope.cordoba
-				$scope.map.setZoom($scope.zoomCordoba)
+				$scope.centerMapInLatLng $scope.cordoba, $scope.zoomCordoba
 			when 'santafe'
-				location = $scope.santafe
-				$scope.map.setZoom($scope.zoomSantafe)
-			else location = $scope.locationDefault
-		$scope.map.setCenter(location)
+				$scope.centerMapInLatLng $scope.santafe, $scope.zoomSantafe
+			else 
+				$scope.centerMapInLatLng $scope.locationDefault
 		$scope.eventsUpdate()
 		# Se guardan las preferencias
 		$scope.saveUserMapCenter()
 		$scope.saveUserMapZoom()
 		
-	
-	# centerMap: centers map with parameter location, called by setLocationByUserLocation
-	$scope.centerMapByUserLocation = (response, status) ->
-		if response[0]? and response[0].geometry? and response[0].geometry.location?
-			# Center Map
-			$scope.map.setCenter(response[0].geometry.location)
-			$scope.map.setZoom($scope.zoomCity)
-			$scope.saveUserMapCenter()
-			setUserLocationString(response[0])
+	$scope.centerMapInLatLng = (location, zoom = 13) ->
+		$scope.map.setCenter(location)
+		$scope.map.setZoom(13)
 
 	# A function to create the marker and set up the evento window function
 	# $scope.createMarker = (eventId, eventTitle, categoriesSelected, latlng) ->
@@ -257,8 +272,10 @@ angular.module('RadarApp').controller 'EventsController'
 		
 		# Se agrega el listener del marker sobre el evento click 
 		google.maps.event.addListener marker, 'click', ->
+			$scope.closeAllInfowindows()
 			infowindow.open($scope.map, marker)
 		
+		$scope.infowindows.push(infowindow)
 		$scope.markers.push(marker)
 
 
@@ -300,6 +317,11 @@ angular.module('RadarApp').controller 'EventsController'
 	# Removes the overlays from the map, but keeps them in the array.
 	$scope.clearOverlays = ->
 		$scope.setAllMap(null)
+
+	# Cierra todas las infowindows que están en el array $scope.infowindows
+	$scope.closeAllInfowindows = ->
+		angular.forEach $scope.infowindows, (infowindow, index) ->
+			infowindow.close()
 	
 	# Deletes all markers in the array by removing references to them.
 	$scope.deleteOverlays = ->
@@ -326,6 +348,10 @@ angular.module('RadarApp').controller 'EventsController'
 	# Se consulta al servidor por los eventos dentro de los límites del mapa y que cumplen las condiciones
 	# de categoría e intervalo seleccionadas.
 	$scope.eventsUpdate = ->
+		# Se verifica si hay alguna categoría seleccionada
+		if $scope.categoriesSelected.length is 0
+			$scope.eventos = []
+			return
 		# Se verifica que no se obtengan los eventos en la pantalla de agregar evento.
 		if not $location.absUrl().contains('events/add') and $scope.map.getBounds()?
 			bounds = $scope.map.getBounds()
@@ -416,9 +442,11 @@ angular.module('RadarApp').controller 'EventsController'
 		event.preventDefault() if event?
 		request = new Object() # se crea un objeto request
 		request.address = $scope.evento.address
+		
 		# se comenta para que busque en todo el país y no solo en el mapa que se ve
 		# request.bounds = $scope.map.getBounds()
 		# request.region = 'AR'
+		
 		# geocode hace la conversión a un punto, y su segundo parámetro es una función de callback
 		$scope.geocoder.geocode(request, $scope.addAddressToMap)
 

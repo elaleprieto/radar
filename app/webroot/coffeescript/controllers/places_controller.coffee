@@ -70,6 +70,7 @@ angular.module('RadarApp').controller 'PlacesController'
 	
 	$scope.map = new google.maps.Map(document.getElementById("map"), $scope.opciones)
 	$scope.markers = []
+	$scope.infowindows = []
 	$scope.geocoder = new google.maps.Geocoder()
 	
 
@@ -106,7 +107,20 @@ angular.module('RadarApp').controller 'PlacesController'
 		if not userMapCenter? and location? and location.length > 0
 			$scope.setLocationByUserLocation(location)
 
-	# google.maps.event.addListener window.map, 'bounds_changed', () ->
+	# Se crea el Listener para el clic sobre el mapa en la creacion de Places
+	google.maps.event.addListener $scope.map, 'click', (event) ->
+		if $location.absUrl().contains('/places/add') or $location.absUrl().contains('/espacios/agregar')
+			# se crea un objeto request
+			request = new Object()
+			request.location = new google.maps.LatLng(event.latLng.lat(), event.latLng.lng())
+
+			# geocode hace la conversión a un punto, y su segundo parámetro es una función de callback
+			$scope.geocoder.geocode request, (response, status) ->
+				$scope.place.address = response[0].formatted_address
+				$scope.$apply()
+				$('.typeahead').val($scope.place.address)
+				$scope.addAddressToMap(response)
+
 	google.maps.event.addListener $scope.map, 'dragend', () ->
 		$scope.placesUpdate()
 		$scope.saveUserMapCenter()
@@ -148,9 +162,9 @@ angular.module('RadarApp').controller 'PlacesController'
 		$scope.place.lat = response[0].geometry.location.lat()
 		$scope.place.long = response[0].geometry.location.lng()
 		
-		# Center Map
-		$scope.map.setCenter(response[0].geometry.location)
-		$scope.map.setZoom(13)
+		# Se centra el mapa si el zoom es inferior a 13.
+		# Si no es así, se considera que el usuario buscó la ubicación y el mapa está donde tiene que estar.
+		if $scope.map.getZoom() < 13 then $scope.centerMapInLatLng(response[0].geometry.location)
 		
 		# blankicono que voy a usar para mostrar el punto en el mapa
 		icon = new google.maps.MarkerImage("http://gmaps-samples.googlecode.com/svn/trunk/markers/blue/blank.png"
@@ -169,56 +183,53 @@ angular.module('RadarApp').controller 'PlacesController'
 		
 		$scope.marker.setMap($scope.map) # inserto el marcador en el mapa
 	
-	# # add(): despliega la ventana para agregar un place
-	# $scope.add = ->
-		# console.log 'add'
-	
-	# centerMap: centers map with parameter city
-	$scope.centerMap = (city) ->
+	# centerMapByUserLocation: centers map with parameter location, called by setLocationByUserLocation
+	$scope.centerMapByUserLocation = (response, status) ->
+		if response[0]? and response[0].geometry? and response[0].geometry.location?
+			# Center Map
+			$scope.centerMapInLatLng response[0].geometry.location, $scope.zoomCity
+			$scope.saveUserMapCenter()
+			setUserLocationString(response[0])
+
+	# centerMapInCity: centers map with parameter city
+	$scope.centerMapInCity = (city) ->
 		$scope.map.setZoom($scope.zoomDefault)
 		
 		switch city
 			when 'cordoba' 
-				location = $scope.cordoba
-				$scope.map.setZoom($scope.zoomCordoba)
+				$scope.centerMapInLatLng $scope.cordoba, $scope.zoomCordoba
 			when 'santafe'
-				location = $scope.santafe
-				$scope.map.setZoom($scope.zoomSantafe)
-			else location = $scope.locationDefault
-		$scope.map.setCenter(location)
+				$scope.centerMapInLatLng $scope.santafe, $scope.zoomSantafe
+			else 
+				$scope.centerMapInLatLng $scope.locationDefault
 		$scope.placesUpdate()
 		# Se guardan las preferencias
 		$scope.saveUserMapCenter()
 		$scope.saveUserMapZoom()
 		
-	
-	# centerMap: centers map with parameter location, called by setLocationByUserLocation
-	$scope.centerMapByUserLocation = (response, status) ->
-		if response[0]? and response[0].geometry? and response[0].geometry.location?
-			# Center Map
-			$scope.map.setCenter(response[0].geometry.location)
-			$scope.map.setZoom($scope.zoomCity)
-			$scope.saveUserMapCenter()
-			setUserLocationString(response[0])
+	$scope.centerMapInLatLng = (location, zoom = 13) ->
+		$scope.map.setCenter(location)
+		$scope.map.setZoom(13)
 
+	
 	# A function to create the marker and set up the place window function
 	# $scope.createMarker = (placeId, latlng) ->
 	$scope.createMarker = (place, latlng) ->
-		# icon = new google.maps.MarkerImage('/img/map-marker/' + getPlaceColor(place)
-			# #, new google.maps.Size(25, 26)
-			# , new google.maps.Size(30, 40)
-			# , new google.maps.Point(0, 0)
-			# , new google.maps.Point(10, 34)
-		# )
-		icon = {
-			# path: 'M 125,5 155,90 245,90 175,145 200,230 125,180 50,230 75,145 5,90 95,90 z',
-			path: google.maps.SymbolPath.CIRCLE,
-			fillColor: getPlaceColor(place),
-			fillOpacity: 0.8,
-			scale: 1,
-			strokeColor: getPlaceColor(place),
-			strokeWeight: 14
-		}
+		icon = new google.maps.MarkerImage('/img/map-marker/' + getPlaceIcon(place)
+			#, new google.maps.Size(25, 26)
+			, new google.maps.Size(30, 40)
+			, new google.maps.Point(0, 0)
+			, new google.maps.Point(10, 34)
+		)
+		# icon = {
+		# 	# path: 'M 125,5 155,90 245,90 175,145 200,230 125,180 50,230 75,145 5,90 95,90 z',
+		# 	path: google.maps.SymbolPath.CIRCLE,
+		# 	fillColor: getPlaceColor(place),
+		# 	fillOpacity: 0.8,
+		# 	scale: 1,
+		# 	strokeColor: getPlaceColor(place),
+		# 	strokeWeight: 14
+		# }
 
 		
 		marker = new google.maps.Marker placeId: getPlaceId(place)
@@ -254,11 +265,13 @@ angular.module('RadarApp').controller 'PlacesController'
 			# content: contenido  
 			content: contenido[0]
 		}
-		
+
 		# Se agrega el listener del marker sobre el place click 
 		google.maps.event.addListener marker, 'click', ->
+			$scope.closeAllInfowindows()
 			infowindow.open($scope.map, marker)
 		
+		$scope.infowindows.push(infowindow)
 		$scope.markers.push(marker)
 
 	$scope.classificationsAdd = (classification) ->
@@ -288,6 +301,11 @@ angular.module('RadarApp').controller 'PlacesController'
 	$scope.clearOverlays = ->
 		$scope.setAllMap(null)
 	
+	# Cierra todas las infowindows que están en el array $scope.infowindows
+	$scope.closeAllInfowindows = ->
+		angular.forEach $scope.infowindows, (infowindow, index) ->
+			infowindow.close()
+
 	# Deletes all markers in the array by removing references to them.
 	$scope.deleteOverlays = ->
 		$scope.clearOverlays()
@@ -311,6 +329,10 @@ angular.module('RadarApp').controller 'PlacesController'
 	# Se consulta al servidor por los places dentro de los límites del mapa y que cumplen las condiciones
 	# de categoría e intervalo seleccionadas.
 	$scope.placesUpdate = ->
+		# Se verifica si hay alguna categoría seleccionada
+		if $scope.classificationsSelected.length is 0
+			$scope.places = []
+			return
 		if $scope.map.getBounds()?
 			bounds = $scope.map.getBounds()
 			ne = bounds.getNorthEast()
@@ -524,7 +546,10 @@ angular.module('RadarApp').controller 'PlacesController'
 	
 	getPlaceColor = (place) ->
 		place.Classification.color
-	
+
+	getPlaceIcon = (place) ->
+		place.Classification.icon
+
 	getPlaceId = (place) ->
 		place.Place.id
 	

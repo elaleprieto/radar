@@ -31,7 +31,7 @@ class ClassificationsPlaceFixture extends CakeTestFixture {
 		array(
 			'id' => '52653f5b-ecb8-40d0-a041-31e54146329a',
 			'classifications_id' => 1,
-			'place_id' => '',
+			'place_id' => '52659993-c2f0-43b8-b851-1e104a46329a',
 			'created' => '2013-10-21 11:51:07',
 			'modified' => '2013-10-21 11:51:07'
 		),

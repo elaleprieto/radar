@@ -7,7 +7,7 @@
 @font-face { font-family: "greyscale"; src: url('/fonts/Greyscale_Basic_Regular.ttf') format('truetype'); }
 
 /* line 6, ../sass/inicio.sass */
-#btn-radea { padding-bottom: 8px; padding-top: 8px; left: 20px; }
+#btn-radea { padding-bottom: 13px; padding-top: 13px; left: 20px; }
 
 /* line 12, ../sass/inicio.sass */
 #map img { max-width: none; }

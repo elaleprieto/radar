@@ -1,7 +1,7 @@
-<?php echo $this->Html->css(array( 'font-awesome/css/font-awesome.min'), '', array('inline'=>false)) ?>
 <?php echo $this->Html->css(array('pages/about'), '', array('inline'=>false)) ?>
 <div class="row">
-	<div class="col-sm-10">
+	<div class="col-sm-7 col-sm-offset-1">
+		<!--
 		<div class="row">		
 			 <div class="col-sm-6 ">
 			 	<h4 class="resaltado"><i class="icon-double-angle-right icon-1x"></i>  ¿Qué es RadarCultural?</h4>
@@ -86,6 +86,64 @@
 					</li>
 				</ul>
 				</p>
+			</div>
+		</div>-->
+		<div class="panel-group" id="accordion">
+			<div class="panel panel-default">	
+				<div class="panel-heading">
+		      		<h4 class="panel-title">
+		      			<a data-toggle="collapse" data-parent="#accordion" href="#collapseUno">
+		          		» ¿QUE ES?
+		          		</a>
+					</h4>
+				</div>
+				<div id="collapseUno" class="panel-collapse collapse">
+					<div class="panel-body">
+						<img src="img/about/que.png" class="img-responsive">
+					</div>
+				</div>
+			</div>
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h4 class="panel-title">
+						<a data-toggle="collapse" data-parent="#accordion" href="#collapseDos">
+							» ¿PARA QUÉ SIRVE?
+						</a>
+					</h4>
+				</div>
+				<div id="collapseDos" class="panel-collapse collapse">
+					<div class="panel-body">
+						<img src="img/about/como.png" class="img-responsive">
+					</div>
+				</div>
+			</div>
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h4 class="panel-title">
+						<a data-toggle="collapse" data-parent="#accordion" href="#collapseTres">
+							» ¿CÓMO LO USO?
+						</a>
+					</h4>
+				</div>
+				<div id="collapseTres" class="panel-collapse collapse">
+					<div class="panel-body">
+						<img src="img/about/pasos.png" class="img-responsive">
+					</div>
+				</div>
+			</div>
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h4 class="panel-title">
+						<a data-toggle="collapse" data-parent="#accordion" href="#collapseCuatro">
+							» OBJETIVOS
+						</a>
+					</h4>
+				</div>
+				<div id="collapseCuatro" class="panel-collapse collapse">
+					<div class="panel-body">
+						<img src="img/about/objetivos.png" class="img-responsive">
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>

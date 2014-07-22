@@ -31,9 +31,9 @@ class ClassificationFixture extends CakeTestFixture {
 	public $records = array(
 		array(
 			'id' => 1,
-			'name' => 'Lorem ipsum dolor sit amet',
-			'color' => 'Lorem ipsum dolor ',
-			'sort' => 1,
+			'name' => 'Bar',
+			'color' => '#f5336f',
+			'sort' => '0',
 			'created' => '2013-11-03 15:37:33',
 			'modified' => '2013-11-03 15:37:33'
 		),

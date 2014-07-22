@@ -31,13 +31,13 @@ class CompliantFixture extends CakeTestFixture {
  */
 	public $records = array(
 		array(
-			'id' => '527643f3-d468-4fc7-85d6-22334a46329a',
+			'id' => '222643f3-d468-4fc7-85d6-22334a46329a',
 			'title' => 'Lorem ipsum dolor sit amet',
 			'description' => 'Lorem ipsum dolor sit amet, aliquet feugiat. Convallis morbi fringilla gravida, phasellus feugiat dapibus velit nunc, pulvinar eget sollicitudin venenatis cum nullam, vivamus ut a sed, mollitia lectus. Nulla vestibulum massa neque ut et, id hendrerit sit, feugiat in taciti enim proin nibh, tempor dignissim, rhoncus duis vestibulum nunc mattis convallis.',
 			'created' => '2013-11-03 09:39:15',
 			'modified' => '2013-11-03 09:39:15',
-			'event_id' => 'Lorem ipsum dolor sit amet',
-			'user_id' => 'Lorem ipsum dolor sit amet'
+			'event_id' => '527592a7-b718-41f9-a140-0fe8d18c1824',
+			'user_id' => '5271039a-bdd8-42ff-917d-065cc0a80a79'
 		),
 	);
 
