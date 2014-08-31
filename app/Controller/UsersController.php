@@ -28,14 +28,16 @@ class UsersController extends AppController {
 			return true;
 
 		# Admin users can:
-		if ($user['role'] === 'admin')
+		// if ($user['role'] === 'admin')
+		if ($user['Rol']['weight'] >= User::ADMIN)
 			if (in_array($this->action, $admin_allowed))
 				return true;
 	
 		# The owner of an user can:
 		if (in_array($this->action, $owner_allowed)) {
 			$userId = $this->request->params['pass'][0];
-			if ($this->Event->isOwnedBy($userId, $user['id']))
+			// if ($this->User->isOwnedBy($userId, $user['id']))
+			if ($userId == $user['id'])
 				return true;
 		}
 	

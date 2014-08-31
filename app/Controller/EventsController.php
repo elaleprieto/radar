@@ -27,7 +27,8 @@
 				return true;
 
 			# Admin users can:
-			if ($user['role'] === 'admin')
+			// if ($user['role'] === 'admin')
+			if ($user['Rol']['weight'] >= User::ADMIN)
 				if (in_array($this->action, $admin_allowed))
 					return true;
 		
@@ -44,7 +45,7 @@
 		 *  /authentication
 		**************************************************************************************************************/
 		
-		
+
 		/**
 		 * add method
 		 *

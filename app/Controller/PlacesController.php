@@ -23,18 +23,41 @@
 			// return true;
 			// }
 
-			# Admin Users can do admin_actions
-			$admin_actions = array(
-				'admin_add',
-				'admin_delete',
-				'admin_edit',
-				'admin_index'
+			$owner_allowed = array('admin_edit', 'admin_delete');
+			// $user_allowed = array('add', 'resume');
+			$placeloader_allowed = array('admin_add', 'admin_index');
+
+			# Admin Users can do admin_allowed
+			$admin_allowed = array_merge($owner_allowed
+				, $placeloader_allowed
+				, array(
+					'admin_delete',
+					'admin_index'
+				)
 			);
-			if (in_array($this->action, $admin_actions)) {
-				if (isset($user['role']) && $user['role'] === 'admin') {
+
+			if ($user['Rol']['weight'] >= User::ADMIN)
+				if (in_array($this->action, $admin_allowed))
 					return true;
+			
+			if ($user['Rol']['weight'] >= User::PLACELOADER):
+				if (in_array($this->action, $placeloader_allowed))
+					return true;
+			
+				# The owner of an place can:
+				if (in_array($this->action, $owner_allowed)) {
+					$placeId = $this->request->params['pass'][0];
+					if ($this->Place->isOwnedBy($placeId, $user['id']))
+						return true;
 				}
-			}
+			endif;
+
+
+			// if (in_array($this->action, $admin_allowed)) {
+			// 	if (isset($user['role']) && $user['role'] === 'admin') {
+			// 		return true;
+			// 	}
+			// }
 
 			# Admin users can add places
 			// if ($this->action === 'admin_add') {

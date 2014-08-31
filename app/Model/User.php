@@ -6,6 +6,12 @@ App::uses('AppModel', 'Model');
  * @property Noticia $Noticia
  */
 class User extends AppModel {
+	const USER = 100;
+	const PLACELOADER = 200;
+	const SUPER = 400;
+	const ADMIN = 500;
+
+	// define('PLACELOADER', '200');
 
 /**
  * Validation rules
@@ -56,6 +62,21 @@ class User extends AppModel {
 		}
 		return true;
 	}
+
+/**
+ * belongsTo associations
+ *
+ * @var array
+ */
+	public $belongsTo = array(
+		'Rol' => array(
+			'className' => 'Rol',
+			'foreignKey' => 'rol_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
+		)
+	);
 
 /**
  * hasMany associations
