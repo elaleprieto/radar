@@ -4,7 +4,6 @@
 	<div class="col-sm-10">
 		<div class="row contacto">
 			<div class="col-sm-7 col-sm-offset-3">
-				<!-- <form method="post" action="enviar.php" role="form"> -->
 				<?php echo $this->Form->create('User', array('action' => 'contactar')); ?>
 					<fieldset>
 						<h1 class="titulo"><?php echo __('Contact us')?></h1>
@@ -38,7 +37,6 @@
 						</div>
 						<button type="submit" class="btn btn-verde btn-block" name="enviar">Enviar</button>
 					</fieldset>
-				<!-- </form> -->
 				<?php echo $this->Form->end(); ?>
 			</div>
 		</div>
