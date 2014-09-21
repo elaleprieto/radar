@@ -7,7 +7,7 @@ App::uses('CakeEmail', 'Network/Email');
  * @property User $User
  */
 class UsersController extends AppController {
-	
+
 	public $components = array('RequestHandler');
 
 	/**************************************************************************************************************
@@ -15,9 +15,9 @@ class UsersController extends AppController {
 	**************************************************************************************************************/
 	public function beforeFilter() {
 		parent::beforeFilter();
-		$this->Auth->allow('add', 'callbackTwitter', 'confirm', 'loginTwitter', 'logout');
+		$this->Auth->allow('add', 'callbackTwitter', 'confirm', 'contactar', 'loginTwitter', 'logout');
 	}
-	
+
 	public function isAuthorized($user = null) {
 		$owner_allowed = array('edit', 'setLocation');
 		$user_allowed = array();
@@ -32,7 +32,7 @@ class UsersController extends AppController {
 		if ($user['Rol']['weight'] >= User::ADMIN)
 			if (in_array($this->action, $admin_allowed))
 				return true;
-	
+
 		# The owner of an user can:
 		if (in_array($this->action, $owner_allowed)) {
 			$userId = $this->request->params['pass'][0];
@@ -40,14 +40,14 @@ class UsersController extends AppController {
 			if ($userId == $user['id'])
 				return true;
 		}
-	
+
 		return parent::isAuthorized($user);
 	}
 	/**************************************************************************************************************
 	 *  /authentication
 	**************************************************************************************************************/
 
-	
+
 	/**
 	* active method
 	*
@@ -80,7 +80,7 @@ class UsersController extends AppController {
 			$privatekey = PRIVATE_KEY;
 			$recaptcha_challenge_field = $this->request->data['recaptcha_challenge_field'];
 			$recaptcha_response_field = $this->request->data['recaptcha_response_field'];
-			
+
 			$resp = recaptcha_check_answer($privatekey
 				, $_SERVER["REMOTE_ADDR"]
 				, $recaptcha_challenge_field
@@ -208,7 +208,7 @@ class UsersController extends AppController {
 		if(!$user['User']['confirmed']) {
 			$this->User->id = $id;
 			$this->User->saveField('confirmed', TRUE);
-			
+
 			$this->Auth->login($user['User']);
 			return $this->redirect('/');
 		}
@@ -222,25 +222,30 @@ class UsersController extends AppController {
 	 */
 	public function contactar() {
 		$this->autoRender = FALSE;
-		if ($this->request->isPost() && isset($this->request->data)) {
+		if ($this->request->isPost() && isset($this->request->data)):
 			# Validación de Campos
-			$contacto = $this->request->data['Contacto'];
-			if (isset($contacto['nombre']) && $contacto['nombre'] !== '' && isset($contacto['remitente']) && $contacto['remitente'] !== '' && isset($contacto['asunto']) && $contacto['asunto'] !== '' && isset($contacto['mensaje']) && $contacto['mensaje'] !== '') {
+			$contacto = $this->request->data;
+			if (isset($contacto['nombre']) && $contacto['nombre'] !== ''
+				&& isset($contacto['apellido']) && $contacto['apellido'] !== ''
+				&& isset($contacto['mail']) && $contacto['mail'] !== ''
+				&& isset($contacto['asunto']) && $contacto['asunto'] !== ''
+				&& isset($contacto['mensaje']) && $contacto['mensaje'] !== ''):
 
 				App::import('Vendor', 'contras', array('file' => 'contras.php'));
 
 				# Se crea el mensaje
 				$mensaje = 'Enviado por: ' . $contacto['nombre'] . "\n";
-				$mensaje .= 'Mail de contacto: ' . $contacto['remitente'] . "\n";
+				$mensaje .= 'Mail de contacto: ' . $contacto['mail'] . "\n";
 				$mensaje .= 'Asunto del mensaje: ' . $contacto['asunto'] . "\n";
 				$mensaje .= 'Mensaje: ' . $contacto['mensaje'];
 
 				# Se envía el mensaje
 				mail(TO, ASUNTO, $mensaje, 'From: ' . FROM);
-				// $this->redirect('/contacto');
+				$this->Session->setFlash(__('Message sent. Thank you!'));
+				$this->redirect('/contacto');
 				return json_encode(true);
-			}
-		}
+			endif;
+		endif;
 		return json_encode(false);
 	}
 
@@ -303,7 +308,7 @@ class UsersController extends AppController {
 		$this -> User -> recursive = 0;
 		$this -> set('users', $this -> paginate());
 	}
-	
+
 	public function login() {
 		// $this -> layout = 'login';
 
