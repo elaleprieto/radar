@@ -20,7 +20,7 @@
 		<?php 
 		// if (AuthComponent::user('role') == 'admin'):
 		// $rol = AuthComponent::user('Rol');
-		if(isset($userData)):
+		if(isset($userData) && isset($userData['Rol'])):
 			$rol = $userData['Rol'];
 			if ($rol['weight'] == USER::ADMIN):
 				echo $this->element('navbar_admin'); 
