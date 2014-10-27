@@ -16,7 +16,7 @@ angular.module('RadarApp').controller 'CategoriesController'
 			$scope.$parent.categoriesAdd(category)
 		else
 			$scope.$parent.categoriesDelete(category)
-	
+
 	# deselectAllCategories: resetea el array categoriesSelected,
 	# elimina todas las categorías seleccionadas del array categoriesSelected
 	# y resetea el highlight en todas las categorías

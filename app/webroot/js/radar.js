@@ -1,4 +1,4 @@
-/*! radar 2014-07-13 */
+/*! radar 2014-10-26 */
 (function() {
     "use strict";
     var a, b = [].indexOf || function(a) {
@@ -229,11 +229,11 @@
             return c.clearOverlays(), c.markers = [];
         }, c.categoriesAdd = function(a) {
             return c.evento.categories.length < 3 ? (c.evento.categories.push(a.Category.id), 
-            a.highlight = !0) : void 0;
+            a.highlight = !0, a.checkbox = !0) : void 0;
         }, c.categoriesDelete = function(a) {
             var b;
             return b = c.evento.categories.indexOf(a.Category.id), b >= 0 ? (c.evento.categories.splice(b, 1), 
-            a.highlight = !1) : void 0;
+            a.highlight = !1, a.checkbox = !1) : void 0;
         }, c.denounce = function(a) {
             return null != c.user.id && null != a.Compliant && null != a.Compliant.title ? (f.create(a), 
             g.close()) : void 0;
@@ -332,14 +332,7 @@
             return c.cargando = "Cargando.", c.eventForm.$valid ? (c.cargando = "Cargando..", 
             c.evento.categories.length <= 0 ? (c.cargando = "Error: Debe seleccionar al menos una categoría", 
             console.error("Error: Debe seleccionar al menos una categoría")) : (c.cargando = "Cargando...", 
-            h.save({}, {
-                Event: c.evento,
-                Category: c.evento.categories
-            }, function() {
-                return c.cargando = "¡Evento guardado!", window.location.pathname = "events";
-            }, function() {
-                return c.cargando = "Ocurrió un error guardando el evento";
-            }))) : (c.cargando = null, this);
+            $("#eventForm").submit())) : (c.cargando = null, this);
         }, c.viewDisplayed = function() {
             return "/" === b.path();
         }, c.openModal = function(a) {

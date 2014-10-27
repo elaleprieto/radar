@@ -283,7 +283,8 @@
       $scope.categoriesAdd = function(category) {
         if ($scope.evento.categories.length < 3) {
           $scope.evento.categories.push(category.Category.id);
-          return category.highlight = true;
+          category.highlight = true;
+          return category.checkbox = true;
         }
       };
       $scope.categoriesDelete = function(category) {
@@ -291,7 +292,8 @@
         index = $scope.evento.categories.indexOf(category.Category.id);
         if (index >= 0) {
           $scope.evento.categories.splice(index, 1);
-          return category.highlight = false;
+          category.highlight = false;
+          return category.checkbox = false;
         }
       };
       $scope.denounce = function(evento) {
@@ -475,15 +477,7 @@
           return console.error('Error: Debe seleccionar al menos una categoría');
         }
         $scope.cargando = 'Cargando...';
-        return Event.save({}, {
-          Event: $scope.evento,
-          Category: $scope.evento.categories
-        }, function(data) {
-          $scope.cargando = '¡Evento guardado!';
-          return window.location.pathname = 'events';
-        }, function() {
-          return $scope.cargando = 'Ocurrió un error guardando el evento';
-        });
+        return $('#eventForm').submit();
       };
       $scope.viewDisplayed = function() {
         return $location.path() === '/';

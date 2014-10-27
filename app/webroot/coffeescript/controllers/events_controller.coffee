@@ -135,7 +135,7 @@ angular.module('RadarApp').controller 'EventsController'
 		if location? and location.length > 0
 			$scope.setLocationByUserLocation(location)
 
-	# Se crea el Listener para el clic sobre el mapa en la creacin de Eventos
+	# Se crea el Listener para el clic sobre el mapa en la creación de Eventos
 	google.maps.event.addListener $scope.map, 'click', (event) ->
 		if $location.absUrl().contains('/events/add') or $location.absUrl().contains('/eventos/agregar')
 			# se crea un objeto request
@@ -332,12 +332,14 @@ angular.module('RadarApp').controller 'EventsController'
 		if($scope.evento.categories.length < 3)
 			$scope.evento.categories.push(category.Category.id)
 			category.highlight = true
+			category.checkbox = true
 
 	$scope.categoriesDelete = (category) ->
 		index = $scope.evento.categories.indexOf(category.Category.id)
 		if index >= 0 
 			$scope.evento.categories.splice(index, 1)
 			category.highlight = false
+			category.checkbox = false
 
 	$scope.denounce = (evento) ->
 		# Se verifica que el usuario esté registrado
@@ -530,15 +532,17 @@ angular.module('RadarApp').controller 'EventsController'
 			# .error ->
 				# # Se actualiza el mensaje
 				# $scope.cargando = 'Ocurrió un error guardando el evento'		
-		Event.save {}
-			, {Event: $scope.evento, Category: $scope.evento.categories}
-			, (data) ->
-				# Se actualiza el mensaje
-				$scope.cargando = '¡Evento guardado!'
-				window.location.pathname = 'events'
-			, ->
-				# Se actualiza el mensaje
-				$scope.cargando = 'Ocurrió un error guardando el evento'
+		# Event.save {}
+		# 	, {Event: $scope.evento, Category: $scope.evento.categories}
+		# 	, (data) ->
+		# 		# Se actualiza el mensaje
+		# 		$scope.cargando = '¡Evento guardado!'
+		# 		window.location.pathname = 'events'
+		# 	, ->
+		# 		# Se actualiza el mensaje
+		# 		$scope.cargando = 'Ocurrió un error guardando el evento'
+
+		$('#eventForm').submit()
 	
 	$scope.viewDisplayed = ->
 		$location.path() == '/'

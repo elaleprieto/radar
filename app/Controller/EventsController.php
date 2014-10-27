@@ -52,35 +52,50 @@
 		 * @return void
 		 */
 		public function add() {
-			if ($this->request->is('ajax') && AuthComponent::user('id')) {
-				$this->autoRender = false;
+			// if ($this->request->is('ajax') && AuthComponent::user('id')) {
+			if ($this->request->isPost() && AuthComponent::user('id')) {
+				// $this->autoRender = false;
 				date_default_timezone_set('UTC');
-				
-				$data = $this->request->input('json_decode');
-				$date_start = strtotime($data->Event->date_from);
-				$time_start = strtotime($data->Event->time_from);
-				$date_end = strtotime($data->Event->date_to);
-				$time_end = strtotime($data->Event->time_to);
 
-				# Se arma el Evento
+				
+				// $data = $this->request->input('json_decode');
+				$event = $this->request->data;
+				// $date_start = strtotime($data->Event->date_from);
+				$date_start = strtotime(str_replace('/', '-', $event['Event']['date_from']));
+				// $time_start = strtotime($data->Event->time_from);
+				$time_start = strtotime($event['Event']['time_from']);
+				// $date_end = strtotime($data->Event->date_to);
+				$date_end = strtotime(str_replace('/', '-', $event['Event']['date_to']));
+				// $time_end = strtotime($data->Event->time_to);
+				$time_end = strtotime($event['Event']['time_to']);
+
+				// # Se arma el Evento
 				$event['Event']['date_start'] = date('Y-m-d ', $date_start) . date('H:i', $time_start);
 				$event['Event']['date_end'] = date('Y-m-d ', $date_end) . date('H:i', $time_end);
-				$event['Event']['title'] = $data->Event->title;
-				$event['Event']['address'] = $data->Event->address;
-				$event['Event']['description'] = $data->Event->description;
-				$event['Event']['lat'] = $data->Event->lat;
-				$event['Event']['long'] = $data->Event->long;
-				$event['Event']['website'] = $data->Event->website;
-				$event['Event']['cost'] = $data->Event->cost;
-				$event['Event']['user_id'] = AuthComponent::user('id');
+				// debug($date_start, $showHtml = null, $showFrom = true);
+				// debug($event, $showHtml = null, $showFrom = true);
+				// $event['Event']['title'] = $data->Event->title;
+				// $event['Event']['title'] = $data->Event->title;
+				// $event['Event']['address'] = $data->Event->address;
+				// $event['Event']['description'] = $data->Event->description;
+				// $event['Event']['lat'] = $data->Event->lat;
+				// $event['Event']['long'] = $data->Event->long;
+				// $event['Event']['website'] = $data->Event->website;
+				// $event['Event']['cost'] = $data->Event->cost;
+				// $event['Event']['user_id'] = AuthComponent::user('id');
 				
-				// if(sizeof($data->Category) > 3)
-				$event['Event']['Category'] = $data->Category;
+				// // if(sizeof($data->Category) > 3)
+				// $event['Event']['Category'] = $data->Category;
 				
 				# Se crea el evento
 				$this->Event->create();
 				if(!$this->Event->save($event)) {
 					throw new Exception('Evento inválido', 1);
+				} else {
+					if($event['Event']['archivo']['name']) {
+						$event['Event']['foto'] = $this->_foto($event['Event']['archivo'], $this->Event->id);
+						$this->Event->save($event);
+					}
 				}
 			}
 		}
@@ -418,6 +433,52 @@
 					return json_encode($events);
 				}
 			}
+		}
+
+		#########################################################################################################
+		#	Funciones Auxiliares
+		#########################################################################################################
+		private function _foto($archivo, $id) {
+			$allowed_types = array('image/jpeg', 'image/png', 'image/gif');
+
+			# Se verifica la existencia del archivo
+			if(!isset($archivo['name'])) return null;
+			# Se verifica el tipo
+			if(!isset($archivo['type']) && !in_array($archivo['type'], $allowed_types))
+				return null;
+			# Se verifica el tamaño: 2MB = 2097152 bytes
+			if(!isset($archivo['size']) && $archivo['size'] > 2097152) return null;
+			
+			# Se construye el nombre del archivo
+			// $nombreArchivo = $archivo['name'];
+			$nombreArchivo = $id.$archivo['name'];
+			
+			# Defino el directorio donde se va a subir la foto
+			$uploaddir = IMAGES_URL . 'fotos/';
+			
+			# Defino la ruta completa
+			$uploadfile = $uploaddir . $nombreArchivo;
+			
+			// # Verifico la existencia de la foto
+			// if (!(file_exists($uploadfile . '.jpg') || file_exists($uploadfile . '.png'))) {
+			// 	# Si no existe en el directorio, la copio dentro del directorio
+			// 	if (!move_uploaded_file($archivo['tmp_name'], $uploadfile)) {
+			// 		# Si hubo algún error subiendo el archivo, se retorna null
+			// 		return null;
+			// 	}
+			// }
+
+			# Se copia dentro del directorio
+			if (!move_uploaded_file($archivo['tmp_name'], $uploadfile)) {
+				# Si hubo algún error subiendo el archivo, se retorna null
+				return null;
+			}
+			
+			# Una vez que la foto ya se encuentra en el directorio,
+			# se procede a actualizar el registro del artículo con la nueva foto.
+			# Notar que si la foto ya existe, no se sube nuevamente sino que se utiliza la misma
+			# e igualmente se actualiza el artículo con esa foto.
+			return $nombreArchivo;
 		}
 
 	}
