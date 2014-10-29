@@ -436,7 +436,8 @@
                                
                                 <!-- Foto -->
                                 <div class="row form-group">
-                                    <?php echo $this->Form->input('archivo', array('class'=>'', 'label'=>__('Photo'), 'type'=>'file')) ?>
+                                    <?php if($event['Event']['foto']) echo $this->Html->image('fotos/'.$event['Event']['foto'], array('class'=>'img-responsive')); ?>
+                                    <?php echo $this->Form->input('archivo', array('class'=>'', 'label'=>__('Change photo'), 'type'=>'file')) ?>
                                 </div>
                            </div>
                         </div>
