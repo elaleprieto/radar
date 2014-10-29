@@ -7,12 +7,13 @@
 (function() {
   angular.module('RadarApp').controller('CategoriesController', [
     '$http', '$location', '$scope', '$timeout', 'Category', function($http, $location, $scope, $timeout, Category) {
-      var location;
+      var containLocations, location;
       location = $location.absUrl();
       Category.get({}, function(response) {
         return $scope.categorias = response.categories;
       });
       $scope.categoryToogle = function(category) {
+        console.log($scope.$parent.evento.categories.length);
         if (!category.highlight) {
           return $scope.$parent.categoriesAdd(category);
         } else {
@@ -67,9 +68,23 @@
         $scope.selectAllCategories();
         return $scope.setCookieCategoriesSelected();
       };
+      containLocations = function(locations) {
+        var containURL;
+        if (locations == null) {
+          locations = null;
+        }
+        containURL = false;
+        angular.forEach(locations, function(url, index) {
+          if (!containURL) {
+            return containURL = location.contains(url);
+          }
+        });
+        return containURL;
+      };
       return $scope.$watch('categorias.length', function() {
-        var lastValEventCategory;
-        if (!location.contains('events/add') && !location.contains('eventos/agregar') && ($scope.categorias != null) && $scope.categorias.length > 0) {
+        var lastValEventCategory, locations;
+        locations = ['events/add', 'events/edit', 'eventos/agregar', 'eventos/editar'];
+        if (!containLocations(locations) && ($scope.categorias != null) && $scope.categorias.length > 0) {
           if ($scope.categoriesSelected.length === 0) {
             $scope.selectAllCategories();
           }

@@ -1,4 +1,4 @@
-/*! radar 2014-10-26 */
+/*! radar 2014-10-28 */
 (function() {
     "use strict";
     var a, b = [].indexOf || function(a) {
@@ -17,11 +17,11 @@
     });
 }).call(this), function() {
     angular.module("RadarApp").controller("CategoriesController", [ "$http", "$location", "$scope", "$timeout", "Category", function(a, b, c, d, e) {
-        var f;
-        return f = b.absUrl(), e.get({}, function(a) {
+        var f, g;
+        return g = b.absUrl(), e.get({}, function(a) {
             return c.categorias = a.categories;
         }), c.categoryToogle = function(a) {
-            return a.highlight ? c.$parent.categoriesDelete(a) : c.$parent.categoriesAdd(a);
+            return console.log(c.$parent.evento.categories.length), a.highlight ? c.$parent.categoriesDelete(a) : c.$parent.categoriesAdd(a);
         }, c.deselectAllCategories = function() {
             return c.$parent.categoriesSelected = [], c.allCategoriesSelected = !1, angular.forEach(c.categorias, function(a) {
                 return a.highlight = !1;
@@ -47,9 +47,15 @@
             c.setCookieCategoriesSelected();
         }, c.showAllCategories = function() {
             return c.selectAllCategories(), c.setCookieCategoriesSelected();
+        }, f = function(a) {
+            var b;
+            return null == a && (a = null), b = !1, angular.forEach(a, function(a) {
+                return b ? void 0 : b = g.contains(a);
+            }), b;
         }, c.$watch("categorias.length", function() {
-            var a;
-            return !f.contains("events/add") && !f.contains("eventos/agregar") && null != c.categorias && c.categorias.length > 0 && (0 === c.categoriesSelected.length && c.selectAllCategories(), 
+            var a, b;
+            return b = [ "events/add", "events/edit", "eventos/agregar", "eventos/editar" ], 
+            !f(b) && null != c.categorias && c.categorias.length > 0 && (0 === c.categoriesSelected.length && c.selectAllCategories(), 
             null != $.cookie && ($.cookie.json = !0, a = $.cookie("categoriesSelected"), null != a && a.length > 0)) ? (c.hideAllCategories(), 
             angular.forEach(a, function(a) {
                 return c.show(c.searchById(a));
@@ -99,14 +105,13 @@
 }.call(this), function() {
     angular.module("RadarApp").controller("EventsController", [ "$http", "$location", "$scope", "$timeout", "$compile", "Compliant", "CompliantView", "Event", "EventView", "Rate", "User", function(a, b, c, d, e, f, g, h, i, j, k) {
         var l, m, n, o, p, q, r, s, t, u, v;
-        return b.absUrl().contains("/events/edit/") && (console.log("Ruta: ", b.absUrl()), 
-        c.$watch("evento.id", function(a) {
+        return b.absUrl().contains("/events/edit/") && c.$watch("evento.id", function(a) {
             return h.getById({
                 id: a
             }, function(a) {
-                return c.evento = a.event.Event;
+                return c.evento = a.event.Event, c.evento.categories ? void 0 : c.evento.categories = [];
             });
-        })), c.eventInterval = 1, c.isReadonly = !1, c.max = 5, c.user = {}, c.categoriesSelected = [], 
+        }), c.eventInterval = 1, c.isReadonly = !1, c.max = 5, c.user = {}, c.categoriesSelected = [], 
         l = new Date(), c.minutoEnMilisegundos = 6e4, c.diaEnMilisegundos = 1440 * c.minutoEnMilisegundos, 
         c.evento = {}, c.evento.categories = [], c.descriptionSize = 500, c.hideSponsors = 1, 
         c.capital = new google.maps.LatLng(-34.603, -58.382), c.cordoba = new google.maps.LatLng(-31.388813, -64.179726), 

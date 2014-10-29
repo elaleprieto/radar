@@ -10,12 +10,11 @@ angular.module('RadarApp').controller 'EventsController'
 			Inicialización de Objetos
 	*************************************************************************************************************** ###
 	if $location.absUrl().contains('/events/edit/')
-		console.log 'Ruta: ', $location.absUrl()
-		
 		$scope.$watch 'evento.id', (id) ->
 			Event.getById {id: id}
 				, (data) ->
 					$scope.evento = data.event.Event
+					if not $scope.evento.categories then $scope.evento.categories = []
 
 
 

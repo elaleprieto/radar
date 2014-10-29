@@ -426,6 +426,8 @@
 										)
 									?>
                                 </div>
+
+                                <!-- Foto -->
                                 <div class="row form-group">
                                     <?php echo $this->Form->input('archivo', array('class'=>'', 'label'=>__('Photo'), 'type'=>'file')) ?>
                                 </div>

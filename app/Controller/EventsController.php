@@ -53,39 +53,11 @@
 		 */
 		public function add() {
 			// if ($this->request->is('ajax') && AuthComponent::user('id')) {
-			if ($this->request->isPost() && AuthComponent::user('id')) {
-				// $this->autoRender = false;
+			if($this->request->isPost() && AuthComponent::user('id')) {
 				date_default_timezone_set('UTC');
-
 				
 				// $data = $this->request->input('json_decode');
-				$event = $this->request->data;
-				// $date_start = strtotime($data->Event->date_from);
-				$date_start = strtotime(str_replace('/', '-', $event['Event']['date_from']));
-				// $time_start = strtotime($data->Event->time_from);
-				$time_start = strtotime($event['Event']['time_from']);
-				// $date_end = strtotime($data->Event->date_to);
-				$date_end = strtotime(str_replace('/', '-', $event['Event']['date_to']));
-				// $time_end = strtotime($data->Event->time_to);
-				$time_end = strtotime($event['Event']['time_to']);
-
-				// # Se arma el Evento
-				$event['Event']['date_start'] = date('Y-m-d ', $date_start) . date('H:i', $time_start);
-				$event['Event']['date_end'] = date('Y-m-d ', $date_end) . date('H:i', $time_end);
-				// debug($date_start, $showHtml = null, $showFrom = true);
-				// debug($event, $showHtml = null, $showFrom = true);
-				// $event['Event']['title'] = $data->Event->title;
-				// $event['Event']['title'] = $data->Event->title;
-				// $event['Event']['address'] = $data->Event->address;
-				// $event['Event']['description'] = $data->Event->description;
-				// $event['Event']['lat'] = $data->Event->lat;
-				// $event['Event']['long'] = $data->Event->long;
-				// $event['Event']['website'] = $data->Event->website;
-				// $event['Event']['cost'] = $data->Event->cost;
-				// $event['Event']['user_id'] = AuthComponent::user('id');
-				
-				// // if(sizeof($data->Category) > 3)
-				// $event['Event']['Category'] = $data->Category;
+				$event = $this->_setEventValues($this->request->data);
 				
 				# Se crea el evento
 				$this->Event->create();
@@ -98,6 +70,68 @@
 					}
 				}
 			}
+		}
+
+		public function _setEventValues($event) {
+			// $date_start = strtotime($data->Event->date_from);
+			$date_start = strtotime(str_replace('/', '-', $event['Event']['date_from']));
+			// $time_start = strtotime($data->Event->time_from);
+			$time_start = strtotime($event['Event']['time_from']);
+			// $date_end = strtotime($data->Event->date_to);
+			$date_end = strtotime(str_replace('/', '-', $event['Event']['date_to']));
+			// $time_end = strtotime($data->Event->time_to);
+			$time_end = strtotime($event['Event']['time_to']);
+
+			// # Se arma el Evento
+			$event['Event']['date_start'] = date('Y-m-d ', $date_start) . date('H:i', $time_start);
+			$event['Event']['date_end'] = date('Y-m-d ', $date_end) . date('H:i', $time_end);
+			// debug($date_start, $showHtml = null, $showFrom = true);
+			// debug($event, $showHtml = null, $showFrom = true);
+			// $event['Event']['title'] = $data->Event->title;
+			// $event['Event']['title'] = $data->Event->title;
+			// $event['Event']['address'] = $data->Event->address;
+			// $event['Event']['description'] = $data->Event->description;
+			// $event['Event']['lat'] = $data->Event->lat;
+			// $event['Event']['long'] = $data->Event->long;
+			// $event['Event']['website'] = $data->Event->website;
+			// $event['Event']['cost'] = $data->Event->cost;
+			// $event['Event']['user_id'] = AuthComponent::user('id');
+			
+			// // if(sizeof($data->Category) > 3)
+			// $event['Event']['Category'] = $data->Category;
+
+			return $event;
+		}
+
+		/**
+		 * edit method
+		 *
+		 * @throws NotFoundException
+		 * @param string $id
+		 * @return void
+		 */
+		public function edit($id = null) {
+			if(!$this->Event->exists($id)) throw new NotFoundException(__('Invalid event'));
+			if($this->request->is('post') || $this->request->is('put')) {
+				date_default_timezone_set('UTC');
+				$event = $this->_setEventValues($this->request->data);
+				if ($this->Event->save($event)) {
+					$this->Session->setFlash(__('The event has been saved'));
+					$this->redirect(array('action' => 'index'));
+				} else {
+					$this->Session->setFlash(__('The event could not be saved. Please, try again.'));
+				}
+			}
+			
+			$this->Event->Behaviors->load('Containable');
+			$options['conditions'] = array('Event.' . $this->Event->primaryKey => $id);
+			$options['contain'] = array('Category');
+			// $options['recursive'] = -1;
+			$event = $this->Event->find('first', $options);
+			
+			$categories = $this -> Event -> Category -> find('list');
+			$places = $this -> Event -> Place -> find('list');
+			$this -> set(compact('categories', 'event', 'places'));
 		}
 
 		/**
@@ -163,46 +197,6 @@
 			$options = array('conditions' => array('Event.' . $this -> Event -> primaryKey => $id));
 			$event = $this -> Event -> find('first', $options);
 			$this->set(array('event' => $event, '_serialize' => array('event')));
-		}
-
-
-		/**
-		 * edit method
-		 *
-		 * @throws NotFoundException
-		 * @param string $id
-		 * @return void
-		 */
-		public function edit($id = null) {
-			if (!$this -> Event -> exists($id)) {
-				throw new NotFoundException(__('Invalid event'));
-			}
-			if ($this -> request -> is('post') || $this -> request -> is('put')) {
-				if ($this -> Event -> save($this -> request -> data)) {
-					$this -> Session -> setFlash(__('The event has been saved'));
-					$this -> redirect(array('action' => 'index'));
-				} else {
-					$this -> Session -> setFlash(__('The event could not be saved. Please, try again.'));
-				}
-			}
-			
-			// $this->Paginator->settings = 
-			// 	array('conditions' => 
-			// 			array('Event.date_end >=' => date('Y-m-d H:i'))
-			// 		, 'contain' => array('User' => array('fields'=>array('User.id', 'User.username')))
-			// 		, 'order' => 'Event.date_start ASC'
-			// );
-
-
-			$this->Event->Behaviors->load('Containable');
-			$options['conditions'] = array('Event.' . $this->Event->primaryKey => $id);
-			$options['contain'] = array('Category');
-			// $options['recursive'] = -1;
-			$event = $this->Event->find('first', $options);
-			
-			$categories = $this -> Event -> Category -> find('list');
-			$places = $this -> Event -> Place -> find('list');
-			$this -> set(compact('categories', 'event', 'places'));
 		}
 
 		/**
