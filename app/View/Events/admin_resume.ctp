@@ -23,8 +23,8 @@
 			<tbody>
 				<?php foreach ($events as $key => $event) : ?>
 					<tr>
-						<td><?php echo $event['Event']['date_start'] ?></td>
-						<td><?php echo $event['Event']['date_end'] ?></td>
+						<td><?php echo $this->Time->format($event['Event']['date_start'], '%d-%m-%Y %H:%M') ?></td>
+						<td><?php echo $this->Time->format($event['Event']['date_end'], '%d-%m-%Y %H:%M') ?></td>
 						<td><?php echo $event['Event']['title'] ?></td>
 						<td><?php echo $event['Event']['address'] ?></td>
 						<td><?php echo $this->Html->link($event['User']['username'], array('controller'=>'user', 'action'=>'view', $event['User']['id'])) ?></td>
