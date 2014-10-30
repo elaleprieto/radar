@@ -14,16 +14,41 @@ angular.module('RadarApp').controller 'EventsController'
 			Event.getById {id: id}
 				, (data) ->
 					$scope.evento = data.event.Event
-					# console.log data.event.Category
+					# $scope.$apply()
+					$scope.evento.date_from = sqlToJsDate(data.event.Event.date_start)
+					$scope.evento.date_to = sqlToJsDate(data.event.Event.date_end)
+					# console.log data.event.Event.date_to
+					# console.log sqlToJsDate(data.event.Event.date_to)
+					# Se cargan las categorías del evento
 					if not $scope.evento.categories then $scope.evento.categories = []
-					
 					$rootScope.$broadcast('categoriesAddBroadcast', data.event.Category)
-					
-					# angular.forEach data.event.Category, (category, key) ->
-					# 	# console.log category
-					# 	$scope.categoriesAdd category
 
 
+	# sqlToJsDate = (sqlDate) ->
+	# 	# sqlDate in SQL DATETIME format ("yyyy-mm-dd hh:mm:ss.ms")
+	# 	date = sqlDate.split(' ')
+	# 	new Date(date[0])
+
+	sqlToJsDate = (sqlDate) ->
+		# sqlDate in SQL DATETIME format ("yyyy-mm-dd hh:mm:ss.ms")
+		sqlDateArr1 = sqlDate.split("-")
+		# format of sqlDateArr1[] = ['yyyy','mm','dd hh:mm:ms']
+		sYear = sqlDateArr1[0]
+		sMonth = (Number(sqlDateArr1[1]) - 1).toString()
+		sqlDateArr2 = sqlDateArr1[2].split(" ")
+		# format of sqlDateArr2[] = ['dd', 'hh:mm:ss.ms']
+		sDay = sqlDateArr2[0]
+		sqlDateArr3 = sqlDateArr2[1].split(":")
+		# format of sqlDateArr3[] = ['hh','mm','ss.ms']
+		sHour = sqlDateArr3[0]
+		sMinute = sqlDateArr3[1]
+		sqlDateArr4 = sqlDateArr3[2].split(".")
+		# format of sqlDateArr4[] = ['ss','ms']
+		sSecond = sqlDateArr4[0]
+		# sMillisecond = sqlDateArr4[1]
+
+		# new Date(sYear,sMonth,sDay,sHour,sMinute,sSecond,sMillisecond)
+		new Date(sYear, sMonth, sDay, sHour, sMinute, sSecond)
 
 	$scope.eventInterval = 1
 	$scope.isReadonly = false
@@ -120,7 +145,7 @@ angular.module('RadarApp').controller 'EventsController'
 	# Se observa cuando cambie el date_from y se setea el date_to
 	$scope.$watch 'evento.date_from', (newValue) ->
 		# Se setea el mínimo día de finalización y el máximo día de finalización del evento
-		if newValue?
+		if newValue? and (!$scope.evento.date_to or $scope.evento.date_to.getTime() < newValue.getTime())
 			$('#date_to').datepicker('setDate', newValue)
 			$('#date_to').datepicker('setStartDate', newValue)
 			$('#date_to').datepicker('setEndDate', new Date(newValue.getTime() + (3 * $scope.diaEnMilisegundos)))

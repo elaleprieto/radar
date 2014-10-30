@@ -13,7 +13,6 @@
         return $scope.categorias = response.categories;
       });
       $scope.categoryToogle = function(category) {
-        console.log($scope.$parent.evento.categories.length);
         if (!category.highlight) {
           return $scope.$parent.categoriesAdd(category);
         } else {

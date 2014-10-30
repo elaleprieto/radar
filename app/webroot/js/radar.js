@@ -21,7 +21,7 @@
         return g = b.absUrl(), e.get({}, function(a) {
             return c.categorias = a.categories;
         }), c.categoryToogle = function(a) {
-            return console.log(c.$parent.evento.categories.length), a.highlight ? c.$parent.categoriesDelete(a) : c.$parent.categoriesAdd(a);
+            return a.highlight ? c.$parent.categoriesDelete(a) : c.$parent.categoriesAdd(a);
         }, c.deselectAllCategories = function() {
             return c.$parent.categoriesSelected = [], c.allCategoriesSelected = !1, angular.forEach(c.categorias, function(a) {
                 return a.highlight = !1;
@@ -110,15 +110,21 @@
     } ]);
 }.call(this), function() {
     angular.module("RadarApp").controller("EventsController", [ "$http", "$location", "$scope", "$rootScope", "$timeout", "$compile", "Compliant", "CompliantView", "Event", "EventView", "Rate", "User", function(a, b, c, d, e, f, g, h, i, j, k, l) {
-        var m, n, o, p, q, r, s, t, u, v, w;
+        var m, n, o, p, q, r, s, t, u, v, w, x;
         return b.absUrl().contains("/events/edit/") && c.$watch("evento.id", function(a) {
             return i.getById({
                 id: a
             }, function(a) {
-                return c.evento = a.event.Event, c.evento.categories || (c.evento.categories = []), 
+                return c.evento = a.event.Event, c.evento.date_from = t(a.event.Event.date_start), 
+                c.evento.date_to = t(a.event.Event.date_end), c.evento.categories || (c.evento.categories = []), 
                 d.$broadcast("categoriesAddBroadcast", a.event.Category);
             });
-        }), c.eventInterval = 1, c.isReadonly = !1, c.max = 5, c.user = {}, c.categoriesSelected = [], 
+        }), t = function(a) {
+            var b, c, d, e, f, g, h, i, j, k;
+            return h = a.split("-"), g = h[0], e = (Number(h[1]) - 1).toString(), i = h[2].split(" "), 
+            b = i[0], j = i[1].split(":"), c = j[0], d = j[1], k = j[2].split("."), f = k[0], 
+            new Date(g, e, b, c, d, f);
+        }, c.eventInterval = 1, c.isReadonly = !1, c.max = 5, c.user = {}, c.categoriesSelected = [], 
         m = new Date(), c.minutoEnMilisegundos = 6e4, c.diaEnMilisegundos = 1440 * c.minutoEnMilisegundos, 
         c.evento = {}, c.evento.categories = [], c.descriptionSize = 500, c.hideSponsors = 1, 
         c.capital = new google.maps.LatLng(-34.603, -58.382), c.cordoba = new google.maps.LatLng(-31.388813, -64.179726), 
@@ -135,9 +141,9 @@
             streetViewControl: !1,
             overviewMapControl: !1,
             zoom: c.zoomDefault
-        }, null != $.cookie && ($.cookie.json = !0, u = $.cookie("userMapCenter"), v = $.cookie("userMapTypeId"), 
-        w = $.cookie("userMapZoom"), t = $.cookie("userLastLocationString"), null != u && (c.opciones.center = new google.maps.LatLng(u.lat, u.lng)), 
-        null != v && (c.opciones.mapTypeId = v), null != w && (c.opciones.zoom = w), null != t && (c.user.location = t)), 
+        }, null != $.cookie && ($.cookie.json = !0, v = $.cookie("userMapCenter"), w = $.cookie("userMapTypeId"), 
+        x = $.cookie("userMapZoom"), u = $.cookie("userLastLocationString"), null != v && (c.opciones.center = new google.maps.LatLng(v.lat, v.lng)), 
+        null != w && (c.opciones.mapTypeId = w), null != x && (c.opciones.zoom = x), null != u && (c.user.location = u)), 
         c.map = new google.maps.Map(document.getElementById("map"), c.opciones), c.markers = [], 
         c.infowindows = [], c.geocoder = new google.maps.Geocoder(), c.$watch("categoriesSelected.length", function() {
             return c.eventsUpdate();
@@ -149,8 +155,8 @@
                 return b = new google.maps.LatLng(a.Event.lat, a.Event.long), c.createMarker(a, b);
             }), c.showOverlays();
         }, !0), c.$watch("evento.date_from", function(a) {
-            return null != a ? ($("#date_to").datepicker("setDate", a), $("#date_to").datepicker("setStartDate", a), 
-            $("#date_to").datepicker("setEndDate", new Date(a.getTime() + 3 * c.diaEnMilisegundos)), 
+            return null != a && (!c.evento.date_to || c.evento.date_to.getTime() < a.getTime()) ? ($("#date_to").datepicker("setDate", a), 
+            $("#date_to").datepicker("setStartDate", a), $("#date_to").datepicker("setEndDate", new Date(a.getTime() + 3 * c.diaEnMilisegundos)), 
             c.evento.date_to = a) : void 0;
         }), c.$watch("evento.time_from", function(a) {
             return null != a ? c.checkTimeTo() : void 0;

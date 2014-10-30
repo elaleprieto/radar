@@ -12,13 +12,15 @@
       	***************************************************************************************************************
       */
 
-      var date, findResult, getEventCategoryIcon, getEventDescription, getEventId, getEventTitle, setUserLocationString, userLastLocationString, userMapCenter, userMapTypeId, userMapZoom;
+      var date, findResult, getEventCategoryIcon, getEventDescription, getEventId, getEventTitle, setUserLocationString, sqlToJsDate, userLastLocationString, userMapCenter, userMapTypeId, userMapZoom;
       if ($location.absUrl().contains('/events/edit/')) {
         $scope.$watch('evento.id', function(id) {
           return Event.getById({
             id: id
           }, function(data) {
             $scope.evento = data.event.Event;
+            $scope.evento.date_from = sqlToJsDate(data.event.Event.date_start);
+            $scope.evento.date_to = sqlToJsDate(data.event.Event.date_end);
             if (!$scope.evento.categories) {
               $scope.evento.categories = [];
             }
@@ -26,6 +28,20 @@
           });
         });
       }
+      sqlToJsDate = function(sqlDate) {
+        var sDay, sHour, sMinute, sMonth, sSecond, sYear, sqlDateArr1, sqlDateArr2, sqlDateArr3, sqlDateArr4;
+        sqlDateArr1 = sqlDate.split("-");
+        sYear = sqlDateArr1[0];
+        sMonth = (Number(sqlDateArr1[1]) - 1).toString();
+        sqlDateArr2 = sqlDateArr1[2].split(" ");
+        sDay = sqlDateArr2[0];
+        sqlDateArr3 = sqlDateArr2[1].split(":");
+        sHour = sqlDateArr3[0];
+        sMinute = sqlDateArr3[1];
+        sqlDateArr4 = sqlDateArr3[2].split(".");
+        sSecond = sqlDateArr4[0];
+        return new Date(sYear, sMonth, sDay, sHour, sMinute, sSecond);
+      };
       $scope.eventInterval = 1;
       $scope.isReadonly = false;
       $scope.max = 5;
@@ -105,7 +121,7 @@
         return $scope.showOverlays();
       }, true);
       $scope.$watch('evento.date_from', function(newValue) {
-        if (newValue != null) {
+        if ((newValue != null) && (!$scope.evento.date_to || $scope.evento.date_to.getTime() < newValue.getTime())) {
           $('#date_to').datepicker('setDate', newValue);
           $('#date_to').datepicker('setStartDate', newValue);
           $('#date_to').datepicker('setEndDate', new Date(newValue.getTime() + (3 * $scope.diaEnMilisegundos)));
