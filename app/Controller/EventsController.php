@@ -1,5 +1,6 @@
 <?php
 	App::uses('AppController', 'Controller');
+
 	/**
 	 * Events Controller
 	 *
@@ -75,7 +76,25 @@
 				
 				// if(sizeof($data->Category) > 3)
 				$event['Event']['Category'] = $data->Category;
+								
+			//imagen inicio
+			# Se verifica si se subió una imagen y se setea la imagen
+			
+			if (isset($event['Event']['image']['name']) && ($event['Event']['image']['name'] != '')) {
+				$imageName = $event['Event']['image']['name'];
+				$uploadDir = IMAGES_URL . 'photos/';
+				$uploadFile = $uploadDir . $imageName;
 				
+				if (!move_uploaded_file($event['Event']['image']['tmp_name'], $uploadFile)) {
+					$this->Session->setFlash(__('The image could not be saved. Please, verify the file.'));
+					return $this->redirect(array('action' => 'add'));
+				}
+				
+				$image = $imageName;
+				$event['Event']['image'] = $data->Event->image;
+			}			
+			//imagen fin
+								
 				# Se crea el evento
 				$this->Event->create();
 				if(!$this->Event->save($event)) {

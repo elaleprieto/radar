@@ -324,6 +324,7 @@
                                 </div>
                                 <div class="row form-group">
                                     <?php echo $this->Form->input('foto', array('class'=>'textbox form-control', 'label'=>__('Photo'))) ?>
+                                    <?php echo $this->Form->input('image', array('type'=>'file', 'label' => __('Photo')));?>
                                 </div>
                            </div>
                         </div>
