@@ -2,9 +2,9 @@
 								EVENTOS
 ******************************************************************************************************************* ###
 angular.module('RadarApp').controller 'EventsController'
-	, ['$http', '$location', '$scope', '$timeout', '$compile', 'Compliant', 'CompliantView', 'Event', 'EventView', 'Rate'
+	, ['$http', '$location', '$scope', '$rootScope', '$timeout', '$compile', 'Compliant', 'CompliantView', 'Event', 'EventView', 'Rate'
 		, 'User'
-			, ($http, $location, $scope, $timeout, $compile, Compliant, CompliantView, Event, EventView, Rate, User) ->
+			, ($http, $location, $scope, $rootScope, $timeout, $compile, Compliant, CompliantView, Event, EventView, Rate, User) ->
 
 	### ***************************************************************************************************************
 			Inicialización de Objetos
@@ -14,7 +14,14 @@ angular.module('RadarApp').controller 'EventsController'
 			Event.getById {id: id}
 				, (data) ->
 					$scope.evento = data.event.Event
+					# console.log data.event.Category
 					if not $scope.evento.categories then $scope.evento.categories = []
+					
+					$rootScope.$broadcast('categoriesAddBroadcast', data.event.Category)
+					
+					# angular.forEach data.event.Category, (category, key) ->
+					# 	# console.log category
+					# 	$scope.categoriesAdd category
 
 
 

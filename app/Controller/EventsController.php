@@ -68,6 +68,8 @@
 						$event['Event']['foto'] = $this->_foto($event['Event']['archivo'], $this->Event->id);
 						$this->Event->save($event);
 					}
+					$this->Session->setFlash(__('The event has been saved'));
+					$this->redirect(array('action' => 'index'));
 				}
 			}
 		}
@@ -115,11 +117,22 @@
 			if($this->request->is('post') || $this->request->is('put')) {
 				date_default_timezone_set('UTC');
 				$event = $this->_setEventValues($this->request->data);
-				if ($this->Event->save($event)) {
+				// if ($this->Event->save($event)) {
+				// 	$this->Session->setFlash(__('The event has been saved'));
+				// 	$this->redirect(array('action' => 'index'));
+				// } else {
+				// 	$this->Session->setFlash(__('The event could not be saved. Please, try again.'));
+				// }
+				debug($event, $showHtml = null, $showFrom = true);
+				if(!$this->Event->save($event)) {
+					throw new Exception('Evento inválido', 1);
+				} else {
+					if($event['Event']['archivo']['name']) {
+						$event['Event']['foto'] = $this->_foto($event['Event']['archivo'], $this->Event->id);
+						$this->Event->save($event);
+					}
 					$this->Session->setFlash(__('The event has been saved'));
 					$this->redirect(array('action' => 'index'));
-				} else {
-					$this->Session->setFlash(__('The event could not be saved. Please, try again.'));
 				}
 			}
 			
@@ -128,6 +141,7 @@
 			$options['contain'] = array('Category');
 			// $options['recursive'] = -1;
 			$event = $this->Event->find('first', $options);
+			$this->request->data = $this->Event->read(null, $id);
 			
 			$categories = $this -> Event -> Category -> find('list');
 			$places = $this -> Event -> Place -> find('list');

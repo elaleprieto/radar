@@ -132,18 +132,18 @@ class Event extends AppModel {
 				'message' => 'El campo complaint debe ser un valor numérico.'
 			)
 		),
-		'Category' => array(
-			'multiple' => array(
-				'rule' => array(
-					'multiple', array(
-						'min' => 1,
-						'max' => 3
-					)
-				),
-			'message' => 'Es necesario seleccionar al menos una categoría. Máximo 3.',
-			'required' => true
-			)
-		)
+		// 'Category' => array(
+		// 	'multiple' => array(
+		// 		'rule' => array(
+		// 			'multiple', array(
+		// 				'min' => 1,
+		// 				'max' => 3
+		// 			)
+		// 		),
+		// 	'message' => 'Es necesario seleccionar al menos una categoría. Máximo 3.',
+		// 	'required' => true
+		// 	)
+		// )
 	);
 
 	//The Associations below have been created with all possible keys, those that are not needed can be removed

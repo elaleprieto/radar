@@ -11,6 +11,7 @@ app/[Cc]onfig/core.php
 app/[Cc]onfig/database.php
 !empty
 app/webroot/.sass-cache/*
+app/webroot/fotos/*
 
 app/Vendor/extras.php
 app/Vendor/contras.php

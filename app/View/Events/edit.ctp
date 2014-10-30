@@ -1,4 +1,4 @@
-<?php //debug($event, $showHtml = null, $showFrom = true) ?>
+<?php debug($event, $showHtml = null, $showFrom = true) ?>
 <?php
 	echo $this->Html->css(array(
 		'vendors/bootstrap-datepicker',

@@ -1,4 +1,4 @@
-/*! radar 2014-10-28 */
+/*! radar 2014-10-30 */
 (function() {
     "use strict";
     var a, b = [].indexOf || function(a) {
@@ -52,7 +52,13 @@
             return null == a && (a = null), b = !1, angular.forEach(a, function(a) {
                 return b ? void 0 : b = g.contains(a);
             }), b;
-        }, c.$watch("categorias.length", function() {
+        }, c.$on("categoriesAddBroadcast", function(a, b) {
+            return angular.forEach(b, function(a) {
+                return angular.forEach(c.categorias, function(b) {
+                    return b.Category.id === a.id ? c.categoryToogle(b) : void 0;
+                });
+            });
+        }), c.$watch("categorias.length", function() {
             var a, b;
             return b = [ "events/add", "events/edit", "eventos/agregar", "eventos/editar" ], 
             !f(b) && null != c.categorias && c.categorias.length > 0 && (0 === c.categoriesSelected.length && c.selectAllCategories(), 
@@ -103,16 +109,17 @@
         });
     } ]);
 }.call(this), function() {
-    angular.module("RadarApp").controller("EventsController", [ "$http", "$location", "$scope", "$timeout", "$compile", "Compliant", "CompliantView", "Event", "EventView", "Rate", "User", function(a, b, c, d, e, f, g, h, i, j, k) {
-        var l, m, n, o, p, q, r, s, t, u, v;
+    angular.module("RadarApp").controller("EventsController", [ "$http", "$location", "$scope", "$rootScope", "$timeout", "$compile", "Compliant", "CompliantView", "Event", "EventView", "Rate", "User", function(a, b, c, d, e, f, g, h, i, j, k, l) {
+        var m, n, o, p, q, r, s, t, u, v, w;
         return b.absUrl().contains("/events/edit/") && c.$watch("evento.id", function(a) {
-            return h.getById({
+            return i.getById({
                 id: a
             }, function(a) {
-                return c.evento = a.event.Event, c.evento.categories ? void 0 : c.evento.categories = [];
+                return c.evento = a.event.Event, c.evento.categories || (c.evento.categories = []), 
+                d.$broadcast("categoriesAddBroadcast", a.event.Category);
             });
         }), c.eventInterval = 1, c.isReadonly = !1, c.max = 5, c.user = {}, c.categoriesSelected = [], 
-        l = new Date(), c.minutoEnMilisegundos = 6e4, c.diaEnMilisegundos = 1440 * c.minutoEnMilisegundos, 
+        m = new Date(), c.minutoEnMilisegundos = 6e4, c.diaEnMilisegundos = 1440 * c.minutoEnMilisegundos, 
         c.evento = {}, c.evento.categories = [], c.descriptionSize = 500, c.hideSponsors = 1, 
         c.capital = new google.maps.LatLng(-34.603, -58.382), c.cordoba = new google.maps.LatLng(-31.388813, -64.179726), 
         c.santafe = new google.maps.LatLng(-31.625906, -60.696774), c.cordobaSantafe = new google.maps.LatLng(-31.52081, -62.411469), 
@@ -128,9 +135,9 @@
             streetViewControl: !1,
             overviewMapControl: !1,
             zoom: c.zoomDefault
-        }, null != $.cookie && ($.cookie.json = !0, t = $.cookie("userMapCenter"), u = $.cookie("userMapTypeId"), 
-        v = $.cookie("userMapZoom"), s = $.cookie("userLastLocationString"), null != t && (c.opciones.center = new google.maps.LatLng(t.lat, t.lng)), 
-        null != u && (c.opciones.mapTypeId = u), null != v && (c.opciones.zoom = v), null != s && (c.user.location = s)), 
+        }, null != $.cookie && ($.cookie.json = !0, u = $.cookie("userMapCenter"), v = $.cookie("userMapTypeId"), 
+        w = $.cookie("userMapZoom"), t = $.cookie("userLastLocationString"), null != u && (c.opciones.center = new google.maps.LatLng(u.lat, u.lng)), 
+        null != v && (c.opciones.mapTypeId = v), null != w && (c.opciones.zoom = w), null != t && (c.user.location = t)), 
         c.map = new google.maps.Map(document.getElementById("map"), c.opciones), c.markers = [], 
         c.infowindows = [], c.geocoder = new google.maps.Geocoder(), c.$watch("categoriesSelected.length", function() {
             return c.eventsUpdate();
@@ -177,7 +184,7 @@
             }), c.marker.setMap(c.map)) : this;
         }, c.centerMapByUserLocation = function(a) {
             return null != a[0] && null != a[0].geometry && null != a[0].geometry.location ? (c.centerMapInLatLng(a[0].geometry.location, c.zoomCity), 
-            c.saveUserMapCenter(), r(a[0])) : void 0;
+            c.saveUserMapCenter(), s(a[0])) : void 0;
         }, c.centerMapInCity = function(a) {
             switch (c.map.setZoom(c.zoomDefault), a) {
               case "cordoba":
@@ -195,18 +202,18 @@
         }, c.centerMapInLatLng = function(a, b) {
             return null == b && (b = 13), c.map.setCenter(a), c.map.setZoom(13);
         }, c.createMarker = function(a, b) {
-            var d, f, g, h;
-            return f = new google.maps.MarkerImage("/img/map-marker/" + n(a), new google.maps.Size(30, 40), new google.maps.Point(0, 0), new google.maps.Point(10, 34)), 
+            var d, e, g, h;
+            return e = new google.maps.MarkerImage("/img/map-marker/" + o(a), new google.maps.Size(30, 40), new google.maps.Point(0, 0), new google.maps.Point(10, 34)), 
             h = new google.maps.Marker({
-                eventId: p(a),
+                eventId: q(a),
                 map: c.map,
-                icon: f,
+                icon: e,
                 position: b,
-                title: q(a),
+                title: r(a),
                 zIndex: Math.round(-1e5 * b.lat()) << 5
-            }), d = "<div>", d += "<p>" + q(a) + "</p>", d += "<a ng-click=\"openModal('events/view/" + p(a) + "')\">", 
+            }), d = "<div>", d += "<p>" + r(a) + "</p>", d += "<a ng-click=\"openModal('events/view/" + q(a) + "')\">", 
             d += '<p class="text-right"><i class="icon-expand-alt"></i> info</p>', d += "</a>", 
-            d += "</div>", d = e(d)(c), g = new google.maps.InfoWindow({
+            d += "</div>", d = f(d)(c), g = new google.maps.InfoWindow({
                 content: d[0]
             }), google.maps.event.addListener(h, "click", function() {
                 return c.closeAllInfowindows(), g.open(c.map, h);
@@ -240,8 +247,8 @@
             return b = c.evento.categories.indexOf(a.Category.id), b >= 0 ? (c.evento.categories.splice(b, 1), 
             a.highlight = !1, a.checkbox = !1) : void 0;
         }, c.denounce = function(a) {
-            return null != c.user.id && null != a.Compliant && null != a.Compliant.title ? (f.create(a), 
-            g.close()) : void 0;
+            return null != c.user.id && null != a.Compliant && null != a.Compliant.title ? (g.create(a), 
+            h.close()) : void 0;
         }, c.eventsUpdate = function() {
             var a, d, e, f;
             return 0 === c.categoriesSelected.length ? (c.eventos = [], void 0) : b.absUrl().contains("events/add") || null == c.map.getBounds() ? void 0 : (a = c.map.getBounds(), 
@@ -252,7 +259,7 @@
                 neLong: d.lng(),
                 swLat: f.lat(),
                 swLong: f.lng()
-            }, h.get({
+            }, i.get({
                 params: e
             }, function(a) {
                 return c.eventos = a.events;
@@ -268,12 +275,12 @@
             return b.path("/");
         }, c.saveRatingToServer = function(a, b) {
             return a.Event.rate = +a.Event.rate + b, a.Rate.rate = b, b > 0 && (a.Rate.user_id = c.user.id), 
-            0 > b && (a.Rate.user_id = !1), j.create(a);
+            0 > b && (a.Rate.user_id = !1), k.create(a);
         }, c.saveUserLocationPreferences = function() {
             return c.saveUserLocationString(), c.saveUserMapCenter(), c.saveUserMapTypeId(), 
             c.saveUserMapZoom(), null != c.user.id ? (c.user.map_lat = c.map.getCenter().lat(), 
             c.user.map_lng = c.map.getCenter().lng(), c.user.map_type = c.map.getMapTypeId(), 
-            c.user.map_zoom = c.map.getZoom(), k.update({
+            c.user.map_zoom = c.map.getZoom(), l.update({
                 id: c.user.id
             }, c.user)) : void 0;
         }, c.saveUserLocationString = function() {
@@ -315,7 +322,7 @@
                 c.eventsUpdate();
             }, function() {
                 return c.errorLocation = "Debes autorizar la captura de tu ubicación", c.setLocationDefault(), 
-                d(function() {
+                e(function() {
                     return c.errorLocation = null;
                 }, 2e3);
             })) : c.errorLocation = "Esta función no está soportada por tu navegador";
@@ -327,7 +334,7 @@
         }, c.setUserLocationByLatLng = function(a) {
             var b;
             return b = {}, b.location = a, c.geocoder.geocode(b, function(a) {
-                return r(a[0]);
+                return s(a[0]);
             });
         }, c.setMapType = function(a) {
             return c.map.setMapTypeId(a), c.saveUserMapTypeId();
@@ -341,26 +348,26 @@
         }, c.viewDisplayed = function() {
             return "/" === b.path();
         }, c.openModal = function(a) {
-            return i(c, a);
+            return j(c, a);
         }, c.openCompliantModal = function(a) {
-            return g.show(c, a);
-        }, m = function(a, b) {
+            return h.show(c, a);
+        }, n = function(a, b) {
             var c;
             return c = a.filter(function(a) {
                 return a.types[0] === b && "political" === a.types[1];
             }), null != c[0] ? c[0].long_name : null;
-        }, n = function(a) {
-            return a.Category.icon;
-        }, p = function(a) {
-            return a.Event.id;
-        }, q = function(a) {
-            return a.Event.title;
         }, o = function(a) {
-            return a.Event.description;
+            return a.Category.icon;
+        }, q = function(a) {
+            return a.Event.id;
         }, r = function(a) {
+            return a.Event.title;
+        }, p = function(a) {
+            return a.Event.description;
+        }, s = function(a) {
             var b, d, e;
-            return null != a && null != a.address_components ? (e = a.address_components, b = m(e, "locality"), 
-            d = m(e, "country"), c.user.location = b && d ? b + ", " + d : a.formatted_address, 
+            return null != a && null != a.address_components ? (e = a.address_components, b = n(e, "locality"), 
+            d = n(e, "country"), c.user.location = b && d ? b + ", " + d : a.formatted_address, 
             c.locationSearched = c.user.location, c.saveUserLocationString()) : c.user.location = c.user.locationAux;
         }, $(".typeahead").typeahead({
             limit: 10,

@@ -92,6 +92,11 @@ angular.module('RadarApp').controller 'CategoriesController'
 			if not containURL then containURL = location.contains(url)
 		containURL
 
+	$scope.$on 'categoriesAddBroadcast', (event, categories) ->
+		angular.forEach categories, (categorySearched, id) ->
+			angular.forEach $scope.categorias, (categoria, id) ->
+				if categoria.Category.id is categorySearched.id
+					$scope.categoryToogle(categoria)
 
 	$scope.$watch 'categorias.length', ->
 		locations = ['events/add', 'events/edit', 'eventos/agregar', 'eventos/editar']

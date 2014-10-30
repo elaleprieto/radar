@@ -81,6 +81,15 @@
         });
         return containURL;
       };
+      $scope.$on('categoriesAddBroadcast', function(event, categories) {
+        return angular.forEach(categories, function(categorySearched, id) {
+          return angular.forEach($scope.categorias, function(categoria, id) {
+            if (categoria.Category.id === categorySearched.id) {
+              return $scope.categoryToogle(categoria);
+            }
+          });
+        });
+      });
       return $scope.$watch('categorias.length', function() {
         var lastValEventCategory, locations;
         locations = ['events/add', 'events/edit', 'eventos/agregar', 'eventos/editar'];

@@ -6,7 +6,7 @@
 
 (function() {
   angular.module('RadarApp').controller('EventsController', [
-    '$http', '$location', '$scope', '$timeout', '$compile', 'Compliant', 'CompliantView', 'Event', 'EventView', 'Rate', 'User', function($http, $location, $scope, $timeout, $compile, Compliant, CompliantView, Event, EventView, Rate, User) {
+    '$http', '$location', '$scope', '$rootScope', '$timeout', '$compile', 'Compliant', 'CompliantView', 'Event', 'EventView', 'Rate', 'User', function($http, $location, $scope, $rootScope, $timeout, $compile, Compliant, CompliantView, Event, EventView, Rate, User) {
       /* ***************************************************************************************************************
       			Inicialización de Objetos
       	***************************************************************************************************************
@@ -20,8 +20,9 @@
           }, function(data) {
             $scope.evento = data.event.Event;
             if (!$scope.evento.categories) {
-              return $scope.evento.categories = [];
+              $scope.evento.categories = [];
             }
+            return $rootScope.$broadcast('categoriesAddBroadcast', data.event.Category);
           });
         });
       }
