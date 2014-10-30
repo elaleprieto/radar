@@ -2,22 +2,54 @@
 # Styles
 echo $this -> Html -> css(array('events/view'));
 ?>
-
 <div class="row">
-	<div class="col-sm-3">
-		<!-- Categoría del lugar-->
+	<div class="col-sm-12">
 		<div class="row">
-		</div>
-		<div class="row">
-			<?php echo $this->Html->image('logos/logoBetaVertical.png', array('class' => 'img-responsive')); ?>
-		</div>
-	</div>
-	<div class="col-sm-9">
-		<div class="row">
-			<div class="col-sm-12">
-				<h2><?php echo h($place['Place']['name']); ?></h2>
+			<div class="col-sm-3">
+				<!-- Categoría del lugar-->
+				<div class="row">
+				</div>
+				<div class="row">
+					<?php 
+					if($place['Place']['image']=='NULL'){ 
+						echo $this->Html->image('logos/logoBetaVertical.png', array('class' => 'img-responsive'));
+					} else {
+						echo $this->Html->image('photos/'.$place['Place']['image'], array('class' => 'img-responsive'));
+					} 
+				?>
+				</div>
+			</div>
+			<div class="col-sm-9">
+				<div class="row">
+					<div class="col-sm-12">
+						<h2><?php echo h($place['Place']['name']); ?></h2>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12">
+						<p><span class="glyphicon glyphicon-map-marker" style="color:#ABD402"></span>
+							&nbsp;&nbsp;<?php echo h($place['Place']['address']); ?>
+						</p>
+						<p>
+							<span class="glyphicon glyphicon-phone-alt" style="color:#ABD402"></span>
+							&nbsp;&nbsp;<?php echo h($place['Place']['phone']); ?>
+						</p>
+						<p>
+							<span class="glyphicon glyphicon-envelope" style="color:#ABD402"></span>
+							&nbsp;&nbsp;<?php echo h($place['Place']['email']); ?>
+						</p>
+						<p>
+							<span class="glyphicon glyphicon-globe" style="color:#ABD402"></span>
+							&nbsp;&nbsp;<a <?php echo 'href="'.$place['Place']['website'].'" target="_blank"'?> ><?php echo h($place['Place']['website']); ?></a>
+				
+						</p>
+					</div>
+				</div>
 			</div>
 		</div>
+	</div>
+	<hr>
+	<div class="col-sm-12">
 		<div class="row">
 			<div class="col-sm-12">
 				<p><?php echo h($place['Place']['description']); ?></p>
@@ -26,23 +58,14 @@ echo $this -> Html -> css(array('events/view'));
 		<hr>
 		<div class="row">
 			<div class="col-sm-12">
-				<p><span class="glyphicon glyphicon-map-marker" style="color:#ABD402"></span>
-					&nbsp;&nbsp;<?php echo h($place['Place']['address']); ?>
-				</p>
-				<p>
-					<span class="glyphicon glyphicon-phone-alt" style="color:#ABD402"></span>
-					&nbsp;&nbsp;<?php echo h($place['Place']['phone']); ?>
-				</p>
-				<p>
-					<span class="glyphicon glyphicon-envelope" style="color:#ABD402"></span>
-					&nbsp;&nbsp;<?php echo h($place['Place']['email']); ?>
-				</p>
-			</div>
-		</div>
-		<hr>
-		<div class="row">
-			<div class="col-sm-12">
-				<h3><?php echo __('Accessibility'); ?></h3>
+				<h3>
+					<?php
+						if(($place['Place']['accessibility_parking'] ==1) || ($place['Place']['accessibility_ramp']==1) ||
+							($place['Place']['accessibility_equipment']==1) || ($place['Place']['accessibility_signage']==1) ||
+							($place['Place']['accessibility_braille']==1)){ 
+						echo __('Accessibility'); 
+						}?>		
+				</h3>
 				<?php
 				if($place['Place']['accessibility_parking'] == 1):
 				?>

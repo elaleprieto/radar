@@ -198,7 +198,7 @@
 
         			<!-- Map -->
         			<div class="col-sm-4">
-                        <div class="row">
+                        <div class="row-fluid">
         			    	<div class="col-sm-12">
                            		<div id="map"></div>
         			    	</div>

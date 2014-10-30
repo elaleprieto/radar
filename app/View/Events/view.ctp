@@ -6,20 +6,69 @@ echo $this -> Html -> css(array('events/view'));
 ?>
 
 <div class="row">
-	<div class="col-sm-3">
+	<div class="col-sm-12">
 		<!-- Categoría del lugar-->
 		<div class="row">
 		</div>
 		<div class="row">
-			<?php echo $this->Html->image('logos/logoBetaVertical.png', array('class' => 'img-responsive')); ?>
-		</div>
-	</div>
-	<div class="col-sm-9">
-		<div class="row">
-			<div class="col-sm-12">
-				<h2><?php echo h($event['Event']['title']); ?></h2>
+			<div class="col-sm-3">				
+				<?php 
+					if($event['Event']['image']=='NULL'){ 
+						echo $this->Html->image('logos/logoBetaVertical.png', array('class' => 'img-responsive'));
+					} else {
+						echo $this->Html->image('photos/'.$event['Event']['image'], array('class' => 'img-responsive'));
+					} 
+				?>
+			</div>
+			<div class="col-sm-9">
+				<div class="row">
+					<div class="col-sm-12">
+						<h2><?php echo h($event['Event']['title']); ?></h2>
+					</div>
+				</div>
+				<hr>
+				<div class="row">
+					<div class="col-sm-12">
+						<p>	<span class="glyphicon glyphicon-map-marker" style="color:#ABD402"></span>
+							&nbsp;&nbsp;<?php echo h($event['Event']['address']); ?>
+						</p>
+					</div>
+				</div>
+				<hr>
+				<div class="row">
+					<div class="col-sm-2 col-offset-2">
+						<p><?php echo __('From')?></p>
+					</div>
+					<div class="col-sm-4">
+						<p>
+							<span class="glyphicon glyphicon-calendar" style="color:#ABD402"></span>
+							&nbsp;&nbsp;<?php echo CakeTime::format($event['Event']['date_start'], '%d/%m/%Y'); ?>
+						</p>
+					</div>
+					<div class="col-sm-4">
+						<p>
+							<span class="glyphicon glyphicon-time" style="color:#ABD402"></span>
+							&nbsp;&nbsp;<?php echo CakeTime::format($event['Event']['date_start'], '%H:%M'); ?>
+						</p>
+					</div>
+				</div>
+				<hr>
+				<div class="row">
+					<div class="col-sm-2 col-offset-2">
+						<p><?php echo __('To')?></p>
+					</div>
+					<div class="col-sm-4">
+						<p><span class="glyphicon glyphicon-calendar" style="color:#ABD402"></span>&nbsp;&nbsp;<?php echo CakeTime::format($event['Event']['date_end'], '%d/%m/%Y'); ?></p>
+					</div>
+					<div class="col-sm-4">
+						<p><span class="glyphicon glyphicon-time" style="color:#ABD402"></span>&nbsp;&nbsp;<?php echo CakeTime::format($event['Event']['date_end'], '%H:%M'); ?></p>
+					</div>
+				</div>
 			</div>
 		</div>
+	</div>
+	<hr>
+	<div class="col-sm-12">
 		<div class="row">
 			<div class="col-sm-12">
 				<p><?php echo h($event['Event']['description']); ?></p>
@@ -28,46 +77,14 @@ echo $this -> Html -> css(array('events/view'));
 		<hr>
 		<div class="row">
 			<div class="col-sm-12">
-				<p>	<span class="glyphicon glyphicon-map-marker" style="color:#ABD402"></span>
-					&nbsp;&nbsp;<?php echo h($event['Event']['address']); ?>
-				</p>
-			</div>
-		</div>
-		<hr>
-		<div class="row">
-			<div class="col-sm-2 col-offset-2">
-				<p><?php echo __('From')?></p>
-			</div>
-			<div class="col-sm-4">
-				<p>
-					<span class="glyphicon glyphicon-calendar" style="color:#ABD402"></span>
-					&nbsp;&nbsp;<?php echo CakeTime::format($event['Event']['date_start'], '%d/%m/%Y'); ?>
-				</p>
-			</div>
-			<div class="col-sm-4">
-				<p>
-					<span class="glyphicon glyphicon-time" style="color:#ABD402"></span>
-					&nbsp;&nbsp;<?php echo CakeTime::format($event['Event']['date_start'], '%H:%M'); ?>
-				</p>
-			</div>
-		</div>
-		<hr>
-		<div class="row">
-			<div class="col-sm-2 col-offset-2">
-				<p><?php echo __('To')?></p>
-			</div>
-			<div class="col-sm-4">
-				<p><span class="glyphicon glyphicon-calendar" style="color:#ABD402"></span>&nbsp;&nbsp;<?php echo CakeTime::format($event['Event']['date_end'], '%d/%m/%Y'); ?></p>
-			</div>
-			<div class="col-sm-4">
-				<p><span class="glyphicon glyphicon-time" style="color:#ABD402"></span>&nbsp;&nbsp;<?php echo CakeTime::format($event['Event']['date_end'], '%H:%M'); ?></p>
-			</div>
-		</div>
-		<hr>
-		<div class="row">
-			<div class="col-sm-12">
-				<h3><?php echo __('Accessibility'); ?></h3>
-<!--				<?php
+				<h3><?php
+						if(($event['Event']['accessibility_parking'] ==1) || ($event['Event']['accessibility_ramp']==1) ||
+							($event['Event']['accessibility_equipment']==1) || ($event['Event']['accessibility_signage']==1) ||
+							($event['Event']['accessibility_braille']==1)){ 
+						echo __('Accessibility'); 
+						}?>
+				</h3>
+				<?php
 				if($event['Event']['accessibility_parking'] == 1):
 				?>
 					<p>
@@ -108,7 +125,7 @@ echo $this -> Html -> css(array('events/view'));
 					</p>
 				<?php
 				endif;
-				?>-->
+				?>
 			</div>
 		</div>
 		<hr>
@@ -131,7 +148,18 @@ echo $this -> Html -> css(array('events/view'));
 				<?php
 				endif;
 				?>
-				
+				<br>
+				<?php
+				if($event['Event']['video'] != NULL):
+				?>
+					<p>
+						<span class="glyphicon glyphicon-facetime-video" style="color:#ABD402"></span>&nbsp;&nbsp;
+						&nbsp;&nbsp;
+						<? echo $event['Event']['video'];?>						
+					</p>
+				<?php
+				endif;
+				?>
 			</div>
 		</div>
 	
