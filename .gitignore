@@ -13,3 +13,4 @@ app/[Cc]onfig/database.php
 app/webroot/.sass-cache/*
 
 app/Vendor/extras.php
+app/Vendor/contras.php

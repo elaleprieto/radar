@@ -29,7 +29,7 @@
 						<td><?php echo $event['Event']['address'] ?></td>
 						<td><?php echo $this->Html->link($event['User']['username'], array('controller'=>'user', 'action'=>'view', $event['User']['id'])) ?></td>
 						<td>
-							<?php echo $this->Html->link(__('Edit'), array('action'=>'edit', $event['Event']['id'])) ?>
+							<?php echo $this->Html->link(__('Edit'), array('admin'=>false, 'action'=>'edit', $event['Event']['id'])) ?>
 							<?php echo $this->Html->link(__('Delete')
 								, array('action'=>'delete', $event['Event']['id']), null, __('Are you sure you want to delete the event')) ?>
 						</td>

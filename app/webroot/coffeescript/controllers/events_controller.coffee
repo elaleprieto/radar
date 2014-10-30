@@ -10,12 +10,11 @@ angular.module('RadarApp').controller 'EventsController'
 			Inicialización de Objetos
 	*************************************************************************************************************** ###
 	if $location.absUrl().contains('/events/edit/')
-		console.log 'Ruta: ', $location.absUrl()
-		
 		$scope.$watch 'evento.id', (id) ->
 			Event.getById {id: id}
 				, (data) ->
 					$scope.evento = data.event.Event
+					if not $scope.evento.categories then $scope.evento.categories = []
 
 
 
@@ -135,6 +134,20 @@ angular.module('RadarApp').controller 'EventsController'
 		if location? and location.length > 0
 			$scope.setLocationByUserLocation(location)
 
+	# Se crea el Listener para el clic sobre el mapa en la creación de Eventos
+	google.maps.event.addListener $scope.map, 'click', (event) ->
+		if $location.absUrl().contains('/events/add') or $location.absUrl().contains('/eventos/agregar')
+			# se crea un objeto request
+			request = new Object()
+			request.location = new google.maps.LatLng(event.latLng.lat(), event.latLng.lng())
+
+			# geocode hace la conversión a un punto, y su segundo parámetro es una función de callback
+			$scope.geocoder.geocode request, (response, status) ->
+				$scope.evento.address = response[0].formatted_address
+				$scope.$apply()
+				$('.typeahead').val($scope.evento.address)
+				$scope.addAddressToMap(response)
+
 	# # google.maps.event.addListener window.map, 'bounds_changed', () ->
 	google.maps.event.addListener $scope.map, 'dragend', () ->
 		$scope.eventsUpdate()
@@ -162,10 +175,10 @@ angular.module('RadarApp').controller 'EventsController'
 		$scope.evento.lat = response[0].geometry.location.lat()
 		$scope.evento.long = response[0].geometry.location.lng()
 		
-		# Center Map
-		$scope.map.setCenter(response[0].geometry.location)
-		$scope.map.setZoom(13)
-		
+		# Se centra el mapa si el zoom es inferior a 13.
+		# Si no es así, se considera que el usuario buscó la ubicación y el mapa está donde tiene que estar.
+		if $scope.map.getZoom() < 13 then $scope.centerMapInLatLng(response[0].geometry.location)
+
 		# blankicono que voy a usar para mostrar el punto en el mapa
 		icon = new google.maps.MarkerImage("http://gmaps-samples.googlecode.com/svn/trunk/markers/blue/blank.png"
 			, new google.maps.Size(20, 34)
@@ -183,33 +196,33 @@ angular.module('RadarApp').controller 'EventsController'
 		
 		$scope.marker.setMap($scope.map) # inserto el marcador en el mapa
 	
-	# centerMap: centers map with parameter city
-	$scope.centerMap = (city) ->
+	# centerMapInCity: centers map with parameter location, called by setLocationByUserLocation
+	$scope.centerMapByUserLocation = (response, status) ->
+		if response[0]? and response[0].geometry? and response[0].geometry.location?
+			# Center Map
+			$scope.centerMapInLatLng response[0].geometry.location, $scope.zoomCity
+			$scope.saveUserMapCenter()
+			setUserLocationString(response[0])
+
+	# centerMapInCity: centers map with parameter city
+	$scope.centerMapInCity = (city) ->
 		$scope.map.setZoom($scope.zoomDefault)
 		
 		switch city
 			when 'cordoba' 
-				location = $scope.cordoba
-				$scope.map.setZoom($scope.zoomCordoba)
+				$scope.centerMapInLatLng $scope.cordoba, $scope.zoomCordoba
 			when 'santafe'
-				location = $scope.santafe
-				$scope.map.setZoom($scope.zoomSantafe)
-			else location = $scope.locationDefault
-		$scope.map.setCenter(location)
+				$scope.centerMapInLatLng $scope.santafe, $scope.zoomSantafe
+			else 
+				$scope.centerMapInLatLng $scope.locationDefault
 		$scope.eventsUpdate()
 		# Se guardan las preferencias
 		$scope.saveUserMapCenter()
 		$scope.saveUserMapZoom()
 		
-	
-	# centerMap: centers map with parameter location, called by setLocationByUserLocation
-	$scope.centerMapByUserLocation = (response, status) ->
-		if response[0]? and response[0].geometry? and response[0].geometry.location?
-			# Center Map
-			$scope.map.setCenter(response[0].geometry.location)
-			$scope.map.setZoom($scope.zoomCity)
-			$scope.saveUserMapCenter()
-			setUserLocationString(response[0])
+	$scope.centerMapInLatLng = (location, zoom = 13) ->
+		$scope.map.setCenter(location)
+		$scope.map.setZoom(13)
 
 	# A function to create the marker and set up the evento window function
 	# $scope.createMarker = (eventId, eventTitle, categoriesSelected, latlng) ->
@@ -318,12 +331,14 @@ angular.module('RadarApp').controller 'EventsController'
 		if($scope.evento.categories.length < 3)
 			$scope.evento.categories.push(category.Category.id)
 			category.highlight = true
+			category.checkbox = true
 
 	$scope.categoriesDelete = (category) ->
 		index = $scope.evento.categories.indexOf(category.Category.id)
 		if index >= 0 
 			$scope.evento.categories.splice(index, 1)
 			category.highlight = false
+			category.checkbox = false
 
 	$scope.denounce = (evento) ->
 		# Se verifica que el usuario esté registrado
@@ -428,9 +443,11 @@ angular.module('RadarApp').controller 'EventsController'
 		event.preventDefault() if event?
 		request = new Object() # se crea un objeto request
 		request.address = $scope.evento.address
+		
 		# se comenta para que busque en todo el país y no solo en el mapa que se ve
 		# request.bounds = $scope.map.getBounds()
 		# request.region = 'AR'
+		
 		# geocode hace la conversión a un punto, y su segundo parámetro es una función de callback
 		$scope.geocoder.geocode(request, $scope.addAddressToMap)
 
@@ -514,15 +531,17 @@ angular.module('RadarApp').controller 'EventsController'
 			# .error ->
 				# # Se actualiza el mensaje
 				# $scope.cargando = 'Ocurrió un error guardando el evento'		
-		Event.save {}
-			, {Event: $scope.evento, Category: $scope.evento.categories}
-			, (data) ->
-				# Se actualiza el mensaje
-				$scope.cargando = '¡Evento guardado!'
-				window.location.pathname = 'events'
-			, ->
-				# Se actualiza el mensaje
-				$scope.cargando = 'Ocurrió un error guardando el evento'
+		# Event.save {}
+		# 	, {Event: $scope.evento, Category: $scope.evento.categories}
+		# 	, (data) ->
+		# 		# Se actualiza el mensaje
+		# 		$scope.cargando = '¡Evento guardado!'
+		# 		window.location.pathname = 'events'
+		# 	, ->
+		# 		# Se actualiza el mensaje
+		# 		$scope.cargando = 'Ocurrió un error guardando el evento'
+
+		$('#eventForm').submit()
 	
 	$scope.viewDisplayed = ->
 		$location.path() == '/'

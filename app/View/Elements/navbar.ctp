@@ -4,7 +4,7 @@
 	<!--<?php echo $this->Html->link($this->Html->image("radar_xs.png", array('alt' => 'logo', 'class'=>'visible-xs')), '/', array('escape' => false)); ?>-->	
 </div>
 <!--<h2 class="visible-xs radar-xs">RADAR cultural</h2>-->
-<?php echo $this->Html->link($this->Html->image("logo_horizontal.png", array('alt' => 'logo', 'class'=>'visible-xs img-responsive radar-xs')), '/', array('escape' => false)); ?>
+<?php echo $this->Html->link($this->Html->image("logos/logo_horizontal.png", array('alt' => 'logo', 'class'=>'visible-xs img-responsive radar-xs')), '/', array('escape' => false)); ?>
 <div x-ng-cloak>
 	<!-- Rampa irregular del logo -->
 	<div id="rampa" class="navbar-fixed-top hidden-xs"></div>

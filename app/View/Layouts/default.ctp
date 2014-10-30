@@ -25,8 +25,17 @@
 		
 		<!-- Navbar -->
 		<?php 
-		if (AuthComponent::user('role') == 'admin'):
-			echo $this->element('navbar_admin'); 
+		// if (AuthComponent::user('role') == 'admin'):
+		// $rol = AuthComponent::user('Rol');
+		if(isset($userData) && isset($userData['Rol'])):
+			$rol = $userData['Rol'];
+			if ($rol['weight'] == USER::ADMIN):	
+				echo $this->element('navbar_admin'); 
+			elseif ($rol['weight'] == USER::PLACELOADER):
+				echo $this->element('navbar_placeloader'); 
+			else:
+				echo $this->element('navbar');
+			endif;
 		else:
 			echo $this->element('navbar');
 		endif;

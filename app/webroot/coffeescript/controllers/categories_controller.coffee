@@ -12,11 +12,12 @@ angular.module('RadarApp').controller 'CategoriesController'
 	
 	# categoryToogle(category): agrega o elimina la categoria al padre.
 	$scope.categoryToogle = (category) ->
+		console.log $scope.$parent.evento.categories.length
 		if not category.highlight
 			$scope.$parent.categoriesAdd(category)
 		else
 			$scope.$parent.categoriesDelete(category)
-	
+
 	# deselectAllCategories: resetea el array categoriesSelected,
 	# elimina todas las categorías seleccionadas del array categoriesSelected
 	# y resetea el highlight en todas las categorías
@@ -85,9 +86,18 @@ angular.module('RadarApp').controller 'CategoriesController'
 		$scope.selectAllCategories()
 		$scope.setCookieCategoriesSelected()	
 	
+	containLocations = (locations = null) ->
+		containURL = false
+		angular.forEach locations, (url, index) ->
+			if not containURL then containURL = location.contains(url)
+		containURL
+
 
 	$scope.$watch 'categorias.length', ->
-		if not location.contains('events/add') and not location.contains('eventos/agregar') and $scope.categorias? and $scope.categorias.length > 0
+		locations = ['events/add', 'events/edit', 'eventos/agregar', 'eventos/editar']
+
+		# if not location.contains('events/add') and not location.contains('eventos/agregar') and not location.contains('events/add') and $scope.categorias? and $scope.categorias.length > 0
+		if not containLocations(locations) and $scope.categorias? and $scope.categorias.length > 0
 			# Al inicio, se seleccionan todas las categorías
 			# si hay cookie, se sobreescriben después.
 			if $scope.categoriesSelected.length is 0

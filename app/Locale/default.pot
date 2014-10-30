@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2014-07-09 10:52-0300\n"
+"POT-Creation-Date: 2014-10-29 20:10-0300\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -20,27 +20,31 @@ msgid "/contact"
 msgstr ""
 
 #: Config/routes.php:45;46;47;48;49;50
-#: View/Elements/navbar.ctp:34;39;65
-#: View/Elements/navbar_admin.ctp:24;29
+#: View/Elements/navbar.ctp:40;45;71
+#: View/Elements/navbar_admin.ctp:32;37
+#: View/Elements/navbar_placeloader.ctp:32;37;42
 #: View/Events/index.ctp:321
 msgid "/events"
 msgstr ""
 
-#: Config/routes.php:46;48;56;60
-#: View/Elements/navbar.ctp:34;65
-#: View/Elements/navbar_admin.ctp:24;44;64
+#: Config/routes.php:46;48;54;58
+#: View/Elements/navbar.ctp:40;71
+#: View/Elements/navbar_admin.ctp:32;52;72
+#: View/Elements/navbar_placeloader.ctp:37;62
 #: View/Events/index.ctp:321
 msgid "/add"
 msgstr ""
 
 #: Config/routes.php:47;49
-#: View/Elements/navbar.ctp:39
-#: View/Elements/navbar_admin.ctp:29
+#: View/Elements/navbar.ctp:45
+#: View/Elements/navbar_admin.ctp:37
+#: View/Elements/navbar_placeloader.ctp:42
 msgid "/resume"
 msgstr ""
 
-#: Config/routes.php:48;49;50;56
-#: View/Elements/navbar_admin.ctp:29;79;84
+#: Config/routes.php:48;49;50;54
+#: View/Elements/navbar_admin.ctp:37;87;92
+#: View/Elements/navbar_placeloader.ctp:42
 msgid "/admin"
 msgstr ""
 
@@ -48,25 +52,27 @@ msgstr ""
 msgid "/index"
 msgstr ""
 
-#: Config/routes.php:54;56
-#: View/Elements/navbar.ctp:55;60
-#: View/Elements/navbar_admin.ctp:44
+#: Config/routes.php:53;54
+#: View/Elements/navbar.ctp:61;66
+#: View/Elements/navbar_admin.ctp:52
+#: View/Elements/navbar_placeloader.ctp:57;62
 msgid "/places"
 msgstr ""
 
-#: Config/routes.php:59;60
-#: View/Elements/navbar_admin.ctp:64;69
+#: Config/routes.php:57;58
+#: View/Elements/navbar_admin.ctp:72;77
 msgid "/users"
 msgstr ""
 
-#: Config/routes.php:65
-#: Controller/UsersController.php:112
+#: Config/routes.php:63
+#: Controller/UsersController.php:114
 msgid "/emailconfirm"
 msgstr ""
 
-#: Config/routes.php:67
-#: View/Elements/navbar.ctp:153
-#: View/Elements/navbar_admin.ctp:139
+#: Config/routes.php:65
+#: View/Elements/navbar.ctp:141
+#: View/Elements/navbar_admin.ctp:147
+#: View/Elements/navbar_placeloader.ctp:124
 msgid "/singup"
 msgstr ""
 
@@ -174,47 +180,47 @@ msgstr ""
 msgid "Compliant was not deleted"
 msgstr ""
 
-#: Controller/EventsController.php:122
-msgid "You must be logged in to access :/"
-msgstr ""
-
-#: Controller/EventsController.php:145;162;203
+#: Controller/EventsController.php:114;195;213
 msgid "Invalid event"
 msgstr ""
 
-#: Controller/EventsController.php:166
+#: Controller/EventsController.php:119
 msgid "The event has been saved"
 msgstr ""
 
-#: Controller/EventsController.php:169
+#: Controller/EventsController.php:122
 msgid "The event could not be saved. Please, try again."
 msgstr ""
 
-#: Controller/EventsController.php:207
+#: Controller/EventsController.php:172
+msgid "You must be logged in to access :/"
+msgstr ""
+
+#: Controller/EventsController.php:217
 msgid "Event deleted"
 msgstr ""
 
-#: Controller/EventsController.php:210
+#: Controller/EventsController.php:220
 msgid "Event was not deleted"
 msgstr ""
 
-#: Controller/PlacesController.php:76
+#: Controller/PlacesController.php:99
 msgid "Place saved."
 msgstr ""
 
-#: Controller/PlacesController.php:166;181;205;252;267;298
+#: Controller/PlacesController.php:189;204;228;275;290;321
 msgid "Invalid place"
 msgstr ""
 
-#: Controller/PlacesController.php:185;272
+#: Controller/PlacesController.php:208;295
 msgid "The place has been saved."
 msgstr ""
 
-#: Controller/PlacesController.php:209;302
+#: Controller/PlacesController.php:232;325
 msgid "Place deleted"
 msgstr ""
 
-#: Controller/PlacesController.php:211;304
+#: Controller/PlacesController.php:234;327
 msgid "Place was not deleted"
 msgstr ""
 
@@ -238,31 +244,55 @@ msgstr ""
 msgid "Rate was not deleted"
 msgstr ""
 
-#: Controller/UsersController.php:59;199;256;289;389
+#: Controller/RolsController.php:37;69;94
+msgid "Invalid rol"
+msgstr ""
+
+#: Controller/RolsController.php:52;73
+msgid "The rol has been saved."
+msgstr ""
+
+#: Controller/RolsController.php:55;76
+msgid "The rol could not be saved. Please, try again."
+msgstr ""
+
+#: Controller/RolsController.php:98
+msgid "The rol has been deleted."
+msgstr ""
+
+#: Controller/RolsController.php:100
+msgid "The rol could not be deleted. Please, try again."
+msgstr ""
+
+#: Controller/UsersController.php:61;201;263;296;396
 msgid "Invalid user"
 msgstr ""
 
-#: Controller/UsersController.php:92
+#: Controller/UsersController.php:94
 msgid "The reCAPTCHA wasn't entered correctly. Go back and try it again."
 msgstr ""
 
-#: Controller/UsersController.php:122;266
+#: Controller/UsersController.php:124;273
 msgid "The user could not be saved. Please, try again."
 msgstr ""
 
-#: Controller/UsersController.php:172
+#: Controller/UsersController.php:174
 msgid "User inactive"
 msgstr ""
 
-#: Controller/UsersController.php:260
+#: Controller/UsersController.php:244
+msgid "Message sent. Thank you!"
+msgstr ""
+
+#: Controller/UsersController.php:267
 msgid "The user has been saved"
 msgstr ""
 
-#: Controller/UsersController.php:319
+#: Controller/UsersController.php:326
 msgid "User inactive or unconfirmed, verify and try again"
 msgstr ""
 
-#: Controller/UsersController.php:322
+#: Controller/UsersController.php:329
 msgid "Invalid username or password, try again"
 msgstr ""
 
@@ -284,6 +314,8 @@ msgstr ""
 #: View/Places/edit.ctp:13
 #: View/Rates/admin_add.ctp:11
 #: View/Rates/admin_edit.ctp:12
+#: View/Rols/add.ctp:11
+#: View/Rols/edit.ctp:12
 #: View/Users/add.ctp:59
 #: View/Users/edit.ctp:48;87
 msgid "Submit"
@@ -311,7 +343,7 @@ msgstr ""
 #: View/Compliants/admin_view.ctp:42
 #: View/Events/admin_resume.ctp:20
 #: View/Events/resume.ctp:19
-#: View/Events/view.ctp:219
+#: View/Events/view.ctp:227
 #: View/Places/admin_edit.ctp:29
 #: View/Places/admin_index.ctp:35
 #: View/Places/admin_view.ctp:102;138;190
@@ -321,6 +353,10 @@ msgstr ""
 #: View/Rates/admin_edit.ctp:15
 #: View/Rates/admin_index.ctp:11;48
 #: View/Rates/admin_view.ctp:37
+#: View/Rols/add.ctp:14
+#: View/Rols/edit.ctp:15
+#: View/Rols/index.ctp:11;44
+#: View/Rols/view.ctp:37;72
 #: View/Users/edit.ctp:90
 #: View/Users/index.ctp:13
 #: View/Users/view.ctp:32
@@ -334,7 +370,7 @@ msgstr ""
 #: View/CategoriesEvents/edit.ctp:19
 #: View/CategoriesEvents/index.ctp:49
 #: View/CategoriesEvents/view.ctp:38
-#: View/Events/view.ctp:225
+#: View/Events/view.ctp:233
 msgid "List Categories"
 msgstr ""
 
@@ -349,9 +385,10 @@ msgstr ""
 #: View/Compliants/admin_add.ctp:19
 #: View/Compliants/admin_edit.ctp:21
 #: View/Compliants/admin_view.ctp:48
-#: View/Elements/navbar.ctp:40
-#: View/Elements/navbar_admin.ctp:30
-#: View/Events/view.ctp:223
+#: View/Elements/navbar.ctp:46
+#: View/Elements/navbar_admin.ctp:38
+#: View/Elements/navbar_placeloader.ctp:43
+#: View/Events/view.ctp:231
 #: View/Places/admin_edit.ctp:34
 #: View/Places/admin_view.ctp:108
 #: View/Places/edit.ctp:21
@@ -373,7 +410,7 @@ msgstr ""
 #: View/Compliants/admin_add.ctp:20
 #: View/Compliants/admin_edit.ctp:22
 #: View/Compliants/admin_view.ctp:49
-#: View/Events/view.ctp:224
+#: View/Events/view.ctp:232
 #: View/Places/admin_edit.ctp:35
 #: View/Places/admin_view.ctp:109;175
 #: View/Places/edit.ctp:22
@@ -410,6 +447,9 @@ msgstr ""
 #: View/Places/view.ctp:207
 #: View/Rates/admin_edit.ctp:18
 #: View/Rates/admin_index.ctp:28
+#: View/Rols/edit.ctp:18
+#: View/Rols/index.ctp:24
+#: View/Rols/view.ctp:99
 #: View/Users/edit.ctp:93
 #: View/Users/view.ctp:45
 msgid "Delete"
@@ -430,7 +470,7 @@ msgstr ""
 #: View/Compliants/admin_edit.ctp:19
 #: View/Compliants/admin_index.ctp:30
 #: View/Compliants/admin_view.ctp:45
-#: View/Events/view.ctp:222
+#: View/Events/view.ctp:230
 #: View/Places/admin_edit.ctp:32
 #: View/Places/admin_view.ctp:105;166;205
 #: View/Places/edit.ctp:19
@@ -438,6 +478,9 @@ msgstr ""
 #: View/Rates/admin_edit.ctp:18
 #: View/Rates/admin_index.ctp:28
 #: View/Rates/admin_view.ctp:40
+#: View/Rols/edit.ctp:18
+#: View/Rols/index.ctp:24
+#: View/Rols/view.ctp:40;99
 #: View/Users/edit.ctp:93
 #: View/Users/view.ctp:45
 msgid "Are you sure you want to delete # %s?"
@@ -459,6 +502,8 @@ msgstr ""
 #: View/Places/admin_view.ctp:164;203
 #: View/Places/view.ctp:195
 #: View/Rates/admin_index.ctp:26
+#: View/Rols/index.ctp:22
+#: View/Rols/view.ctp:97
 #: View/Users/index.ctp:35
 #: View/Users/view.ctp:43
 msgid "View"
@@ -477,6 +522,8 @@ msgstr ""
 #: View/Places/admin_view.ctp:165;204
 #: View/Places/view.ctp:201
 #: View/Rates/admin_index.ctp:27
+#: View/Rols/index.ctp:23
+#: View/Rols/view.ctp:98
 #: View/Users/view.ctp:44
 msgid "Edit"
 msgstr ""
@@ -488,6 +535,7 @@ msgstr ""
 #: View/Compliants/admin_index.ctp:44
 #: View/Places/admin_index.ctp:98
 #: View/Rates/admin_index.ctp:36
+#: View/Rols/index.ctp:32
 #: View/Users/index.ctp:68
 msgid "Page {:page} of {:pages}, showing {:current} records out of {:count} total, starting on record {:start}, ending on {:end}"
 msgstr ""
@@ -499,6 +547,7 @@ msgstr ""
 #: View/Compliants/admin_index.ctp:50
 #: View/Places/admin_index.ctp:103
 #: View/Rates/admin_index.ctp:41
+#: View/Rols/index.ctp:37
 #: View/Users/index.ctp:74
 msgid "previous"
 msgstr ""
@@ -510,6 +559,7 @@ msgstr ""
 #: View/Compliants/admin_index.ctp:52
 #: View/Places/admin_index.ctp:105
 #: View/Rates/admin_index.ctp:43
+#: View/Rols/index.ctp:39
 #: View/Users/index.ctp:76
 msgid "next"
 msgstr ""
@@ -520,14 +570,14 @@ msgstr ""
 #: View/CategoriesEvents/edit.ctp:20
 #: View/CategoriesEvents/index.ctp:50
 #: View/CategoriesEvents/view.ctp:39
-#: View/Events/view.ctp:226
+#: View/Events/view.ctp:234
 msgid "New Category"
 msgstr ""
 
 #: View/Categories/view.ctp:2
 #: View/CategoriesEvents/view.ctp:9
 #: View/Events/index.ctp:328
-#: View/Events/view.ctp:206
+#: View/Events/view.ctp:214
 #: View/Places/index.ctp:298
 msgid "Category"
 msgstr ""
@@ -537,22 +587,24 @@ msgstr ""
 #: View/Classifications/admin_view.ctp:4;52
 #: View/ClassificationsPlaces/view.ctp:4
 #: View/Compliants/admin_view.ctp:4
-#: View/Events/view.ctp:161
+#: View/Events/view.ctp:169
 #: View/Places/admin_view.ctp:4;119;184
 #: View/Places/view.ctp:97;166
 #: View/Rates/admin_view.ctp:4
+#: View/Rols/view.ctp:4;52
 #: View/Users/view.ctp:28
 msgid "Id"
 msgstr ""
 
 #: View/Categories/view.ctp:9
 #: View/Classifications/admin_view.ctp:9;53
-#: View/Pages/contacto.ctp:12
+#: View/Pages/contacto.ctp:11
 #: View/Places/admin_add.ctp:67
 #: View/Places/admin_editar.ctp:73
 #: View/Places/admin_view.ctp:9;185
 #: View/Places/index.ctp:299
 #: View/Places/view.ctp:102
+#: View/Rols/view.ctp:9;56
 #: View/Users/add.ctp:19
 #: View/Users/edit.ctp:22
 #: View/Users/view.ctp:10
@@ -571,10 +623,11 @@ msgstr ""
 #: View/Classifications/admin_view.ctp:24;57
 #: View/ClassificationsPlaces/view.ctp:19
 #: View/Compliants/admin_view.ctp:19
-#: View/Events/view.ctp:196
+#: View/Events/view.ctp:204
 #: View/Places/admin_view.ctp:29;134;188
 #: View/Places/view.ctp:122;173
 #: View/Rates/admin_view.ctp:14
+#: View/Rols/view.ctp:19;69
 #: View/Users/view.ctp:15;31
 msgid "Created"
 msgstr ""
@@ -584,10 +637,11 @@ msgstr ""
 #: View/Classifications/admin_view.ctp:29;58
 #: View/ClassificationsPlaces/view.ctp:24
 #: View/Compliants/admin_view.ctp:24
-#: View/Events/view.ctp:201
+#: View/Events/view.ctp:209
 #: View/Places/admin_view.ctp:34;135;189
 #: View/Places/view.ctp:127;174
 #: View/Rates/admin_view.ctp:19
+#: View/Rols/view.ctp:24;70
 msgid "Modified"
 msgstr ""
 
@@ -603,12 +657,12 @@ msgstr ""
 
 #: View/Categories/view.ctp:48
 #: View/Compliants/admin_view.ctp:9
-#: View/Events/add.ctp:79
+#: View/Events/add.ctp:82
 #: View/Events/admin_resume.ctp:17
-#: View/Events/edit.ctp:81
-#: View/Events/index.ctp:397;401
+#: View/Events/edit.ctp:85
+#: View/Events/index.ctp:419;423
 #: View/Events/resume.ctp:17
-#: View/Events/view.ctp:166
+#: View/Events/view.ctp:174
 #: View/Places/admin_view.ctp:120
 #: View/Places/view.ctp:167
 #: View/Users/view.ctp:29
@@ -617,7 +671,7 @@ msgstr ""
 
 #: View/Categories/view.ctp:49
 #: View/Classifications/admin_view.ctp:55
-#: View/Events/view.ctp:171
+#: View/Events/view.ctp:179
 #: View/Places/admin_view.ctp:19;123
 #: View/Places/view.ctp:112;168
 msgid "Lat"
@@ -625,14 +679,14 @@ msgstr ""
 
 #: View/Categories/view.ctp:50
 #: View/Classifications/admin_view.ctp:56
-#: View/Events/view.ctp:176
+#: View/Events/view.ctp:184
 #: View/Places/admin_view.ctp:24;124
 #: View/Places/view.ctp:117;169
 msgid "Long"
 msgstr ""
 
 #: View/Categories/view.ctp:51
-#: View/Events/view.ctp:181
+#: View/Events/view.ctp:189
 #: View/Places/admin_view.ctp:125
 #: View/Places/view.ctp:170
 msgid "Status"
@@ -642,7 +696,7 @@ msgstr ""
 #: View/Events/admin_resume.ctp:15
 #: View/Events/index.ctp:329
 #: View/Events/resume.ctp:15
-#: View/Events/view.ctp:141;186
+#: View/Events/view.ctp:149;194
 #: View/Places/admin_view.ctp:126
 #: View/Places/view.ctp:171
 msgid "Date Start"
@@ -652,7 +706,7 @@ msgstr ""
 #: View/Events/admin_resume.ctp:16
 #: View/Events/index.ctp:330
 #: View/Events/resume.ctp:16
-#: View/Events/view.ctp:147;191
+#: View/Events/view.ctp:155;199
 #: View/Places/admin_view.ctp:127
 #: View/Places/view.ctp:172
 msgid "Date End"
@@ -700,8 +754,9 @@ msgstr ""
 
 #: View/CategoriesEvents/view.ctp:14
 #: View/Compliants/admin_view.ctp:29
+#: View/Elements/navbar_placeloader.ctp:28
 #: View/Events/index.ctp:331;338
-#: View/Events/view.ctp:159
+#: View/Events/view.ctp:167
 #: View/Rates/admin_view.ctp:24
 msgid "Event"
 msgstr ""
@@ -734,8 +789,9 @@ msgstr ""
 #: View/ClassificationsPlaces/edit.ctp:21
 #: View/ClassificationsPlaces/index.ctp:51
 #: View/ClassificationsPlaces/view.ctp:40
-#: View/Elements/navbar_admin.ctp:50
-#: View/Events/view.ctp:227
+#: View/Elements/navbar_admin.ctp:58
+#: View/Elements/navbar_placeloader.ctp:68
+#: View/Events/view.ctp:235
 #: View/Places/admin_edit.ctp:33
 #: View/Places/admin_view.ctp:106
 #: View/Places/edit.ctp:20
@@ -751,7 +807,7 @@ msgstr ""
 #: View/ClassificationsPlaces/edit.ctp:22
 #: View/ClassificationsPlaces/index.ctp:52
 #: View/ClassificationsPlaces/view.ctp:41
-#: View/Events/view.ctp:228
+#: View/Events/view.ctp:236
 #: View/Places/admin_index.ctp:8
 #: View/Places/admin_view.ctp:107
 #: View/Places/view.ctp:148;154;221
@@ -795,19 +851,20 @@ msgstr ""
 
 #: View/Classifications/admin_view.ctp:59
 #: View/Compliants/admin_view.ctp:14
-#: View/Events/add.ctp:99
-#: View/Events/edit.ctp:102
-#: View/Events/index.ctp:407;410
+#: View/Events/add.ctp:116
+#: View/Events/edit.ctp:122
+#: View/Events/index.ctp:429;432
 #: View/Places/admin_add.ctp:100
 #: View/Places/admin_editar.ctp:107
 #: View/Places/admin_view.ctp:39;122
+#: View/Rols/view.ctp:14
 msgid "Description"
 msgstr ""
 
 #: View/Classifications/admin_view.ctp:60
-#: View/Events/add.ctp:87
+#: View/Events/add.ctp:98
 #: View/Events/admin_resume.ctp:18
-#: View/Events/edit.ctp:89
+#: View/Events/edit.ctp:101
 #: View/Events/index.ctp:332;339
 #: View/Events/resume.ctp:18
 #: View/Places/admin_add.ctp:75;89
@@ -826,18 +883,19 @@ msgid "Phone"
 msgstr ""
 
 #: View/Classifications/admin_view.ctp:62
-#: View/Pages/contacto.ctp:20
+#: View/Pages/contacto.ctp:19
 #: View/Places/admin_add.ctp:115
 #: View/Places/admin_editar.ctp:122
 #: View/Places/admin_view.ctp:54
+#: View/Rols/view.ctp:57
 #: View/Users/add.ctp:24
 #: View/Users/edit.ctp:27
 msgid "Email"
 msgstr ""
 
 #: View/Classifications/admin_view.ctp:63
-#: View/Events/add.ctp:310
-#: View/Events/edit.ctp:314
+#: View/Events/add.ctp:410
+#: View/Events/edit.ctp:417
 #: View/Places/admin_add.ctp:122
 #: View/Places/admin_editar.ctp:129
 #: View/Places/admin_view.ctp:59;128
@@ -915,7 +973,7 @@ msgid "Classifications Place"
 msgstr ""
 
 #: View/ClassificationsPlaces/view.ctp:14
-#: View/Events/view.ctp:211
+#: View/Events/view.ctp:219
 #: View/Places/admin_view.ctp:2
 #: View/Places/view.ctp:94
 msgid "Place"
@@ -938,11 +996,15 @@ msgstr ""
 #: View/Compliants/admin_add.ctp:21
 #: View/Compliants/admin_edit.ctp:23
 #: View/Compliants/admin_view.ctp:50
-#: View/Elements/navbar_admin.ctp:70
+#: View/Elements/navbar_admin.ctp:78
 #: View/Rates/admin_add.ctp:20
 #: View/Rates/admin_edit.ctp:22
 #: View/Rates/admin_index.ctp:53
 #: View/Rates/admin_view.ctp:45
+#: View/Rols/add.ctp:18
+#: View/Rols/edit.ctp:20
+#: View/Rols/index.ctp:47
+#: View/Rols/view.ctp:43
 #: View/Users/edit.ctp:94
 msgid "List Users"
 msgstr ""
@@ -954,6 +1016,10 @@ msgstr ""
 #: View/Rates/admin_edit.ctp:23
 #: View/Rates/admin_index.ctp:54
 #: View/Rates/admin_view.ctp:46
+#: View/Rols/add.ctp:19
+#: View/Rols/edit.ctp:21
+#: View/Rols/index.ctp:48
+#: View/Rols/view.ctp:44;108
 msgid "New User"
 msgstr ""
 
@@ -963,7 +1029,7 @@ msgid "Edit Compliant"
 msgstr ""
 
 #: View/Compliants/admin_index.ctp:3
-#: View/Elements/navbar_admin.ctp:81
+#: View/Elements/navbar_admin.ctp:89
 msgid "Compliants"
 msgstr ""
 
@@ -974,7 +1040,7 @@ msgstr ""
 #: View/Compliants/admin_view.ctp:34
 #: View/Events/admin_resume.ctp:19
 #: View/Rates/admin_view.ctp:29
-#: View/Users/login.ctp:17;21
+#: View/Users/login.ctp:19;23
 #: View/Users/view.ctp:3
 msgid "User"
 msgstr ""
@@ -987,65 +1053,71 @@ msgstr ""
 msgid "New Compliant"
 msgstr ""
 
-#: View/Elements/navbar.ctp:20
-#: View/Elements/navbar_admin.ctp:20
+#: View/Elements/navbar.ctp:26
+#: View/Elements/navbar_admin.ctp:28
+#: View/Elements/navbar_placeloader.ctp:33
 msgid "Events"
 msgstr ""
 
-#: View/Elements/navbar.ctp:35
-#: View/Elements/navbar_admin.ctp:25
+#: View/Elements/navbar.ctp:41
+#: View/Elements/navbar_admin.ctp:33
+#: View/Elements/navbar_placeloader.ctp:38
 #: View/Events/add.ctp:62
-#: View/Events/edit.ctp:64
 msgid "Add Event"
 msgstr ""
 
-#: View/Elements/navbar.ctp:57
-#: View/Elements/navbar_admin.ctp:40
+#: View/Elements/navbar.ctp:63
+#: View/Elements/navbar_admin.ctp:48
+#: View/Elements/navbar_placeloader.ctp:53;58
 #: View/Places/admin_index.ctp:7
 #: View/Places/index.ctp:271
 msgid "Places"
 msgstr ""
 
-#: View/Elements/navbar.ctp:68;76
+#: View/Elements/navbar.ctp:74;81
 msgid "RADEAR MY EVENTS!"
 msgstr ""
 
-#: View/Elements/navbar.ctp:72
+#: View/Elements/navbar.ctp:78
 msgid "RADEA!"
 msgstr ""
 
-#: View/Elements/navbar.ctp:135
-#: View/Elements/navbar_admin.ctp:121
+#: View/Elements/navbar.ctp:121
+#: View/Elements/navbar_admin.ctp:129
+#: View/Elements/navbar_placeloader.ctp:106
 msgid "Logout"
 msgstr ""
 
-#: View/Elements/navbar.ctp:146
-#: View/Elements/navbar_admin.ctp:132
-#: View/Users/login.ctp:48
+#: View/Elements/navbar.ctp:132
+#: View/Elements/navbar_admin.ctp:140
+#: View/Elements/navbar_placeloader.ctp:117
+#: View/Users/login.ctp:51
 msgid "Login"
 msgstr ""
 
-#: View/Elements/navbar.ctp:153
-#: View/Elements/navbar_admin.ctp:139
+#: View/Elements/navbar.ctp:141
+#: View/Elements/navbar_admin.ctp:147
+#: View/Elements/navbar_placeloader.ctp:124
 msgid "Sign up!"
 msgstr ""
 
-#: View/Elements/navbar_admin.ctp:45
+#: View/Elements/navbar_admin.ctp:53
+#: View/Elements/navbar_placeloader.ctp:63
 #: View/Places/admin_add.ctp:51
 #: View/Places/admin_editar.ctp:54
 msgid "Add Place"
 msgstr ""
 
-#: View/Elements/navbar_admin.ctp:60
+#: View/Elements/navbar_admin.ctp:68
 #: View/Users/index.ctp:3
 msgid "Users"
 msgstr ""
 
-#: View/Elements/navbar_admin.ctp:65
+#: View/Elements/navbar_admin.ctp:73
 msgid "Add User"
 msgstr ""
 
-#: View/Elements/navbar_admin.ctp:79;84
+#: View/Elements/navbar_admin.ctp:87;92
 msgid "/compliants"
 msgstr ""
 
@@ -1053,135 +1125,135 @@ msgstr ""
 msgid "Sponsors"
 msgstr ""
 
-#: View/Events/add.ctp:46;74
-#: View/Events/edit.ctp:48;76
+#: View/Events/add.ctp:46;77
+#: View/Events/edit.ctp:48;80
 msgid "Basic information"
 msgstr ""
 
 #: View/Events/add.ctp:47
 #: View/Events/edit.ctp:49
+#: View/Rols/view.ctp:62
 msgid "Location"
 msgstr ""
 
-#: View/Events/add.ctp:48;253
-#: View/Events/edit.ctp:50;257
-#: View/Events/view.ctp:69
+#: View/Events/add.ctp:48;343
+#: View/Events/edit.ctp:50;350
+#: View/Events/view.ctp:77
 #: View/Places/admin_add.ctp:138
 #: View/Places/admin_editar.ctp:145
 #: View/Places/view.ctp:45
 msgid "Accessibility"
 msgstr ""
 
-#: View/Events/add.ctp:101
-#: View/Events/edit.ctp:104
+#: View/Events/add.ctp:118
+#: View/Events/edit.ctp:124
 msgid "characters"
 msgstr ""
 
-#: View/Events/add.ctp:112
-#: View/Events/edit.ctp:115
+#: View/Events/add.ctp:141
+#: View/Events/edit.ctp:147
 msgid "What is it?"
 msgstr ""
 
-#: View/Events/add.ctp:141
-#: View/Events/edit.ctp:144
+#: View/Events/add.ctp:177
+#: View/Events/edit.ctp:183
 msgid "Date"
 msgstr ""
 
-#: View/Events/add.ctp:147
-#: View/Events/edit.ctp:150
+#: View/Events/add.ctp:183
+#: View/Events/edit.ctp:189
 msgid "Start Date and Time"
 msgstr ""
 
-#: View/Events/add.ctp:196
-#: View/Events/edit.ctp:200
+#: View/Events/add.ctp:259
+#: View/Events/edit.ctp:266
 msgid "End Date and Time"
 msgstr ""
 
-#: View/Events/add.ctp:256
-#: View/Events/edit.ctp:260
+#: View/Events/add.ctp:346
+#: View/Events/edit.ctp:353
 msgid "Is space adapted for people with physical or sensory disabilities?"
 msgstr ""
 
-#: View/Events/add.ctp:259
-#: View/Events/edit.ctp:263
-#: View/Events/view.ctp:75
+#: View/Events/add.ctp:349
+#: View/Events/edit.ctp:356
+#: View/Events/view.ctp:83
 #: View/Places/view.ctp:51
 msgid "Parking spaces reserved for people with disabilities"
 msgstr ""
 
-#: View/Events/add.ctp:263
-#: View/Events/edit.ctp:267
-#: View/Events/view.ctp:83
+#: View/Events/add.ctp:353
+#: View/Events/edit.ctp:360
+#: View/Events/view.ctp:91
 #: View/Places/view.ctp:59
 msgid "Stairs, ramps or elevators accessible wheelchair"
 msgstr ""
 
-#: View/Events/add.ctp:267
-#: View/Events/edit.ctp:271
-#: View/Events/view.ctp:91
+#: View/Events/add.ctp:357
+#: View/Events/edit.ctp:364
+#: View/Events/view.ctp:99
 #: View/Places/view.ctp:67
 msgid "Electronic equipment and audiovisual adapted"
 msgstr ""
 
-#: View/Events/add.ctp:271
-#: View/Events/edit.ctp:275
-#: View/Events/view.ctp:99
+#: View/Events/add.ctp:361
+#: View/Events/edit.ctp:368
+#: View/Events/view.ctp:107
 #: View/Places/view.ctp:75
 msgid "Signs and information boards clearly perceived and understood"
 msgstr ""
 
-#: View/Events/add.ctp:275
-#: View/Events/edit.ctp:279
-#: View/Events/view.ctp:107
+#: View/Events/add.ctp:365
+#: View/Events/edit.ctp:372
+#: View/Events/view.ctp:115
 #: View/Places/view.ctp:83
 msgid "Tactile information: Braille"
 msgstr ""
 
-#: View/Events/add.ctp:281
-#: View/Events/edit.ctp:285
-#: View/Events/view.ctp:117
+#: View/Events/add.ctp:373
+#: View/Events/edit.ctp:380
+#: View/Events/view.ctp:125
 msgid "Additional information"
 msgstr ""
 
-#: View/Events/add.ctp:285
-#: View/Events/edit.ctp:289
-#: View/Events/view.ctp:120
+#: View/Events/add.ctp:377
+#: View/Events/edit.ctp:384
+#: View/Events/view.ctp:128
 msgid "Ticket sales"
 msgstr ""
 
-#: View/Events/add.ctp:291
-#: View/Events/edit.ctp:295
+#: View/Events/add.ctp:383
+#: View/Events/edit.ctp:390
 msgid "yes"
 msgstr ""
 
-#: View/Events/add.ctp:296
-#: View/Events/edit.ctp:300
+#: View/Events/add.ctp:388
+#: View/Events/edit.ctp:395
 msgid "no"
 msgstr ""
 
-#: View/Events/add.ctp:301
-#: View/Events/edit.ctp:305
+#: View/Events/add.ctp:393
+#: View/Events/edit.ctp:400
 #: View/Places/admin_view.ctp:129
 msgid "Cost"
 msgstr ""
 
-#: View/Events/add.ctp:303
-#: View/Events/edit.ctp:307
+#: View/Events/add.ctp:395
+#: View/Events/edit.ctp:402
 msgid "invalid"
 msgstr ""
 
-#: View/Events/add.ctp:315
-#: View/Events/edit.ctp:319
+#: View/Events/add.ctp:417
+#: View/Events/edit.ctp:424
 msgid "Video"
 msgstr ""
 
-#: View/Events/add.ctp:320
-#: View/Events/edit.ctp:324
+#: View/Events/add.ctp:424
+#: View/Events/edit.ctp:431
 msgid "News source"
 msgstr ""
 
-#: View/Events/add.ctp:326
-#: View/Events/edit.ctp:330
+#: View/Events/add.ctp:432
 #: View/Places/admin_add.ctp:129
 #: View/Places/admin_editar.ctp:136
 msgid "Photo"
@@ -1194,6 +1266,15 @@ msgstr ""
 #: View/Events/admin_resume.ctp:34
 #: View/Events/resume.ctp:32
 msgid "Are you sure you want to delete the event"
+msgstr ""
+
+#: View/Events/edit.ctp:64
+#: View/Events/view.ctp:229
+msgid "Edit Event"
+msgstr ""
+
+#: View/Events/edit.ctp:440
+msgid "Change photo"
 msgstr ""
 
 #: View/Events/index.ctp:82
@@ -1285,15 +1366,15 @@ msgstr ""
 msgid "End"
 msgstr ""
 
-#: View/Events/index.ctp:373;391
+#: View/Events/index.ctp:373;413
 msgid "Denounce"
 msgstr ""
 
-#: View/Events/index.ctp:419
+#: View/Events/index.ctp:441
 msgid "Close"
 msgstr ""
 
-#: View/Events/index.ctp:422
+#: View/Events/index.ctp:444
 msgid "Denounce!"
 msgstr ""
 
@@ -1301,35 +1382,31 @@ msgstr ""
 msgid "Only your events that have not yet finish are listed"
 msgstr ""
 
-#: View/Events/view.ctp:39
+#: View/Events/view.ctp:47
 msgid "From"
 msgstr ""
 
-#: View/Events/view.ctp:57
+#: View/Events/view.ctp:65
 msgid "To"
 msgstr ""
 
-#: View/Events/view.ctp:221
-msgid "Edit Event"
-msgstr ""
-
-#: View/Events/view.ctp:222
+#: View/Events/view.ctp:230
 msgid "Delete Event"
 msgstr ""
 
-#: View/Pages/contacto.ctp:10
+#: View/Pages/contacto.ctp:9
 msgid "Contact us"
 msgstr ""
 
-#: View/Pages/contacto.ctp:16
+#: View/Pages/contacto.ctp:15
 msgid "Surname"
 msgstr ""
 
-#: View/Pages/contacto.ctp:24
+#: View/Pages/contacto.ctp:23
 msgid "Reason"
 msgstr ""
 
-#: View/Pages/contacto.ctp:36
+#: View/Pages/contacto.ctp:35
 msgid "Message"
 msgstr ""
 
@@ -1361,6 +1438,7 @@ msgid "Delete Place"
 msgstr ""
 
 #: View/Places/admin_view.ctp:130
+#: View/Rols/view.ctp:59
 #: View/Users/index.ctp:46
 msgid "Active"
 msgstr ""
@@ -1433,19 +1511,105 @@ msgstr ""
 msgid "Delete Rate"
 msgstr ""
 
-#: View/Users/add.ctp:8
-msgid "Registration"
+#: View/Rols/add.ctp:4
+msgid "Add Rol"
 msgstr ""
 
+#: View/Rols/add.ctp:17
+#: View/Rols/edit.ctp:19
+#: View/Rols/view.ctp:41
+msgid "List Rols"
+msgstr ""
+
+#: View/Rols/edit.ctp:4
+#: View/Rols/view.ctp:39
+msgid "Edit Rol"
+msgstr ""
+
+#: View/Rols/index.ctp:2
+msgid "Rols"
+msgstr ""
+
+#: View/Rols/index.ctp:46
+#: View/Rols/view.ctp:42
+msgid "New Rol"
+msgstr ""
+
+#: View/Rols/view.ctp:2
+msgid "Rol"
+msgstr ""
+
+#: View/Rols/view.ctp:29
+msgid "Weight"
+msgstr ""
+
+#: View/Rols/view.ctp:40
+msgid "Delete Rol"
+msgstr ""
+
+#: View/Rols/view.ctp:48
+msgid "Related Users"
+msgstr ""
+
+#: View/Rols/view.ctp:53
 #: View/Users/add.ctp:11
 #: View/Users/view.ctp:5
 msgid "Username"
 msgstr ""
 
+#: View/Rols/view.ctp:54
 #: View/Users/add.ctp:15
 #: View/Users/edit.ctp:18
-#: View/Users/login.ctp:32;37
+#: View/Users/login.ctp:34;39
 msgid "Password"
+msgstr ""
+
+#: View/Rols/view.ctp:55
+msgid "Role"
+msgstr ""
+
+#: View/Rols/view.ctp:58
+msgid "Confirmed"
+msgstr ""
+
+#: View/Rols/view.ctp:60
+msgid "Gender"
+msgstr ""
+
+#: View/Rols/view.ctp:61
+msgid "Birthday"
+msgstr ""
+
+#: View/Rols/view.ctp:63
+msgid "Map Lat"
+msgstr ""
+
+#: View/Rols/view.ctp:64
+msgid "Map Lng"
+msgstr ""
+
+#: View/Rols/view.ctp:65
+msgid "Map Type"
+msgstr ""
+
+#: View/Rols/view.ctp:66
+msgid "Map Zoom"
+msgstr ""
+
+#: View/Rols/view.ctp:67
+msgid "Facebook Id"
+msgstr ""
+
+#: View/Rols/view.ctp:68
+msgid "Twitter Id"
+msgstr ""
+
+#: View/Rols/view.ctp:71
+msgid "Rol Id"
+msgstr ""
+
+#: View/Users/add.ctp:8
+msgid "Registration"
 msgstr ""
 
 #: View/Users/add.ctp:20
@@ -1503,12 +1667,8 @@ msgstr ""
 msgid "Welcome"
 msgstr ""
 
-#: View/Users/login.ctp:53
+#: View/Users/login.ctp:79
 msgid "Register!"
-msgstr ""
-
-#: View/Users/login.ctp:74
-msgid "Login with Twitter"
 msgstr ""
 
 #: Model/CategoriesEvent.php:validation for field category_id;validation for field event_id
@@ -1530,6 +1690,7 @@ msgid "notempty"
 msgstr ""
 
 #: Model/Category.php:validation for field name
+#: Model/Classification.php:validation for field name
 msgid "unique"
 msgstr ""
 

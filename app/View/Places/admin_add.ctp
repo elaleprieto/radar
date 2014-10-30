@@ -66,7 +66,7 @@
         						<div class="row form-group">
                                 	<label for="PlaceName"><?php echo __('Name'); ?></label>
                                     <input autofocus="true" class="capitalize form-control textbox" id="PlaceName" maxlength="255" 
-                                        ng-model="place.name" required="required" type="text">
+                                        data-ng-model="place.name" required="required" type="text">
         						</div>
         							
         						<!-- Address -->
@@ -75,7 +75,7 @@
 	                                    <label for="PlaceAddress"><?php echo __('Address'); ?></label>
 	                            		<div class="input-group input-group-sm">
 	                            			<input class="capitalize col-sm-11 form-control textbox" id="PlaceAddress" 
-	                            				maxlength="255" ng-model="place.address" required="required" 
+	                            				maxlength="255" data-ng-model="place.address" required="required" 
 	                            				type="text" ui-keypress="{13:'setAddress($event)'}" />
 											<span class="input-group-btn">
 												<button class="btn btn-default" ng-click="setAddress()" type="button">
@@ -99,7 +99,7 @@
         						<div class="row form-group">
                                 	<label for="PlaceDescription"><?php echo __('Description'); ?></label>
                                     <textarea class="textarea col-sm-12 form-control" cols="30" id="PlaceDescription" 
-                                        ng-model="place.description" rows="4">
+                                        data-ng-model="place.description" rows="4">
                                     </textarea>
         						</div>
         						
@@ -107,28 +107,28 @@
         						<div class="row form-group">
                                 	<label for="PlacePhone"><?php echo __('Phone'); ?></label>
                                     <input autofocus="true" class="textbox form-control" id="PlacePhone" maxlength="255" 
-                                        ng-model="place.phone" type="text">
+                                        data-ng-model="place.phone" type="text">
         						</div>
         						
         						<!-- Email -->
         						<div class="row form-group">
                                 	<label for="PlaceEmail"><?php echo __('Email'); ?></label>
                                     <input autofocus="true" class="textbox form-control" id="PlaceEmail" maxlength="255" 
-                                        ng-model="place.email" type="text">
+                                        data-ng-model="place.email" type="text">
         						</div>
         						
         						<!-- Website -->
         						<div class="row form-group">
                                 	<label for="PlaceWebsite"><?php echo __('Website'); ?></label>
                                     <input autofocus="true" class="textbox form-control" id="PlaceWebsite" maxlength="255" 
-                                        ng-model="place.website" type="text">
+                                        data-ng-model="place.website" type="text">
         						</div>
         						
         						<!-- Photo -->
         						<div class="row form-group">
                                 	<label for="PlacePhoto"><?php echo __('Photo'); ?></label>
                                     <input autofocus="true" class="textbox form-control" id="PlacePhoto" maxlength="255" 
-                                        ng-model="place.photo" type="text">
+                                        data-ng-model="place.photo" type="text">
         						</div>
     
 								<!-- ACCESIBILIDAD-->
@@ -215,7 +215,7 @@
                                             <div class="col-sm-12">
                                                 <!-- <div class="row categoriaLink"
                                                 	ng-class="{highlight:classification.highlight}"
-                                                	ng-model="classification"
+                                                	data-ng-model="classification"
                                                 	ng-repeat="classification in classifications | orderBy:'Classification.name'"
                                                 	ng-click="classificationToogle(classification)">
                                                         <div class="col-sm-1">
@@ -225,7 +225,7 @@
                                                 </div> -->
                                                 <div class="row categoriaLink"
 													x-ng-class="{highlight: placeHasClassification(classification)}"
-													x-ng-model="classification"
+													x-data-ng-model="classification"
 													x-ng-repeat="classification in classifications | orderBy:'name'"
 													x-ng-click="classificationToogle(classification)">
 														

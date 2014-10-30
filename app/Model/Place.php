@@ -42,6 +42,24 @@
 				)),
 		);
 
+
+/**
+ * belongsTo associations
+ *
+ * @var array
+ */
+	public $belongsTo = array(
+		'User' => array(
+			'className' => 'User',
+			'foreignKey' => 'user_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
+		)
+	);
+
+
+
 		//The Associations below have been created with all possible keys, those that are
 		// not needed can be removed
 
@@ -170,6 +188,12 @@
 			$this->commit();
 			return true;
 		}
+
+
+	public function isOwnedBy($placeId, $userId) {
+		return $this->field('id', array('id' => $placeId, 'user_id' => $userId)) === $placeId;
+	}
+
 
 	}
 ?>
