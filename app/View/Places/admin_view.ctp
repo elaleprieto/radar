@@ -1,6 +1,59 @@
+<?php
+# Styles
+echo $this -> Html -> css(array('events/view'));
+?>
 <div class="places view">
-<h2><?php  echo __('Place'); ?></h2>
+<!--<h2><?php  echo __('Place'); ?></h2>-->
+<div class="col-sm-12">
+	<h2><?php echo h($place['Place']['name']); ?></h2>
+</div>
+<div class="col-sm-12">
+	<div class="col-sm-5">
+		<dl>
+			<!--<dt><?php echo __('Image'); ?></dt>-->
+			<dd>
+				
+				<?php echo '<img src="/img/places/'.$place['Place']['image'].'" class="img-responsive">'; ?>
+				&nbsp;
+			</dd>
+		</dl>
+	</div>
+	<div class="col-sm-7">
+		<dl>
+			<!--<dt><?php echo __('Name'); ?></dt>-->
+			<dt><?php echo __('Id'); ?></dt>
+			<dd>
+				<?php echo h($place['Place']['id']); ?>
+				&nbsp;
+			</dd>
+			
+			<dt><?php echo __('Address'); ?></dt>
+			<dd>
+				<?php echo h($place['Place']['address']); ?>
+				&nbsp;
+			</dd>
+			<dt><?php echo __('Phone'); ?></dt>
+			<dd>
+				<?php echo h($place['Place']['phone']); ?>
+				&nbsp;
+			</dd>
+			<dt><?php echo __('Email'); ?></dt>
+			<dd>
+				<?php echo h($place['Place']['email']); ?>
+				&nbsp;
+			</dd>
+			<dt><?php echo __('Website'); ?></dt>
+			<dd>
+				<?php echo h($place['Place']['website']); ?>
+				&nbsp;
+			</dd>
+		</dl>
+	</div>
+	
+</div>
+<div class="col-sm-12">
 	<dl>
+		<!--
 		<dt><?php echo __('Id'); ?></dt>
 		<dd>
 			<?php echo h($place['Place']['id']); ?>
@@ -10,7 +63,8 @@
 		<dd>
 			<?php echo h($place['Place']['name']); ?>
 			&nbsp;
-		</dd>
+		</dd>-->
+		<!--
 		<dt><?php echo __('Sort'); ?></dt>
 		<dd>
 			<?php echo h($place['Place']['sort']); ?>
@@ -26,21 +80,30 @@
 			<?php echo h($place['Place']['long']); ?>
 			&nbsp;
 		</dd>
-		<dt><?php echo __('Created'); ?></dt>
-		<dd>
-			<?php echo h($place['Place']['created']); ?>
-			&nbsp;
-		</dd>
+		-->
+		<!--
 		<dt><?php echo __('Modified'); ?></dt>
 		<dd>
 			<?php echo h($place['Place']['modified']); ?>
 			&nbsp;
-		</dd>
+		</dd>-->
 		<dt><?php echo __('Description'); ?></dt>
 		<dd>
 			<?php echo h($place['Place']['description']); ?>
 			&nbsp;
 		</dd>
+		<dt><?php echo __('Created'); ?></dt>
+		<dd>
+			<?php echo h($place['Place']['created']); ?>
+			&nbsp;
+		</dd>
+		<dt><?php echo __('User Id'); ?></dt>
+		<dd>
+			<?php echo h($place['Place']['user_id']); ?>
+			&nbsp;
+		</dd>
+	</dl>
+		<!--
 		<dt><?php echo __('Address'); ?></dt>
 		<dd>
 			<?php echo h($place['Place']['address']); ?>
@@ -65,30 +128,31 @@
 		<dd>
 			<?php echo h($place['Place']['image']); ?>
 			&nbsp;
-		</dd>
+		</dd>-->
+	<!--<dl >
 		<dt><?php echo __('Accessibility Parking'); ?></dt>
 		<dd>
-			<?php echo h($place['Place']['accessibility_parking']); ?>
+			<?php echo __('Accessibility Parking').': '.($place['Place']['accessibility_parking'] == 1 ? __('yes'): __('no'));?>
 			&nbsp;
 		</dd>
 		<dt><?php echo __('Accessibility Ramp'); ?></dt>
 		<dd>
-			<?php echo h($place['Place']['accessibility_ramp']); ?>
+			<?php echo ($place['Place']['accessibility_ramp'] == 1 ? __('yes'): __('no'));?>	
 			&nbsp;
 		</dd>
 		<dt><?php echo __('Accessibility Equipment'); ?></dt>
 		<dd>
-			<?php echo h($place['Place']['accessibility_equipment']); ?>
+			<?php echo ($place['Place']['accessibility_equipment'] == 1 ? __('yes'): __('no'));?>
 			&nbsp;
 		</dd>
 		<dt><?php echo __('Accessibility Signage'); ?></dt>
 		<dd>
-			<?php echo h($place['Place']['accessibility_signage']); ?>
+			<?php echo ($place['Place']['accessibility_signage'] == 1 ? __('yes'): __('no'));?>
 			&nbsp;
 		</dd>
 		<dt><?php echo __('Accessibility Braille'); ?></dt>
 		<dd>
-			<?php echo h($place['Place']['accessibility_braille']); ?>
+			<?php echo ($place['Place']['accessibility_braille'] == 1 ? __('yes'): __('no'));?>
 			&nbsp;
 		</dd>
 		<dt><?php echo __('User Id'); ?></dt>
@@ -96,8 +160,34 @@
 			<?php echo h($place['Place']['user_id']); ?>
 			&nbsp;
 		</dd>
-	</dl>
+	</dl>-->
+	<h3><?php echo __('Accessibility'); ?></h3>
+	<ul class="list-unstyled">
+		<li>
+			<span class="glyphicon glyphicon-warning-sign" style="color:#ABD402"></span>&nbsp;&nbsp;
+			<?php echo __('Accessibility Parking').': '.($place['Place']['accessibility_parking'] == 1 ? __('yes'): __('no'));?>
+		</li>
+		<li>
+			<span class="glyphicon glyphicon-road" style="color:#ABD402"></span>&nbsp;&nbsp;
+			<?php echo __('Accessibility Ramp').': '.($place['Place']['accessibility_ramp'] == 1 ? __('yes'): __('no'));?>	
+			
+		</li>
+		<li>
+			<span class="glyphicon glyphicon-headphones" style="color:#ABD402"></span>&nbsp;&nbsp;
+			<?php echo __('Accessibility Equipment').': '.($place['Place']['accessibility_equipment'] == 1 ? __('yes'): __('no'));?>
+		</li>
+		<li>
+			<span class="glyphicon glyphicon-eye-open" style="color:#ABD402"></span>&nbsp;&nbsp;
+			<?php echo  __('Accessibility Signage').': '.($place['Place']['accessibility_signage'] == 1 ? __('yes'): __('no'));?>
+		</li>
+		<li>
+			<span class="glyphicon glyphicon-hand-up" style="color:#ABD402"></span>&nbsp;&nbsp;
+			<?php echo __('Accessibility Braille').': '.($place['Place']['accessibility_braille'] == 1 ? __('yes'): __('no'));?>
+		</li>
+	</ul>
+	</div>
 </div>
+<!--
 <div class="actions">
 	<h3><?php echo __('Actions'); ?></h3>
 	<ul>
@@ -111,9 +201,10 @@
 		<li><?php echo $this->Html->link(__('New Classification'), array('controller' => 'classifications', 'action' => 'add')); ?> </li>
 	</ul>
 </div>
-<div class="related">
-	<h3><?php echo __('Related Events'); ?></h3>
+-->
+<div class="col-sm-12 related">
 	<?php if (!empty($place['Event'])): ?>
+	<h3><?php echo __('Related Events'); ?></h3>
 	<table cellpadding = "0" cellspacing = "0">
 	<tr>
 		<th><?php echo __('Id'); ?></th>
@@ -169,17 +260,17 @@
 	<?php endforeach; ?>
 	</table>
 <?php endif; ?>
-
+<!--
 	<div class="actions">
 		<ul>
 			<li><?php echo $this->Html->link(__('New Event'), array('controller' => 'events', 'action' => 'add')); ?> </li>
 		</ul>
-	</div>
+	</div>-->
 </div>
-<div class="related">
+<div class="col-sm-12 related">
 	<h3><?php echo __('Related Classifications'); ?></h3>
 	<?php if (!empty($place['Classification'])): ?>
-	<table cellpadding = "0" cellspacing = "0">
+	<table cellpadding = "0" cellspacing = "0" class="table">
 	<tr>
 		<th><?php echo __('Id'); ?></th>
 		<th><?php echo __('Name'); ?></th>
@@ -208,10 +299,10 @@
 	<?php endforeach; ?>
 	</table>
 <?php endif; ?>
-
+	<!--
 	<div class="actions">
 		<ul>
 			<li><?php echo $this->Html->link(__('New Classification'), array('controller' => 'classifications', 'action' => 'add')); ?> </li>
 		</ul>
-	</div>
+	</div>-->
 </div>

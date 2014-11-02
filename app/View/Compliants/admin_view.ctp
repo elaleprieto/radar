@@ -1,9 +1,14 @@
 <div class="compliants view">
 <h2><?php  echo __('Compliant'); ?></h2>
-	<dl>
+	<dl class="dl-horizontal">
 		<dt><?php echo __('Id'); ?></dt>
 		<dd>
 			<?php echo h($compliant['Compliant']['id']); ?>
+			&nbsp;
+		</dd>
+		<dt><?php echo __('Created'); ?></dt>
+		<dd>
+			<?php echo h($compliant['Compliant']['created']); ?>
 			&nbsp;
 		</dd>
 		<dt><?php echo __('Title'); ?></dt>
@@ -16,16 +21,12 @@
 			<?php echo h($compliant['Compliant']['description']); ?>
 			&nbsp;
 		</dd>
-		<dt><?php echo __('Created'); ?></dt>
-		<dd>
-			<?php echo h($compliant['Compliant']['created']); ?>
-			&nbsp;
-		</dd>
+		<!--
 		<dt><?php echo __('Modified'); ?></dt>
 		<dd>
 			<?php echo h($compliant['Compliant']['modified']); ?>
 			&nbsp;
-		</dd>
+		</dd>-->
 		<dt><?php echo __('Event'); ?></dt>
 		<dd>
 			<?php echo $this->Html->link($compliant['Event']['title'], array('controller' => 'events', 'action' => 'view', $compliant['Event']['id'])); ?>
@@ -38,6 +39,7 @@
 		</dd>
 	</dl>
 </div>
+<!--
 <div class="actions">
 	<h3><?php echo __('Actions'); ?></h3>
 	<ul>
@@ -50,4 +52,4 @@
 		<li><?php echo $this->Html->link(__('List Users'), array('controller' => 'users', 'action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link(__('New User'), array('controller' => 'users', 'action' => 'add')); ?> </li>
 	</ul>
-</div>
+</div>-->

@@ -98,6 +98,16 @@ class Event extends AppModel {
 				'message' => 'La Fecha de fin del evento debe ser superior a la fecha de inicio'
 			)
 		),
+		'image' => array(
+			'notempty' => array(
+				'rule' => array('notempty'),
+				'message' => 'Debe seleccionar un archivo',
+				//'allowEmpty' => false,
+				//'required' => false,
+				//'last' => false, // Stop validation after this rule
+				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+			),
+		),
 		'website' => array(
 			'website' => array(
 				'rule' => 'url', 

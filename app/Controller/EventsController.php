@@ -55,10 +55,10 @@
 			// if ($this->request->is('ajax') && AuthComponent::user('id')) {
 			if($this->request->isPost() && AuthComponent::user('id')) {
 				date_default_timezone_set('UTC');
-				
+	
 				// $data = $this->request->input('json_decode');
 				$event = $this->_setEventValues($this->request->data);
-				
+										
 				# Se crea el evento
 				$this->Event->create();
 				if(!$this->Event->save($event)) {

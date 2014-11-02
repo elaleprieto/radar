@@ -5,7 +5,7 @@
 <div class="places index">
 	<h2>
 		<?php echo __('Places'); ?>
-		<?php echo $this->Html->link(__('New Place'), array('action' => 'add'), array('class' => 'btn btn-primary pull-right')); ?>
+		<?php echo $this->Html->link(__('New Place'), array('action' => 'add'), array('class' => 'btn btn-verde pull-right')); ?>
 	</h2>
 	
 	<table class="table">
@@ -71,10 +71,10 @@
 					<td><?php echo h($place['User']['name']); ?>&nbsp;</td>
 					<td class="actions">
 						<?php 
-						// echo $this->Html->link(__('View'), array(
-							// 'action' => 'view',
-							// $place['Place']['id']
-						// ));
+						 echo $this->Html->link(__('View'), array(
+							 'action' => 'view',
+							 $place['Place']['id']
+						 ));
 						?>
 						<?php echo $this->Html->link(__('Edit'), array(
 								'action' => 'edit',

@@ -333,8 +333,11 @@ ul.rating { display: inline-block; }
 /* line 17, ../../sass/_scroll.sass */
 ::-webkit-scrollbar-thumb:window-inactive { background: #b9d4ec; }
 
-/* line 3, ../../sass/events/index.sass */
+/* line 2, ../../sass/events/index.sass */
+.detail { top: 30px; }
+
+/* line 5, ../../sass/events/index.sass */
 .table { margin-bottom: 0px; }
 
-/* line 6, ../../sass/events/index.sass */
+/* line 8, ../../sass/events/index.sass */
 #eventScroll { max-height: 200px; overflow-y: auto; }

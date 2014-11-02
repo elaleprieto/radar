@@ -1,11 +1,11 @@
 <!-- LOGO -->
-<div id="logo">
+<div id="logo" class="hidden-xs">
 	<?php echo $this->Html->link($this->Html->image("logo_blanco.png", array('alt' => 'logo')), '/', array('escape' => false)); ?>
 </div>
 
 <div x-ng-cloak>
 	<!-- Rampa irregular del logo -->
-	<div id="rampa" class="navbar-fixed-top"></div>
+	<div id="rampa" class="navbar-fixed-top hidden-xs"></div>
 	
 	<!-- Menú Superior -->
 	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">

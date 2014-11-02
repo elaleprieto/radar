@@ -1,17 +1,19 @@
-<div class="compliants form">
+<div class="compliants form col-sm-6">
 <?php echo $this->Form->create('Compliant'); ?>
 	<fieldset>
 		<legend><?php echo __('Edit Compliant'); ?></legend>
 	<?php
 		echo $this->Form->input('id');
-		echo $this->Form->input('title');
-		echo $this->Form->input('description');
-		echo $this->Form->input('event_id');
-		echo $this->Form->input('user_id');
+		echo '<div class="form-group">'.$this->Form->input('title', array('class'=>'form-control')).'</div>';
+		echo '<div class="form-group">'.$this->Form->input('description', array('class'=>'form-control')).'</div>';
+		echo '<div class="form-group">'.$this->Form->input('event_id', array('class'=>'form-control', 'disabled' => 'disabled')).'</div>';
+		echo '<div class="form-group">'.$this->Form->input('user_id', array('class'=>'form-control', 'disabled' => 'disabled')).'</div>';
 	?>
 	</fieldset>
-<?php echo $this->Form->end(__('Submit')); ?>
+	<br>
+<?php echo $this->Form->end( array('class'=>'btn btn-verde'),__('Submit')); ?>
 </div>
+<!--
 <div class="actions">
 	<h3><?php echo __('Actions'); ?></h3>
 	<ul>
@@ -24,3 +26,4 @@
 		<li><?php echo $this->Html->link(__('New User'), array('controller' => 'users', 'action' => 'add')); ?> </li>
 	</ul>
 </div>
+-->

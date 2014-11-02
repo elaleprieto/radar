@@ -334,3 +334,6 @@ ul.rating { display: inline-block; }
 
 /* line 17, ../../sass/_scroll.sass */
 ::-webkit-scrollbar-thumb:window-inactive { background: #b9d4ec; }
+
+/* line 2, ../../sass/places/index.sass */
+.detail { top: 30px; }
