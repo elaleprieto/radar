@@ -85,11 +85,6 @@ angular.module('RadarApp').controller 'CategoriesController'
 		$scope.selectAllCategories()
 		$scope.setCookieCategoriesSelected()	
 	
-	containLocations = (locations = null) ->
-		containURL = false
-		angular.forEach locations, (url, index) ->
-			if not containURL then containURL = location.contains(url)
-		containURL
 
 	$scope.$on 'categoriesAddBroadcast', (event, categories) ->
 		angular.forEach categories, (categorySearched, id) ->
@@ -116,6 +111,15 @@ angular.module('RadarApp').controller 'CategoriesController'
 						$scope.show($scope.searchById(categoryId))
 			
 
+	### *************************************************************************************************************** 
+			Funciones Auxiliares
+			Aquí se escriben las funciones auxiliares
+	*************************************************************************************************************** ###
+	containLocations = (locations = null) ->
+		containURL = false
+		angular.forEach locations, (url, index) ->
+			if not containURL then containURL = location.contains(url)
+		containURL
 
 ]
 	

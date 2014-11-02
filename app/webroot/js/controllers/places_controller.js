@@ -228,23 +228,33 @@
         $scope.infowindows.push(infowindow);
         return $scope.markers.push(marker);
       };
-      $scope.classificationsAdd = function(classification) {
+      $scope.classificationAdd = function(classification) {
         if ($scope.place.classifications.length < 3) {
+          classification.checkbox = true;
           return $scope.place.classifications.push(classification);
         }
       };
-      $scope.classificationsDelete = function(classification) {
+      $scope.classificationsAdd = function(classifications) {
+        if (!$scope.place.classifications) {
+          $scope.place.classifications = [];
+        }
+        return angular.forEach(classifications, function(classification, index) {
+          return $scope.classificationAdd(classification);
+        });
+      };
+      $scope.classificationDelete = function(classification) {
         return angular.forEach($scope.place.classifications, function(element, index, array) {
           if (element.id === classification.id) {
-            return $scope.place.classifications.splice(index, 1);
+            $scope.place.classifications.splice(index, 1);
+            return classification.checkbox = false;
           }
         });
       };
       $scope.classificationToogle = function(classification) {
         if (!$scope.placeHasClassification(classification)) {
-          return $scope.classificationsAdd(classification);
+          return $scope.classificationAdd(classification);
         } else {
-          return $scope.classificationsDelete(classification);
+          return $scope.classificationDelete(classification);
         }
       };
       $scope.clearOverlays = function() {
@@ -258,6 +268,22 @@
       $scope.deleteOverlays = function() {
         $scope.clearOverlays();
         return $scope.markers = [];
+      };
+      $scope.getPlaceById = function(id) {
+        if (id == null) {
+          id = null;
+        }
+        if (id != null) {
+          return Place.getById({
+            id: id
+          }, function(data) {
+            $scope.place = data.place.Place;
+            if (!$scope.place.classifications) {
+              $scope.place.classifications = [];
+            }
+            return $scope.classificationsAdd(data.place.Classification);
+          });
+        }
       };
       $scope.inicializar = function() {
         if (navigator.geolocation) {
@@ -274,7 +300,10 @@
       $scope.placeHasClassification = function(classification) {
         if ($scope.place.classifications != null) {
           return $scope.place.classifications.some(function(element, index, array) {
-            return element.id === classification.id;
+            if (element.id === classification.id) {
+              classification.checkbox = true;
+              return true;
+            }
           });
         }
       };

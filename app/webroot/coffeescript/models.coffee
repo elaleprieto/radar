@@ -40,6 +40,7 @@ angular.module('models', ['ngResource'])
 			, buscar: {method:'GET'}
 				, create: {method: 'POST', url: '/admin/places/add.json'}
 				, get: {cache: true, method: 'GET', url: '/places/get.json'}
+				, getById: {cache: false, method: 'GET', url: '/places/:id.json'}
 				, update: {method: 'POST', url: '/admin/places/edit/:id.json'}
 	])
 

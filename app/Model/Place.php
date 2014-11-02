@@ -107,7 +107,8 @@
 			}
 			
 			# Se guardan las ClassificationPlace nuevas
-			foreach ($place['Classification'] as $classification) :
+			// foreach ($place['Classification'] as $classification) :
+			foreach ($place['Place']['Classification'] as $classification) :
 				$this->ClassificationsPlace->create();
 				$classificationsPlace['place_id'] = $this->id;
 				$classificationsPlace['classification_id'] = $classification['id'];

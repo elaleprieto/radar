@@ -7,7 +7,7 @@
 (function() {
   angular.module('RadarApp').controller('ClassificationsController', [
     '$http', '$location', '$scope', '$timeout', 'Classification', function($http, $location, $scope, $timeout, Classification) {
-      var location;
+      var containLocations, location;
       location = $location.absUrl();
       Classification.get({}, function(response) {
         $scope.classifications = [];
@@ -58,9 +58,10 @@
       $scope.showAllClassifications = function() {
         return $scope.selectAllClassifications();
       };
-      return $scope.$watch('classifications.length', function() {
-        var lastValEventCategory;
-        if (!location.contains('places/add') && !location.contains('espacios/agregar')) {
+      $scope.$watch('classifications.length', function() {
+        var lastValEventCategory, locations;
+        locations = ['places/add', 'places/edit', 'espacios/agregar', 'espacios/editar'];
+        if (!containLocations(locations)) {
           if (($scope.classifications != null) && ($.cookie != null) && $scope.classifications.length > 0) {
             $.cookie.json = true;
             lastValEventCategory = $.cookie('classificationsSelected');
@@ -72,6 +73,25 @@
           }
         }
       });
+      /* *************************************************************************************************************** 
+      			Funciones Auxiliares
+      			Aquí se escriben las funciones auxiliares
+      	***************************************************************************************************************
+      */
+
+      return containLocations = function(locations) {
+        var containURL;
+        if (locations == null) {
+          locations = null;
+        }
+        containURL = false;
+        angular.forEach(locations, function(url, index) {
+          if (!containURL) {
+            return containURL = location.contains(url);
+          }
+        });
+        return containURL;
+      };
     }
   ]);
 

@@ -25,6 +25,7 @@
  	Router::mapResources('classifications');
  	Router::mapResources('compliants');
  	Router::mapResources('events');
+ 	Router::mapResources('places');
  	Router::mapResources('rates');
  	Router::mapResources('users');
 	Router::parseExtensions('json');

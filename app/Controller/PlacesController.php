@@ -94,8 +94,12 @@
 			if ($this->request->is('post') && AuthComponent::user('id')) {
 				$place = $this->request->data;
 				$place['Place']['user_id'] = AuthComponent::user('id');
-				
+
 				if ($this->Place->crear($place)) {
+					if($place['Place']['archivo']['name']) {
+						$place['Place']['image'] = $this->_foto($place['Place']['archivo'], $this->Place->id);
+						$this->Place->save($place);
+					}
 					$this->flash(__('Place saved.'), array('action' => 'index'));
 				} else {
 					throw new Exception("Error Processing Request", 1);
@@ -189,7 +193,9 @@
 				throw new NotFoundException(__('Invalid place'));
 			}
 			$options = array('conditions' => array('Place.' . $this->Place->primaryKey => $id));
-			$this->set('place', $this->Place->find('first', $options));
+			$place = $this->Place->find('first', $options);
+			// $this->set('place', $this->Place->find('first', $options));
+			$this->set(array('place' => $place, '_serialize' => array('place')));
 		}
 
 		/**
@@ -291,11 +297,24 @@
 			}
 			if ($this->request->is('post') || $this->request->is('put')) {
 				// debug($this->request->data);
-				if ($this->Place->edit($this->request->data)) {
-					$this->flash(__('The place has been saved.'), array('action' => 'index'));
+
+				// if ($this->Place->edit($this->request->data)) {
+				// 	$this->flash(__('The place has been saved.'), array('action' => 'index'));
+				// } else {
+				// 	throw new Exception("Error Processing Request", 1);
+				// }
+
+				$place = $this->request->data;
+				if ($this->Place->edit($place)) {
+					if($place['Place']['archivo']['name']) {
+						$place['Place']['image'] = $this->_foto($place['Place']['archivo'], $this->Place->id);
+						$this->Place->save($place);
+					}
+					$this->flash(__('Place saved.'), array('action' => 'index'));
 				} else {
 					throw new Exception("Error Processing Request", 1);
 				}
+
 				// if ($this->Place->save($this->request->data)) {
 				// $this->flash(__('The place has been saved.'), array('action' => 'index'));
 				// } else {
@@ -326,6 +345,53 @@
 			}
 			$this->flash(__('Place was not deleted'), array('action' => 'index'));
 			$this->redirect(array('action' => 'index'));
+		}
+
+
+		#########################################################################################################
+		#	Funciones Auxiliares
+		#########################################################################################################
+		private function _foto($archivo, $id) {
+			$allowed_types = array('image/jpeg', 'image/png', 'image/gif');
+
+			# Se verifica la existencia del archivo
+			if(!isset($archivo['name'])) return null;
+			# Se verifica el tipo
+			if(!isset($archivo['type']) && !in_array($archivo['type'], $allowed_types))
+				return null;
+			# Se verifica el tamaño: 2MB = 2097152 bytes
+			if(!isset($archivo['size']) && $archivo['size'] > 2097152) return null;
+			
+			# Se construye el nombre del archivo
+			// $nombreArchivo = $archivo['name'];
+			$nombreArchivo = $id.$archivo['name'];
+			
+			# Defino el directorio donde se va a subir la foto
+			$uploaddir = IMAGES_URL . 'fotos/places/';
+			
+			# Defino la ruta completa
+			$uploadfile = $uploaddir . $nombreArchivo;
+			
+			// # Verifico la existencia de la foto
+			// if (!(file_exists($uploadfile . '.jpg') || file_exists($uploadfile . '.png'))) {
+			// 	# Si no existe en el directorio, la copio dentro del directorio
+			// 	if (!move_uploaded_file($archivo['tmp_name'], $uploadfile)) {
+			// 		# Si hubo algún error subiendo el archivo, se retorna null
+			// 		return null;
+			// 	}
+			// }
+
+			# Se copia dentro del directorio
+			if (!move_uploaded_file($archivo['tmp_name'], $uploadfile)) {
+				# Si hubo algún error subiendo el archivo, se retorna null
+				return null;
+			}
+			
+			# Una vez que la foto ya se encuentra en el directorio,
+			# se procede a actualizar el registro del artículo con la nueva foto.
+			# Notar que si la foto ya existe, no se sube nuevamente sino que se utiliza la misma
+			# e igualmente se actualiza el artículo con esa foto.
+			return $nombreArchivo;
 		}
 
 	}

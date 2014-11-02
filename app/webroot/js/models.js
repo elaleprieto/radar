@@ -80,6 +80,11 @@
           method: 'GET',
           url: '/places/get.json'
         },
+        getById: {
+          cache: false,
+          method: 'GET',
+          url: '/places/:id.json'
+        },
         update: {
           method: 'POST',
           url: '/admin/places/edit/:id.json'

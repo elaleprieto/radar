@@ -274,28 +274,28 @@ angular.module('RadarApp').controller 'PlacesController'
 		$scope.infowindows.push(infowindow)
 		$scope.markers.push(marker)
 
-	$scope.classificationsAdd = (classification) ->
+	$scope.classificationAdd = (classification) ->
 		if $scope.place.classifications.length < 3
+			classification.checkbox = true
 			$scope.place.classifications.push(classification)
-			# $scope.place.classifications.push(classification.Classification.id)
-			# classification.highlight = true
 
-	# $scope.classificationsDelete = (classification) ->
-		# index = $scope.place.classifications.indexOf(classification.Classification.id)
-		# if index >= 0 
-			# $scope.place.classifications.splice(index, 1)
-			# classification.highlight = false
-	$scope.classificationsDelete = (classification) ->
+	$scope.classificationsAdd = (classifications) ->
+		if not $scope.place.classifications then $scope.place.classifications = []
+		angular.forEach classifications, (classification, index) ->
+			$scope.classificationAdd(classification)
+
+	$scope.classificationDelete = (classification) ->
 		angular.forEach $scope.place.classifications, (element, index, array) ->
 			if element.id is classification.id
 				$scope.place.classifications.splice(index, 1)
+				classification.checkbox = false
 
 	# classificationToogle(classification): agrega o elimina la clasificacion al padre.
 	$scope.classificationToogle = (classification) ->
 		if not $scope.placeHasClassification(classification)
-			$scope.classificationsAdd(classification)
+			$scope.classificationAdd(classification)
 		else
-			$scope.classificationsDelete(classification)
+			$scope.classificationDelete(classification)
 
 	# Removes the overlays from the map, but keeps them in the array.
 	$scope.clearOverlays = ->
@@ -310,7 +310,16 @@ angular.module('RadarApp').controller 'PlacesController'
 	$scope.deleteOverlays = ->
 		$scope.clearOverlays()
 		$scope.markers = []
-			
+
+	$scope.getPlaceById = (id = null) ->
+		if id?
+			Place.getById {id: id}
+				, (data) ->
+					$scope.place = data.place.Place
+					# Se cargan las categorías del place
+					if not $scope.place.classifications then $scope.place.classifications = []
+					$scope.classificationsAdd data.place.Classification
+
 	# Inicializa el mapa
 	$scope.inicializar = ->
 		if navigator.geolocation
@@ -324,7 +333,9 @@ angular.module('RadarApp').controller 'PlacesController'
 	$scope.placeHasClassification = (classification) ->
 		if $scope.place.classifications?
 			$scope.place.classifications.some (element, index, array) ->
-				element.id is classification.id
+				if element.id is classification.id
+					classification.checkbox = true
+					true
 
 	# Se consulta al servidor por los places dentro de los límites del mapa y que cumplen las condiciones
 	# de categoría e intervalo seleccionadas.

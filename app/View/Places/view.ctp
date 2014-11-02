@@ -9,7 +9,15 @@ echo $this -> Html -> css(array('events/view'));
 		<div class="row">
 		</div>
 		<div class="row">
-			<?php echo $this->Html->image('logos/logoBetaVertical.png', array('class' => 'img-responsive')); ?>
+			<?php //echo $this->Html->image('logos/logoBetaVertical.png', array('class' => 'img-responsive')); ?>
+			<?php 
+			if($place['Place']['image'])
+				$foto = 'fotos/places/'.$place['Place']['image'];
+			else
+				$foto = 'logos/logoBetaVertical.png';
+
+			echo $this->Html->image($foto, array('class' => 'img-responsive')); 
+			?>
 		</div>
 	</div>
 	<div class="col-sm-9">

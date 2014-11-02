@@ -27,7 +27,7 @@
 	}
 ?>
 
-<div ng-controller="PlacesController" ng-init="user.location='<?php echo $userLocation; ?>'">
+<div data-ng-controller="PlacesController" data-ng-init="user.location='<?php echo $userLocation; ?>'">
 
 	<!-- BARRA PROGRESO -->
 	<div class="row">
@@ -54,7 +54,11 @@
 		<div class="col-sm-12">
 			<div class="row">
 				<!-- FORMULARIO BÁSICO -->
-			   <form name="placeForm" ng-submit="submit()">
+				<!-- <form name="placeForm" data-ng-submit="submit()"> -->
+				<?php echo $this->Form->create('Place', array('type' => 'file')); ?>
+					<?php echo $this->Form->hidden('lat', array('value' => '{{place.lat}}')) ?>
+                    <?php echo $this->Form->hidden('long', array('value' => '{{place.long}}')) ?>
+
 					<div class="col-sm-4">
 						<div class="row">
 							<div class="col-sm-12">
@@ -64,9 +68,17 @@
 									
 								<!-- Name -->
 								<div class="row form-group">
-									<label for="PlaceName"><?php echo __('Name'); ?></label>
+									<!-- <label for="PlaceName"><?php echo __('Name'); ?></label>
 									<input autofocus="true" class="capitalize form-control textbox" id="PlaceName" maxlength="255" 
-										data-ng-model="place.name" required="required" type="text">
+										data-ng-model="place.name" required="required" type="text"> -->
+									<?php echo $this->Form->input('name', array('autofocus' => true
+	                                    , 'class' => 'capitalize form-control textbox'
+	                                    , 'maxlength' => 255
+	                                    , 'required' => 'required'
+	                                    , 'data-ng-model' => 'place.name'
+	                                    )
+	                                )
+	                                ?>
 								</div>
 									
 								<!-- Address -->
@@ -78,7 +90,7 @@
 												maxlength="255" data-ng-model="place.address" required="required" 
 												type="text" ui-keypress="{13:'setAddress($event)'}" />
 											<span class="input-group-btn">
-												<button class="btn btn-default" ng-click="setAddress()" type="button">
+												<button class="btn btn-default" data-ng-click="setAddress()" type="button">
 													 <span class="glyphicon glyphicon-map-marker"></span>
 												</button>	
 											</span>
@@ -86,53 +98,98 @@
 									</div>
 								</div> -->
 								<div class="row form-group">
-									<label for="PlaceAddress"><?php echo __('Address'); ?></label>
+									<!-- <label for="PlaceAddress"><?php echo __('Address'); ?></label>
 									<div>
 										<input class="capitalize col-sm-11 form-control textbox typeahead" 
 											id="PlaceAddress" 
 											maxlength="255" required="required" type="text" 
 											ui-keypress="{13:'$event.preventDefault()'}" />
-									</div>
+									</div> -->
+									<?php echo $this->Form->input('address', array(
+                                        'class' => 'capitalize col-sm-11 form-control textbox typeahead'
+                                        , 'maxlength' => 255
+                                        , 'required' => 'required'
+                                        , 'ui-keypress' => '{13:\'$event.preventDefault()\'}'
+                                        )
+                                    )
+                                    ?>
 								</div>
 									
 								<!-- Description -->
 								<div class="row form-group">
 									<label for="PlaceDescription"><?php echo __('Description'); ?></label>
-									<textarea class="textarea col-sm-12 form-control" cols="30" id="PlaceDescription" 
+									<!-- <textarea class="textarea col-sm-12 form-control" cols="30" id="PlaceDescription" 
 										data-ng-model="place.description" rows="4">
-									</textarea>
+									</textarea> -->
+									<?php echo $this->Form->input('description', array(
+                                        'class' => 'textarea col-sm-12 form-control'
+                                        , 'cols' => 30
+                                        , 'label' => false
+                                        , 'required' => 'required'
+                                        , 'rows' => 4
+                                        , 'type' => 'textarea'
+                                        , 'data-ng-model' => 'place.description'
+                                        // , 'data-ng-change' => 'checkDescriptionSize($event, evento)'
+                                        )
+                                    )
+                                    ?>
 								</div>
 								
 								<!-- Phone -->
 								<div class="row form-group">
-									<label for="PlacePhone"><?php echo __('Phone'); ?></label>
-									<input autofocus="true" class="textbox form-control" id="PlacePhone" maxlength="255" 
-										data-ng-model="place.phone" type="text">
+									<!-- <label for="PlacePhone"><?php echo __('Phone'); ?></label>
+									<input class="textbox form-control" id="PlacePhone" maxlength="255" 
+										data-ng-model="place.phone" type="text"> -->
+									<?php echo $this->Form->input('phone', array(
+                                        'class' => 'capitalize col-sm-11 form-control textbox typeahead'
+                                        , 'data-ng-model' => 'place.phone'
+                                        , 'maxlength' => 255
+                                        , 'ui-keypress' => '{13:\'$event.preventDefault()\'}'
+                                        )
+                                    )
+                                    ?>
 								</div>
 								
 								<!-- Email -->
 								<div class="row form-group">
-									<label for="PlaceEmail"><?php echo __('Email'); ?></label>
+									<!-- <label for="PlaceEmail"><?php echo __('Email'); ?></label>
 									<input autofocus="true" class="textbox form-control" id="PlaceEmail" maxlength="255" 
-										data-ng-model="place.email" type="text">
+										data-ng-model="place.email" type="text"> -->
+									<?php echo $this->Form->input('email', array(
+                                        'class' => 'capitalize col-sm-11 form-control textbox typeahead'
+                                        , 'data-ng-model' => 'place.email'
+                                        , 'maxlength' => 255
+                                        , 'ui-keypress' => '{13:\'$event.preventDefault()\'}'
+                                        )
+                                    )
+                                    ?>
 								</div>
 								
 								<!-- Website -->
 								<div class="row form-group">
-									<label for="PlaceWebsite"><?php echo __('Website'); ?></label>
+									<!-- <label for="PlaceWebsite"><?php echo __('Website'); ?></label>
 									<input autofocus="true" class="textbox form-control" id="PlaceWebsite" maxlength="255" 
-										data-ng-model="place.website" type="text">
+										data-ng-model="place.website" type="text"> -->
+									<?php echo $this->Form->input('website', array(
+                                        'class' => 'capitalize col-sm-11 form-control textbox typeahead'
+                                        , 'data-ng-model' => 'place.website'
+                                        , 'maxlength' => 255
+                                        , 'ui-keypress' => '{13:\'$event.preventDefault()\'}'
+                                        )
+                                    )
+                                    ?>
 								</div>
 								
 								<!-- Photo -->
 								<div class="row form-group">
-									<label for="PlacePhoto"><?php echo __('Photo'); ?></label>
+									<!-- <label for="PlacePhoto"><?php echo __('Photo'); ?></label>
 									<input autofocus="true" class="textbox form-control" id="PlacePhoto" maxlength="255" 
-										data-ng-model="place.photo" type="text">
+										data-ng-model="place.photo" type="text"> -->
+									<?php echo $this->Form->input('archivo', array('class'=>'', 'label'=>__('Photo'), 'type'=>'file')) ?>
 								</div>
 	
 								<!-- ACCESIBILIDAD-->
-								<div class="row" ng-cloak>
+								<div class="row" data-ng-cloak>
 									<div class="col-sm-12">
 										<div class="row">
 											<h4><?php echo __('Accessibility'); ?></h4>
@@ -142,50 +199,50 @@
 
 											<!-- Accesibility Parking -->
 											<p>
-												<div class="accessibility-checkbox" ng-click="accessibilityParkingToogle()">
-													<i class="icon-question" ng-show="place.accessibility_parking == 0"></i>
-													<i class="icon-ok" ng-show="place.accessibility_parking == 1"></i>
-													<i class="icon-remove" ng-show="place.accessibility_parking == 2"></i>
+												<div class="accessibility-checkbox" data-ng-click="accessibilityParkingToogle()">
+													<i class="icon-question" data-ng-show="place.accessibility_parking == 0"></i>
+													<i class="icon-ok" data-ng-show="place.accessibility_parking == 1"></i>
+													<i class="icon-remove" data-ng-show="place.accessibility_parking == 2"></i>
 												</div>
 												Plazas de aparcamiento reservadas para personas con discapacidad
 											</p>
 
 											<!-- Accesibility Ramp -->
 											<p>
-												<div class="accessibility-checkbox" ng-click="accessibilityRampToogle()">
-													<i class="icon-question" ng-show="place.accessibility_ramp == 0"></i>
-													<i class="icon-ok" ng-show="place.accessibility_ramp == 1"></i>
-													<i class="icon-remove" ng-show="place.accessibility_ramp == 2"></i>
+												<div class="accessibility-checkbox" data-ng-click="accessibilityRampToogle()">
+													<i class="icon-question" data-ng-show="place.accessibility_ramp == 0"></i>
+													<i class="icon-ok" data-ng-show="place.accessibility_ramp == 1"></i>
+													<i class="icon-remove" data-ng-show="place.accessibility_ramp == 2"></i>
 												</div>
 												Escaleras, rampas o ascensores accesibles para vehículos de personas con movilidad reducida
 											</p>
 
 											<!-- Accesibility Equipment -->
 											<p>
-												<div class="accessibility-checkbox" ng-click="accessibilityEquipmentToogle()">
-													<i class="icon-question" ng-show="place.accessibility_equipment == 0"></i>
-													<i class="icon-ok" ng-show="place.accessibility_equipment == 1"></i>
-													<i class="icon-remove" ng-show="place.accessibility_equipment == 2"></i>
+												<div class="accessibility-checkbox" data-ng-click="accessibilityEquipmentToogle()">
+													<i class="icon-question" data-ng-show="place.accessibility_equipment == 0"></i>
+													<i class="icon-ok" data-ng-show="place.accessibility_equipment == 1"></i>
+													<i class="icon-remove" data-ng-show="place.accessibility_equipment == 2"></i>
 												</div>
 												Equipos electrónicos, informáticos y audiovisuales adaptados
 											</p>
 
 											<!-- Accesibility Signage -->
 											<p>
-												<div class="accessibility-checkbox" ng-click="accessibilitySignageToogle()">
-													<i class="icon-question" ng-show="place.accessibility_signage == 0"></i>
-													<i class="icon-ok" ng-show="place.accessibility_signage == 1"></i>
-													<i class="icon-remove" ng-show="place.accessibility_signage == 2"></i>
+												<div class="accessibility-checkbox" data-ng-click="accessibilitySignageToogle()">
+													<i class="icon-question" data-ng-show="place.accessibility_signage == 0"></i>
+													<i class="icon-ok" data-ng-show="place.accessibility_signage == 1"></i>
+													<i class="icon-remove" data-ng-show="place.accessibility_signage == 2"></i>
 												</div>
 												Señales y paneles informativos claramente perceptibles y comprensibles
 											</p>
 
 											<!-- Accesibility Braille -->
 											<p>
-												<div class="accessibility-checkbox" ng-click="accessibilityBrailleToogle()">
-													<i class="icon-question" ng-show="place.accessibility_braille == 0"></i>
-													<i class="icon-ok" ng-show="place.accessibility_braille == 1"></i>
-													<i class="icon-remove" ng-show="place.accessibility_braille == 2"></i>
+												<div class="accessibility-checkbox" data-ng-click="accessibilityBrailleToogle()">
+													<i class="icon-question" data-ng-show="place.accessibility_braille == 0"></i>
+													<i class="icon-ok" data-ng-show="place.accessibility_braille == 1"></i>
+													<i class="icon-remove" data-ng-show="place.accessibility_braille == 2"></i>
 												</div>
 												Información táctil: Braille
 											</p>
@@ -209,14 +266,14 @@
 						<!-- Categorías -->
 						<div class="row">
 							<p>¿De qué se trata?</p>
-							<div ng-controller="ClassificationsController">
+							<div data-ng-controller="ClassificationsController">
 								<div class="row form-group">
 									<div class="col-sm-12">
 										<!-- <div class="row categoriaLink"
-											ng-class="{highlight:classification.highlight}"
+											data-ng-class="{highlight:classification.highlight}"
 											data-ng-model="classification"
-											ng-repeat="classification in classifications | orderBy:'Classification.name'"
-											ng-click="classificationToogle(classification)">
+											data-ng-repeat="classification in classifications | orderBy:'Classification.name'"
+											data-ng-click="classificationToogle(classification)">
 												<div class="col-sm-1">
 													<div class="classification" data-ng-style="{'background-color':classification.Classification.color}"></div>
 												</div>
@@ -224,7 +281,7 @@
 										</div> -->
 										<div class="row categoriaLink"
 											data-ng-class="{highlight: placeHasClassification(classification)}"
-											x-data-ng-model="classification"
+											data-ng-model="classification"
 											data-ng-repeat="classification in classifications | orderBy:'name'"
 											data-ng-click="classificationToogle(classification)">
 												
@@ -232,19 +289,26 @@
 													<!-- <div class="classification" data-ng-style="{'background-color':classification.color}"></div> -->
 													<img class="icono-categoria" data-ng-src="/img/classifications/{{classification.icon}}" />
 												</div>
-												<div class="col-sm-10" data-ng-bind="classification.name"></div>
+												<!-- <div class="col-sm-10" data-ng-bind="classification.name"></div> -->
+												<div class="col-sm-10">
+                                                    <label class="category" data-ng-bind="classification.name"></label>
+                                                    <input class="checkbox" type="checkbox" 
+                                                        data-ng-model="classification.checkbox" 
+                                                        name="data[Place][Classification][]"
+                                                        value="{{classification.id}}">
+                                                </div>
 										</div>
 									</div>
 								</div>
 						   </div>
 						</div>
 						
-						<div class="row">
-							<input type="submit" value="Enviar" class="btn btn-verde pull-right">
+						<div class="row text-center">
+							<input type="submit" value="Enviar" class="btn btn-verde">
 						</div>
-						<div class="row" ng-show='cargando'>
+						<div class="row" data-ng-show='cargando'>
 							<div class="alert alert-info span12">
-								<span ng-bind='cargando'></span>
+								<span data-ng-bind='cargando'></span>
 							</div>
 						</div>
 					</div>

@@ -1,4 +1,4 @@
-/*! radar 2014-10-30 */
+/*! radar 2014-11-02 */
 (function() {
     "use strict";
     var a, b = [].indexOf || function(a) {
@@ -47,11 +47,6 @@
             c.setCookieCategoriesSelected();
         }, c.showAllCategories = function() {
             return c.selectAllCategories(), c.setCookieCategoriesSelected();
-        }, f = function(a) {
-            var b;
-            return null == a && (a = null), b = !1, angular.forEach(a, function(a) {
-                return b ? void 0 : b = g.contains(a);
-            }), b;
         }, c.$on("categoriesAddBroadcast", function(a, b) {
             return angular.forEach(b, function(a) {
                 return angular.forEach(c.categorias, function(b) {
@@ -66,12 +61,17 @@
             angular.forEach(a, function(a) {
                 return c.show(c.searchById(a));
             })) : void 0;
-        });
+        }), f = function(a) {
+            var b;
+            return null == a && (a = null), b = !1, angular.forEach(a, function(a) {
+                return b ? void 0 : b = g.contains(a);
+            }), b;
+        };
     } ]);
 }.call(this), function() {
     angular.module("RadarApp").controller("ClassificationsController", [ "$http", "$location", "$scope", "$timeout", "Classification", function(a, b, c, d, e) {
-        var f;
-        return f = b.absUrl(), e.get({}, function(a) {
+        var f, g;
+        return g = b.absUrl(), e.get({}, function(a) {
             return c.classifications = [], angular.forEach(a.classifications, function(a) {
                 return c.classifications.push(a.Classification);
             });
@@ -101,12 +101,18 @@
         }, c.showAllClassifications = function() {
             return c.selectAllClassifications();
         }, c.$watch("classifications.length", function() {
-            var a;
-            return !f.contains("places/add") && !f.contains("espacios/agregar") && null != c.classifications && null != $.cookie && c.classifications.length > 0 && ($.cookie.json = !0, 
+            var a, b;
+            return b = [ "places/add", "places/edit", "espacios/agregar", "espacios/editar" ], 
+            !f(b) && null != c.classifications && null != $.cookie && c.classifications.length > 0 && ($.cookie.json = !0, 
             a = $.cookie("classificationsSelected"), null != a && a.length > 0) ? angular.forEach(a, function(a) {
                 return c.show(c.searchById(a));
             }) : void 0;
-        });
+        }), f = function(a) {
+            var b;
+            return null == a && (a = null), b = !1, angular.forEach(a, function(a) {
+                return b ? void 0 : b = g.contains(a);
+            }), b;
+        };
     } ]);
 }.call(this), function() {
     angular.module("RadarApp").controller("EventsController", [ "$http", "$location", "$scope", "$rootScope", "$timeout", "$compile", "Compliant", "CompliantView", "Event", "EventView", "Rate", "User", function(a, b, c, d, e, f, g, h, i, j, k, l) {
@@ -512,14 +518,18 @@
             }), google.maps.event.addListener(h, "click", function() {
                 return c.closeAllInfowindows(), g.open(c.map, h);
             }), c.infowindows.push(g), c.markers.push(h);
+        }, c.classificationAdd = function(a) {
+            return c.place.classifications.length < 3 ? (a.checkbox = !0, c.place.classifications.push(a)) : void 0;
         }, c.classificationsAdd = function(a) {
-            return c.place.classifications.length < 3 ? c.place.classifications.push(a) : void 0;
-        }, c.classificationsDelete = function(a) {
+            return c.place.classifications || (c.place.classifications = []), angular.forEach(a, function(a) {
+                return c.classificationAdd(a);
+            });
+        }, c.classificationDelete = function(a) {
             return angular.forEach(c.place.classifications, function(b, d) {
-                return b.id === a.id ? c.place.classifications.splice(d, 1) : void 0;
+                return b.id === a.id ? (c.place.classifications.splice(d, 1), a.checkbox = !1) : void 0;
             });
         }, c.classificationToogle = function(a) {
-            return c.placeHasClassification(a) ? c.classificationsDelete(a) : c.classificationsAdd(a);
+            return c.placeHasClassification(a) ? c.classificationDelete(a) : c.classificationAdd(a);
         }, c.clearOverlays = function() {
             return c.setAllMap(null);
         }, c.closeAllInfowindows = function() {
@@ -528,6 +538,13 @@
             });
         }, c.deleteOverlays = function() {
             return c.clearOverlays(), c.markers = [];
+        }, c.getPlaceById = function(a) {
+            return null == a && (a = null), null != a ? f.getById({
+                id: a
+            }, function(a) {
+                return c.place = a.place.Place, c.place.classifications || (c.place.classifications = []), 
+                c.classificationsAdd(a.place.Classification);
+            }) : void 0;
         }, c.inicializar = function() {
             return navigator.geolocation ? (window.browserSupportFlag = !0, navigator.geolocation.getCurrentPosition(function(a) {
                 var b;
@@ -537,7 +554,7 @@
             })) : void 0;
         }, c.placeHasClassification = function(a) {
             return null != c.place.classifications ? c.place.classifications.some(function(b) {
-                return b.id === a.id;
+                return b.id === a.id ? (a.checkbox = !0, !0) : void 0;
             }) : void 0;
         }, c.placesUpdate = function() {
             var a, b, d, e;
@@ -830,6 +847,11 @@
                 cache: !0,
                 method: "GET",
                 url: "/places/get.json"
+            },
+            getById: {
+                cache: !1,
+                method: "GET",
+                url: "/places/:id.json"
             },
             update: {
                 method: "POST",

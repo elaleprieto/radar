@@ -30,7 +30,7 @@
 ?>
 
 <div ng-controller="PlacesController" 
-	x-ng-init="user.location='<?php echo $userLocation; ?>'; place=<?php echo htmlspecialchars(json_encode($this->request->data['Place'])); ?>">
+	data-ng-init="user.location='<?php echo $userLocation; ?>'; getPlaceById(<?php echo htmlspecialchars(json_encode($this->request->data['Place']['id'])); ?>)">
 
     <!-- BARRA PROGRESO -->
     <div class="row">
@@ -51,14 +51,18 @@
         </div>    
     </div>
     <div class="row">
-        <h2><?php echo __('Add Place'); ?></h2>
+        <h2><?php echo __('Edit Place'); ?></h2>
     </div>
     <div class="row">
     	<div class="col-sm-12">
     		<div class="row">
 				
 				<!-- FORMULARIO -->
-				<form name="placeForm" ng-submit="submit()">
+				<!-- <form name="placeForm" ng-submit="submit()"> -->
+				<?php echo $this->Form->create('Place', array('type' => 'file')); ?>
+                    <?php echo $this->Form->input('id') ?>
+                    <?php echo $this->Form->hidden('lat', array('value' => '{{place.lat}}')) ?>
+                    <?php echo $this->Form->hidden('long', array('value' => '{{place.long}}')) ?>
 					<div class="col-sm-4">
 						<div class="row">
 							<div class="col-sm-12">
@@ -70,10 +74,18 @@
 
 								<!-- Name -->
 								<div class="row form-group">
-									<label for="PlaceName"><?php echo __('Name'); ?></label>
+									<!-- <label for="PlaceName"><?php echo __('Name'); ?></label>
 									<input autofocus="true" class="capitalize form-control textbox" id="PlaceName" 
 										maxlength="255" name="data[Place][name]" 
-										ng-model="place.name" required="required" type="text">
+										ng-model="place.name" required="required" type="text"> -->
+									<?php echo $this->Form->input('name', array('autofocus' => true
+	                                    , 'class' => 'capitalize form-control textbox'
+	                                    , 'maxlength' => 255
+	                                    , 'required' => 'required'
+	                                    , 'data-ng-model' => 'place.name'
+	                                    )
+	                                )
+	                                ?>
 								</div>
 
 								<!-- Address -->
@@ -93,49 +105,97 @@
 									</div>
 								</div> -->
 								<div class="row form-group">
-                                    <label for="PlaceAddress"><?php echo __('Address'); ?></label>
+                                    <!-- <label for="PlaceAddress"><?php echo __('Address'); ?></label>
                                     <div>
 	                        			<input class="capitalize col-sm-11 form-control textbox typeahead" 
 	                        				id="PlaceAddress" 
 	                        				maxlength="255" required="required" type="text" 
-	                        				ui-keypress="{13:'$event.preventDefault()'}" x-ng-model="place.address"/>
-                                    </div>
+	                        				ui-keypress="{13:'$event.preventDefault()'}" data-ng-model="place.address"/>
+                                    </div> -->
+                                    <?php echo $this->Form->input('address', array(
+                                        'class' => 'capitalize col-sm-11 form-control textbox typeahead'
+                                        , 'maxlength' => 255
+                                        , 'required' => 'required'
+                                        , 'ui-keypress' => '{13:\'$event.preventDefault()\'}'
+                                        )
+                                    )
+                                    ?>
         						</div>
 
 								<!-- Description -->
 								<div class="row form-group">
 									<label for="PlaceDescription"><?php echo __('Description'); ?></label>
-									<textarea class="textarea col-sm-12 form-control" cols="30" id="PlaceDescription"
+									<!-- <textarea class="textarea col-sm-12 form-control" cols="30" id="PlaceDescription"
 										ng-model="place.description" rows="4">
-									</textarea>
+									</textarea> -->
+									<?php echo $this->Form->input('description', array(
+                                        'class' => 'textarea col-sm-12 form-control'
+                                        , 'cols' => 30
+                                        , 'label' => false
+                                        , 'required' => 'required'
+                                        , 'rows' => 4
+                                        , 'type' => 'textarea'
+                                        , 'data-ng-model' => 'place.description'
+                                        // , 'data-ng-change' => 'checkDescriptionSize($event, evento)'
+                                        )
+                                    )
+                                    ?>
 								</div>
 
 								<!-- Phone -->
 								<div class="row form-group">
-									<label for="PlacePhone"><?php echo __('Phone'); ?></label>
+									<!-- <label for="PlacePhone"><?php echo __('Phone'); ?></label>
 									<input autofocus="true" class="textbox form-control" id="PlacePhone" maxlength="255"
-										x-ng-model="place.phone" type="text">
+										data-ng-model="place.phone" type="text"> -->
+									<?php echo $this->Form->input('phone', array(
+                                        'class' => 'capitalize col-sm-11 form-control textbox typeahead'
+                                        , 'data-ng-model' => 'place.phone'
+                                        , 'maxlength' => 255
+                                        , 'ui-keypress' => '{13:\'$event.preventDefault()\'}'
+                                        )
+                                    )
+                                    ?>
 								</div>
 
 								<!-- Email -->
 								<div class="row form-group">
-									<label for="PlaceEmail"><?php echo __('Email'); ?></label>
+									<!-- <label for="PlaceEmail"><?php echo __('Email'); ?></label>
 									<input autofocus="true" class="textbox form-control" id="PlaceEmail" maxlength="255" 
-										x-ng-model="place.email" type="text">
+										data-ng-model="place.email" type="text"> -->
+									<?php echo $this->Form->input('email', array(
+                                        'class' => 'capitalize col-sm-11 form-control textbox typeahead'
+                                        , 'data-ng-model' => 'place.email'
+                                        , 'maxlength' => 255
+                                        , 'ui-keypress' => '{13:\'$event.preventDefault()\'}'
+                                        )
+                                    )
+                                    ?>
 								</div>
 
 								<!-- Website -->
 								<div class="row form-group">
-									<label for="PlaceWebsite"><?php echo __('Website'); ?></label>
+									<!-- <label for="PlaceWebsite"><?php echo __('Website'); ?></label>
 									<input autofocus="true" class="textbox form-control" id="PlaceWebsite" maxlength="255" 
-										x-ng-model="place.website" type="text">
+										data-ng-model="place.website" type="text"> -->
+									<?php echo $this->Form->input('website', array(
+                                        'class' => 'capitalize col-sm-11 form-control textbox typeahead'
+                                        , 'data-ng-model' => 'place.website'
+                                        , 'maxlength' => 255
+                                        , 'ui-keypress' => '{13:\'$event.preventDefault()\'}'
+                                        )
+                                    )
+                                    ?>
 								</div>
 
 								<!-- Photo -->
 								<div class="row form-group">
-									<label for="PlacePhoto"><?php echo __('Photo'); ?></label>
+									<!-- <label for="PlacePhoto"><?php echo __('Photo'); ?></label>
 									<input autofocus="true" class="textbox form-control" id="PlacePhoto" maxlength="255" 
-										x-ng-model="place.photo" type="text">
+										data-ng-model="place.photo" type="text"> -->
+									<?php if($this->request->data['Place']['image']) 
+										echo $this->Html->image('fotos/places/'.$this->request->data['Place']['image'], array('class'=>'img-responsive')); 
+									?>
+									<?php echo $this->Form->input('archivo', array('class'=>'', 'label'=>__('Change photo'), 'type'=>'file')) ?>
 								</div>
 
 								<!-- ACCESIBILIDAD-->
@@ -217,8 +277,8 @@
 						<!-- Categorías -->
 						<div class="row">
 							<p>¿De qué se trata?</p>
-							<div x-ng-controller="ClassificationsController"
-								x-ng-init="place.classifications=<?php echo htmlspecialchars(json_encode($this->request->data['Classification'])); ?>">
+							<div data-ng-controller="ClassificationsController"
+								data-ng-init="classificationsAdd(<?php echo htmlspecialchars(json_encode($this->request->data['Classification'])); ?>)">
 
 								<div class="row form-group">
 									<div class="col-sm-12">
@@ -228,16 +288,23 @@
 											ng-repeat="classification in classifications | orderBy:'Classification.name'"
 											ng-click="classificationToogle(classification)"> -->
 										<div class="row categoriaLink"
-											x-ng-class="{highlight: placeHasClassification(classification)}"
-											x-ng-model="classification"
-											x-ng-repeat="classification in classifications | orderBy:'name'"
-											x-ng-click="classificationToogle(classification)">
+											data-ng-class="{highlight: placeHasClassification(classification)}"
+											data-ng-model="classification"
+											data-ng-repeat="classification in classifications | orderBy:'name'"
+											data-ng-click="classificationToogle(classification)">
 												
 												<div class="col-sm-1">
-													<!-- <div class="classification" x-ng-style="{'background-color':classification.color}"></div> -->
+													<!-- <div class="classification" data-ng-style="{'background-color':classification.color}"></div> -->
 													<img class="icono-categoria" data-ng-src="/img/classifications/{{classification.icon}}" />
 												</div>
-												<div class="col-sm-10" x-ng-bind="classification.name"></div>
+												<div class="col-sm-10">
+                                                    <label class="category" data-ng-bind="classification.name"></label>
+                                                    <input class="checkbox" type="checkbox" 
+                                                        data-ng-model="classification.checkbox" 
+                                                        name="data[Place][Classification][]"
+                                                        value="{{classification.id}}">
+                                                </div>
+												<!-- <div class="col-sm-10" data-ng-bind="classification.name"></div> -->
 										</div>
 									</div>
 								</div>

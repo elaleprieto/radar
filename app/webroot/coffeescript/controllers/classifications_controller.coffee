@@ -86,7 +86,10 @@ angular.module('RadarApp').controller 'ClassificationsController'
 		# $scope.setCookieClassificationsSelected()
 
 	$scope.$watch 'classifications.length', ->
-		if not location.contains('places/add') and not location.contains('espacios/agregar')
+		locations = ['places/add', 'places/edit', 'espacios/agregar', 'espacios/editar']
+
+		# if not location.contains('places/add') and not location.contains('espacios/agregar')
+		if not containLocations(locations)
 			if $scope.classifications? and $.cookie? and $scope.classifications.length > 0
 				$.cookie.json = true
 				lastValEventCategory = $.cookie('classificationsSelected')
@@ -94,5 +97,14 @@ angular.module('RadarApp').controller 'ClassificationsController'
 					angular.forEach lastValEventCategory, (classificationId, index) ->
 						$scope.show($scope.searchById(classificationId))
 
+	### *************************************************************************************************************** 
+			Funciones Auxiliares
+			Aquí se escriben las funciones auxiliares
+	*************************************************************************************************************** ###
+	containLocations = (locations = null) ->
+		containURL = false
+		angular.forEach locations, (url, index) ->
+			if not containURL then containURL = location.contains(url)
+		containURL
+
 	]
-	
