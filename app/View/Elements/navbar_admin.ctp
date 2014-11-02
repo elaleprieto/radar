@@ -127,9 +127,9 @@
 					<li>
 						<?php echo $this->Facebook->logout(array(
 							'label' => __('Logout'),
-							'redirect' => array(
-								'controller' => 'users',
-								'action' => 'logout'
+							'redirect' => array('admin' => false
+								, 'controller' => 'users'
+								, 'action' => 'logout'
 							),
 						));
 						?>
