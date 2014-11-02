@@ -29,108 +29,108 @@
 
 <div ng-controller="PlacesController" ng-init="user.location='<?php echo $userLocation; ?>'">
 
-    <!-- BARRA PROGRESO -->
-    <div class="row">
-        <div class="progress">
-            <div class="progress-bar progress-bar-success" style="width: 33%;">Info básica</div>
-            <div class="progress-bar progress-bar-warning" style="width: 34%;">ubicación</div>
-            <div class="progress-bar progress-bar-danger" style="width: 33%;">accesibilidad</div>     
-        </div>
-    </div>
-    
-    <!-- MENSAJES -->
-    <div class="row">
-        <div class="alert alert-error" id="alertMessage">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <strong>¡Cuidado!</strong><span id="alertMessageString">
-                Los eventos no pueden pertenecer a más de 3 (tres) categorías.
-            </span>
-        </div>    
-    </div>
-    <div class="row">
-        <h2><?php echo __('Add Place'); ?></h2>
-    </div>
-    <div class="row">
-    	<div class="col-sm-12">
-    		<div class="row">
-    		    <!-- FORMULARIO BÁSICO -->
-    	       <form name="placeForm" ng-submit="submit()">
-        			<div class="col-sm-4">
-        				<div class="row">
-        					<div class="col-sm-12">
-        					    <div class="row">
-                                    <h4>Información básica</h4>
-                                </div>
-        							
-        						<!-- Name -->
-        						<div class="row form-group">
-                                	<label for="PlaceName"><?php echo __('Name'); ?></label>
-                                    <input autofocus="true" class="capitalize form-control textbox" id="PlaceName" maxlength="255" 
-                                        data-ng-model="place.name" required="required" type="text">
-        						</div>
-        							
-        						<!-- Address -->
-        						<!-- <div class="row">
-        							<div class="form-group">
-	                                    <label for="PlaceAddress"><?php echo __('Address'); ?></label>
-	                            		<div class="input-group input-group-sm">
-	                            			<input class="capitalize col-sm-11 form-control textbox" id="PlaceAddress" 
-	                            				maxlength="255" data-ng-model="place.address" required="required" 
-	                            				type="text" ui-keypress="{13:'setAddress($event)'}" />
+	<!-- BARRA PROGRESO -->
+	<div class="row">
+		<div class="progress">
+			<div class="progress-bar progress-bar-success" style="width: 33%;">Info básica</div>
+			<div class="progress-bar progress-bar-warning" style="width: 34%;">ubicación</div>
+			<div class="progress-bar progress-bar-danger" style="width: 33%;">accesibilidad</div>     
+		</div>
+	</div>
+	
+	<!-- MENSAJES -->
+	<div class="row">
+		<div class="alert alert-error" id="alertMessage">
+			<button type="button" class="close" data-dismiss="alert">&times;</button>
+			<strong>¡Cuidado!</strong><span id="alertMessageString">
+				Los eventos no pueden pertenecer a más de 3 (tres) categorías.
+			</span>
+		</div>    
+	</div>
+	<div class="row">
+		<h2><?php echo __('Add Place'); ?></h2>
+	</div>
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="row">
+				<!-- FORMULARIO BÁSICO -->
+			   <form name="placeForm" ng-submit="submit()">
+					<div class="col-sm-4">
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="row">
+									<h4>Información básica</h4>
+								</div>
+									
+								<!-- Name -->
+								<div class="row form-group">
+									<label for="PlaceName"><?php echo __('Name'); ?></label>
+									<input autofocus="true" class="capitalize form-control textbox" id="PlaceName" maxlength="255" 
+										data-ng-model="place.name" required="required" type="text">
+								</div>
+									
+								<!-- Address -->
+								<!-- <div class="row">
+									<div class="form-group">
+										<label for="PlaceAddress"><?php echo __('Address'); ?></label>
+										<div class="input-group input-group-sm">
+											<input class="capitalize col-sm-11 form-control textbox" id="PlaceAddress" 
+												maxlength="255" data-ng-model="place.address" required="required" 
+												type="text" ui-keypress="{13:'setAddress($event)'}" />
 											<span class="input-group-btn">
 												<button class="btn btn-default" ng-click="setAddress()" type="button">
 													 <span class="glyphicon glyphicon-map-marker"></span>
 												</button>	
 											</span>
-	                            		</div>
+										</div>
 									</div>
-        						</div> -->
-        						<div class="row form-group">
-                                    <label for="PlaceAddress"><?php echo __('Address'); ?></label>
-                                    <div>
-	                        			<input class="capitalize col-sm-11 form-control textbox typeahead" 
-	                        				id="PlaceAddress" 
-	                        				maxlength="255" required="required" type="text" 
-	                        				ui-keypress="{13:'$event.preventDefault()'}" />
-                                    </div>
-        						</div>
-        							
-        						<!-- Description -->
-        						<div class="row form-group">
-                                	<label for="PlaceDescription"><?php echo __('Description'); ?></label>
-                                    <textarea class="textarea col-sm-12 form-control" cols="30" id="PlaceDescription" 
-                                        data-ng-model="place.description" rows="4">
-                                    </textarea>
-        						</div>
-        						
-        						<!-- Phone -->
-        						<div class="row form-group">
-                                	<label for="PlacePhone"><?php echo __('Phone'); ?></label>
-                                    <input autofocus="true" class="textbox form-control" id="PlacePhone" maxlength="255" 
-                                        data-ng-model="place.phone" type="text">
-        						</div>
-        						
-        						<!-- Email -->
-        						<div class="row form-group">
-                                	<label for="PlaceEmail"><?php echo __('Email'); ?></label>
-                                    <input autofocus="true" class="textbox form-control" id="PlaceEmail" maxlength="255" 
-                                        data-ng-model="place.email" type="text">
-        						</div>
-        						
-        						<!-- Website -->
-        						<div class="row form-group">
-                                	<label for="PlaceWebsite"><?php echo __('Website'); ?></label>
-                                    <input autofocus="true" class="textbox form-control" id="PlaceWebsite" maxlength="255" 
-                                        data-ng-model="place.website" type="text">
-        						</div>
-        						
-        						<!-- Photo -->
-        						<div class="row form-group">
-                                	<label for="PlacePhoto"><?php echo __('Photo'); ?></label>
-                                    <input autofocus="true" class="textbox form-control" id="PlacePhoto" maxlength="255" 
-                                        data-ng-model="place.photo" type="text">
-        						</div>
-    
+								</div> -->
+								<div class="row form-group">
+									<label for="PlaceAddress"><?php echo __('Address'); ?></label>
+									<div>
+										<input class="capitalize col-sm-11 form-control textbox typeahead" 
+											id="PlaceAddress" 
+											maxlength="255" required="required" type="text" 
+											ui-keypress="{13:'$event.preventDefault()'}" />
+									</div>
+								</div>
+									
+								<!-- Description -->
+								<div class="row form-group">
+									<label for="PlaceDescription"><?php echo __('Description'); ?></label>
+									<textarea class="textarea col-sm-12 form-control" cols="30" id="PlaceDescription" 
+										data-ng-model="place.description" rows="4">
+									</textarea>
+								</div>
+								
+								<!-- Phone -->
+								<div class="row form-group">
+									<label for="PlacePhone"><?php echo __('Phone'); ?></label>
+									<input autofocus="true" class="textbox form-control" id="PlacePhone" maxlength="255" 
+										data-ng-model="place.phone" type="text">
+								</div>
+								
+								<!-- Email -->
+								<div class="row form-group">
+									<label for="PlaceEmail"><?php echo __('Email'); ?></label>
+									<input autofocus="true" class="textbox form-control" id="PlaceEmail" maxlength="255" 
+										data-ng-model="place.email" type="text">
+								</div>
+								
+								<!-- Website -->
+								<div class="row form-group">
+									<label for="PlaceWebsite"><?php echo __('Website'); ?></label>
+									<input autofocus="true" class="textbox form-control" id="PlaceWebsite" maxlength="255" 
+										data-ng-model="place.website" type="text">
+								</div>
+								
+								<!-- Photo -->
+								<div class="row form-group">
+									<label for="PlacePhoto"><?php echo __('Photo'); ?></label>
+									<input autofocus="true" class="textbox form-control" id="PlacePhoto" maxlength="255" 
+										data-ng-model="place.photo" type="text">
+								</div>
+	
 								<!-- ACCESIBILIDAD-->
 								<div class="row" ng-cloak>
 									<div class="col-sm-12">
@@ -196,60 +196,60 @@
 						</div>
 					</div>
 
-        			<!-- Map -->
-        			<div class="col-sm-4">
-                        <div class="row">
-        			    	<div class="col-sm-12">
-                           		<div id="map"></div>
-        			    	</div>
-        			    </div>
-        			</div>
-    			
-        			
-        			<div class="col-sm-4">
-        				<!-- Categorías -->
-        						<div class="row">
-        							<p>¿De qué se trata?</p>
-                                    <div ng-controller="ClassificationsController">
-                                        <div class="row form-group">
-                                            <div class="col-sm-12">
-                                                <!-- <div class="row categoriaLink"
-                                                	ng-class="{highlight:classification.highlight}"
-                                                	data-ng-model="classification"
-                                                	ng-repeat="classification in classifications | orderBy:'Classification.name'"
-                                                	ng-click="classificationToogle(classification)">
-                                                        <div class="col-sm-1">
-                                                        	<div class="classification" x-ng-style="{'background-color':classification.Classification.color}"></div>
-                                                        </div>
-                                                        <div class="col-sm-10" x-ng-bind="classification.Classification.name"></div>
-                                                </div> -->
-                                                <div class="row categoriaLink"
-													x-ng-class="{highlight: placeHasClassification(classification)}"
-													x-data-ng-model="classification"
-													x-ng-repeat="classification in classifications | orderBy:'name'"
-													x-ng-click="classificationToogle(classification)">
-														
-														<div class="col-sm-1">
-															<div class="classification" x-ng-style="{'background-color':classification.color}"></div>
-														</div>
-														<div class="col-sm-10" x-ng-bind="classification.name"></div>
+					<!-- Map -->
+					<div class="col-sm-4">
+						<div class="row-fluid">
+							<div class="col-sm-12">
+								<div id="map"></div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-sm-4">
+						<!-- Categorías -->
+						<div class="row">
+							<p>¿De qué se trata?</p>
+							<div ng-controller="ClassificationsController">
+								<div class="row form-group">
+									<div class="col-sm-12">
+										<!-- <div class="row categoriaLink"
+											ng-class="{highlight:classification.highlight}"
+											data-ng-model="classification"
+											ng-repeat="classification in classifications | orderBy:'Classification.name'"
+											ng-click="classificationToogle(classification)">
+												<div class="col-sm-1">
+													<div class="classification" data-ng-style="{'background-color':classification.Classification.color}"></div>
 												</div>
-                                            </div>
-                                        </div>
-                                   </div>
-        						</div>
-                        
-                        <div class="row">
+												<div class="col-sm-10" data-ng-bind="classification.Classification.name"></div>
+										</div> -->
+										<div class="row categoriaLink"
+											data-ng-class="{highlight: placeHasClassification(classification)}"
+											x-data-ng-model="classification"
+											data-ng-repeat="classification in classifications | orderBy:'name'"
+											data-ng-click="classificationToogle(classification)">
+												
+												<div class="col-sm-1">
+													<!-- <div class="classification" data-ng-style="{'background-color':classification.color}"></div> -->
+													<img class="icono-categoria" data-ng-src="/img/classifications/{{classification.icon}}" />
+												</div>
+												<div class="col-sm-10" data-ng-bind="classification.name"></div>
+										</div>
+									</div>
+								</div>
+						   </div>
+						</div>
+						
+						<div class="row">
 							<input type="submit" value="Enviar" class="btn btn-verde pull-right">
 						</div>
-                        <div class="row" ng-show='cargando'>
-                        	<div class="alert alert-info span12">
+						<div class="row" ng-show='cargando'>
+							<div class="alert alert-info span12">
 								<span ng-bind='cargando'></span>
-                        	</div>
+							</div>
 						</div>
-        			</div>
-                </form>
-    		</div>
-    	</div>
-    </div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
 </div>
