@@ -183,7 +183,7 @@
 	</div>
 	
 	<!-- WEAST -->
-	<div id="west" data-ng-cloak>
+	<div id="west" class="hidden-xs" data-ng-cloak>
 		
 		<!-- SPONSOR -->
 		<!-- Button to Display or Hide Sponsors -->
@@ -203,7 +203,7 @@
 	</div>
 
 	<!-- SOUTH -->
-	<div id="south" data-ng-cloak>
+	<div id="south" class="hidden-xs" data-ng-cloak>
 		
 		<!-- Button to Display or Hide South Menu -->
 		<!--
