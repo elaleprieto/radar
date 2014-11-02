@@ -5,7 +5,7 @@ echo $this -> Html -> css(array('events/view'));
 <div class="row">
 	<div class="col-sm-12">
 		<div class="row">
-			<div class="col-sm-3">
+			<div class="col-sm-3 hiden-xs">
 				<!-- Categoría del lugar-->
 				<div class="row">
 				</div>
@@ -31,16 +31,37 @@ echo $this -> Html -> css(array('events/view'));
 							&nbsp;&nbsp;<?php echo h($place['Place']['address']); ?>
 						</p>
 						<p>
-							<span class="glyphicon glyphicon-phone-alt" style="color:#ABD402"></span>
-							&nbsp;&nbsp;<?php echo h($place['Place']['phone']); ?>
+							<?php
+								if($place['Place']['phone']){
+									echo '<span class="glyphicon glyphicon-phone-alt" style="color:#ABD402"></span>';
+									echo '&nbsp;&nbsp;'.h($place['Place']['phone']);
+								}
+							?>
+							<!--<span class="glyphicon glyphicon-phone-alt" style="color:#ABD402"></span>-->
+							<!--&nbsp;&nbsp;<?php echo h($place['Place']['phone']); ?>-->
 						</p>
 						<p>
-							<span class="glyphicon glyphicon-envelope" style="color:#ABD402"></span>
-							&nbsp;&nbsp;<?php echo h($place['Place']['email']); ?>
+							<?php
+								if($place['Place']['email']){
+									echo '<span class="glyphicon glyphicon-envelope" style="color:#ABD402"></span>';
+									echo '&nbsp;&nbsp;'.h($place['Place']['email']);
+								}
+							?>
+							<!--<span class="glyphicon glyphicon-envelope" style="color:#ABD402"></span>-->
+							<!--&nbsp;&nbsp;<?php echo h($place['Place']['email']); ?>-->
 						</p>
 						<p>
-							<span class="glyphicon glyphicon-globe" style="color:#ABD402"></span>
-							&nbsp;&nbsp;<a <?php echo 'href="'.$place['Place']['website'].'" target="_blank"'?> ><?php echo h($place['Place']['website']); ?></a>
+							<?php
+								if($place['Place']['website']){
+									echo '<span class="glyphicon glyphicon-globe" style="color:#ABD402"></span>';
+									echo '&nbsp;&nbsp';
+									echo '<a href="http://'.$place['Place']['website'].'" target="_blank">';
+									echo h($place['Place']['website']);
+									echo '</a>';
+								}
+							?>
+							<!--<span class="glyphicon glyphicon-globe" style="color:#ABD402"></span>-->
+							<!--&nbsp;&nbsp;<a <?php echo 'href="'.$place['Place']['website'].'" target="_blank"'?> ><?php echo h($place['Place']['website']); ?></a>-->
 				
 						</p>
 					</div>
@@ -52,20 +73,23 @@ echo $this -> Html -> css(array('events/view'));
 	<div class="col-sm-12">
 		<div class="row">
 			<div class="col-sm-12">
-				<p><?php echo h($place['Place']['description']); ?></p>
+				<p style="justify"><?php echo h($place['Place']['description']); ?></p>
 			</div>
 		</div>
-		<hr>
+		<?php if($place['Place']['description']){
+			echo '<hr>';
+		}?>
 		<div class="row">
 			<div class="col-sm-12">
-				<h3>
-					<?php
-						if(($place['Place']['accessibility_parking'] ==1) || ($place['Place']['accessibility_ramp']==1) ||
-							($place['Place']['accessibility_equipment']==1) || ($place['Place']['accessibility_signage']==1) ||
-							($place['Place']['accessibility_braille']==1)){ 
-						echo __('Accessibility'); 
-						}?>		
-				</h3>
+				<?php
+					if(($place['Place']['accessibility_parking'] ==1) || ($place['Place']['accessibility_ramp']==1) ||
+						($place['Place']['accessibility_equipment']==1) || ($place['Place']['accessibility_signage']==1) ||
+						($place['Place']['accessibility_braille']==1)){ 
+						echo '<h3>'.__('Accessibility').'</h3>'; 
+					} else {
+						echo '<p>No hay información disponible sobre accesibilidad.</p><br>';
+					}
+				?>	
 				<?php
 				if($place['Place']['accessibility_parking'] == 1):
 				?>
