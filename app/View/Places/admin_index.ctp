@@ -43,10 +43,9 @@
 					<td>
 						<?php
 							foreach ($place['Classification'] as $classification) :
-								echo $this->Html->div('classification classification-center', '&nbsp;', array(
-									'style' => 'background-color:' . $classification['color'],
-									'title' => $classification['name']
-								));
+								echo $this->Html->div('classification classification-center'
+									, $this->Html->image('classifications/'.$classification['icon'], array('class'=>'icono-categoria'))
+									, array('title' => $classification['name']));
 							endforeach;
 						?>
 						&nbsp;
