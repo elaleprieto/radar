@@ -12,7 +12,7 @@
       	***************************************************************************************************************
       */
 
-      var date, findResult, getPlaceColor, getPlaceDescription, getPlaceIcon, getPlaceId, getPlaceName, setUserLocationString, userLastLocationString, userMapCenter, userMapTypeId, userMapZoom, _ref;
+      var containLocations, date, findResult, getPlaceColor, getPlaceDescription, getPlaceIcon, getPlaceId, getPlaceName, setUserLocationString, userLastLocationString, userMapCenter, userMapTypeId, userMapZoom, _ref;
       $scope.placeInterval = 1;
       $scope.user = {};
       $scope.classificationsSelected = [];
@@ -102,8 +102,9 @@
         }
       });
       google.maps.event.addListener($scope.map, 'click', function(event) {
-        var request;
-        if ($location.absUrl().contains('/places/add') || $location.absUrl().contains('/espacios/agregar')) {
+        var locations, request;
+        locations = ['places/add', 'places/edit', 'espacios/agregar', 'espacios/editar'];
+        if (containLocations(locations)) {
           request = new Object();
           request.location = new google.maps.LatLng(event.latLng.lat(), event.latLng.lng());
           return $scope.geocoder.geocode(request, function(response, status) {
@@ -497,6 +498,19 @@
       	***************************************************************************************************************
       */
 
+      containLocations = function(locations) {
+        var containURL;
+        if (locations == null) {
+          locations = null;
+        }
+        containURL = false;
+        angular.forEach(locations, function(url, index) {
+          if (!containURL) {
+            return containURL = $location.absUrl().contains(url);
+          }
+        });
+        return containURL;
+      };
       findResult = function(results, name) {
         var result;
         result = results.filter(function(obj) {

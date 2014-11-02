@@ -95,7 +95,6 @@ angular.module('RadarApp').controller 'CategoriesController'
 	$scope.$watch 'categorias.length', ->
 		locations = ['events/add', 'events/edit', 'eventos/agregar', 'eventos/editar']
 
-		# if not location.contains('events/add') and not location.contains('eventos/agregar') and not location.contains('events/add') and $scope.categorias? and $scope.categorias.length > 0
 		if not containLocations(locations) and $scope.categorias? and $scope.categorias.length > 0
 			# Al inicio, se seleccionan todas las categorías
 			# si hay cookie, se sobreescriben después.

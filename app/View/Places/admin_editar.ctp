@@ -148,7 +148,7 @@
 									<input autofocus="true" class="textbox form-control" id="PlacePhone" maxlength="255"
 										data-ng-model="place.phone" type="text"> -->
 									<?php echo $this->Form->input('phone', array(
-                                        'class' => 'capitalize col-sm-11 form-control textbox typeahead'
+                                        'class' => 'capitalize col-sm-11 form-control textbox'
                                         , 'data-ng-model' => 'place.phone'
                                         , 'maxlength' => 255
                                         , 'ui-keypress' => '{13:\'$event.preventDefault()\'}'
@@ -163,7 +163,7 @@
 									<input autofocus="true" class="textbox form-control" id="PlaceEmail" maxlength="255" 
 										data-ng-model="place.email" type="text"> -->
 									<?php echo $this->Form->input('email', array(
-                                        'class' => 'capitalize col-sm-11 form-control textbox typeahead'
+                                        'class' => 'capitalize col-sm-11 form-control textbox'
                                         , 'data-ng-model' => 'place.email'
                                         , 'maxlength' => 255
                                         , 'ui-keypress' => '{13:\'$event.preventDefault()\'}'
@@ -178,7 +178,7 @@
 									<input autofocus="true" class="textbox form-control" id="PlaceWebsite" maxlength="255" 
 										data-ng-model="place.website" type="text"> -->
 									<?php echo $this->Form->input('website', array(
-                                        'class' => 'capitalize col-sm-11 form-control textbox typeahead'
+                                        'class' => 'capitalize col-sm-11 form-control textbox'
                                         , 'data-ng-model' => 'place.website'
                                         , 'maxlength' => 255
                                         , 'ui-keypress' => '{13:\'$event.preventDefault()\'}'

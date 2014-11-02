@@ -101,6 +101,7 @@
 						$this->Place->save($place);
 					}
 					$this->flash(__('Place saved.'), array('action' => 'index'));
+					$this->redirect(array('action' => 'index'));
 				} else {
 					throw new Exception("Error Processing Request", 1);
 				}
@@ -296,8 +297,6 @@
 				throw new NotFoundException(__('Invalid place'));
 			}
 			if ($this->request->is('post') || $this->request->is('put')) {
-				// debug($this->request->data);
-
 				// if ($this->Place->edit($this->request->data)) {
 				// 	$this->flash(__('The place has been saved.'), array('action' => 'index'));
 				// } else {
@@ -311,6 +310,7 @@
 						$this->Place->save($place);
 					}
 					$this->flash(__('Place saved.'), array('action' => 'index'));
+					$this->redirect(array('action' => 'index'));
 				} else {
 					throw new Exception("Error Processing Request", 1);
 				}

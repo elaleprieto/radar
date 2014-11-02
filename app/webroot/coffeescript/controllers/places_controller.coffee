@@ -109,7 +109,9 @@ angular.module('RadarApp').controller 'PlacesController'
 
 	# Se crea el Listener para el clic sobre el mapa en la creacion de Places
 	google.maps.event.addListener $scope.map, 'click', (event) ->
-		if $location.absUrl().contains('/places/add') or $location.absUrl().contains('/espacios/agregar')
+		# if $location.absUrl().contains('/places/add') or $location.absUrl().contains('/espacios/agregar')
+		locations = ['places/add', 'places/edit', 'espacios/agregar', 'espacios/editar']
+		if containLocations(locations)
 			# se crea un objeto request
 			request = new Object()
 			request.location = new google.maps.LatLng(event.latLng.lat(), event.latLng.lng())
@@ -544,7 +546,12 @@ angular.module('RadarApp').controller 'PlacesController'
 			Funciones Auxiliares
 			Aquí se escriben las funciones auxiliares
 	*************************************************************************************************************** ###
-	
+	containLocations = (locations = null) ->
+		containURL = false
+		angular.forEach locations, (url, index) ->
+			if not containURL then containURL = $location.absUrl().contains(url)
+		containURL
+
 	# findResult es usada para filtrar la ciudad, estado y pais de una respuesta de la API
 	# findResult = (results, name) ->
 		# result =  _.find results, (obj) ->
