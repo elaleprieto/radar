@@ -16,6 +16,7 @@ angular.module('RadarApp').controller 'EventsController'
 					$scope.evento = data.event.Event
 					# $scope.$apply()
 					$scope.evento.date_from = sqlToJsDate(data.event.Event.date_start)
+					$scope.evento.time_from = sqlToJsDate(data.event.Event.date_start)
 					$scope.evento.date_to = sqlToJsDate(data.event.Event.date_end)
 					# console.log data.event.Event.date_to
 					# console.log sqlToJsDate(data.event.Event.date_to)

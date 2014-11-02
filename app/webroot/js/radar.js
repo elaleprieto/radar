@@ -116,8 +116,8 @@
                 id: a
             }, function(a) {
                 return c.evento = a.event.Event, c.evento.date_from = t(a.event.Event.date_start), 
-                c.evento.date_to = t(a.event.Event.date_end), c.evento.categories || (c.evento.categories = []), 
-                d.$broadcast("categoriesAddBroadcast", a.event.Category);
+                c.evento.time_from = t(a.event.Event.date_start), c.evento.date_to = t(a.event.Event.date_end), 
+                c.evento.categories || (c.evento.categories = []), d.$broadcast("categoriesAddBroadcast", a.event.Category);
             });
         }), t = function(a) {
             var b, c, d, e, f, g, h, i, j, k;
