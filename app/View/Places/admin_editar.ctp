@@ -205,7 +205,7 @@
 
         			<!-- Map -->
         			<div class="col-sm-4">
-                        <div class="row">
+                        <div class="row-fluid">
         			    	<div class="col-sm-12">
                            		<div id="map"></div>
         			    	</div>
@@ -234,7 +234,8 @@
 											x-ng-click="classificationToogle(classification)">
 												
 												<div class="col-sm-1">
-													<div class="classification" x-ng-style="{'background-color':classification.color}"></div>
+													<!-- <div class="classification" x-ng-style="{'background-color':classification.color}"></div> -->
+													<img class="icono-categoria" data-ng-src="/img/classifications/{{classification.icon}}" />
 												</div>
 												<div class="col-sm-10" x-ng-bind="classification.name"></div>
 										</div>
