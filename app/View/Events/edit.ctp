@@ -1,4 +1,4 @@
-<?php debug($event, $showHtml = null, $showFrom = true) ?>
+<?php //debug($event, $showHtml = null, $showFrom = true) ?>
 <?php
 	echo $this->Html->css(array(
 		'vendors/bootstrap-datepicker',
@@ -177,7 +177,7 @@
     			
         			<!-- FECHAS Y MAPA -->
         			<div class="col-sm-4">
-                        <div class="row">
+                        <div class="row-fluid">
                 	       <div class="col-sm-12">
                 	           <div class="row">
                                     <h4><?php echo __('Date')?></h4>
@@ -420,19 +420,14 @@
                                 </div>
 
                                 <!-- Video -->
-                                <div class="row form-group">
-                                    <?php echo $this->Form->input('video', array('class'=>'textbox form-control', 'label'=>__('Video'))) ?>
-                                </div>
+                                <!-- <div class="row form-group">
+                                    <?php //echo $this->Form->input('video', array('class'=>'textbox form-control', 'label'=>__('Video'))) ?>
+                                </div> -->
 
                                 <!-- Noticia -->
-                                <div class="row form-group">
-                                    <?php echo $this->Form->input('noticia'
-                                    	, array('class'=>'textbox form-control'
-                                    		, 'label'=>__('News source')
-											)
-										)
-									?>
-                                </div>
+                                <!-- <div class="row form-group">
+                                    <?php //echo $this->Form->input('noticia', array('class'=>'textbox form-control', 'label'=>__('News source')))?>
+                                </div> -->
                                
                                 <!-- Foto -->
                                 <div class="row form-group">

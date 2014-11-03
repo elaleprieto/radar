@@ -413,19 +413,14 @@
                                 </div>
 
                                 <!-- Video -->
-                                <div class="row form-group">
-                                    <?php echo $this->Form->input('video', array('class'=>'textbox form-control', 'label'=>__('Video'))) ?>
-                                </div>
+                                <!-- <div class="row form-group">
+                                    <?php //echo $this->Form->input('video', array('class'=>'textbox form-control', 'label'=>__('Video'))) ?>
+                                </div> -->
 
                                 <!-- Noticia -->
-                                <div class="row form-group">
-                                    <?php echo $this->Form->input('noticia'
-                                    	, array('class'=>'textbox form-control'
-                                    		, 'label'=>__('News source')
-											)
-										)
-									?>
-                                </div>
+                                <!-- <div class="row form-group">
+                                    <?php //echo $this->Form->input('noticia', array('class'=>'textbox form-control', 'label'=>__('News source'))) ?>
+                                </div> -->
 
                                 <!-- Foto -->
                                 <div class="row form-group">

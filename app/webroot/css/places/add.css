@@ -11,35 +11,41 @@
 .capitalize { text-transform: capitalize; }
 
 /* line 3, ../../sass/places/add.sass */
+input[type=checkbox].checkbox { display: inline-block; margin: 0; visibility: hidden; }
+
+/* line 8, ../../sass/places/add.sass */
+label.category { cursor: pointer; }
+
+/* line 11, ../../sass/places/add.sass */
 select { max-width: 100%; }
-/* line 6, ../../sass/places/add.sass */
+/* line 14, ../../sass/places/add.sass */
 select[name*="month"] { min-width: 100px; }
-/* line 9, ../../sass/places/add.sass */
+/* line 17, ../../sass/places/add.sass */
 select[name*="year"] { min-width: 65px; }
 
-/* line 12, ../../sass/places/add.sass */
+/* line 20, ../../sass/places/add.sass */
 .accessibility-checkbox { border: 1px solid #c5c5c5; -webkit-border-radius: 4px; -moz-border-radius: 4px; -ms-border-radius: 4px; -o-border-radius: 4px; border-radius: 4px; cursor: pointer; display: inline-block; height: 20px; text-align: center; width: 20px; }
 
-/* line 21, ../../sass/places/add.sass */
+/* line 29, ../../sass/places/add.sass */
 .categoriaLink { cursor: pointer; }
 
-/* line 24, ../../sass/places/add.sass */
+/* line 32, ../../sass/places/add.sass */
 .classification { height: 20px; width: 20px; }
 
-/* line 28, ../../sass/places/add.sass */
+/* line 36, ../../sass/places/add.sass */
 .dateField { width: 20%; }
 
-/* line 31, ../../sass/places/add.sass */
+/* line 39, ../../sass/places/add.sass */
 .highlight { background-color: #dfdfdf; }
 
-/* line 34, ../../sass/places/add.sass */
+/* line 42, ../../sass/places/add.sass */
 .textbox { width: 100%; width: -moz-available; }
 
-/* line 38, ../../sass/places/add.sass */
+/* line 46, ../../sass/places/add.sass */
 #alertMessage { display: none; float: right; }
 
-/* line 42, ../../sass/places/add.sass */
+/* line 50, ../../sass/places/add.sass */
 #label_simple { font-weight: normal; }
 
-/* line 45, ../../sass/places/add.sass */
+/* line 53, ../../sass/places/add.sass */
 #map img { max-width: none; }

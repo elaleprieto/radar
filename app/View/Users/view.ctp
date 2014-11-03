@@ -1,7 +1,7 @@
 <?php //debug($user, $showHtml = null, $showFrom = true) ?>
 <div class="users view">
 <h2><?php  echo __('User'); ?></h2>
-	<dl>
+	<dl class="dl-horizontal">
 		<dt><?php echo __('Username'); ?></dt>
 		<dd>
 			<?php echo h($user['User']['username']); ?>
@@ -12,6 +12,26 @@
 			<?php echo h($user['User']['name']); ?>
 			&nbsp;
 		</dd>
+		<dt><?php echo __('Role'); ?></dt>
+		<dd>
+			<?php echo h($user['User']['role']); ?>
+			&nbsp;
+		</dd>
+		<dt><?php echo __('Email'); ?></dt>
+		<dd>
+			<?php echo h($user['User']['email']); ?>
+			&nbsp;
+		</dd>
+		<dt><?php echo __('Birthday'); ?></dt>
+		<dd>
+			<?php echo h($user['User']['birthday']); ?>
+			&nbsp;
+		</dd>
+		<dt><?php echo __('Location'); ?></dt>
+		<dd>
+			<?php echo h($user['User']['location']); ?>
+			&nbsp;
+		</dd>
 		<dt><?php echo __('Created'); ?></dt>
 		<dd>
 			<?php echo h($user['User']['created']); ?>
@@ -20,8 +40,8 @@
 	</dl>
 </div>
 <div class="related">
-	<h3><?php echo __('Related Events'); ?></h3>
 	<?php if (!empty($user['Event'])): ?>
+		<h3><?php echo __('Related Events'); ?></h3>
 		<table class="table">
 			<thead>
 				<tr>

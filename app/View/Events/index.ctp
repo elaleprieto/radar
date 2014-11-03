@@ -183,7 +183,7 @@
 	</div>
 	
 	<!-- WEAST -->
-	<div id="west" data-ng-cloak>
+	<div id="west" class="hidden-xs" data-ng-cloak>
 		
 		<!-- SPONSOR -->
 		<!-- Button to Display or Hide Sponsors -->
@@ -203,7 +203,7 @@
 	</div>
 
 	<!-- SOUTH -->
-	<div id="south" data-ng-cloak>
+	<div id="south" class="hidden-xs" data-ng-cloak>
 		
 		<!-- Button to Display or Hide South Menu -->
 		<!--
@@ -405,7 +405,7 @@
 	
 	<div class="modal fade" id="compliantViewModal" tabindex="-1" role="dialog" aria-labelledby="compliant" aria-hidden="true">
 		<div class="modal-dialog">
-			<div class="modal-content">
+			<div class="modal-content detail">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
 						&times;
@@ -451,7 +451,7 @@
 	<div>
 		<div class="modal fade" id="eventViewModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
-				<div class="modal-content">
+				<div class="modal-content detail">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
 							&times;

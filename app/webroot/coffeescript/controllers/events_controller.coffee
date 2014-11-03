@@ -20,6 +20,7 @@ angular.module('RadarApp').controller 'EventsController'
 					$scope.evento.date_to = sqlToJsDate(data.event.Event.date_end)
 					# console.log data.event.Event.date_to
 					# console.log sqlToJsDate(data.event.Event.date_to)
+					
 					# Se cargan las categorías del evento
 					if not $scope.evento.categories then $scope.evento.categories = []
 					$rootScope.$broadcast('categoriesAddBroadcast', data.event.Category)
@@ -169,7 +170,8 @@ angular.module('RadarApp').controller 'EventsController'
 
 	# Se crea el Listener para el clic sobre el mapa en la creación de Eventos
 	google.maps.event.addListener $scope.map, 'click', (event) ->
-		if $location.absUrl().contains('/events/add') or $location.absUrl().contains('/eventos/agregar')
+		locations = ['events/add', 'events/edit', 'eventos/agregar', 'eventos/editar']
+		if containLocations(locations)
 			# se crea un objeto request
 			request = new Object()
 			request.location = new google.maps.LatLng(event.latLng.lat(), event.latLng.lng())
@@ -595,7 +597,12 @@ angular.module('RadarApp').controller 'EventsController'
 			Funciones Auxiliares
 			Aquí se escriben las funciones auxiliares
 	*************************************************************************************************************** ###
-	
+	containLocations = (locations = null) ->
+		containURL = false
+		angular.forEach locations, (url, index) ->
+			if not containURL then containURL = $location.absUrl().contains(url)
+		containURL
+
 	# findResult es usada para filtrar la ciudad, estado y pais de una respuesta de la API
 	# findResult = (results, name) ->
 		# result =  _.find results, (obj) ->

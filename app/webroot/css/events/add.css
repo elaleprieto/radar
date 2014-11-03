@@ -1,42 +1,42 @@
 /* line 1, ../../sass/_text.sass */
 .capitalize { text-transform: capitalize; }
 
-/* line 4, ../../sass/events/add.sass */
-.categoriaLink { cursor: pointer; }
-
-/* line 7, ../../sass/events/add.sass */
+/* line 3, ../../sass/events/add.sass */
 input[type=checkbox].checkbox { display: inline-block; margin: 0; visibility: hidden; }
 
-/* line 12, ../../sass/events/add.sass */
+/* line 8, ../../sass/events/add.sass */
 label.category { cursor: pointer; }
 
-/* line 15, ../../sass/events/add.sass */
+/* line 11, ../../sass/events/add.sass */
+.categoriaLink { cursor: pointer; }
+
+/* line 14, ../../sass/events/add.sass */
 .dateField { width: 20%; }
 
-/* line 18, ../../sass/events/add.sass */
+/* line 17, ../../sass/events/add.sass */
 .highlight { background-color: #dfdfdf; }
 
-/* line 24, ../../sass/events/add.sass */
+/* line 23, ../../sass/events/add.sass */
 .tt-hint { display: none; }
 
-/* line 27, ../../sass/events/add.sass */
+/* line 26, ../../sass/events/add.sass */
 .textbox { width: 100%; width: -moz-available; }
 
-/* line 31, ../../sass/events/add.sass */
+/* line 30, ../../sass/events/add.sass */
 .twitter-typeahead { width: 100%; }
 
-/* line 34, ../../sass/events/add.sass */
+/* line 33, ../../sass/events/add.sass */
 select { max-width: 100%; }
-/* line 37, ../../sass/events/add.sass */
+/* line 36, ../../sass/events/add.sass */
 select[name*="month"] { min-width: 100px; }
-/* line 40, ../../sass/events/add.sass */
+/* line 39, ../../sass/events/add.sass */
 select[name*="year"] { min-width: 65px; }
 
-/* line 43, ../../sass/events/add.sass */
+/* line 42, ../../sass/events/add.sass */
 #alertMessage { display: none; float: right; }
 
-/* line 47, ../../sass/events/add.sass */
+/* line 46, ../../sass/events/add.sass */
 #label_simple { font-weight: normal; }
 
-/* line 50, ../../sass/events/add.sass */
+/* line 49, ../../sass/events/add.sass */
 #map img { max-width: none; }

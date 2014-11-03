@@ -67,19 +67,6 @@
         $scope.selectAllCategories();
         return $scope.setCookieCategoriesSelected();
       };
-      containLocations = function(locations) {
-        var containURL;
-        if (locations == null) {
-          locations = null;
-        }
-        containURL = false;
-        angular.forEach(locations, function(url, index) {
-          if (!containURL) {
-            return containURL = location.contains(url);
-          }
-        });
-        return containURL;
-      };
       $scope.$on('categoriesAddBroadcast', function(event, categories) {
         return angular.forEach(categories, function(categorySearched, id) {
           return angular.forEach($scope.categorias, function(categoria, id) {
@@ -89,7 +76,7 @@
           });
         });
       });
-      return $scope.$watch('categorias.length', function() {
+      $scope.$watch('categorias.length', function() {
         var lastValEventCategory, locations;
         locations = ['events/add', 'events/edit', 'eventos/agregar', 'eventos/editar'];
         if (!containLocations(locations) && ($scope.categorias != null) && $scope.categorias.length > 0) {
@@ -108,6 +95,25 @@
           }
         }
       });
+      /* *************************************************************************************************************** 
+      			Funciones Auxiliares
+      			Aquí se escriben las funciones auxiliares
+      	***************************************************************************************************************
+      */
+
+      return containLocations = function(locations) {
+        var containURL;
+        if (locations == null) {
+          locations = null;
+        }
+        containURL = false;
+        angular.forEach(locations, function(url, index) {
+          if (!containURL) {
+            return containURL = location.contains(url);
+          }
+        });
+        return containURL;
+      };
     }
   ]);
 

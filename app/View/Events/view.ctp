@@ -10,7 +10,7 @@ echo $this -> Html -> css(array('events/view'));
 		<!-- Categoría del lugar-->
 		<div class="row">
 		</div>
-		<div class="row">
+		<div class="row hidden-xs">
 			<?php //echo $this->Html->image('logos/logoBetaVertical.png', array('class' => 'img-responsive')); ?>
 			<?php 
 			if($event['Event']['foto'])
@@ -28,7 +28,7 @@ echo $this -> Html -> css(array('events/view'));
 				<h2><?php echo h($event['Event']['title']); ?></h2>
 			</div>
 		</div>
-		<div class="row">
+		<div class="row hidden-xs">
 			<div class="col-sm-12">
 				<p><?php echo h($event['Event']['description']); ?></p>
 			</div>
@@ -37,7 +37,7 @@ echo $this -> Html -> css(array('events/view'));
 		<div class="row">
 			<div class="col-sm-12">
 				<p>	<span class="glyphicon glyphicon-map-marker" style="color:#ABD402"></span>
-					&nbsp;&nbsp;<?php echo h($event['Event']['address']); ?>
+						&nbsp;&nbsp;<?php echo h($event['Event']['address']); ?>
 				</p>
 			</div>
 		</div>
@@ -74,38 +74,47 @@ echo $this -> Html -> css(array('events/view'));
 		<hr>
 		<div class="row">
 			<div class="col-sm-12">
-				<h3><?php echo __('Accessibility'); ?></h3>
-<!--				<?php
-				if($event['Event']['accessibility_parking'] == 1):
-				?>
-					<p>
-						<span class="glyphicon glyphicon-warning-sign" style="color:#ABD402"></span>&nbsp;&nbsp;
-						<?php echo __('Parking spaces reserved for people with disabilities')?>
-					</p>
 				<?php
-				endif;
-				if($event['Event']['accessibility_ramp'] == 1):
+					if(($event['Event']['accessibility_parking'] ==1) || ($event['Event']['accessibility_ramp']==1) ||
+						($event['Event']['accessibility_equipment']==1) || ($event['Event']['accessibility_signage']==1) ||
+						($event['Event']['accessibility_braille']==1)){ 
+					echo __('<h3>Accessibility</h3>'); 
+					} else {
+						echo '<p>No hay información disponible sobre accesibilidad.</p>';
+					}
 				?>
-					<p>
-						<span class="glyphicon glyphicon-road" style="color:#ABD402"></span>&nbsp;&nbsp;
-						<?php echo __('Stairs, ramps or elevators accessible wheelchair')?>
-					</p>
+				
+				<?php
+					if($event['Event']['accessibility_parking'] == 1):
+				?>
+				<p>
+					<span class="glyphicon glyphicon-warning-sign" style="color:#ABD402"></span>&nbsp;&nbsp;
+					<?php echo __('Parking spaces reserved for people with disabilities')?>
+				</p>
+				<?php
+					endif;
+					if($event['Event']['accessibility_ramp'] == 1):
+				?>
+				<p>
+					<span class="glyphicon glyphicon-road" style="color:#ABD402"></span>&nbsp;&nbsp;
+					<?php echo __('Stairs, ramps or elevators accessible wheelchair')?>
+				</p>
 				<?php
 				endif;
 				if($event['Event']['accessibility_equipment'] == 1):
 				?>
-					<p>
-						<span class="glyphicon glyphicon-headphones" style="color:#ABD402"></span>&nbsp;&nbsp;
-						<?php echo __('Electronic equipment and audiovisual adapted')?>
-					</p>
+				<p>
+					<span class="glyphicon glyphicon-headphones" style="color:#ABD402"></span>&nbsp;&nbsp;
+					<?php echo __('Electronic equipment and audiovisual adapted')?>
+				</p>
 				<?php
 				endif;
 				if($event['Event']['accessibility_signage'] == 1):
 				?>
-					<p>
-						<span class="glyphicon glyphicon-eye-open" style="color:#ABD402"></span>&nbsp;&nbsp;
-						<?php echo __('Signs and information boards clearly perceived and understood')?>
-					</p>
+				<p>
+					<span class="glyphicon glyphicon-eye-open" style="color:#ABD402"></span>&nbsp;&nbsp;
+					<?php echo __('Signs and information boards clearly perceived and understood')?>
+				</p>
 				<?php
 				endif;
 				if($event['Event']['accessibility_braille'] == 1):
@@ -116,7 +125,7 @@ echo $this -> Html -> css(array('events/view'));
 					</p>
 				<?php
 				endif;
-				?>-->
+				?>
 			</div>
 		</div>
 		<hr>
@@ -125,9 +134,18 @@ echo $this -> Html -> css(array('events/view'));
 				<h3><?php echo __('Additional information'); ?></h3>
 				<p>
 					<span class="glyphicon glyphicon-tag" style="color:#ABD402"></span>&nbsp;&nbsp;
-					&nbsp;&nbsp;<?php echo __('Ticket sales').' :'.$event['Event']['cost']; ?>
-				</p>
-							
+					<!--&nbsp;&nbsp;<?php echo __('Ticket sales').' :'.$event['Event']['cost']; ?>-->
+					&nbsp;&nbsp;
+					<?php 
+						echo __('Ticket sales').':';
+						if($event['Event']['cost']!=0){
+							echo ' si. Costo: '.$event['Event']['cost']; 
+						} else {
+							echo ' no';
+						}
+					
+					?>
+				</p>		
 				<br>
 				<?php
 				if($event['Event']['website'] != NULL):
@@ -139,7 +157,18 @@ echo $this -> Html -> css(array('events/view'));
 				<?php
 				endif;
 				?>
-				
+				<br>
+				<?php
+				if($event['Event']['video'] != NULL):
+				?>
+					<p>
+						<span class="glyphicon glyphicon-facetime-video" style="color:#ABD402"></span>&nbsp;&nbsp;
+						&nbsp;&nbsp;
+						<? echo $event['Event']['video'];?>						
+					</p>
+				<?php
+				endif;
+				?>
 			</div>
 		</div>
 	

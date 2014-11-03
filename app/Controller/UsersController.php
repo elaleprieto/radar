@@ -29,7 +29,10 @@ class UsersController extends AppController {
 
 		# Admin users can:
 		// if ($user['role'] === 'admin')
-		if ($user['Rol']['weight'] >= User::ADMIN)
+		// if ($user['Rol']['weight'] >= User::ADMIN)
+		$id = $this->Auth->user('id');
+    	$userData = $this->User->findById($id);
+		if (isset($userData) && isset($userData['Rol']) && isset($userData['Rol']['weight']) && $userData['Rol']['weight'] >= User::ADMIN)
 			if (in_array($this->action, $admin_allowed))
 				return true;
 

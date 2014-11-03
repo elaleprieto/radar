@@ -25,6 +25,7 @@
  	Router::mapResources('classifications');
  	Router::mapResources('compliants');
  	Router::mapResources('events');
+ 	Router::mapResources('places');
  	Router::mapResources('rates');
  	Router::mapResources('users');
 	Router::parseExtensions('json');
@@ -64,6 +65,10 @@
 	// Router::connect('/registrate', array('controller'=>'users', 'action'=>'add'));
 	Router::connect(__('/singup'), array('controller'=>'users', 'action'=>'add'));
     
+	# Compliants
+	
+	Router::connect(__('/admin') . __('/compliants') , array('admin'=>TRUE, 'controller'=>'compliants', 'action'=>'index'));
+	
 	// # Locale routing for Places
 	// $places = array('en' => 'places', 'de' => 'schlagzeilen', 'es'=>'espacios');
 	// foreach ($places as $lang => $place) {

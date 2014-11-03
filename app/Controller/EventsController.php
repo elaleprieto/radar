@@ -28,7 +28,10 @@
 
 			# Admin users can:
 			// if ($user['role'] === 'admin')
-			if ($user['Rol']['weight'] >= User::ADMIN)
+			// if ($user['Rol']['weight'] >= User::ADMIN)
+			$id = $this->Auth->user('id');
+	    	$userData = $this->User->findById($id);
+			if (isset($userData) && isset($userData['Rol']) && isset($userData['Rol']['weight']) && $userData['Rol']['weight'] >= User::ADMIN)
 				if (in_array($this->action, $admin_allowed))
 					return true;
 		
@@ -55,10 +58,10 @@
 			// if ($this->request->is('ajax') && AuthComponent::user('id')) {
 			if($this->request->isPost() && AuthComponent::user('id')) {
 				date_default_timezone_set('UTC');
-				
+	
 				// $data = $this->request->input('json_decode');
 				$event = $this->_setEventValues($this->request->data);
-				
+										
 				# Se crea el evento
 				$this->Event->create();
 				if(!$this->Event->save($event)) {
