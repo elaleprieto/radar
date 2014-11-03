@@ -36,11 +36,15 @@
 				)
 			);
 
-			if ($user['Rol']['weight'] >= User::ADMIN)
+			// if ($user['Rol']['weight'] >= User::ADMIN)
+			$id = $this->Auth->user('id');
+	    	$userData = $this->User->findById($id);
+			if (isset($userData) && isset($userData['Rol']) && isset($userData['Rol']['weight']) && $userData['Rol']['weight'] >= User::ADMIN)
 				if (in_array($this->action, $admin_allowed))
 					return true;
 			
-			if ($user['Rol']['weight'] >= User::PLACELOADER):
+			// if ($user['Rol']['weight'] >= User::PLACELOADER):
+			if (isset($userData) && isset($userData['Rol']) && isset($userData['Rol']['weight']) && $userData['Rol']['weight'] >= User::PLACELOADER):
 				if (in_array($this->action, $placeloader_allowed))
 					return true;
 			
