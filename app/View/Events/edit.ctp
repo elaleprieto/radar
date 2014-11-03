@@ -38,8 +38,7 @@
 ?>
 
 <div data-ng-controller="EventsController" 
-	data-ng-init="user.locationAux='<?php echo $userLocation; ?>'
-		; user.id='<?php echo AuthComponent::user('id'); ?>'
+	data-ng-init="user.id='<?php echo AuthComponent::user('id'); ?>'
 		; evento.id='<?php echo $event['Event']['id'] ?>'">
 
     <!-- BARRA PROGRESO -->

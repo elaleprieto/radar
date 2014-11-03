@@ -121,16 +121,14 @@
             return i.getById({
                 id: a
             }, function(a) {
-                return c.evento = a.event.Event, c.evento.date_from = u(a.event.Event.date_start), 
-                c.evento.time_from = u(a.event.Event.date_start), c.evento.date_to = u(a.event.Event.date_end), 
-                c.evento.categories || (c.evento.categories = []), d.$broadcast("categoriesAddBroadcast", a.event.Category);
+                var b, e;
+                return c.evento = a.event.Event, e = u(a.event.Event.date_start), b = u(a.event.Event.date_end), 
+                c.evento.date_from = e, c.evento.time_from = "" + e.getHours() + ":" + e.getMinutes(), 
+                c.evento.date_to = b, c.evento.time_to = "" + b.getHours() + ":" + b.getMinutes(), 
+                c.addLatLngToMap(a.event.Event.lat, a.event.Event.long), c.evento.categories || (c.evento.categories = []), 
+                d.$broadcast("categoriesAddBroadcast", a.event.Category);
             });
-        }), u = function(a) {
-            var b, c, d, e, f, g, h, i, j, k;
-            return h = a.split("-"), g = h[0], e = (Number(h[1]) - 1).toString(), i = h[2].split(" "), 
-            b = i[0], j = i[1].split(":"), c = j[0], d = j[1], k = j[2].split("."), f = k[0], 
-            new Date(g, e, b, c, d, f);
-        }, c.eventInterval = 1, c.isReadonly = !1, c.max = 5, c.user = {}, c.categoriesSelected = [], 
+        }), c.eventInterval = 1, c.isReadonly = !1, c.max = 5, c.user = {}, c.categoriesSelected = [], 
         n = new Date(), c.minutoEnMilisegundos = 6e4, c.diaEnMilisegundos = 1440 * c.minutoEnMilisegundos, 
         c.evento = {}, c.evento.categories = [], c.descriptionSize = 500, c.hideSponsors = 1, 
         c.capital = new google.maps.LatLng(-34.603, -58.382), c.cordoba = new google.maps.LatLng(-31.388813, -64.179726), 
@@ -195,6 +193,14 @@
                 map: c.map,
                 icon: b
             }), c.marker.setMap(c.map)) : this;
+        }, c.addLatLngToMap = function(a, b) {
+            var d, e;
+            return e = new google.maps.LatLng(a, b), c.centerMapInLatLng(e), d = new google.maps.MarkerImage("http://gmaps-samples.googlecode.com/svn/trunk/markers/blue/blank.png", new google.maps.Size(20, 34), new google.maps.Point(0, 0), new google.maps.Point(10, 34)), 
+            null != c.marker && c.marker.setMap(null), c.marker = new google.maps.Marker({
+                position: e,
+                map: c.map,
+                icon: d
+            }), c.marker.setMap(c.map);
         }, c.centerMapByUserLocation = function(a) {
             return null != a[0] && null != a[0].geometry && null != a[0].geometry.location ? (c.centerMapInLatLng(a[0].geometry.location, c.zoomCity), 
             c.saveUserMapCenter(), t(a[0])) : void 0;
@@ -387,6 +393,11 @@
             return null != a && null != a.address_components ? (e = a.address_components, b = o(e, "locality"), 
             d = o(e, "country"), c.user.location = b && d ? b + ", " + d : a.formatted_address, 
             c.locationSearched = c.user.location, c.saveUserLocationString()) : c.user.location = c.user.locationAux;
+        }, u = function(a) {
+            var b, c, d, e, f, g, h, i, j, k;
+            return h = a.split("-"), g = h[0], e = (Number(h[1]) - 1).toString(), i = h[2].split(" "), 
+            b = i[0], j = i[1].split(":"), c = j[0], d = j[1], k = j[2].split("."), f = k[0], 
+            new Date(g, e, b, c, d, f);
         }, $(".typeahead").typeahead({
             limit: 10,
             name: "Address",

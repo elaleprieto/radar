@@ -14,43 +14,17 @@ angular.module('RadarApp').controller 'EventsController'
 			Event.getById {id: id}
 				, (data) ->
 					$scope.evento = data.event.Event
-					# $scope.$apply()
-					$scope.evento.date_from = sqlToJsDate(data.event.Event.date_start)
-					$scope.evento.time_from = sqlToJsDate(data.event.Event.date_start)
-					$scope.evento.date_to = sqlToJsDate(data.event.Event.date_end)
-					# console.log data.event.Event.date_to
-					# console.log sqlToJsDate(data.event.Event.date_to)
+					date_start = sqlToJsDate(data.event.Event.date_start)
+					date_end = sqlToJsDate(data.event.Event.date_end)
+					$scope.evento.date_from = date_start
+					$scope.evento.time_from = "#{date_start.getHours()}:#{date_start.getMinutes()}"
+					$scope.evento.date_to = date_end
+					$scope.evento.time_to = "#{date_end.getHours()}:#{date_end.getMinutes()}"
+					$scope.addLatLngToMap(data.event.Event.lat, data.event.Event.long)
 					
 					# Se cargan las categorías del evento
 					if not $scope.evento.categories then $scope.evento.categories = []
 					$rootScope.$broadcast('categoriesAddBroadcast', data.event.Category)
-
-
-	# sqlToJsDate = (sqlDate) ->
-	# 	# sqlDate in SQL DATETIME format ("yyyy-mm-dd hh:mm:ss.ms")
-	# 	date = sqlDate.split(' ')
-	# 	new Date(date[0])
-
-	sqlToJsDate = (sqlDate) ->
-		# sqlDate in SQL DATETIME format ("yyyy-mm-dd hh:mm:ss.ms")
-		sqlDateArr1 = sqlDate.split("-")
-		# format of sqlDateArr1[] = ['yyyy','mm','dd hh:mm:ms']
-		sYear = sqlDateArr1[0]
-		sMonth = (Number(sqlDateArr1[1]) - 1).toString()
-		sqlDateArr2 = sqlDateArr1[2].split(" ")
-		# format of sqlDateArr2[] = ['dd', 'hh:mm:ss.ms']
-		sDay = sqlDateArr2[0]
-		sqlDateArr3 = sqlDateArr2[1].split(":")
-		# format of sqlDateArr3[] = ['hh','mm','ss.ms']
-		sHour = sqlDateArr3[0]
-		sMinute = sqlDateArr3[1]
-		sqlDateArr4 = sqlDateArr3[2].split(".")
-		# format of sqlDateArr4[] = ['ss','ms']
-		sSecond = sqlDateArr4[0]
-		# sMillisecond = sqlDateArr4[1]
-
-		# new Date(sYear,sMonth,sDay,sHour,sMinute,sSecond,sMillisecond)
-		new Date(sYear, sMonth, sDay, sHour, sMinute, sSecond)
 
 	$scope.eventInterval = 1
 	$scope.isReadonly = false
@@ -226,6 +200,29 @@ angular.module('RadarApp').controller 'EventsController'
 		# creo el marcador con la posición, el mapa, y el icono
 		$scope.marker = new google.maps.Marker 
 			'position': response[0].geometry.location
+			, 'map': $scope.map
+			, 'icon': icon
+		
+		$scope.marker.setMap($scope.map) # inserto el marcador en el mapa
+
+	$scope.addLatLngToMap = (lat, lng) ->
+		location = new google.maps.LatLng(lat, lng)
+		
+		# Se centra el mapa.
+		$scope.centerMapInLatLng(location)
+
+		# blankicono que voy a usar para mostrar el punto en el mapa
+		icon = new google.maps.MarkerImage("http://gmaps-samples.googlecode.com/svn/trunk/markers/blue/blank.png"
+			, new google.maps.Size(20, 34)
+			, new google.maps.Point(0, 0)
+			, new google.maps.Point(10, 34)
+		)
+		
+		if $scope.marker? then $scope.marker.setMap(null)
+		
+		# creo el marcador con la posición, el mapa, y el icono
+		$scope.marker = new google.maps.Marker 
+			'position': location
 			, 'map': $scope.map
 			, 'icon': icon
 		
@@ -643,6 +640,27 @@ angular.module('RadarApp').controller 'EventsController'
 		else
 			$scope.user.location = $scope.user.locationAux
 	
+	sqlToJsDate = (sqlDate) ->
+		# sqlDate in SQL DATETIME format ("yyyy-mm-dd hh:mm:ss.ms")
+		sqlDateArr1 = sqlDate.split("-")
+		# format of sqlDateArr1[] = ['yyyy','mm','dd hh:mm:ms']
+		sYear = sqlDateArr1[0]
+		sMonth = (Number(sqlDateArr1[1]) - 1).toString()
+		sqlDateArr2 = sqlDateArr1[2].split(" ")
+		# format of sqlDateArr2[] = ['dd', 'hh:mm:ss.ms']
+		sDay = sqlDateArr2[0]
+		sqlDateArr3 = sqlDateArr2[1].split(":")
+		# format of sqlDateArr3[] = ['hh','mm','ss.ms']
+		sHour = sqlDateArr3[0]
+		sMinute = sqlDateArr3[1]
+		sqlDateArr4 = sqlDateArr3[2].split(".")
+		# format of sqlDateArr4[] = ['ss','ms']
+		sSecond = sqlDateArr4[0]
+		# sMillisecond = sqlDateArr4[1]
+
+		# new Date(sYear,sMonth,sDay,sHour,sMinute,sSecond,sMillisecond)
+		new Date(sYear, sMonth, sDay, sHour, sMinute, sSecond)
+
 	#####################################################################################################################
 	#
 	# 		AUTOCOMPLETE

@@ -18,10 +18,15 @@
           return Event.getById({
             id: id
           }, function(data) {
+            var date_end, date_start;
             $scope.evento = data.event.Event;
-            $scope.evento.date_from = sqlToJsDate(data.event.Event.date_start);
-            $scope.evento.time_from = sqlToJsDate(data.event.Event.date_start);
-            $scope.evento.date_to = sqlToJsDate(data.event.Event.date_end);
+            date_start = sqlToJsDate(data.event.Event.date_start);
+            date_end = sqlToJsDate(data.event.Event.date_end);
+            $scope.evento.date_from = date_start;
+            $scope.evento.time_from = "" + (date_start.getHours()) + ":" + (date_start.getMinutes());
+            $scope.evento.date_to = date_end;
+            $scope.evento.time_to = "" + (date_end.getHours()) + ":" + (date_end.getMinutes());
+            $scope.addLatLngToMap(data.event.Event.lat, data.event.Event.long);
             if (!$scope.evento.categories) {
               $scope.evento.categories = [];
             }
@@ -29,20 +34,6 @@
           });
         });
       }
-      sqlToJsDate = function(sqlDate) {
-        var sDay, sHour, sMinute, sMonth, sSecond, sYear, sqlDateArr1, sqlDateArr2, sqlDateArr3, sqlDateArr4;
-        sqlDateArr1 = sqlDate.split("-");
-        sYear = sqlDateArr1[0];
-        sMonth = (Number(sqlDateArr1[1]) - 1).toString();
-        sqlDateArr2 = sqlDateArr1[2].split(" ");
-        sDay = sqlDateArr2[0];
-        sqlDateArr3 = sqlDateArr2[1].split(":");
-        sHour = sqlDateArr3[0];
-        sMinute = sqlDateArr3[1];
-        sqlDateArr4 = sqlDateArr3[2].split(".");
-        sSecond = sqlDateArr4[0];
-        return new Date(sYear, sMonth, sDay, sHour, sMinute, sSecond);
-      };
       $scope.eventInterval = 1;
       $scope.isReadonly = false;
       $scope.max = 5;
@@ -194,6 +185,21 @@
         }
         $scope.marker = new google.maps.Marker({
           'position': response[0].geometry.location,
+          'map': $scope.map,
+          'icon': icon
+        });
+        return $scope.marker.setMap($scope.map);
+      };
+      $scope.addLatLngToMap = function(lat, lng) {
+        var icon, location;
+        location = new google.maps.LatLng(lat, lng);
+        $scope.centerMapInLatLng(location);
+        icon = new google.maps.MarkerImage("http://gmaps-samples.googlecode.com/svn/trunk/markers/blue/blank.png", new google.maps.Size(20, 34), new google.maps.Point(0, 0), new google.maps.Point(10, 34));
+        if ($scope.marker != null) {
+          $scope.marker.setMap(null);
+        }
+        $scope.marker = new google.maps.Marker({
+          'position': location,
           'map': $scope.map,
           'icon': icon
         });
@@ -567,6 +573,20 @@
         } else {
           return $scope.user.location = $scope.user.locationAux;
         }
+      };
+      sqlToJsDate = function(sqlDate) {
+        var sDay, sHour, sMinute, sMonth, sSecond, sYear, sqlDateArr1, sqlDateArr2, sqlDateArr3, sqlDateArr4;
+        sqlDateArr1 = sqlDate.split("-");
+        sYear = sqlDateArr1[0];
+        sMonth = (Number(sqlDateArr1[1]) - 1).toString();
+        sqlDateArr2 = sqlDateArr1[2].split(" ");
+        sDay = sqlDateArr2[0];
+        sqlDateArr3 = sqlDateArr2[1].split(":");
+        sHour = sqlDateArr3[0];
+        sMinute = sqlDateArr3[1];
+        sqlDateArr4 = sqlDateArr3[2].split(".");
+        sSecond = sqlDateArr4[0];
+        return new Date(sYear, sMonth, sDay, sHour, sMinute, sSecond);
       };
       $('.typeahead').typeahead({
         limit: 10,
