@@ -214,7 +214,17 @@
 													<i class="icon-ok" ng-show="place.accessibility_parking == 1"></i>
 													<i class="icon-remove" ng-show="place.accessibility_parking == 2"></i>
 												</div>
-												Plazas de aparcamiento reservadas para personas con discapacidad
+												<?php echo __('Parking spaces reserved for people with disabilities') ?>
+												<?php 
+                                                echo $this->Form->input('accessibility_parking'
+                                                	, array('class' => 'checkbox'
+                                                		, 'div' => false
+                                                		, 'hiddenField' => '{{place.accessibility_parking % 2}}'
+                                                		, 'label' => false
+                                                		, 'type' => 'checkbox'
+                                                		));
+                                                ?>
+												<!-- Plazas de aparcamiento reservadas para personas con discapacidad -->
 											</p>
 
 											<!-- Accesibility Ramp -->
@@ -224,7 +234,17 @@
 													<i class="icon-ok" ng-show="place.accessibility_ramp == 1"></i>
 													<i class="icon-remove" ng-show="place.accessibility_ramp == 2"></i>
 												</div>
-												Escaleras, rampas o ascensores accesibles para vehículos de personas con movilidad reducida
+												<?php echo __('Stairs, ramps or elevators accessible wheelchair') ?>
+												<?php 
+                                                echo $this->Form->input('accessibility_ramp'
+                                                	, array('class' => 'checkbox'
+                                                		, 'div' => false
+                                                		, 'hiddenField' => '{{place.accessibility_ramp % 2}}'
+                                                		, 'label' => false
+                                                		, 'type' => 'checkbox'
+                                                		));
+                                                ?>
+												<!-- Escaleras, rampas o ascensores accesibles para vehículos de personas con movilidad reducida -->
 											</p>
 
 											<!-- Accesibility Equipment -->
@@ -234,7 +254,17 @@
 													<i class="icon-ok" ng-show="place.accessibility_equipment == 1"></i>
 													<i class="icon-remove" ng-show="place.accessibility_equipment == 2"></i>
 												</div>
-												Equipos electrónicos, informáticos y audiovisuales adaptados
+												<?php echo __('Electronic equipment and audiovisual adapted') ?>
+												<?php 
+                                                echo $this->Form->input('accessibility_equipment'
+                                                	, array('class' => 'checkbox'
+                                                		, 'div' => false
+                                                		, 'hiddenField' => '{{place.accessibility_equipment % 2}}'
+                                                		, 'label' => false
+                                                		, 'type' => 'checkbox'
+                                                		));
+                                                ?>
+												<!-- Equipos electrónicos, informáticos y audiovisuales adaptados -->
 											</p>
 
 											<!-- Accesibility Signage -->
@@ -244,7 +274,17 @@
 													<i class="icon-ok" ng-show="place.accessibility_signage == 1"></i>
 													<i class="icon-remove" ng-show="place.accessibility_signage == 2"></i>
 												</div>
-												Señales y paneles informativos claramente perceptibles y comprensibles
+												<?php echo __('Signs and information boards clearly perceived and understood') ?>
+												<?php 
+                                                echo $this->Form->input('accessibility_signage'
+                                                	, array('class' => 'checkbox'
+                                                		, 'div' => false
+                                                		, 'hiddenField' => '{{place.accessibility_signage % 2}}'
+                                                		, 'label' => false
+                                                		, 'type' => 'checkbox'
+                                                		));
+                                                ?>
+												<!-- Señales y paneles informativos claramente perceptibles y comprensibles -->
 											</p>
 
 											<!-- Accesibility Braille -->
@@ -254,7 +294,17 @@
 													<i class="icon-ok" ng-show="place.accessibility_braille == 1"></i>
 													<i class="icon-remove" ng-show="place.accessibility_braille == 2"></i>
 												</div>
-												Información táctil: Braille
+												<?php echo __('Tactile information: Braille') ?>
+												<?php 
+                                                echo $this->Form->input('accessibility_braille'
+                                                	, array('class' => 'checkbox'
+                                                		, 'div' => false
+                                                		, 'hiddenField' => '{{place.accessibility_braille % 2}}'
+                                                		, 'label' => false
+                                                		, 'type' => 'checkbox'
+                                                		));
+                                                ?>
+												<!-- Información táctil: Braille -->
 											</p>
 										</div>
 									</div>

@@ -77,8 +77,9 @@ echo $this -> Html -> css(array('events/view'));
 				<?php
 					if(($event['Event']['accessibility_parking'] ==1) || ($event['Event']['accessibility_ramp']==1) ||
 						($event['Event']['accessibility_equipment']==1) || ($event['Event']['accessibility_signage']==1) ||
-						($event['Event']['accessibility_braille']==1)){ 
-					echo $this->Html->tag('h3', __('Accessibility')); 
+						($event['Event']['accessibility_braille']==1)) { 
+					
+						echo $this->Html->tag('h3', __('Accessibility')); 
 					} else {
 						echo '<p>No hay información disponible sobre accesibilidad.</p>';
 					}
