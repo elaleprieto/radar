@@ -78,7 +78,7 @@ echo $this -> Html -> css(array('events/view'));
 					if(($event['Event']['accessibility_parking'] ==1) || ($event['Event']['accessibility_ramp']==1) ||
 						($event['Event']['accessibility_equipment']==1) || ($event['Event']['accessibility_signage']==1) ||
 						($event['Event']['accessibility_braille']==1)){ 
-					echo __('<h3>Accessibility</h3>'); 
+					echo $this->Html->tag('h3', __('Accessibility')); 
 					} else {
 						echo '<p>No hay información disponible sobre accesibilidad.</p>';
 					}
@@ -159,7 +159,7 @@ echo $this -> Html -> css(array('events/view'));
 				?>
 				<br>
 				<?php
-				if($event['Event']['video'] != NULL):
+				if(isset($event['Event']['video']) && $event['Event']['video'] != NULL):
 				?>
 					<p>
 						<span class="glyphicon glyphicon-facetime-video" style="color:#ABD402"></span>&nbsp;&nbsp;
