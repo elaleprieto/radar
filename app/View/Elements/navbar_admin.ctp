@@ -38,6 +38,11 @@
 								<?php echo __('List Events'); ?>
 							</a>
 						</li>
+						<li>
+							<a href="<?php echo __('/events'); ?>">
+								<?php echo __('Events'); ?>
+							</a>
+						</li>
 					</ul>
 				</li>
 
@@ -54,8 +59,13 @@
 							</a>
 						</li>
 						<li>
-							<a href="/admin/places/index">
+							<a href="/admin<?php echo __('/places').__('/index'); ?>">
 								<?php echo __('List Places'); ?>
+							</a>
+						</li>
+						<li>
+							<a href="<?php echo __('/places'); ?>">
+								<?php echo __('Places'); ?>
 							</a>
 						</li>
 					</ul>

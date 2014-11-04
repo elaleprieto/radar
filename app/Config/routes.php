@@ -53,6 +53,7 @@
 	# Places
 	Router::connect(__('/places'), array('controller'=>'places', 'action'=>'index'));
 	Router::connect(__('/admin') . __('/places') . __('/add'), array('admin'=>TRUE, 'controller'=>'places', 'action'=>'add'));
+	Router::connect(__('/admin') . __('/places') . __('/index'), array('admin'=>TRUE, 'controller'=>'places', 'action'=>'index'));
 	
 	# Users
 	Router::connect(__('/users'), array('controller'=>'users', 'action'=>'index'));
