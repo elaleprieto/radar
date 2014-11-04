@@ -17,12 +17,12 @@
 					<tr>
 						<td><?php echo h($compliant['Compliant']['title']); ?>&nbsp;</td>
 						<td><?php echo h($compliant['Compliant']['description']); ?>&nbsp;</td>
-						<td><?php echo h($compliant['Compliant']['created']); ?>&nbsp;</td>
+						<td><?php echo $this->Time->format($compliant['Compliant']['created'], '%d-%m-%Y %H:%M'); ?>&nbsp;</td>
 						<td>
-							<?php echo $this->Html->link($compliant['Event']['title'], array('controller' => 'events', 'action' => 'view', $compliant['Event']['id'])); ?>
+							<?php echo $this->Html->link($compliant['Event']['title'], array('admin'=>false, 'controller' => 'events', 'action' => 'view', $compliant['Event']['id'])); ?>
 						</td>
 						<td>
-							<?php echo $this->Html->link($compliant['User']['name'], array('controller' => 'users', 'action' => 'view', $compliant['User']['id'])); ?>
+							<?php echo $this->Html->link($compliant['User']['name'], array('admin'=>false, 'controller' => 'users', 'action' => 'view', $compliant['User']['id'])); ?>
 						</td>
 						<td class="actions">
 							<?php echo $this->Html->link(__('View'), array('action' => 'view', $compliant['Compliant']['id'])); ?>

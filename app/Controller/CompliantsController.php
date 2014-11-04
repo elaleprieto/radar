@@ -23,7 +23,32 @@ class CompliantsController extends AppController {
 	            // return true;
 	        // }
 	    // }
-// 	
+
+	    $owner_allowed = array();
+		$user_allowed = array();
+		$admin_allowed = array_merge($owner_allowed, $user_allowed, array('index', 'admin_index', 'admin_view'));
+
+		# All registered users can:
+		if (in_array($this->action, $user_allowed))
+			return true;
+
+		# Admin users can:
+		// if ($user['role'] === 'admin')
+		// if ($user['Rol']['weight'] >= User::ADMIN)
+		$id = $this->Auth->user('id');
+    	$userData = $this->User->findById($id);
+		if (isset($userData) && isset($userData['Rol']) && isset($userData['Rol']['weight']) && $userData['Rol']['weight'] >= User::ADMIN)
+			if (in_array($this->action, $admin_allowed))
+				return true;
+	
+		# The owner of an event can:
+		if (in_array($this->action, $owner_allowed)) {
+			$eventId = $this->request->params['pass'][0];
+			if ($this->Compliant->isOwnedBy($eventId, $user['id']))
+				return true;
+		}
+		
+
 	    return parent::isAuthorized($user);
 	}
 	/**************************************************************************************************************
