@@ -101,8 +101,7 @@
 
 				if ($this->Place->crear($place)) {
 					if($place['Place']['archivo']['name']) {
-						$place['Place']['image'] = $this->_foto($place['Place']['archivo'], $this->Place->id);
-						$this->Place->save($place);
+						$this->Place->saveField('image', $this->_foto($place['Place']['archivo'], $this->Place->id));
 					}
 					$this->flash(__('Place saved.'), array('action' => 'index'));
 					$this->redirect(array('action' => 'index'));
@@ -310,8 +309,7 @@
 				$place = $this->request->data;
 				if ($this->Place->edit($place)) {
 					if($place['Place']['archivo']['name']) {
-						$place['Place']['image'] = $this->_foto($place['Place']['archivo'], $this->Place->id);
-						$this->Place->save($place);
+						$this->Place->saveField('image', $this->_foto($place['Place']['archivo'], $this->Place->id));
 					}
 					$this->flash(__('Place saved.'), array('action' => 'index'));
 					$this->redirect(array('action' => 'index'));

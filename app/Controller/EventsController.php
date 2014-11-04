@@ -68,8 +68,7 @@
 					throw new Exception('Evento inválido', 1);
 				} else {
 					if($event['Event']['archivo']['name']) {
-						$event['Event']['foto'] = $this->_foto($event['Event']['archivo'], $this->Event->id);
-						$this->Event->save($event);
+						$this->Event->saveField('foto', $this->_foto($event['Event']['archivo'], $this->Event->id));
 					}
 					$this->Session->setFlash(__('The event has been saved'));
 					$this->redirect(array('action' => 'index'));
@@ -131,8 +130,7 @@
 					throw new Exception('Evento inválido', 1);
 				} else {
 					if($event['Event']['archivo']['name']) {
-						$event['Event']['foto'] = $this->_foto($event['Event']['archivo'], $this->Event->id);
-						$this->Event->save($event);
+						$this->Event->saveField('foto', $this->_foto($event['Event']['archivo'], $this->Event->id));
 					}
 					$this->Session->setFlash(__('The event has been saved'));
 					$this->redirect(array('action' => 'index'));
