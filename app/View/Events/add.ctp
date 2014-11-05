@@ -345,19 +345,39 @@
                                 <div class="row form-group">
                                    <p><?php echo __('Is space adapted for people with physical or sensory disabilities?')?></p>
                                     <label class="checkbox" id="label_simple">
-                                        <?php echo $this->Form->input('accessibility_parking', array('label'=>__('Parking spaces reserved for people with disabilities'))); ?>
+                                        <?php echo $this->Form->input('accessibility_parking'
+                                            , array('label'=>__('Parking spaces reserved for people with disabilities')
+                                                , 'type' => 'checkbox')
+                                            );
+                                        ?>
                                     </label>
                                     <label class="checkbox" id="label_simple">
-                                        <?php echo $this->Form->input('accessibility_ramp', array('label'=>__('Stairs, ramps or elevators accessible wheelchair'))); ?>
+                                        <?php echo $this->Form->input('accessibility_ramp'
+                                            , array('label'=>__('Stairs, ramps or elevators accessible wheelchair')
+                                            , 'type' => 'checkbox')
+                                            );
+                                        ?>
                                     </label>
                                     <label class="checkbox" id="label_simple">
-                                        <?php echo $this->Form->input('accessibility_equipment', array('label'=>__('Electronic equipment and audiovisual adapted'))); ?>
+                                        <?php echo $this->Form->input('accessibility_equipment'
+                                            , array('label'=>__('Electronic equipment and audiovisual adapted')
+                                                , 'type' => 'checkbox')
+                                            );
+                                        ?>
                                     </label>
                                     <label class="checkbox" id="label_simple">
-                                        <?php echo $this->Form->input('accessibility_signage', array('label'=>__('Signs and information boards clearly perceived and understood'))); ?>
+                                        <?php echo $this->Form->input('accessibility_signage'
+                                            , array('label'=>__('Signs and information boards clearly perceived and understood')
+                                                , 'type' => 'checkbox')
+                                            );
+                                        ?>
                                     </label>
                                     <label class="checkbox" id="label_simple">
-                                        <?php echo $this->Form->input('accessibility_braille', array('label'=>__('Tactile information: Braille'))); ?>
+                                        <?php echo $this->Form->input('accessibility_braille'
+                                            , array('label'=>__('Tactile information: Braille')
+                                                , 'type' => 'checkbox')
+                                            );
+                                        ?>
                                     </label>   
                                 </div>
                            </div>
