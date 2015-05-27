@@ -350,7 +350,7 @@
 		}
 
 		public function getJSON() {
-			$this -> autoRender = FALSE;
+			// $this -> autoRender = FALSE;
 
 			if ($this -> request -> is('get')) {
 				$eventCategory = isset($this -> request -> query['eventCategory']) ? $this -> request -> query['eventCategory'] : array();
@@ -437,9 +437,9 @@
 						)
 					);
 
-					// $this -> Event -> bindModel(array('hasOne' => array('CategoriesEvents')));
 					$events = $this -> Event -> find('all', $options);
-					return json_encode($events);
+					// return json_encode($events);
+					$this->set(array('events' => $events, '_serialize' => array('events'), '_jsonp'=>true));
 				}
 			}
 		}
