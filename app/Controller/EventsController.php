@@ -306,7 +306,7 @@
 						, 'Compliant.user_id'
 						, 'Rate.user_id'
 					);
-					$options['group'] = array('Event.id');
+					$options['group'] = array('Event.id', 'CategoriesEvent.category_id');
 					$options['recursive'] = 0;
 					
 					$options['joins'] = array(
