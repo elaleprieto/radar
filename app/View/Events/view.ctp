@@ -149,11 +149,19 @@ echo $this -> Html -> css(array('events/view'));
 				</p>
 				<br>
 				<?php
-				if($event['Event']['website'] != NULL):
+				if($event['Event']['website'] != null && strtolower($event['Event']['website']) != 'null'):
+					# Se verifica que la URL no comience con http://
+					$prefix = 'http://';
+					$urlString = h($event['Event']['website']);
+					if (substr($urlString, 0, strlen($prefix)) == $prefix) {
+						$urlString = substr($urlString, strlen($prefix));
+					}
+					# Se agrega el $prefix a todas la urls.
+					$urlString = $prefix.$urlString;
 				?>
 					<p>
 						<span class="glyphicon glyphicon-globe" style="color:#ABD402"></span>&nbsp;&nbsp;
-						&nbsp;&nbsp;<a <?php echo 'href="http://'.$event['Event']['website'].'" target="_blank"'?> ><?php echo h($event['Event']['website']); ?></a>
+						&nbsp;&nbsp;<a href="<?php echo $urlString ?>" target="_blank"><?php echo $urlString ?></a>
 					</p>
 				<?php
 				endif;
