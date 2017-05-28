@@ -13,11 +13,16 @@ echo $this -> Html -> css(array('events/view'));
 		<div class="row hidden-xs">
 			<?php //echo $this->Html->image('logos/logoBetaVertical.png', array('class' => 'img-responsive')); ?>
 			<?php 
-			if($event['Event']['foto'])
+			# Si tiene foto y nid, se presume que es de importado de Rosario.
+			if($event['Event']['foto'] && $event['Event']['nid']) {
+				$foto = $event['Event']['foto'];
+			} elseif($event['Event']['foto']) {
+				# Si tiene foto pero no nid, se presume que la foto fue subida localmente.
 				$foto = 'fotos/'.$event['Event']['foto'];
-			else
+			} else {
+				# Si no tiene foto, se coloca una por defecto.
 				$foto = 'logos/logoBetaVertical.png';
-
+			}
 			echo $this->Html->image($foto, array('class' => 'img-responsive')); 
 			?>
 		</div>
